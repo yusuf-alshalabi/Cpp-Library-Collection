@@ -12,7 +12,7 @@ public:
     clsPeriod(MyDate StartDate, MyDate DateTo)
     {
         this->StartDate = StartDate;
-        this->EndDate = EndDate;
+        this->EndDate = DateTo;
 
     }
 
