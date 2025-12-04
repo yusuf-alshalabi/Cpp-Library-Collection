@@ -1,37 +1,26 @@
-
-
 #include <iostream>
-#include "MyDate.h"
-
-using namespace std;
+#include "MyPeriod.h"
 
 int main()
 
 {
-    MyDate Date1;
-    Date1.Print();
 
-    MyDate Date2("31/1/2022");
-    Date2.Print();
+    clsPeriod Period1(MyDate(1, 1, 2022), MyDate(10, 1, 2022));
+    Period1.Print();
 
-    MyDate Date3(20, 12, 2022);
-    Date3.Print();
+    cout << "\n";
 
-    MyDate Date4(250, 2022);
-    Date4.Print();
-
-    Date1.IncreaseDateByOneMonth();
-    Date1.Print();
-
-    //Date3.PrintYearCalendar();
-    //cout << Date2.IsValid() << endl;
-
-    /*cout << "My Age InDays:" <<
-        clsDate::CalculateMyAgeInDays(  clsDate(6, 11, 1977) );*/
-        //You can try any method at your own..
+    clsPeriod Period2(MyDate(3, 1, 2022), MyDate(5, 1, 2022));
+    Period2.Print();
 
 
-    system("pause>0");
+    //You can check like this
+    cout << Period1.IsOverLapWith(Period2) << endl;
+
+
+    //Also you can call the static method and send period 1 and period 2
+    cout << clsPeriod::IsOverlapPeriods(Period1, Period2) << endl;
+
+
     return 0;
-};
-
+}
