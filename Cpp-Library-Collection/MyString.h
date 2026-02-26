@@ -295,36 +295,37 @@ public:
         return CountVowels(_Value);
     }
 
-    static std::vector<std::string> Split(std::string S1, std::string Delim)
+    static std::vector<std::string> Split(const std::string& S1, const std::string& Delim)
     {
-
         std::vector<std::string> vString;
 
         short pos = 0;
-        std::string sWord; // define a string variable  
+        std::string temp = S1; // local copy to modify
+        std::string sWord;
 
-        // use find() function to get the position of the delimiters  
-        while ((pos = S1.find(Delim)) != std::string::npos)
+        // use find() function to get the position of the delimiters
+        while ((pos = temp.find(Delim)) != std::string::npos)
         {
-            sWord = S1.substr(0, pos); // store the word   
+            sWord = temp.substr(0, pos); // store the word
             if (sWord != "")
             {
                 vString.push_back(sWord);
             }
 
-            S1.erase(0, pos + Delim.length());  /* erase() until positon and move to next word. */
+            // erase() until position and move to next word
+            temp.erase(0, pos + Delim.length());
         }
 
-        if (S1 != "")
+        // add last word if exists
+        if (temp != "")
         {
-            vString.push_back(S1); // it adds last word of the string.
+            vString.push_back(temp);
         }
 
         return vString;
-
     }
 
-    std::vector<std::string> Split(std::string Delim)
+    std::vector<std::string> Split(const std::string& Delim) const
     {
         return Split(_Value, Delim);
     }
