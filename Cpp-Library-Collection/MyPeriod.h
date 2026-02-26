@@ -2,21 +2,21 @@
 #pragma once
 #include "MyDate.h"
 
-class clsPeriod
+class MyPeriod
 {
 public:
 
     MyDate StartDate;
     MyDate EndDate;
 
-    clsPeriod(MyDate StartDate, MyDate DateTo)
+    MyPeriod(MyDate StartDate, MyDate DateTo)
     {
         this->StartDate = StartDate;
         this->EndDate = DateTo;
 
     }
 
-    static bool IsOverlapPeriods(clsPeriod Period1, clsPeriod Period2)
+    static bool IsOverlapPeriods(MyPeriod Period1, MyPeriod Period2)
     {
 
         if (
@@ -31,7 +31,7 @@ public:
     }
 
 
-    bool IsOverLapWith(clsPeriod Period2)
+    bool IsOverLapWith(MyPeriod Period2)
     {
         return IsOverlapPeriods(*this, Period2);
     }
