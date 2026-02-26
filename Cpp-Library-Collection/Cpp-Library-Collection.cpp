@@ -1,6 +1,8 @@
 #include <iostream>
 #include "MyPeriod.h"
 
+using namespace std;
+
 int main()
 
 {

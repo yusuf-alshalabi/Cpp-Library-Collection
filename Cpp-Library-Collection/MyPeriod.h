@@ -2,6 +2,8 @@
 #pragma once
 #include "MyDate.h"
 
+using namespace std;
+
 class MyPeriod
 {
 public:

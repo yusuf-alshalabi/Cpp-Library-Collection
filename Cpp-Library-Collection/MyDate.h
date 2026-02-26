@@ -7,8 +7,6 @@
 #include<string>
 #include "MyString.h"
 
-using namespace std;
-
 class MyDate
 {
 
@@ -29,15 +27,15 @@ public:
 		_Year = now->tm_year + 1900;
 	}
 
-	MyDate(string sDate)
+	MyDate(std::string sDate)
 	{
 
-		vector <string> vDate;
+		std::vector <std::string> vDate;
 		vDate = MyString::Split(sDate, "/");
 
-		_Day = stoi(vDate[0]);
-		_Month = stoi(vDate[1]);
-		_Year = stoi(vDate[2]);
+		_Day   = std::stoi(vDate[0]);
+		_Month = std::stoi(vDate[1]);
+		_Year  = std::stoi(vDate[2]);
 
 	}
 
@@ -89,7 +87,7 @@ public:
 
 	void Print()
 	{
-		cout << DateToString() << endl;
+		std::cout << DateToString() << std::endl;
 	}
 
 	static MyDate GetSystemDate()
@@ -144,12 +142,12 @@ public:
 		return IsValidDate(*this);
 	}
 
-	static string DateToString(MyDate Date)
+	static std::string DateToString(MyDate Date)
 	{
-		return  to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
+		return  std::to_string(Date.Day) + "/" + std::to_string(Date.Month) + "/" + std::to_string(Date.Year);
 	}
 
-	string DateToString()
+	std::string DateToString()
 	{
 		return  DateToString(*this);
 	}
@@ -270,35 +268,35 @@ public:
 		return DayOfWeekOrder(_Day, _Month, _Year);
 	}
 
-	static string DayShortName(short DayOfWeekOrder)
+	static std::string DayShortName(short DayOfWeekOrder)
 	{
-		string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
+		std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
 
 		return arrDayNames[DayOfWeekOrder];
 
 	}
 
-	static string DayShortName(short Day, short Month, short Year)
+	static std::string DayShortName(short Day, short Month, short Year)
 	{
 
-		string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
+		std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
 
 		return arrDayNames[DayOfWeekOrder(Day, Month, Year)];
 
 	}
 
-	string DayShortName()
+	std::string DayShortName()
 	{
 
-		string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
+		std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
 
 		return arrDayNames[DayOfWeekOrder(_Day, _Month, _Year)];
 
 	}
 
-	static string MonthShortName(short MonthNumber)
+	static std::string MonthShortName(short MonthNumber)
 	{
-		string Months[12] = { "Jan", "Feb", "Mar",
+		std::string Months[12] = { "Jan", "Feb", "Mar",
 						   "Apr", "May", "Jun",
 						   "Jul", "Aug", "Sep",
 						   "Oct", "Nov", "Dec"
@@ -307,7 +305,7 @@ public:
 		return (Months[MonthNumber - 1]);
 	}
 
-	string MonthShortName()
+	std::string MonthShortName()
 	{
 
 		return MonthShortName(_Month);
@@ -323,30 +321,30 @@ public:
 		NumberOfDays = NumberOfDaysInAMonth(Month, Year);
 
 		// Print the current month name
-		printf("\n  _______________%s_______________\n\n",
+		std::printf("\n  _______________%s_______________\n\n",
 			MonthShortName(Month).c_str());
 
 		// Print the columns
-		printf("  Sun  Mon  Tue  Wed  Thu  Fri  Sat\n");
+		std::printf("  Sun  Mon  Tue  Wed  Thu  Fri  Sat\n");
 
 		// Print appropriate spaces
 		int i;
 		for (i = 0; i < current; i++)
-			printf("     ");
-
+			std::printf("     ");
+	
 		for (int j = 1; j <= NumberOfDays; j++)
 		{
-			printf("%5d", j);
+			std::printf("%5d", j);
 
 
 			if (++i == 7)
 			{
 				i = 0;
-				printf("\n");
+				std::printf("\n");
 			}
 		}
 
-		printf("\n  _________________________________\n");
+		std::printf("\n  _________________________________\n");
 
 	}
 
@@ -357,9 +355,9 @@ public:
 
 	static void PrintYearCalendar(int Year)
 	{
-		printf("\n  _________________________________\n\n");
-		printf("           Calendar - %d\n", Year);
-		printf("  _________________________________\n");
+		std::printf("\n  _________________________________\n\n");
+		std::printf("           Calendar - %d\n", Year);
+		std::printf("  _________________________________\n");
 
 
 		for (int i = 1; i <= 12; i++)
@@ -372,9 +370,9 @@ public:
 
 	void PrintYearCalendar()
 	{
-		printf("\n  _________________________________\n\n");
-		printf("           Calendar - %d\n", _Year);
-		printf("  _________________________________\n");
+		std::printf("\n  _________________________________\n\n");
+		std::printf("           Calendar - %d\n", _Year);
+		std::printf("  _________________________________\n");
 
 
 		for (int i = 1; i <= 12; i++)
