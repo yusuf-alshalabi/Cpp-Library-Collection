@@ -4,15 +4,21 @@
 
 class MyPeriod
 {
-public:
+private:
+    MyDate _StartDate;
+    MyDate _EndDate;
 
-    MyDate StartDate;
-    MyDate EndDate;
+public:
+    void SetStartDate(const MyDate& StartDate) { _StartDate = StartDate; }
+    MyDate GetStartDate() const { return _StartDate; }
+
+    void SetEndDate(const MyDate& EndDate) { _EndDate = EndDate; }
+    MyDate GetEndDate() const { return _EndDate; }
 
     MyPeriod(const MyDate& StartDate, const MyDate& DateTo)
     {
-        this->StartDate = StartDate;
-        this->EndDate = DateTo;
+        this->SetStartDate(StartDate);
+        this->SetEndDate(DateTo);
 
     }
 
@@ -20,9 +26,9 @@ public:
     {
 
         if (
-            MyDate::CompareDates(Period2.EndDate, Period1.StartDate) == MyDate::enDateCompare::Before
+            MyDate::CompareDates(Period2.GetEndDate(), Period1.GetStartDate()) == MyDate::enDateCompare::Before
             ||
-            MyDate::CompareDates(Period2.StartDate, Period1.EndDate) == MyDate::enDateCompare::After
+            MyDate::CompareDates(Period2.GetStartDate(), Period1.GetEndDate()) == MyDate::enDateCompare::After
             )
             return false;
         else
@@ -39,11 +45,11 @@ public:
     void Print()
     {
         std::cout << "Period Start: ";
-        StartDate.Print();
+        GetStartDate().Print();
 
 
         std::cout << "Period End: ";
-        EndDate.Print();
+        GetEndDate().Print();
 
 
     }
