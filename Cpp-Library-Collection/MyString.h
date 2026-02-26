@@ -513,5 +513,14 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    static bool Contains(const std::string& S1, const std::string& S2)
+    {
+        return S1.find(S2) != std::string::npos;
+    }
+
+    bool Contains(const std::string& S2) const
+    {
+        return Contains(_Value, S2);
+    }
 
 };
