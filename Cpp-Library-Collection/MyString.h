@@ -345,13 +345,11 @@ public:
         return Split(_Value, Delim);
     }
 
-    static std::string TrimLeft(std::string S1)
+    static std::string TrimLeft(const std::string& S1)
     {
-
-
         for (short i = 0; i < S1.length(); i++)
         {
-            if (S1[i] != ' ')
+            if (!isspace(static_cast<unsigned char>(S1[i])))
             {
                 return S1.substr(i, S1.length() - i);
             }
@@ -364,13 +362,11 @@ public:
         _Value = TrimLeft(_Value);
     }
 
-    static std::string TrimRight(std::string S1)
+    static std::string TrimRight(const std::string& S1)
     {
-
-
         for (short i = S1.length() - 1; i >= 0; i--)
         {
-            if (S1[i] != ' ')
+            if (!isspace(static_cast<unsigned char>(S1[i])))
             {
                 return S1.substr(0, i + 1);
             }
@@ -383,10 +379,9 @@ public:
         _Value = TrimRight(_Value);
     }
 
-    static std::string Trim(std::string S1)
+    static std::string Trim(const std::string& S1)
     {
-        return (TrimLeft(TrimRight(S1)));
-
+        return TrimLeft(TrimRight(S1));
     }
 
     void Trim()
