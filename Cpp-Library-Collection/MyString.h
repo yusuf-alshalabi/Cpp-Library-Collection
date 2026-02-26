@@ -81,7 +81,7 @@ public:
         return Counter;
     }
 
-    short CountWords()
+    short CountWords()const
     {
         return CountWords(_Value);
     };
@@ -220,7 +220,7 @@ public:
         return Counter;
     }
 
-    short  CountCapitalLetters()
+    short  CountCapitalLetters() const
     {
         return CountCapitalLetters(_Value);
     }
@@ -238,7 +238,7 @@ public:
         return Counter;
     }
 
-    short  CountSmallLetters()
+    short  CountSmallLetters() const
     {
         return CountSmallLetters(_Value);
     }
@@ -264,7 +264,7 @@ public:
         return Counter;
     }
 
-    short  CountSpecificLetter(char Letter, bool MatchCase = true)
+    short  CountSpecificLetter(char Letter, bool MatchCase = true) const
     {
         return CountSpecificLetter(_Value, Letter, MatchCase);
     }
@@ -290,7 +290,7 @@ public:
         return Counter;
     }
 
-    short  CountVowels()
+    short  CountVowels() const
     {
         return CountVowels(_Value);
     }
@@ -454,7 +454,7 @@ public:
         return JoinString(vString, " ");
     }
 
-    std::string ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true) 
+    std::string ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true) const
     {
         return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
