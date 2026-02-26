@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include <string>   
-#include <cctype>   
+#include <string>
+#include <cctype>
 
 class MyString
 {
@@ -18,38 +18,52 @@ public:
         _Value = "";
     }
 
-    MyString(std::string Value)
+    MyString(const std::string& Value)
     {
         _Value = Value;
     }
 
-    void SetValue(std::string Value) {
+    void SetValue(const std::string& Value)
+    {
         _Value = Value;
     }
 
-    std::string GetValue() {
+    std::string GetValue() const
+    {
         return _Value;
     }
 
-    __declspec(property(get = GetValue, put = SetValue)) std::string Value;
+    // ---- Operators ----
 
+    bool operator==(const MyString& other) const
+    {
+        return _Value == other._Value;
+    }
 
-    bool operator==(const MyString& other) const { return _Value == other._Value; }
+    MyString operator+(const MyString& other) const
+    {
+        return MyString(_Value + other._Value);
+    }
 
-    MyString operator+(const MyString& other) const { return MyString(_Value + other._Value); }
-
-    friend std::ostream& operator<<(std::ostream& os, const MyString& s) {
+    friend std::ostream& operator<<(std::ostream& os, const MyString& s)
+    {
         return os << s._Value;
     }
 
-    static size_t Length(const std::string& S1) { 
-        return S1.length(); 
+    // ---- Length ----
+
+    static size_t Length(const std::string& S1)
+    {
+        return S1.length();
     }
 
-    size_t Length()const
+    size_t Length() const
     {
         return _Value.length();
-    };
+    }
+
+    // ---- Count Words ----
+
     static short CountWords(const std::string& S1)
     {
         std::string temp = Trim(S1);   // remove leading and trailing spaces
@@ -83,10 +97,12 @@ public:
         return Counter;
     }
 
-    short CountWords()const
+    short CountWords() const
     {
         return CountWords(_Value);
-    };
+    }
+
+    // ---- Upper / Lower First Letter Of Each Word ----
 
     static std::string UpperFirstLetterOfEachWord(const std::string& S1)
     {
@@ -105,9 +121,9 @@ public:
         return temp;
     }
 
-    void  UpperFirstLetterOfEachWord()
+    void UpperFirstLetterOfEachWord()
     {
-        // no need to return value , this function will directly update the object value  
+        // no need to return value, this function will directly update the object value
         _Value = UpperFirstLetterOfEachWord(_Value);
     }
 
@@ -128,13 +144,13 @@ public:
         return temp;
     }
 
-    void  LowerFirstLetterOfEachWord()
+    void LowerFirstLetterOfEachWord()
     {
-
-
-        // no need to return value , this function will directly update the object value  
+        // no need to return value, this function will directly update the object value
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
+
+    // ---- Upper / Lower All String ----
 
     static std::string UpperAllString(const std::string& S1)
     {
@@ -146,7 +162,7 @@ public:
         return temp;
     }
 
-    void  UpperAllString()
+    void UpperAllString()
     {
         _Value = UpperAllString(_Value);
     }
@@ -161,12 +177,14 @@ public:
         return temp;
     }
 
-    void  LowerAllString()
+    void LowerAllString()
     {
         _Value = LowerAllString(_Value);
     }
 
-    static char  InvertLetterCase(char char1)
+    // ---- Invert Case ----
+
+    static char InvertLetterCase(char char1)
     {
         return isupper(char1) ? tolower(char1) : toupper(char1);
     }
@@ -181,10 +199,12 @@ public:
         return temp;
     }
 
-    void  InvertAllLettersCase()
+    void InvertAllLettersCase()
     {
         _Value = InvertAllLettersCase(_Value);
     }
+
+    // ---- Count Letters ----
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
@@ -209,6 +229,8 @@ public:
         return Counter;
     }
 
+    // ---- Count Capital / Small Letters ----
+
     static short CountCapitalLetters(const std::string& S1)
     {
         short Counter = 0;
@@ -222,7 +244,7 @@ public:
         return Counter;
     }
 
-    short  CountCapitalLetters() const
+    short CountCapitalLetters() const
     {
         return CountCapitalLetters(_Value);
     }
@@ -240,10 +262,12 @@ public:
         return Counter;
     }
 
-    short  CountSmallLetters() const
+    short CountSmallLetters() const
     {
         return CountSmallLetters(_Value);
     }
+
+    // ---- Count Specific Letter ----
 
     static short CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
     {
@@ -266,17 +290,17 @@ public:
         return Counter;
     }
 
-    short  CountSpecificLetter(char Letter, bool MatchCase = true) const
+    short CountSpecificLetter(char Letter, bool MatchCase = true) const
     {
         return CountSpecificLetter(_Value, Letter, MatchCase);
     }
 
+    // ---- Vowels ----
+
     static bool IsVowel(char Ch1)
     {
         Ch1 = tolower(Ch1);
-
         return ((Ch1 == 'a') || (Ch1 == 'e') || (Ch1 == 'i') || (Ch1 == 'o') || (Ch1 == 'u'));
-
     }
 
     static short CountVowels(const std::string& S1)
@@ -292,10 +316,12 @@ public:
         return Counter;
     }
 
-    short  CountVowels() const
+    short CountVowels() const
     {
         return CountVowels(_Value);
     }
+
+    // ---- Split ----
 
     static std::vector<std::string> Split(const std::string& S1, const std::string& Delim)
     {
@@ -305,7 +331,7 @@ public:
         std::string temp = S1; // local copy to modify
         std::string sWord;
 
-        // use find() function to get the position of the delimiters
+        // use find() to get the position of the delimiter
         while ((pos = temp.find(Delim)) != std::string::npos)
         {
             sWord = temp.substr(0, pos); // store the word
@@ -314,7 +340,7 @@ public:
                 vString.push_back(sWord);
             }
 
-            // erase() until position and move to next word
+            // erase until position and move to next word
             temp.erase(0, pos + Delim.length());
         }
 
@@ -331,6 +357,8 @@ public:
     {
         return Split(_Value, Delim);
     }
+
+    // ---- Trim ----
 
     static std::string TrimLeft(const std::string& S1)
     {
@@ -376,6 +404,8 @@ public:
         _Value = Trim(_Value);
     }
 
+    // ---- Join ----
+
     static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
     {
         std::string S1 = "";
@@ -401,7 +431,9 @@ public:
         // remove last delimiter
         return S1.substr(0, S1.length() - Delim.length());
     }
-    
+
+    // ---- Reverse Words ----
+
     static std::string ReverseWordsInString(const std::string& S1)
     {
         std::vector<std::string> vString;
@@ -428,6 +460,8 @@ public:
     {
         _Value = ReverseWordsInString(_Value);
     }
+
+    // ---- Replace Word ----
 
     static std::string ReplaceWord(const std::string& S1, const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
     {
@@ -459,6 +493,8 @@ public:
         return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
+    // ---- Remove Punctuations ----
+
     static std::string RemovePunctuations(const std::string& S1)
     {
         std::string S2 = "";
@@ -479,6 +515,8 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    // ---- Contains / StartsWith / EndsWith ----
+
     static bool Contains(const std::string& S1, const std::string& S2)
     {
         return S1.find(S2) != std::string::npos;
@@ -494,7 +532,7 @@ public:
         return S1.rfind(prefix, 0) == 0;
     }
 
-    bool StartsWith(const std::string& prefix)const
+    bool StartsWith(const std::string& prefix) const
     {
         return StartsWith(_Value, prefix);
     }
@@ -505,15 +543,17 @@ public:
             S1.compare(S1.size() - suffix.size(), suffix.size(), suffix) == 0;
     }
 
-    bool EndsWith(const std::string& suffix)const
+    bool EndsWith(const std::string& suffix) const
     {
         return EndsWith(_Value, suffix);
     }
 
+    // ---- Repeat ----
+
     static std::string Repeat(const std::string& S1, int times)
     {
         std::string result;
-        result.reserve(S1.size() * times);
+        result.reserve(S1.size() * times); // reserve memory upfront to avoid reallocation
         for (int i = 0; i < times; i++)
         {
             result += S1;
@@ -521,10 +561,12 @@ public:
         return result;
     }
 
-    std::string Repeat(int times)const
+    std::string Repeat(int times) const
     {
         return Repeat(_Value, times);
     }
+
+    // ---- IsPalindrome ----
 
     static bool IsPalindrome(const std::string& S1)
     {
@@ -533,8 +575,9 @@ public:
         return lower == reversed;
     }
 
-    bool IsPalindrome()const
+    bool IsPalindrome() const
     {
         return IsPalindrome(_Value);
     }
+
 };
