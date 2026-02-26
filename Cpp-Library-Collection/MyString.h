@@ -32,12 +32,11 @@ public:
     __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
-    static short Length(std::string S1)
-    {
-        return static_cast<short>(S1.length());
-    };
+    size_t Length(std::string S1) { 
+        return S1.length(); 
+    }
 
-    short Length()
+    size_t Length()
     {
         return _Value.length();
     };
