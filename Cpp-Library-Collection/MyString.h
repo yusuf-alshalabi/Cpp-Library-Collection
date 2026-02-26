@@ -40,35 +40,37 @@ public:
     {
         return _Value.length();
     };
-
-    static short CountWords(std::string S1)
+    static short CountWords(const std::string& S1)
     {
-
-        std::string delim = " "; // delimiter  
+        std::string temp = Trim(S1);   // remove leading and trailing spaces
+        std::string delim = " ";
         short Counter = 0;
         short pos = 0;
-        std::string sWord; // define a string variable  
+        std::string sWord;
 
-        // use find() function to get the position of the delimiters  
-        while ((pos = S1.find(delim)) != std::string::npos)
+        while ((pos = temp.find(delim)) != std::string::npos)
         {
-            sWord = S1.substr(0, pos); // store the word   
+            sWord = temp.substr(0, pos);
             if (sWord != "")
             {
                 Counter++;
             }
+            temp.erase(0, pos + delim.length());
 
-            //erase() until positon and move to next word.
-            S1.erase(0, pos + delim.length());
+            // skip any consecutive spaces after erasing
+            while (temp[0] == ' ')
+            {
+                temp.erase(0, 1);
+            }
         }
 
-        if (S1 != "")
+        // count the last word if exists
+        if (temp != "")
         {
-            Counter++; // it counts the last word of the string.
+            Counter++;
         }
 
         return Counter;
-
     }
 
     short CountWords()
