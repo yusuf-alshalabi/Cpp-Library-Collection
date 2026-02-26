@@ -34,7 +34,7 @@ public:
 
     static short Length(std::string S1)
     {
-        return S1.length();
+        return static_cast<short>(S1.length());
     };
 
     short Length()
