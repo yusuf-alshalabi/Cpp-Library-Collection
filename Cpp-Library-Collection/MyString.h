@@ -3,13 +3,11 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 class MyString
 {
 
 private:
-    string _Value;
+    std::string _Value;
 
 public:
 
@@ -18,23 +16,23 @@ public:
         _Value = "";
     }
 
-    MyString(string Value)
+    MyString(std::string Value)
     {
         _Value = Value;
     }
 
-    void SetValue(string Value) {
+    void SetValue(std::string Value) {
         _Value = Value;
     }
 
-    string GetValue() {
+    std::string GetValue() {
         return _Value;
     }
 
-    __declspec(property(get = GetValue, put = SetValue)) string Value;
+    __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
-    static short Length(string S1)
+    static short Length(std::string S1)
     {
         return S1.length();
     };
@@ -44,13 +42,13 @@ public:
         return _Value.length();
     };
 
-    static short CountWords(string S1)
+    static short CountWords(std::string S1)
     {
 
-        string delim = " "; // delimiter  
+        std::string delim = " "; // delimiter  
         short Counter = 0;
         short pos = 0;
-        string sWord; // define a string variable  
+        std::string sWord; // define a string variable  
 
         // use find() function to get the position of the delimiters  
         while ((pos = S1.find(delim)) != std::string::npos)
@@ -79,7 +77,7 @@ public:
         return CountWords(_Value);
     };
 
-    static string  UpperFirstLetterOfEachWord(string S1)
+    static std::string  UpperFirstLetterOfEachWord(std::string S1)
     {
 
         bool isFirstLetter = true;
@@ -106,7 +104,7 @@ public:
         _Value = UpperFirstLetterOfEachWord(_Value);
     }
 
-    static string  LowerFirstLetterOfEachWord(string S1)
+    static std::string  LowerFirstLetterOfEachWord(std::string S1)
     {
 
         bool isFirstLetter = true;
@@ -135,7 +133,7 @@ public:
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
 
-    static string  UpperAllString(string S1)
+    static std::string  UpperAllString(std::string S1)
     {
         for (short i = 0; i < S1.length(); i++)
         {
@@ -149,7 +147,7 @@ public:
         _Value = UpperAllString(_Value);
     }
 
-    static string  LowerAllString(string S1)
+    static std::string  LowerAllString(std::string S1)
     {
         for (short i = 0; i < S1.length(); i++)
         {
@@ -168,7 +166,7 @@ public:
         return isupper(char1) ? tolower(char1) : toupper(char1);
     }
 
-    static string  InvertAllLettersCase(string S1)
+    static std::string  InvertAllLettersCase(std::string S1)
     {
         for (short i = 0; i < S1.length(); i++)
         {
@@ -184,7 +182,7 @@ public:
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
-    static short CountLetters(string S1, enWhatToCount WhatToCount = enWhatToCount::All)
+    static short CountLetters(std::string S1, enWhatToCount WhatToCount = enWhatToCount::All)
     {
 
 
@@ -212,7 +210,7 @@ public:
 
     }
 
-    static short  CountCapitalLetters(string S1)
+    static short  CountCapitalLetters(std::string S1)
     {
 
         short Counter = 0;
@@ -233,7 +231,7 @@ public:
         return CountCapitalLetters(_Value);
     }
 
-    static short  CountSmallLetters(string S1)
+    static short  CountSmallLetters(std::string S1)
     {
 
         short Counter = 0;
@@ -254,7 +252,7 @@ public:
         return CountSmallLetters(_Value);
     }
 
-    static short  CountSpecificLetter(string S1, char Letter, bool MatchCase = true)
+    static short  CountSpecificLetter(std::string S1, char Letter, bool MatchCase = true)
     {
 
         short Counter = 0;
@@ -291,7 +289,7 @@ public:
 
     }
 
-    static short  CountVowels(string S1)
+    static short  CountVowels(std::string S1)
     {
 
         short Counter = 0;
@@ -312,13 +310,13 @@ public:
         return CountVowels(_Value);
     }
 
-    static vector<string> Split(string S1, string Delim)
+    static std::vector<std::string> Split(std::string S1, std::string Delim)
     {
 
-        vector<string> vString;
+        std::vector<std::string> vString;
 
         short pos = 0;
-        string sWord; // define a string variable  
+        std::string sWord; // define a string variable  
 
         // use find() function to get the position of the delimiters  
         while ((pos = S1.find(Delim)) != std::string::npos)
@@ -341,12 +339,12 @@ public:
 
     }
 
-    vector<string> Split(string Delim)
+    std::vector<std::string> Split(std::string Delim)
     {
         return Split(_Value, Delim);
     }
 
-    static string TrimLeft(string S1)
+    static std::string TrimLeft(std::string S1)
     {
 
 
@@ -365,7 +363,7 @@ public:
         _Value = TrimLeft(_Value);
     }
 
-    static string TrimRight(string S1)
+    static std::string TrimRight(std::string S1)
     {
 
 
@@ -384,7 +382,7 @@ public:
         _Value = TrimRight(_Value);
     }
 
-    static string Trim(string S1)
+    static std::string Trim(std::string S1)
     {
         return (TrimLeft(TrimRight(S1)));
 
@@ -395,12 +393,12 @@ public:
         _Value = Trim(_Value);
     }
 
-    static string JoinString(vector<string> vString, string Delim)
+    static std::string JoinString(std::vector<std::string> vString, std::string Delim)
     {
 
-        string S1 = "";
+        std::string S1 = "";
 
-        for (string& s : vString)
+        for (std::string& s : vString)
         {
             S1 = S1 + s + Delim;
         }
@@ -410,10 +408,10 @@ public:
 
     }
 
-    static string JoinString(string arrString[], short Length, string Delim)
+    static std::string JoinString(std::string arrString[], short Length, std::string Delim)
     {
 
-        string S1 = "";
+        std::string S1 = "";
 
         for (short i = 0; i < Length; i++)
         {
@@ -424,16 +422,16 @@ public:
 
     }
 
-    static string ReverseWordsInString(string S1)
+    static std::string ReverseWordsInString(std::string S1)
     {
 
-        vector<string> vString;
-        string S2 = "";
+        std::vector<std::string> vString;
+        std::string S2 = "";
 
         vString = Split(S1, " ");
 
         // declare iterator
-        vector<string>::iterator iter = vString.end();
+        std::vector<std::string>::iterator iter = vString.end();
 
         while (iter != vString.begin())
         {
@@ -454,12 +452,12 @@ public:
         _Value = ReverseWordsInString(_Value);
     }
 
-    static string ReplaceWord(string S1, string StringToReplace, string sRepalceTo, bool MatchCase = true)
+    static std::string ReplaceWord(std::string S1, std::string StringToReplace, std::string sRepalceTo, bool MatchCase = true)
     {
 
-        vector<string> vString = Split(S1, " ");
+        std::vector<std::string> vString = Split(S1, " ");
 
-        for (string& s : vString)
+        for (std::string& s : vString)
         {
 
             if (MatchCase)
@@ -484,15 +482,15 @@ public:
         return JoinString(vString, " ");
     }
 
-    string ReplaceWord(string StringToReplace, string sRepalceTo)
+    std::string ReplaceWord(std::string StringToReplace, std::string sRepalceTo)
     {
         return ReplaceWord(_Value, StringToReplace, sRepalceTo);
     }
 
-    static string RemovePunctuations(string S1)
+    static std::string RemovePunctuations(std::string S1)
     {
 
-        string S2 = "";
+        std::string S2 = "";
 
         for (short i = 0; i < S1.length(); i++)
         {
