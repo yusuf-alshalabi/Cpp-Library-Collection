@@ -478,9 +478,9 @@ public:
         return JoinString(vString, " ");
     }
 
-    std::string ReplaceWord(std::string StringToReplace, std::string sRepalceTo)
+    std::string ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true) 
     {
-        return ReplaceWord(_Value, StringToReplace, sRepalceTo);
+        return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
     static std::string RemovePunctuations(std::string S1)
