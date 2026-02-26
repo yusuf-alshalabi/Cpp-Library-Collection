@@ -374,24 +374,21 @@ public:
         _Value = Trim(_Value);
     }
 
-    static std::string JoinString(std::vector<std::string> vString, std::string Delim)
+    static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
     {
-
         std::string S1 = "";
 
-        for (std::string& s : vString)
+        for (const std::string& s : vString)
         {
             S1 = S1 + s + Delim;
         }
 
+        // remove last delimiter
         return S1.substr(0, S1.length() - Delim.length());
-
-
     }
 
-    static std::string JoinString(std::string arrString[], short Length, std::string Delim)
+    static std::string JoinString(std::string arrString[], short Length, const std::string& Delim)
     {
-
         std::string S1 = "";
 
         for (short i = 0; i < Length; i++)
@@ -399,10 +396,10 @@ public:
             S1 = S1 + arrString[i] + Delim;
         }
 
+        // remove last delimiter
         return S1.substr(0, S1.length() - Delim.length());
-
     }
-
+    
     static std::string ReverseWordsInString(const std::string& S1)
     {
         std::vector<std::string> vString;
