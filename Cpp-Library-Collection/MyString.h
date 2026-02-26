@@ -543,4 +543,20 @@ public:
     {
         return EndsWith(_Value, suffix);
     }
+
+    static std::string Repeat(const std::string& S1, int times)
+    {
+        std::string result;
+        result.reserve(S1.size() * times);
+        for (int i = 0; i < times; i++)
+        {
+            result += S1;
+        }
+        return result;
+    }
+
+    std::string Repeat(int times)const
+    {
+        return Repeat(_Value, times);
+    }
 };
