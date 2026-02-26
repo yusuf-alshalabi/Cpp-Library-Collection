@@ -42,7 +42,7 @@ public:
         return IsOverlapPeriods(*this, Period2);
     }
 
-    void Print()
+    void Print()const
     {
         std::cout << "Period Start: ";
         GetStartDate().Print();
