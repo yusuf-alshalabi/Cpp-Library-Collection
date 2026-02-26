@@ -9,14 +9,14 @@ public:
     MyDate StartDate;
     MyDate EndDate;
 
-    MyPeriod(MyDate StartDate, MyDate DateTo)
+    MyPeriod(const MyDate& StartDate, const MyDate& DateTo)
     {
         this->StartDate = StartDate;
         this->EndDate = DateTo;
 
     }
 
-    static bool IsOverlapPeriods(MyPeriod Period1, MyPeriod Period2)
+    static bool IsOverlapPeriods(const MyPeriod& Period1, const MyPeriod& Period2)
     {
 
         if (
@@ -31,7 +31,7 @@ public:
     }
 
 
-    bool IsOverLapWith(MyPeriod Period2)
+    bool IsOverLapWith(const MyPeriod& Period2) const
     {
         return IsOverlapPeriods(*this, Period2);
     }
