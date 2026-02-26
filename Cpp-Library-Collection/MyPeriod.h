@@ -2,8 +2,6 @@
 #pragma once
 #include "MyDate.h"
 
-using namespace std;
-
 class MyPeriod
 {
 public:
@@ -40,11 +38,11 @@ public:
 
     void Print()
     {
-        cout << "Period Start: ";
+        std::cout << "Period Start: ";
         StartDate.Print();
 
 
-        cout << "Period End: ";
+        std::cout << "Period End: ";
         EndDate.Print();
 
 
