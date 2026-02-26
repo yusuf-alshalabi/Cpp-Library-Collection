@@ -559,4 +559,16 @@ public:
     {
         return Repeat(_Value, times);
     }
+
+    static bool IsPalindrome(const std::string& S1)
+    {
+        std::string lower = LowerAllString(S1);
+        std::string reversed = std::string(lower.rbegin(), lower.rend());
+        return lower == reversed;
+    }
+
+    bool IsPalindrome()const
+    {
+        return IsPalindrome(_Value);
+    }
 };
