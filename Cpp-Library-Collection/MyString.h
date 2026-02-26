@@ -32,6 +32,14 @@ public:
     __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
+    bool operator==(const MyString& other) const { return _Value == other._Value; }
+
+    MyString operator+(const MyString& other) const { return MyString(_Value + other._Value); }
+
+    friend std::ostream& operator<<(std::ostream& os, const MyString& s) {
+        return os << s._Value;
+    }
+
     size_t Length(std::string S1) { 
         return S1.length(); 
     }
