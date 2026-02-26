@@ -523,4 +523,24 @@ public:
         return Contains(_Value, S2);
     }
 
+    static bool StartsWith(const std::string& S1, const std::string& prefix)
+    {
+        return S1.rfind(prefix, 0) == 0;
+    }
+
+    bool StartsWith(const std::string& prefix)const
+    {
+        return StartsWith(_Value, prefix);
+    }
+
+    static bool EndsWith(const std::string& S1, const std::string& suffix)
+    {
+        return S1.size() >= suffix.size() &&
+            S1.compare(S1.size() - suffix.size(), suffix.size(), suffix) == 0;
+    }
+
+    bool EndsWith(const std::string& suffix)const
+    {
+        return EndsWith(_Value, suffix);
+    }
 };
