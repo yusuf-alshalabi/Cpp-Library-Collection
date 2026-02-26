@@ -86,25 +86,21 @@ public:
         return CountWords(_Value);
     };
 
-    static std::string  UpperFirstLetterOfEachWord(std::string S1)
+    static std::string UpperFirstLetterOfEachWord(const std::string& S1)
     {
-
+        std::string temp = S1; // local copy to modify
         bool isFirstLetter = true;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (short i = 0; i < temp.length(); i++)
         {
-
-            if (S1[i] != ' ' && isFirstLetter)
+            if (temp[i] != ' ' && isFirstLetter)
             {
-                S1[i] = toupper(S1[i]);
-
+                temp[i] = toupper(temp[i]);
             }
-
-            isFirstLetter = (S1[i] == ' ' ? true : false);
-
+            isFirstLetter = (temp[i] == ' ' ? true : false);
         }
 
-        return S1;
+        return temp;
     }
 
     void  UpperFirstLetterOfEachWord()
@@ -113,25 +109,21 @@ public:
         _Value = UpperFirstLetterOfEachWord(_Value);
     }
 
-    static std::string  LowerFirstLetterOfEachWord(std::string S1)
+    static std::string LowerFirstLetterOfEachWord(const std::string& S1)
     {
-
+        std::string temp = S1; // local copy to modify
         bool isFirstLetter = true;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (short i = 0; i < temp.length(); i++)
         {
-
-            if (S1[i] != ' ' && isFirstLetter)
+            if (temp[i] != ' ' && isFirstLetter)
             {
-                S1[i] = tolower(S1[i]);
-
+                temp[i] = tolower(temp[i]);
             }
-
-            isFirstLetter = (S1[i] == ' ' ? true : false);
-
+            isFirstLetter = (temp[i] == ' ' ? true : false);
         }
 
-        return S1;
+        return temp;
     }
 
     void  LowerFirstLetterOfEachWord()
@@ -142,13 +134,14 @@ public:
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
 
-    static std::string  UpperAllString(std::string S1)
+    static std::string UpperAllString(const std::string& S1)
     {
-        for (short i = 0; i < S1.length(); i++)
+        std::string temp = S1; // local copy to modify
+        for (short i = 0; i < temp.length(); i++)
         {
-            S1[i] = toupper(S1[i]);
+            temp[i] = toupper(temp[i]);
         }
-        return S1;
+        return temp;
     }
 
     void  UpperAllString()
@@ -156,13 +149,14 @@ public:
         _Value = UpperAllString(_Value);
     }
 
-    static std::string  LowerAllString(std::string S1)
+    static std::string LowerAllString(const std::string& S1)
     {
-        for (short i = 0; i < S1.length(); i++)
+        std::string temp = S1; // local copy to modify
+        for (short i = 0; i < temp.length(); i++)
         {
-            S1[i] = tolower(S1[i]);
+            temp[i] = tolower(temp[i]);
         }
-        return S1;
+        return temp;
     }
 
     void  LowerAllString()
@@ -175,13 +169,14 @@ public:
         return isupper(char1) ? tolower(char1) : toupper(char1);
     }
 
-    static std::string  InvertAllLettersCase(std::string S1)
+    static std::string InvertAllLettersCase(const std::string& S1)
     {
-        for (short i = 0; i < S1.length(); i++)
+        std::string temp = S1; // local copy to modify
+        for (short i = 0; i < temp.length(); i++)
         {
-            S1[i] = InvertLetterCase(S1[i]);
+            temp[i] = InvertLetterCase(temp[i]);
         }
-        return S1;
+        return temp;
     }
 
     void  InvertAllLettersCase()
@@ -191,10 +186,8 @@ public:
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
-    static short CountLetters(std::string S1, enWhatToCount WhatToCount = enWhatToCount::All)
+    static short CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
     {
-
-
         if (WhatToCount == enWhatToCount::All)
         {
             return S1.length();
@@ -204,32 +197,24 @@ public:
 
         for (short i = 0; i < S1.length(); i++)
         {
-
             if (WhatToCount == enWhatToCount::CapitalLetters && isupper(S1[i]))
                 Counter++;
 
-
             if (WhatToCount == enWhatToCount::SmallLetters && islower(S1[i]))
                 Counter++;
-
-
         }
 
         return Counter;
-
     }
 
-    static short  CountCapitalLetters(std::string S1)
+    static short CountCapitalLetters(const std::string& S1)
     {
-
         short Counter = 0;
 
         for (short i = 0; i < S1.length(); i++)
         {
-
             if (isupper(S1[i]))
                 Counter++;
-
         }
 
         return Counter;
@@ -240,17 +225,14 @@ public:
         return CountCapitalLetters(_Value);
     }
 
-    static short  CountSmallLetters(std::string S1)
+    static short CountSmallLetters(const std::string& S1)
     {
-
         short Counter = 0;
 
         for (short i = 0; i < S1.length(); i++)
         {
-
             if (islower(S1[i]))
                 Counter++;
-
         }
 
         return Counter;
@@ -261,14 +243,12 @@ public:
         return CountSmallLetters(_Value);
     }
 
-    static short  CountSpecificLetter(std::string S1, char Letter, bool MatchCase = true)
+    static short CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
     {
-
         short Counter = 0;
 
         for (short i = 0; i < S1.length(); i++)
         {
-
             if (MatchCase)
             {
                 if (S1[i] == Letter)
@@ -279,7 +259,6 @@ public:
                 if (tolower(S1[i]) == tolower(Letter))
                     Counter++;
             }
-
         }
 
         return Counter;
@@ -298,17 +277,14 @@ public:
 
     }
 
-    static short  CountVowels(std::string S1)
+    static short CountVowels(const std::string& S1)
     {
-
         short Counter = 0;
 
         for (short i = 0; i < S1.length(); i++)
         {
-
             if (IsVowel(S1[i]))
                 Counter++;
-
         }
 
         return Counter;
@@ -426,9 +402,8 @@ public:
 
     }
 
-    static std::string ReverseWordsInString(std::string S1)
+    static std::string ReverseWordsInString(const std::string& S1)
     {
-
         std::vector<std::string> vString;
         std::string S2 = "";
 
@@ -439,14 +414,12 @@ public:
 
         while (iter != vString.begin())
         {
-
             --iter;
-
             S2 += *iter + " ";
-
         }
 
-        S2 = S2.substr(0, S2.length() - 1); //remove last space.
+        // remove last space
+        S2 = S2.substr(0, S2.length() - 1);
 
         return S2;
     }
@@ -456,31 +429,26 @@ public:
         _Value = ReverseWordsInString(_Value);
     }
 
-    static std::string ReplaceWord(std::string S1, std::string StringToReplace, std::string sRepalceTo, bool MatchCase = true)
+    static std::string ReplaceWord(const std::string& S1, const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
     {
-
         std::vector<std::string> vString = Split(S1, " ");
 
         for (std::string& s : vString)
         {
-
             if (MatchCase)
             {
                 if (s == StringToReplace)
                 {
-                    s = sRepalceTo;
+                    s = sReplaceTo;
                 }
-
             }
             else
             {
                 if (LowerAllString(s) == LowerAllString(StringToReplace))
                 {
-                    s = sRepalceTo;
+                    s = sReplaceTo;
                 }
-
             }
-
         }
 
         return JoinString(vString, " ");
@@ -491,9 +459,8 @@ public:
         return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
-    static std::string RemovePunctuations(std::string S1)
+    static std::string RemovePunctuations(const std::string& S1)
     {
-
         std::string S2 = "";
 
         for (short i = 0; i < S1.length(); i++)
@@ -505,7 +472,6 @@ public:
         }
 
         return S2;
-
     }
 
     void RemovePunctuations()
