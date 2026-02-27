@@ -42,6 +42,13 @@ public:
         return IsOverlapPeriods(*this, Period2);
     }
 
+    // ---- Duration ----
+
+    int GetDurationInDays() const
+    {
+        return MyDate::GetDifferenceInDays(_StartDate, _EndDate, true);
+    }
+
     // ---- Print ----
 
     void Print() const
