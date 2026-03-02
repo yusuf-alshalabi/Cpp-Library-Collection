@@ -154,7 +154,7 @@ public:
 
 	static short NumberOfDaysInAYear(short Year)
 	{
-		return isLeapYear(Year) ? 365 : 364;
+		return isLeapYear(Year) ? 366 : 365;
 	}
 
 	short NumberOfDaysInAYear()
