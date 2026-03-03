@@ -1094,7 +1094,7 @@ public:
 
 	enum enDateCompare { Before = -1, Equal = 0, After = 1 };
 
-	static enDateCompare CompareDates(MyDate Date1, MyDate Date2)
+	static enDateCompare CompareDates(const MyDate& Date1, const MyDate& Date2)
 	{
 		if (IsDate1BeforeDate2(Date1, Date2))
 			return enDateCompare::Before;
