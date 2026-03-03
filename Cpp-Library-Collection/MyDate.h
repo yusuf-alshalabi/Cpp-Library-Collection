@@ -1110,7 +1110,7 @@ public:
 		return enDateCompare::After;
 	}
 
-	enDateCompare CompareDates(MyDate Date2)
+	enDateCompare CompareDates(const MyDate& Date2)
 	{
 		return CompareDates(*this, Date2);
 	}
