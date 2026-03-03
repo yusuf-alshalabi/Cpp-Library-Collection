@@ -440,7 +440,7 @@ public:
 
 	// ---- Date Comparison ----
 
-	static bool IsDate1BeforeDate2(MyDate Date1, MyDate Date2)
+	static bool IsDate1BeforeDate2(const MyDate& Date1, const MyDate& Date2)
 	{
 		return (Date1.GetYear() < Date2.GetYear()) ? true :
 			((Date1.GetYear() == Date2.GetYear()) ?
