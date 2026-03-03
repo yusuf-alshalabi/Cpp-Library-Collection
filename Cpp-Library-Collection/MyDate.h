@@ -461,7 +461,7 @@ public:
 				((Date1.GetDay() == Date2.GetDay()) ? true : false) : false) : false;
 	}
 
-	bool IsDateEqualDate2(MyDate Date2)
+	bool IsDateEqualDate2(const MyDate& Date2)
 	{
 		return IsDate1EqualDate2(*this, Date2);
 	}
