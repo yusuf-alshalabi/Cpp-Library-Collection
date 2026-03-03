@@ -558,7 +558,7 @@ public:
 		return IncludeEndDay ? ++Days * SawpFlagValue : Days * SawpFlagValue;
 	}
 
-	int GetDifferenceInDays(MyDate Date2, bool IncludeEndDay = false)
+	int GetDifferenceInDays(const MyDate& Date2, bool IncludeEndDay = false)
 	{
 		return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 	}
