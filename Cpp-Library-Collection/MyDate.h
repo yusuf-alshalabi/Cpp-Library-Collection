@@ -182,12 +182,12 @@ public:
 		return NumberOfMinutesInAYear(_Year);
 	}
 
-	static int NumberOfSecondsInAYear(short Year)
+	static long long NumberOfSecondsInAYear(short Year)
 	{
-		return NumberOfMinutesInAYear(Year) * 60;
+		return (long long)NumberOfMinutesInAYear(Year) * 60;
 	}
 
-	int NumberOfSecondsInAYear()
+	long long NumberOfSecondsInAYear()
 	{
 		return NumberOfSecondsInAYear(_Year);
 	}
