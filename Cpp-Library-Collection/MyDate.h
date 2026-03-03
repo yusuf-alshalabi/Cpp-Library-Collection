@@ -172,12 +172,12 @@ public:
 		return NumberOfHoursInAYear(_Year);
 	}
 
-	static int NumberOfMinutesInAYear(short Year)
+	static long long  NumberOfMinutesInAYear(short Year)
 	{
-		return NumberOfHoursInAYear(Year) * 60;
+		return (long long)NumberOfHoursInAYear(Year) * 60;
 	}
 
-	int NumberOfMinutesInAYear()
+	long long  NumberOfMinutesInAYear()
 	{
 		return NumberOfMinutesInAYear(_Year);
 	}
