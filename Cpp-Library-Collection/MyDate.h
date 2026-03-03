@@ -536,21 +536,23 @@ public:
 
 	// ---- Difference In Days ----
 
-	static int GetDifferenceInDays(MyDate Date1, MyDate Date2, bool IncludeEndDay = false)
+	static int GetDifferenceInDays(const MyDate& Date1, const MyDate& Date2, bool IncludeEndDay = false)
 	{
+		MyDate temp1 = Date1;
+		MyDate temp2 = Date2;
 		int Days = 0;
 		short SawpFlagValue = 1;
 
-		if (!IsDate1BeforeDate2(Date1, Date2))
+		if (!IsDate1BeforeDate2(temp1, temp2))
 		{
-			SwapDates(Date1, Date2);
+			SwapDates(temp1, temp2);
 			SawpFlagValue = -1;
 		}
 
-		while (IsDate1BeforeDate2(Date1, Date2))
+		while (IsDate1BeforeDate2(temp1, temp2))
 		{
 			Days++;
-			Date1 = AddOneDay(Date1);
+			temp1 = AddOneDay(temp1);
 		}
 
 		return IncludeEndDay ? ++Days * SawpFlagValue : Days * SawpFlagValue;
