@@ -471,7 +471,7 @@ public:
 		return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
 	}
 
-	bool IsDateAfterDate2(MyDate Date2)
+	bool IsDateAfterDate2(const MyDate& Date2)
 	{
 		return IsDate1AfterDate2(*this, Date2);
 	}
