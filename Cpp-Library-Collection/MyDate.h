@@ -1050,19 +1050,15 @@ public:
 	}
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
-		short WeekEndCounter = 0;
+		short DaysCounter = 0;
 
-		for (short i = 1; i <= VacationDays; i++)
+		while (DaysCounter < VacationDays)
 		{
-			if (IsWeekEnd(DateFrom))
-				WeekEndCounter++;
+			if (IsBusinessDay(DateFrom))
+				DaysCounter++;
 
 			DateFrom = AddOneDay(DateFrom);
 		}
-
-		// add weekends back
-		for (short i = 1; i <= WeekEndCounter; i++)
-			DateFrom = AddOneDay(DateFrom);
 
 		return DateFrom;
 	}
