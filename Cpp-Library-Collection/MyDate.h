@@ -987,7 +987,7 @@ public:
 
 	// ---- Days Until End of Week / Month / Year ----
 
-	static short DaysUntilTheEndOfWeek(MyDate Date)
+	static short DaysUntilTheEndOfWeek(const MyDate& Date)
 	{
 		return 6 - DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
 	}
