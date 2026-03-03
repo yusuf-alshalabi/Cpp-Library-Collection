@@ -1052,6 +1052,9 @@ public:
 // Weekends (Fri–Sat) are skipped automatically.
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
+		if (!IsValidDate(DateFrom))
+			throw std::invalid_argument("Invalid start date provided.");
+
 		if (VacationDays <= 0)
 			return DateFrom; 
 
