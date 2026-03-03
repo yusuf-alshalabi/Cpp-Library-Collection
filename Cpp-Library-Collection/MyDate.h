@@ -1012,7 +1012,7 @@ public:
 		return DaysUntilTheEndOfMonth(*this);
 	}
 
-	static short DaysUntilTheEndOfYear(MyDate Date1)
+	static short DaysUntilTheEndOfYear(const MyDate& Date1)
 	{
 		MyDate EndOfYearDate;
 		EndOfYearDate.SetDay(31);
