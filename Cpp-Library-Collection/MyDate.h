@@ -123,7 +123,7 @@ public:
 
 	// ---- Date To String ----
 
-	static std::string DateToString(MyDate Date)
+	static std::string DateToString(const MyDate& Date)
 	{
 		return std::to_string(Date.GetDay()) + "/" +
 			std::to_string(Date.GetMonth()) + "/" +
