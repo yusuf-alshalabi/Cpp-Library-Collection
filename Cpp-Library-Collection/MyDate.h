@@ -162,12 +162,12 @@ public:
 		return NumberOfDaysInAYear(_Year);
 	}
 
-	static short NumberOfHoursInAYear(short Year)
+	static long long NumberOfHoursInAYear(short Year)
 	{
 		return NumberOfDaysInAYear(Year) * 24;
 	}
 
-	short NumberOfHoursInAYear()
+	long long NumberOfHoursInAYear()
 	{
 		return NumberOfHoursInAYear(_Year);
 	}
