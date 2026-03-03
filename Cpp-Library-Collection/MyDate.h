@@ -164,7 +164,7 @@ public:
 
 	static long long NumberOfHoursInAYear(short Year)
 	{
-		return NumberOfDaysInAYear(Year) * 24;
+		return (long long)NumberOfDaysInAYear(Year) * 24;
 	}
 
 	long long NumberOfHoursInAYear()
@@ -1044,9 +1044,10 @@ public:
 
 	static short CalculateVacationDays(MyDate DateFrom, MyDate DateTo)
 	{
-		return CalculateBusinessDays(DateFrom, DateTo);
+		short TotalDays = GetDifferenceInDays(DateFrom, DateTo, true);
+		short BusinessDays = CalculateBusinessDays(DateFrom, DateTo);
+		return TotalDays - BusinessDays;
 	}
-
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
 		short WeekEndCounter = 0;
