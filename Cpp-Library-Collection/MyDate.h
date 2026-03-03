@@ -973,7 +973,7 @@ public:
 		return IsWeekEnd(*this);
 	}
 
-	static bool IsBusinessDay(MyDate Date)
+	static bool IsBusinessDay(const MyDate& Date)
 	{
 		// Business days are Sun, Mon, Tue, Wed, Thu
 		// shorter method: invert IsWeekEnd to avoid updating code in two places
