@@ -449,7 +449,7 @@ public:
 						Date1.GetDay() < Date2.GetDay() : false)) : false);
 	}
 
-	bool IsDateBeforeDate2(MyDate Date2)
+	bool IsDateBeforeDate2(const MyDate& Date2)
 	{
 		return IsDate1BeforeDate2(*this, Date2);
 	}
