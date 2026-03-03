@@ -565,7 +565,7 @@ public:
 
 	// ---- Age ----
 
-	static short CalculateMyAgeInDays(MyDate DateOfBirth)
+	static short CalculateMyAgeInDays(const MyDate& DateOfBirth)
 	{
 		return GetDifferenceInDays(DateOfBirth, MyDate::GetSystemDate(), true);
 	}
