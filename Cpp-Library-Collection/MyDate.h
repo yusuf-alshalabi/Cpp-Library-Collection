@@ -1064,10 +1064,13 @@ public:
 
 		while (DaysCounter < VacationDays)
 		{
-			if (IsBusinessDay(DateFrom))
-				DaysCounter++;
-
+			DaysCounter++;
 			DateFrom = AddOneDay(DateFrom);
+
+			while (!IsBusinessDay(DateFrom))
+			{
+				DateFrom = AddOneDay(DateFrom);
+			}
 		}
 
 		return DateFrom;
