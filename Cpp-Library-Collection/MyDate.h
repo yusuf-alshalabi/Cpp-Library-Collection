@@ -951,7 +951,7 @@ public:
 
 	// ---- Week / Business Day Checks ----
 
-	static short IsEndOfWeek(MyDate Date)
+	static short IsEndOfWeek(const MyDate& Date)
 	{
 		return DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear()) == 6;
 	}
