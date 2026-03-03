@@ -1055,6 +1055,11 @@ public:
 
 		short DaysCounter = 0;
 
+		while (!IsBusinessDay(DateFrom))
+		{
+			DateFrom = AddOneDay(DateFrom);
+		}
+
 		while (DaysCounter < VacationDays)
 		{
 			if (IsBusinessDay(DateFrom))
