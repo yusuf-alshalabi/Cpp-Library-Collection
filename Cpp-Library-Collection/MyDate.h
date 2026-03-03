@@ -86,7 +86,7 @@ public:
 
 	// ---- Validation ----
 
-	static bool IsValidDate(MyDate Date)
+	static bool IsValidDate(const MyDate& Date)
 	{
 		if (Date.GetDay() < 1 || Date.GetDay() > 31)
 			return false;
