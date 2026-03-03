@@ -997,7 +997,7 @@ public:
 		return DaysUntilTheEndOfWeek(*this);
 	}
 
-	static short DaysUntilTheEndOfMonth(MyDate Date1)
+	static short DaysUntilTheEndOfMonth(const MyDate& Date1)
 	{
 		MyDate EndOfMontDate;
 		EndOfMontDate.SetDay(NumberOfDaysInAMonth(Date1.GetMonth(), Date1.GetYear()));
