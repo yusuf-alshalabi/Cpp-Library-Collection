@@ -1029,15 +1029,17 @@ public:
 
 	// ---- Business / Vacation Days ----
 
-	static short CalculateBusinessDays(MyDate DateFrom, MyDate DateTo)
+	static short CalculateBusinessDays(const MyDate& DateFrom, const MyDate& DateTo)
 	{
+		MyDate temp = DateFrom; // local copy to modify
 		short Days = 0;
-		while (IsDate1BeforeDate2(DateFrom, DateTo))
+
+		while (IsDate1BeforeDate2(temp, DateTo))
 		{
-			if (IsBusinessDay(DateFrom))
+			if (IsBusinessDay(temp))
 				Days++;
 
-			DateFrom = AddOneDay(DateFrom);
+			temp = AddOneDay(temp);
 		}
 		return Days;
 	}
