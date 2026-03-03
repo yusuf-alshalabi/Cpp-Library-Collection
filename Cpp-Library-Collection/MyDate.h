@@ -1050,6 +1050,9 @@ public:
 	}
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
+		if (VacationDays <= 0)
+			return DateFrom; 
+
 		short DaysCounter = 0;
 
 		while (DaysCounter < VacationDays)
