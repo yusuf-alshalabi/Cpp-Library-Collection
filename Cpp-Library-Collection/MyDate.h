@@ -1048,6 +1048,8 @@ public:
 		short BusinessDays = CalculateBusinessDays(DateFrom, DateTo);
 		return TotalDays - BusinessDays;
 	}
+// Returns the return date after a given number of business vacation days (Sun–Thu).
+// Weekends (Fri–Sat) are skipped automatically.
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
 		if (VacationDays <= 0)
