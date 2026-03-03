@@ -961,7 +961,7 @@ public:
 		return IsEndOfWeek(*this);
 	}
 
-	static bool IsWeekEnd(MyDate Date)
+	static bool IsWeekEnd(const MyDate& Date)
 	{
 		// Weekends are Fri and Sat
 		short DayIndex = DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
