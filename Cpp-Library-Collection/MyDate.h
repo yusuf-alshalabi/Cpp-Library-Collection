@@ -478,7 +478,7 @@ public:
 
 	// ---- Last Day / Month Checks ----
 
-	static bool IsLastDayInMonth(MyDate Date)
+	static bool IsLastDayInMonth(const MyDate& Date)
 	{
 		return (Date.GetDay() == NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear()));
 	}
