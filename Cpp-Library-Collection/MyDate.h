@@ -1,4 +1,4 @@
-#pragma warning(disable : 4996)
+﻿#pragma warning(disable : 4996)
 #pragma once
 
 #include<iostream>
@@ -1048,8 +1048,15 @@ public:
 		short BusinessDays = CalculateBusinessDays(DateFrom, DateTo);
 		return TotalDays - BusinessDays;
 	}
-// Returns the return date after a given number of business vacation days (Sun�Thu).
-// Weekends (Fri�Sat) are skipped automatically.
+	/**
+	 * CalculateVacationReturnDate
+	 * ---------------------------
+	 * Returns the return date after a given number of business vacation days.
+	 * - Business days: Sun–Thu
+	 * - Weekends: Fri–Sat (skipped automatically)
+	 * - If VacationDays = 0 → returns the same start date
+	 * - If start date is weekend → skips forward to next business day
+	 */
 	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
 	{
 		if (!IsValidDate(DateFrom))
