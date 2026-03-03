@@ -1044,7 +1044,7 @@ public:
 		return Days;
 	}
 
-	static short CalculateVacationDays(MyDate DateFrom, MyDate DateTo)
+	static short CalculateVacationDays(const MyDate& DateFrom, const MyDate& DateTo)
 	{
 		short TotalDays = GetDifferenceInDays(DateFrom, DateTo, true);
 		short BusinessDays = CalculateBusinessDays(DateFrom, DateTo);
