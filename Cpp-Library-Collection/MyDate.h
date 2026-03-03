@@ -1056,15 +1056,20 @@ public:
 	 * - Weekends: Fri–Sat (skipped automatically)
 	 * - If VacationDays = 0 → returns the same start date
 	 * - If start date is weekend → skips forward to next business day
+	 *
+	 * Parameters:
+	 * - DateFrom: const reference to avoid unnecessary copy
+	 * - VacationDays: number of business days to count
 	 */
-	static MyDate CalculateVacationReturnDate(MyDate DateFrom, short VacationDays)
+	static MyDate CalculateVacationReturnDate(const MyDate& startDate, short VacationDays)
 	{
-		if (!IsValidDate(DateFrom))
+		if (!IsValidDate(startDate))
 			throw std::invalid_argument("Invalid start date provided.");
 
 		if (VacationDays <= 0)
-			return DateFrom; 
+			return startDate;
 
+		MyDate DateFrom = startDate; // local copy to modify
 		short DaysCounter = 0;
 
 		while (!IsBusinessDay(DateFrom))
@@ -1085,7 +1090,6 @@ public:
 
 		return DateFrom;
 	}
-
 	// ---- Compare Dates ----
 
 	enum enDateCompare { Before = -1, Equal = 0, After = 1 };
