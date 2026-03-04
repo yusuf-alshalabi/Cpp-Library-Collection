@@ -430,11 +430,11 @@ public:
         std::string result;
         result.reserve(vString.size() * 20); // rough estimate to reduce reallocations
         
-        for (size_t i = 0; i < vString.size(); ++i)
+        for (const auto& s : vString)
         {
-            if (i > 0)
+            if (!result.empty())
                 result += Delim;
-            result += vString[i];
+            result += s;
         }
 
         return result;
