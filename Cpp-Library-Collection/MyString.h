@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <cctype>
+#include <stdexcept>
 
 namespace MyLib {
 
@@ -12,7 +13,10 @@ class MyString
 
 private:
     std::string _Value;
-
+    
+    // Error handling
+    static std::string _lastError;
+    
 public:
 
     MyString()
