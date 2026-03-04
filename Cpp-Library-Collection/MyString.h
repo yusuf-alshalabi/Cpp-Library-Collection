@@ -522,9 +522,13 @@ public:
 
     static std::string RemovePunctuations(const std::string& S1)
     {
+        if (S1.empty())
+            return "";
+            
         std::string S2 = "";
+        S2.reserve(S1.length()); // reserve space for efficiency
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (!ispunct(S1[i]))
             {
