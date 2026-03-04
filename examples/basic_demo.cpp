@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../include/MyLib/MyString.h"
-#include "../include/MyLib/MyDate.h"
-#include "../include/MyLib/MyPeriod.h"
+#include "MyLib/MyString.h"
+#include "MyLib/MyDate.h"
+#include "MyLib/MyPeriod.h"
 
 int main() {
     using namespace MyLib;
