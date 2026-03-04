@@ -109,6 +109,14 @@ public:
 
     static size_t CountWords(const std::string& S1)
     {
+        ClearError();
+        
+        if (S1.empty())
+        {
+            _lastError = "Cannot count words in empty string";
+            return 0;
+        }
+        
         std::string temp = Trim(S1);   // remove leading and trailing spaces
         std::string delim = " ";
         size_t Counter = 0;
