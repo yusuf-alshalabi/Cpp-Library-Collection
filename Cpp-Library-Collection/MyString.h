@@ -111,7 +111,7 @@ public:
         std::string temp = S1; // local copy to modify
         bool isFirstLetter = true;
 
-        for (short i = 0; i < temp.length(); i++)
+        for (size_t i = 0; i < temp.length(); i++)
         {
             if (temp[i] != ' ' && isFirstLetter)
             {
@@ -134,7 +134,7 @@ public:
         std::string temp = S1; // local copy to modify
         bool isFirstLetter = true;
 
-        for (short i = 0; i < temp.length(); i++)
+        for (size_t i = 0; i < temp.length(); i++)
         {
             if (temp[i] != ' ' && isFirstLetter)
             {
@@ -157,7 +157,7 @@ public:
     static std::string UpperAllString(const std::string& S1)
     {
         std::string temp = S1; // local copy to modify
-        for (short i = 0; i < temp.length(); i++)
+        for (size_t i = 0; i < temp.length(); i++)
         {
             temp[i] = toupper(temp[i]);
         }
@@ -172,7 +172,7 @@ public:
     static std::string LowerAllString(const std::string& S1)
     {
         std::string temp = S1; // local copy to modify
-        for (short i = 0; i < temp.length(); i++)
+        for (size_t i = 0; i < temp.length(); i++)
         {
             temp[i] = tolower(temp[i]);
         }
@@ -194,7 +194,7 @@ public:
     static std::string InvertAllLettersCase(const std::string& S1)
     {
         std::string temp = S1; // local copy to modify
-        for (short i = 0; i < temp.length(); i++)
+        for (size_t i = 0; i < temp.length(); i++)
         {
             temp[i] = InvertLetterCase(temp[i]);
         }
@@ -210,16 +210,16 @@ public:
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
-    static short CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
+    static size_t CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
     {
         if (WhatToCount == enWhatToCount::All)
         {
             return S1.length();
         }
 
-        short Counter = 0;
+        size_t Counter = 0;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (WhatToCount == enWhatToCount::CapitalLetters && isupper(S1[i]))
                 Counter++;
@@ -233,11 +233,11 @@ public:
 
     // ---- Count Capital / Small Letters ----
 
-    static short CountCapitalLetters(const std::string& S1)
+    static size_t CountCapitalLetters(const std::string& S1)
     {
-        short Counter = 0;
+        size_t Counter = 0;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (isupper(S1[i]))
                 Counter++;
@@ -246,16 +246,16 @@ public:
         return Counter;
     }
 
-    short CountCapitalLetters() const
+    size_t CountCapitalLetters() const
     {
         return CountCapitalLetters(_Value);
     }
 
-    static short CountSmallLetters(const std::string& S1)
+    static size_t CountSmallLetters(const std::string& S1)
     {
-        short Counter = 0;
+        size_t Counter = 0;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (islower(S1[i]))
                 Counter++;
@@ -264,18 +264,18 @@ public:
         return Counter;
     }
 
-    short CountSmallLetters() const
+    size_t CountSmallLetters() const
     {
         return CountSmallLetters(_Value);
     }
 
     // ---- Count Specific Letter ----
 
-    static short CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
+    static size_t CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
     {
-        short Counter = 0;
+        size_t Counter = 0;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (MatchCase)
             {
@@ -292,7 +292,7 @@ public:
         return Counter;
     }
 
-    short CountSpecificLetter(char Letter, bool MatchCase = true) const
+    size_t CountSpecificLetter(char Letter, bool MatchCase = true) const
     {
         return CountSpecificLetter(_Value, Letter, MatchCase);
     }
@@ -305,11 +305,11 @@ public:
         return ((Ch1 == 'a') || (Ch1 == 'e') || (Ch1 == 'i') || (Ch1 == 'o') || (Ch1 == 'u'));
     }
 
-    static short CountVowels(const std::string& S1)
+    static size_t CountVowels(const std::string& S1)
     {
-        short Counter = 0;
+        size_t Counter = 0;
 
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (IsVowel(S1[i]))
                 Counter++;
@@ -318,7 +318,7 @@ public:
         return Counter;
     }
 
-    short CountVowels() const
+    size_t CountVowels() const
     {
         return CountVowels(_Value);
     }
@@ -329,7 +329,7 @@ public:
     {
         std::vector<std::string> vString;
 
-        short pos = 0;
+        size_t pos = 0;
         std::string temp = S1; // local copy to modify
         std::string sWord;
 
@@ -381,7 +381,7 @@ public:
 
     static std::string TrimRight(const std::string& S1)
     {
-        for (short i = S1.length() - 1; i >= 0; i--)
+        for (size_t i = S1.length() - 1; i >= 0; i--)
         {
             if (!isspace(static_cast<unsigned char>(S1[i])))
             {
