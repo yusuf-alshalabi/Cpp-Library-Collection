@@ -45,6 +45,17 @@ public:
         return _Value;
     }
 
+    // Error handling methods
+    static std::string GetLastError()
+    {
+        return _lastError;
+    }
+
+    static void ClearError()
+    {
+        _lastError.clear();
+    }
+
     // ---- Operators ----
 
     bool operator==(const MyString& other) const
