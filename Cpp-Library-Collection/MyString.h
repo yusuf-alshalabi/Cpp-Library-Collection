@@ -26,6 +26,11 @@ public:
 
     MyString(const std::string& Value)
     {
+        if (Value.empty())
+        {
+            _lastError = "Cannot create MyString with empty value";
+            throw std::invalid_argument("MyString: Cannot create with empty value");
+        }
         _Value = Value;
     }
 
@@ -37,6 +42,11 @@ public:
 
     void SetValue(const std::string& Value)
     {
+        if (Value.empty())
+        {
+            _lastError = "Cannot set empty value to MyString";
+            throw std::invalid_argument("MyString: Cannot set empty value");
+        }
         _Value = Value;
     }
 
