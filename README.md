@@ -1,6 +1,6 @@
 # C++ Library Collection
 
-[![Build Status](https://github.com/username/Cpp-Library-Collection/workflows/CI/badge.svg)](https://github.com/username/Cpp-Library-Collection/actions)
+[![Build Status](https://github.com/yusuf-alshalabi/Cpp-Library-Collection/workflows/CI/badge.svg)](https://github.com/yusuf-alshalabi/Cpp-Library-Collection/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
 
@@ -20,7 +20,7 @@ A modern C++ educational library providing comprehensive string, date, and perio
 ### Using CMake
 
 ```bash
-git clone https://github.com/username/Cpp-Library-Collection.git
+git clone https://github.com/yusuf-alshalabi/Cpp-Library-Collection.git
 cd Cpp-Library-Collection
 mkdir build && cd build
 cmake ..
@@ -31,7 +31,7 @@ sudo make install
 ### Using as Header-Only
 
 ```bash
-git clone https://github.com/username/Cpp-Library-Collection.git
+git clone https://github.com/yusuf-alshalabi/Cpp-Library-Collection.git
 # Copy include/MyLib to your project
 ```
 
@@ -136,19 +136,18 @@ int main() {
 
 ```bash
 cd build
-ctest
+make basic_demo
+./basic_demo
 ```
 
 ## 📖 Examples
 
 See the `examples/` directory for comprehensive usage examples:
-- `basic_usage/` - Simple examples for beginners
-- `advanced_usage/` - Complex scenarios and best practices
+- `basic_demo.cpp` - Complete demonstration of all library features
 
 ## 📚 Documentation
 
-- [API Reference](docs/api/) - Detailed API documentation
-- [Tutorials](docs/tutorials/) - Step-by-step guides
+- [API Reference](README.md#-api-reference) - Detailed API documentation
 - [Examples](examples/) - Code examples
 
 ## 🤝 Contributing
@@ -171,6 +170,6 @@ See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
 ## 📞 Support
 
 If you encounter any issues or have questions:
-- Open an [Issue](https://github.com/username/Cpp-Library-Collection/issues)
-- Check the [Documentation](docs/)
+- Open an [Issue](https://github.com/yusuf-alshalabi/Cpp-Library-Collection/issues)
+- Check the [Documentation](README.md#-api-reference)
 - Look at [Examples](examples/)
