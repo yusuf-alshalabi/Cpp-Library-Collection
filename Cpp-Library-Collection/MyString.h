@@ -5,6 +5,8 @@
 #include <string>
 #include <cctype>
 
+namespace MyLib {
+
 class MyString
 {
 
@@ -595,3 +597,5 @@ public:
     }
 
 };
+
+} // namespace MyLib

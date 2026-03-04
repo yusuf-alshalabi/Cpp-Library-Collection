@@ -2,6 +2,7 @@
 #include "MyPeriod.h"
 
 using namespace std;
+using namespace MyLib;
 
 int main()
 

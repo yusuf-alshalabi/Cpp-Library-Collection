@@ -5,6 +5,8 @@
 #include<string>
 #include "MyString.h"
 
+namespace MyLib {
+
 class MyDate
 {
 
@@ -1116,3 +1118,5 @@ public:
 	}
 
 };
+
+} // namespace MyLib

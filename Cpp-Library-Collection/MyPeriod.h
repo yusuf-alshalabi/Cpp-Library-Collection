@@ -1,6 +1,8 @@
 #pragma once
 #include "MyDate.h"
 
+namespace MyLib {
+
 class MyPeriod
 {
 private:
@@ -61,3 +63,5 @@ public:
     }
 
 };
+
+} // namespace MyLib
