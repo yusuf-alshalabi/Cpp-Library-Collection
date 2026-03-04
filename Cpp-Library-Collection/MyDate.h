@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<string>
+#include<stdexcept>
 #include "MyString.h"
 
 namespace MyLib {
@@ -15,6 +16,9 @@ private:
 	short _Day = 1;
 	short _Month = 1;
 	short _Year = 1900;
+	
+	// Error handling
+	static std::string _lastError;
 
 public:
 
@@ -32,9 +36,22 @@ public:
 		std::vector <std::string> vDate;
 		vDate = MyString::Split(sDate, "/");
 
-		_Day = std::stoi(vDate[0]);
-		_Month = std::stoi(vDate[1]);
-		_Year = std::stoi(vDate[2]);
+		if (vDate.size() != 3)
+		{
+			_lastError = "Invalid date format. Expected DD/MM/YYYY";
+			throw std::invalid_argument("MyDate: Invalid date format");
+		}
+
+		try {
+			_Day = std::stoi(vDate[0]);
+			_Month = std::stoi(vDate[1]);
+			_Year = std::stoi(vDate[2]);
+		}
+		catch (const std::exception& e)
+		{
+			_lastError = "Invalid date format. Cannot parse date components";
+			throw std::invalid_argument("MyDate: Cannot parse date components");
+		}
 	}
 
 	MyDate(short Day, short Month, short Year)
@@ -63,6 +80,17 @@ public:
 
 	void SetYear(short Year) { _Year = Year; }
 	short GetYear() const { return _Year; }
+
+	// Error handling methods
+	static std::string GetLastError()
+	{
+		return _lastError;
+	}
+
+	static void ClearError()
+	{
+		_lastError.clear();
+	}
 
 	// ---- Print ----
 
