@@ -82,7 +82,7 @@ public:
             temp.erase(0, pos + delim.length());
 
             // skip any consecutive spaces after erasing
-            while (temp[0] == ' ')
+            while (!temp.empty() && temp[0] == ' ')
             {
                 temp.erase(0, 1);
             }
