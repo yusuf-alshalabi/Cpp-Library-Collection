@@ -462,24 +462,17 @@ public:
 
     static std::string ReverseWordsInString(const std::string& S1)
     {
-        std::vector<std::string> vString;
-        std::string S2 = "";
+        std::vector<std::string> vString = Split(S1, " ");
+        std::string result;
 
-        vString = Split(S1, " ");
-
-        // declare iterator
-        std::vector<std::string>::iterator iter = vString.end();
-
-        while (iter != vString.begin())
+        for (auto it = vString.rbegin(); it != vString.rend(); ++it)
         {
-            --iter;
-            S2 += *iter + " ";
+            if (!result.empty())
+                result += " ";
+            result += *it;
         }
 
-        // remove last space
-        S2 = S2.substr(0, S2.length() - 1);
-
-        return S2;
+        return result;
     }
 
     void ReverseWordsInString()
