@@ -53,6 +53,16 @@ public:
         return MyString(_Value + other._Value);
     }
 
+    // Move assignment operator
+    MyString& operator=(MyString&& other) noexcept
+    {
+        if (this != &other)
+        {
+            _Value = std::move(other._Value);
+        }
+        return *this;
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const MyString& s)
     {
         return os << s._Value;
