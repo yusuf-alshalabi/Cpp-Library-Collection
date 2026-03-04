@@ -408,28 +408,38 @@ public:
 
     static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
     {
-        std::string S1 = "";
-
-        for (const std::string& s : vString)
+        if (vString.empty())
+            return "";
+            
+        std::string result;
+        result.reserve(vString.size() * 20); // rough estimate to reduce reallocations
+        
+        for (size_t i = 0; i < vString.size(); ++i)
         {
-            S1 = S1 + s + Delim;
+            if (i > 0)
+                result += Delim;
+            result += vString[i];
         }
 
-        // remove last delimiter
-        return S1.substr(0, S1.length() - Delim.length());
+        return result;
     }
 
-    static std::string JoinString(std::string arrString[], short Length, const std::string& Delim)
+    static std::string JoinString(std::string arrString[], size_t Length, const std::string& Delim)
     {
-        std::string S1 = "";
-
-        for (short i = 0; i < Length; i++)
+        if (Length == 0)
+            return "";
+            
+        std::string result;
+        result.reserve(Length * 20); // rough estimate to reduce reallocations
+        
+        for (size_t i = 0; i < Length; ++i)
         {
-            S1 = S1 + arrString[i] + Delim;
+            if (i > 0)
+                result += Delim;
+            result += arrString[i];
         }
 
-        // remove last delimiter
-        return S1.substr(0, S1.length() - Delim.length());
+        return result;
     }
 
     // ---- Reverse Words ----
@@ -552,9 +562,13 @@ public:
 
     static std::string Repeat(const std::string& S1, int times)
     {
+        if (times <= 0 || S1.empty())
+            return "";
+            
         std::string result;
-        result.reserve(S1.size() * times); // reserve memory upfront to avoid reallocation
-        for (int i = 0; i < times; i++)
+        result.reserve(S1.size() * times);
+        
+        for (int i = 0; i < times; ++i)
         {
             result += S1;
         }
