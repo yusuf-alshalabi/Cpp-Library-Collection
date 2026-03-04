@@ -25,6 +25,12 @@ public:
         : _StartDate(StartDate), _EndDate(EndDate) {
     }
 
+    // Move constructor
+    MyPeriod(MyPeriod&& other) noexcept
+        : _StartDate(std::move(other._StartDate)), _EndDate(std::move(other._EndDate))
+    {
+    }
+
     // ---- Overlap ----
 
     static bool IsOverlapPeriods(const MyPeriod& Period1, const MyPeriod& Period2)
@@ -37,6 +43,17 @@ public:
             return false;
         else
             return true;
+    }
+
+    // Move assignment operator
+    MyPeriod& operator=(MyPeriod&& other) noexcept
+    {
+        if (this != &other)
+        {
+            _StartDate = std::move(other._StartDate);
+            _EndDate = std::move(other._EndDate);
+        }
+        return *this;
     }
 
     bool IsOverLapWith(const MyPeriod& Period2) const
