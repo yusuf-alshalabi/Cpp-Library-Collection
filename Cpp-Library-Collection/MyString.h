@@ -64,12 +64,12 @@ public:
 
     // ---- Count Words ----
 
-    static short CountWords(const std::string& S1)
+    static size_t CountWords(const std::string& S1)
     {
         std::string temp = Trim(S1);   // remove leading and trailing spaces
         std::string delim = " ";
-        short Counter = 0;
-        short pos = 0;
+        size_t Counter = 0;
+        size_t pos = 0;
         std::string sWord;
 
         while ((pos = temp.find(delim)) != std::string::npos)
@@ -97,7 +97,7 @@ public:
         return Counter;
     }
 
-    short CountWords() const
+    size_t CountWords() const
     {
         return CountWords(_Value);
     }
