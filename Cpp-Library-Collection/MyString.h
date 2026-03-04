@@ -25,6 +25,12 @@ public:
         _Value = Value;
     }
 
+    // Move constructor
+    MyString(std::string&& Value) noexcept
+        : _Value(std::move(Value))
+    {
+    }
+
     void SetValue(const std::string& Value)
     {
         _Value = Value;
