@@ -123,9 +123,8 @@ public:
         return temp;
     }
 
-    void UpperFirstLetterOfEachWord()
+    void UpperFirstLetterOfEachWord() const
     {
-        // no need to return value, this function will directly update the object value
         _Value = UpperFirstLetterOfEachWord(_Value);
     }
 
@@ -146,9 +145,8 @@ public:
         return temp;
     }
 
-    void LowerFirstLetterOfEachWord()
+    void LowerFirstLetterOfEachWord() const
     {
-        // no need to return value, this function will directly update the object value
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
 
@@ -164,7 +162,7 @@ public:
         return temp;
     }
 
-    void UpperAllString()
+    void UpperAllString() const
     {
         _Value = UpperAllString(_Value);
     }
@@ -179,7 +177,7 @@ public:
         return temp;
     }
 
-    void LowerAllString()
+    void LowerAllString() const
     {
         _Value = LowerAllString(_Value);
     }
@@ -201,7 +199,7 @@ public:
         return temp;
     }
 
-    void InvertAllLettersCase()
+    void InvertAllLettersCase() const
     {
         _Value = InvertAllLettersCase(_Value);
     }
@@ -374,7 +372,7 @@ public:
         return "";
     }
 
-    void TrimLeft()
+    void TrimLeft() const
     {
         _Value = TrimLeft(_Value);
     }
@@ -391,7 +389,7 @@ public:
         return "";
     }
 
-    void TrimRight()
+    void TrimRight() const
     {
         _Value = TrimRight(_Value);
     }
@@ -401,7 +399,7 @@ public:
         return TrimLeft(TrimRight(S1));
     }
 
-    void Trim()
+    void Trim() const
     {
         _Value = Trim(_Value);
     }
