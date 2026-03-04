@@ -1,5 +1,6 @@
 #pragma once
 #include "MyDate.h"
+#include <stdexcept>
 
 namespace MyLib {
 
@@ -8,6 +9,9 @@ class MyPeriod
 private:
     MyDate _StartDate;
     MyDate _EndDate;
+    
+    // Error handling
+    static std::string _lastError;
 
 public:
 
@@ -23,6 +27,13 @@ public:
 
     MyPeriod(const MyDate& StartDate, const MyDate& EndDate)
         : _StartDate(StartDate), _EndDate(EndDate) {
+        
+        // Validate that start date is not after end date
+        if (MyDate::CompareDates(StartDate, EndDate) == MyDate::enDateCompare::After)
+        {
+            _lastError = "Invalid period: Start date cannot be after end date";
+            throw std::invalid_argument("MyPeriod: Start date cannot be after end date");
+        }
     }
 
     // Move constructor
@@ -59,6 +70,17 @@ public:
     bool IsOverLapWith(const MyPeriod& Period2) const
     {
         return IsOverlapPeriods(*this, Period2);
+    }
+
+    // Error handling methods
+    static std::string GetLastError()
+    {
+        return _lastError;
+    }
+
+    static void ClearError()
+    {
+        _lastError.clear();
     }
 
     // ---- Duration ----
