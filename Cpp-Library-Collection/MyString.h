@@ -378,7 +378,10 @@ public:
 
     static std::string TrimLeft(const std::string& S1)
     {
-        for (short i = 0; i < S1.length(); i++)
+        if (S1.empty())
+            return "";
+
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (!isspace(static_cast<unsigned char>(S1[i])))
             {
