@@ -136,11 +136,17 @@ int main() {
 
 ```bash
 cd build
-make basic_demo
-./basic_demo
+make tests
+./tests
 ```
 
 ## 📖 Examples
+
+```bash
+cd build
+make basic_demo
+./basic_demo
+```
 
 See the `examples/` directory for comprehensive usage examples:
 - `basic_demo.cpp` - Complete demonstration of all library features
