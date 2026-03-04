@@ -342,15 +342,18 @@ public:
     static std::vector<std::string> Split(const std::string& S1, const std::string& Delim)
     {
         std::vector<std::string> vString;
+        
+        if (S1.empty() || Delim.empty())
+            return vString;
 
         size_t pos = 0;
         std::string temp = S1; // local copy to modify
         std::string sWord;
 
-        // use find() to get the position of the delimiter
+        // use find() to get position of delimiter
         while ((pos = temp.find(Delim)) != std::string::npos)
         {
-            sWord = temp.substr(0, pos); // store the word
+            sWord = temp.substr(0, pos); // store word
             if (sWord != "")
             {
                 vString.push_back(sWord);
