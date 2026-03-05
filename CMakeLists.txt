@@ -13,6 +13,7 @@ set(HEADERS
     include/MyLib/MyString.h
     include/MyLib/MyDate.h
     include/MyLib/MyPeriod.h
+    include/MyLib/MyUtil.h
 )
 
 # Create header-only library
