@@ -183,5 +183,38 @@ namespace MyLib {
 
         }
 
+        static  void ShuffleArray(int arr[100], int arrLength)
+        {
+
+            for (int i = 0; i < arrLength; i++)
+            {
+                Swap(arr[RandomNumber(1, arrLength) - 1], arr[RandomNumber(1, arrLength) - 1]);
+            }
+
+        }
+
+        static  void ShuffleArray(std::string arr[100], int arrLength)
+        {
+
+            for (int i = 0; i < arrLength; i++)
+            {
+                Swap(arr[RandomNumber(1, arrLength) - 1], arr[RandomNumber(1, arrLength) - 1]);
+            }
+
+        }
+
+        static std::string  Tabs(short NumberOfTabs)
+        {
+            std::string t = "";
+
+            for (int i = 1; i < NumberOfTabs; i++)
+            {
+                t = t + "\t";
+                std::cout << t;
+            }
+            return t;
+
+        }
+
     };
 }
