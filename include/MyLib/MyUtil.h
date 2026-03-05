@@ -113,5 +113,24 @@ namespace MyLib {
 
         }
 
+        static void FillArrayWithRandomNumbers(int arr[100], int arrLength, int From, int To)
+        {
+            for (int i = 0; i < arrLength; i++)
+                arr[i] = RandomNumber(From, To);
+        }
+
+        static void FillArrayWithRandomWords(std::string arr[100], int arrLength, enCharType CharType, short Wordlength)
+        {
+            for (int i = 0; i < arrLength; i++)
+                arr[i] = GenerateWord(CharType, Wordlength);
+
+        }
+
+        static void FillArrayWithRandomKeys(std::string arr[100], int arrLength, enCharType CharType)
+        {
+            for (int i = 0; i < arrLength; i++)
+                arr[i] = GenerateKey(CharType);
+        }
+
     };
 }
