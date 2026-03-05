@@ -132,5 +132,56 @@ namespace MyLib {
                 arr[i] = GenerateKey(CharType);
         }
 
+        static  void Swap(int& A, int& B)
+        {
+            int Temp;
+
+            Temp = A;
+            A = B;
+            B = Temp;
+        }
+
+        static  void Swap(double& A, double& B)
+        {
+            double Temp;
+
+            Temp = A;
+            A = B;
+            B = Temp;
+        }
+
+        static  void Swap(bool& A, bool& B)
+        {
+            bool Temp;
+
+            Temp = A;
+            A = B;
+            B = Temp;
+        }
+
+        static  void Swap(char& A, char& B)
+        {
+            char Temp;
+
+            Temp = A;
+            A = B;
+            B = Temp;
+        }
+
+        static  void Swap(std::string& A, std::string& B)
+        {
+            std::string Temp;
+
+            Temp = A;
+            A = B;
+            B = Temp;
+        }
+
+        static  void Swap(MyDate& A, MyDate& B)
+        {
+            MyDate::SwapDates(A, B);
+
+        }
+
     };
 }
