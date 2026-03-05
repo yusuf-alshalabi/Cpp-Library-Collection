@@ -216,5 +216,32 @@ namespace MyLib {
 
         }
 
+        static std::string  EncryptText(std::string Text, short EncryptionKey)
+        {
+
+            for (int i = 0; i < Text.length(); i++)
+            {
+
+                Text[i] = char((int)Text[i] + EncryptionKey);
+
+            }
+
+            return Text;
+
+        }
+
+        static std::string  DecryptText(std::string Text, short EncryptionKey)
+        {
+
+            for (int i = 0; i < Text.length(); i++)
+            {
+
+                Text[i] = char((int)Text[i] - EncryptionKey);
+
+            }
+            return Text;
+
+        }
+
     };
 }
