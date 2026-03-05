@@ -86,5 +86,32 @@ namespace MyLib {
             return Word;
         }
 
+        static std::string  GenerateKey(enCharType CharType = CapitalLetter)
+        {
+
+            std::string Key = "";
+
+
+            Key = GenerateWord(CharType, 4) + "-";
+            Key = Key + GenerateWord(CharType, 4) + "-";
+            Key = Key + GenerateWord(CharType, 4) + "-";
+            Key = Key + GenerateWord(CharType, 4);
+
+
+            return Key;
+        }
+
+        static void GenerateKeys(short NumberOfKeys, enCharType CharType)
+        {
+
+            for (int i = 1; i <= NumberOfKeys; i++)
+
+            {
+                std::cout << "Key [" << i << "] : ";
+                std::cout << GenerateKey(CharType) << std::endl;
+            }
+
+        }
+
     };
 }
