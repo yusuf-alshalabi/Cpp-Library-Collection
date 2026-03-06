@@ -54,6 +54,12 @@ void test_myutil_generation_functions() {
     assert(key[4] == '-' && key[9] == '-' && key[14] == '-');
     std::cout << "✓ GenerateKey test passed: " << key << "\n";
     
+    // Test GenerateKeys (this method prints to console, so we can't easily test output)
+    // But we can at least verify it doesn't crash
+    std::cout << "Testing GenerateKeys output:\n";
+    clsUtil::GenerateKeys(2, clsUtil::CapitalLetter);
+    std::cout << "✓ GenerateKeys test passed (no crash)\n";
+    
     std::cout << "✓ MyUtil generation functions tests passed\n\n";
 }
 
