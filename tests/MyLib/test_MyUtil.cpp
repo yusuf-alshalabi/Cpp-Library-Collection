@@ -168,17 +168,40 @@ void test_myutil_array_functions() {
 void test_myutil_encryption_functions() {
     std::cout << "Testing MyUtil encryption functions...\n";
     
-    // Test Encrypt/Decrypt
+    // Test basic Encrypt/Decrypt
     std::string originalText = "Hello World";
     short encryptionKey = 3;
     std::string encrypted = clsUtil::EncryptText(originalText, encryptionKey);
     std::string decrypted = clsUtil::DecryptText(encrypted, encryptionKey);
     assert(originalText == decrypted);
-    std::cout << "✓ Encrypt/Decrypt test passed\n";
+    std::cout << "✓ Basic Encrypt/Decrypt test passed\n";
     
     // Test that encryption changes the text
     assert(encrypted != originalText);
     std::cout << "✓ Encryption changes text test passed\n";
+    
+    // Test empty string
+    std::string emptyText = "";
+    std::string encryptedEmpty = clsUtil::EncryptText(emptyText, 5);
+    std::string decryptedEmpty = clsUtil::DecryptText(encryptedEmpty, 5);
+    assert(emptyText == decryptedEmpty);
+    std::cout << "✓ Empty string encryption test passed\n";
+    
+    // Test negative encryption key
+    std::string originalText2 = "Test";
+    short negativeKey = -2;
+    std::string encryptedNeg = clsUtil::EncryptText(originalText2, negativeKey);
+    std::string decryptedNeg = clsUtil::DecryptText(encryptedNeg, negativeKey);
+    assert(originalText2 == decryptedNeg);
+    std::cout << "✓ Negative encryption key test passed\n";
+    
+    // Test special characters
+    std::string specialText = "Hello@#$%";
+    short specialKey = 10;
+    std::string encryptedSpecial = clsUtil::EncryptText(specialText, specialKey);
+    std::string decryptedSpecial = clsUtil::DecryptText(encryptedSpecial, specialKey);
+    assert(specialText == decryptedSpecial);
+    std::cout << "✓ Special characters encryption test passed\n";
     
     std::cout << "✓ MyUtil encryption functions tests passed\n\n";
 }
