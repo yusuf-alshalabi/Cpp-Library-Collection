@@ -90,6 +90,64 @@ public:
         return MyDate::GetDifferenceInDays(_StartDate, _EndDate, true);
     }
 
+    // ---- Validation ----
+
+    bool IsValid() const
+    {
+        return MyDate::CompareDates(_StartDate, _EndDate) != MyDate::enDateCompare::After;
+    }
+
+    // ---- Contains ----
+
+    bool Contains(const MyDate& date) const
+    {
+        return MyDate::CompareDates(date, _StartDate) != MyDate::enDateCompare::Before &&
+               MyDate::CompareDates(date, _EndDate) != MyDate::enDateCompare::After;
+    }
+
+    // ---- Length Methods ----
+
+    int LengthInDays() const
+    {
+        return GetDurationInDays();
+    }
+
+    int LengthInMonths() const
+    {
+        int months = (_EndDate.GetYear() - _StartDate.GetYear()) * 12;
+        months += _EndDate.GetMonth() - _StartDate.GetMonth();
+        return months;
+    }
+
+    int LengthInYears() const
+    {
+        int years = _EndDate.GetYear() - _StartDate.GetYear();
+        if (_EndDate.GetMonth() < _StartDate.GetMonth() || 
+            (_EndDate.GetMonth() == _StartDate.GetMonth() && _EndDate.GetDay() < _StartDate.GetDay())) {
+            years--;
+        }
+        return years;
+    }
+
+    // ---- Overlap ----
+
+    bool IsOverlap(const MyPeriod& other) const
+    {
+        return IsOverLapWith(other);
+    }
+
+    // ---- Utilities ----
+
+    bool IsSameDay(const MyDate& date) const
+    {
+        return _StartDate.ToString() == date.ToString() && _EndDate.ToString() == date.ToString();
+    }
+
+    std::string ToString() const
+    {
+        return "Period: " + _StartDate.ToString() + " to " + _EndDate.ToString();
+    }
+
     // ---- Print ----
 
     void Print() const
