@@ -92,6 +92,34 @@ void test_mystring_error_handling() {
     std::cout << "✓ MyString error handling tests passed\n\n";
 }
 
+void test_mystring_case_operations() {
+    std::cout << "Testing MyString case operations...\n";
+    
+    // Test UpperFirstLetterOfEachWord
+    std::string upperFirst = MyString::UpperFirstLetterOfEachWord("hello world");
+    assert(upperFirst == "Hello World");
+    std::cout << "✓ UpperFirstLetterOfEachWord (static) test passed\n";
+    
+    // Test LowerFirstLetterOfEachWord
+    std::string lowerFirst = MyString::LowerFirstLetterOfEachWord("HELLO WORLD");
+    assert(lowerFirst == "hELLO wORLD");
+    std::cout << "✓ LowerFirstLetterOfEachWord (static) test passed\n";
+    
+    // Test InvertLetterCase
+    char invertedChar = MyString::InvertLetterCase('A');
+    assert(invertedChar == 'a');
+    invertedChar = MyString::InvertLetterCase('b');
+    assert(invertedChar == 'B');
+    std::cout << "✓ InvertLetterCase test passed\n";
+    
+    // Test InvertAllLettersCase
+    std::string inverted = MyString::InvertAllLettersCase("Hello World");
+    assert(inverted == "hELLO wORLD");
+    std::cout << "✓ InvertAllLettersCase (static) test passed\n";
+    
+    std::cout << "✓ MyString case operations tests passed\n\n";
+}
+
 void test_mystring_utility_functions() {
     std::cout << "Testing MyString utility functions...\n";
     
