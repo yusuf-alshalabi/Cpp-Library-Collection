@@ -13,7 +13,7 @@ void test_myutil_random_functions() {
     assert(randNum >= 1 && randNum <= 100);
     std::cout << "✓ RandomNumber test passed\n";
     
-    // Test GetRandomCharacter
+    // Test GetRandomCharacter - ALL enum types
     char capitalChar = clsUtil::GetRandomCharacter(clsUtil::CapitalLetter);
     assert(capitalChar >= 'A' && capitalChar <= 'Z');
     std::cout << "✓ GetRandomCharacter (CapitalLetter) test passed\n";
@@ -25,6 +25,17 @@ void test_myutil_random_functions() {
     char digitChar = clsUtil::GetRandomCharacter(clsUtil::Digit);
     assert(digitChar >= '0' && digitChar <= '9');
     std::cout << "✓ GetRandomCharacter (Digit) test passed\n";
+    
+    char specialChar = clsUtil::GetRandomCharacter(clsUtil::SpecialCharacter);
+    assert(specialChar >= '!' && specialChar <= '/');
+    std::cout << "✓ GetRandomCharacter (SpecialCharacter) test passed\n";
+    
+    // Test MixChars (should return one of Capital, Small, or Digit)
+    char mixChar = clsUtil::GetRandomCharacter(clsUtil::MixChars);
+    assert((mixChar >= 'A' && mixChar <= 'Z') || 
+           (mixChar >= 'a' && mixChar <= 'z') || 
+           (mixChar >= '0' && mixChar <= '9'));
+    std::cout << "✓ GetRandomCharacter (MixChars) test passed\n";
     
     std::cout << "✓ MyUtil random functions tests passed\n\n";
 }
