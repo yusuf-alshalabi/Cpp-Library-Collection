@@ -134,7 +134,7 @@ void test_myutil_array_functions() {
     }
     std::cout << "✓ FillArrayWithRandomKeys test passed\n";
     
-    // Test ShuffleArray
+    // Test ShuffleArray (int)
     int testArr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     clsUtil::ShuffleArray(testArr, 10);
     // Check that array is shuffled (not all elements in original order)
@@ -146,7 +146,21 @@ void test_myutil_array_functions() {
         }
     }
     assert(isShuffled);
-    std::cout << "✓ ShuffleArray test passed\n";
+    std::cout << "✓ ShuffleArray (int) test passed\n";
+    
+    // Test ShuffleArray (string)
+    std::string stringArr[5] = {"A", "B", "C", "D", "E"};
+    clsUtil::ShuffleArray(stringArr, 5);
+    // Check that array is shuffled
+    bool isStringShuffled = false;
+    for (int i = 0; i < 5; i++) {
+        if (stringArr[i] != std::string(1, 'A' + i)) {
+            isStringShuffled = true;
+            break;
+        }
+    }
+    assert(isStringShuffled);
+    std::cout << "✓ ShuffleArray (string) test passed\n";
     
     std::cout << "✓ MyUtil array functions tests passed\n\n";
 }
