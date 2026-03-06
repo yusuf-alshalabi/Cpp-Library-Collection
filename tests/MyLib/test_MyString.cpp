@@ -322,6 +322,54 @@ void test_mystring_advanced_operations() {
     std::cout << "✓ MyString advanced operations tests passed\n\n";
 }
 
+void test_mystring_split_trim_functions() {
+    std::cout << "Testing MyString split and trim functions...\n";
+    
+    // Test Split instance method
+    MyString str1("word1,word2,word3");
+    std::vector<std::string> words = str1.Split(",");
+    assert(words.size() == 3);
+    assert(words[0] == "word1");
+    assert(words[1] == "word2");
+    assert(words[2] == "word3");
+    std::cout << "✓ Split (instance) test passed\n";
+    
+    // Test TrimLeft instance method
+    MyString str2("   Hello");
+    str2.TrimLeft();
+    assert(str2.GetValue() == "Hello");
+    std::cout << "✓ TrimLeft (instance) test passed\n";
+    
+    // Test TrimRight instance method
+    MyString str3("Hello   ");
+    str3.TrimRight();
+    assert(str3.GetValue() == "Hello");
+    std::cout << "✓ TrimRight (instance) test passed\n";
+    
+    // Test Trim instance method
+    MyString str4("   Hello World   ");
+    str4.Trim();
+    assert(str4.GetValue() == "Hello World");
+    std::cout << "✓ Trim (instance) test passed\n";
+    
+    // Test JoinString static methods
+    std::vector<std::string> joinVec = {"A", "B", "C"};
+    assert(MyString::JoinString(joinVec, ",") == "A,B,C");
+    std::cout << "✓ JoinString with vector test passed\n";
+    
+    std::string joinArr[] = {"X", "Y", "Z"};
+    assert(MyString::JoinString(joinArr, 3, "|") == "X|Y|Z");
+    std::cout << "✓ JoinString with array test passed\n";
+    
+    // Test JoinString edge cases
+    std::vector<std::string> emptyVec;
+    assert(MyString::JoinString(emptyVec, ",") == "");
+    assert(MyString::JoinString(joinArr, 0, ",") == "");
+    std::cout << "✓ JoinString edge cases test passed\n";
+    
+    std::cout << "✓ MyString split and trim functions tests passed\n\n";
+}
+
 void test_mystring_utility_functions() {
     std::cout << "Testing MyString utility functions...\n";
     
