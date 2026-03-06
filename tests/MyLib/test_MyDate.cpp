@@ -373,6 +373,9 @@ int main() {
     test_mydate_comparisons();
     test_mydate_arithmetic();
     test_mydate_utilities();
+    test_mydate_calendar();
+    test_mydate_business_vacation();
+    test_mydate_time_functions();
     
     std::cout << "🎉 All MyDate tests passed successfully!\n";
     return 0;
