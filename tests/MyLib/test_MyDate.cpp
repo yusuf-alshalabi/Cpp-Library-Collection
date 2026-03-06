@@ -362,6 +362,84 @@ void test_mydate_time_functions() {
     std::cout << "✓ MyDate time functions tests passed\n\n";
 }
 
+void test_mydate_advanced_arithmetic() {
+    std::cout << "Testing MyDate advanced arithmetic functions...\n";
+    
+    // Test IncreaseDateByOneWeek
+    MyDate date("25/12/2023");
+    MyDate nextWeek = MyDate::IncreaseDateByOneWeek(date);
+    assert(nextWeek.GetDay() == 1);
+    assert(nextWeek.GetMonth() == 1);
+    assert(nextWeek.GetYear() == 2024);
+    std::cout << "✓ IncreaseDateByOneWeek (static) test passed\n";
+    
+    // Test IncreaseDateByOneWeek (instance)
+    MyDate date2("25/12/2023");
+    date2.IncreaseDateByOneWeek();
+    assert(date2.GetDay() == 1);
+    assert(date2.GetMonth() == 1);
+    assert(date2.GetYear() == 2024);
+    std::cout << "✓ IncreaseDateByOneWeek (instance) test passed\n";
+    
+    // Test IncreaseDateByXWeeks
+    MyDate date3("25/12/2023");
+    MyDate twoWeeksLater = date3.IncreaseDateByXWeeks(2, date3);
+    assert(twoWeeksLater.GetDay() == 8);
+    assert(twoWeeksLater.GetMonth() == 1);
+    assert(twoWeeksLater.GetYear() == 2024);
+    std::cout << "✓ IncreaseDateByXWeeks test passed\n";
+    
+    // Test IncreaseDateByOneMonth
+    MyDate date4("15/01/2023");
+    MyDate nextMonth = MyDate::IncreaseDateByOneMonth(date4);
+    assert(nextMonth.GetDay() == 15);
+    assert(nextMonth.GetMonth() == 2);
+    assert(nextMonth.GetYear() == 2023);
+    std::cout << "✓ IncreaseDateByOneMonth (static) test passed\n";
+    
+    // Test IncreaseDateByOneMonth (instance)
+    MyDate date5("15/01/2023");
+    date5.IncreaseDateByOneMonth();
+    assert(date5.GetDay() == 15);
+    assert(date5.GetMonth() == 2);
+    assert(date5.GetYear() == 2023);
+    std::cout << "✓ IncreaseDateByOneMonth (instance) test passed\n";
+    
+    // Test IncreaseDateByOneYear
+    MyDate date6("15/06/2023");
+    MyDate nextYear = MyDate::IncreaseDateByOneYear(date6);
+    assert(nextYear.GetDay() == 15);
+    assert(nextYear.GetMonth() == 6);
+    assert(nextYear.GetYear() == 2024);
+    std::cout << "✓ IncreaseDateByOneYear test passed\n";
+    
+    // Test IncreaseDateByOneDecade
+    MyDate date7("15/06/2023");
+    MyDate nextDecade = date7.IncreaseDateByOneDecade(date7);
+    assert(nextDecade.GetDay() == 15);
+    assert(nextDecade.GetMonth() == 6);
+    assert(nextDecade.GetYear() == 2033);
+    std::cout << "✓ IncreaseDateByOneDecade test passed\n";
+    
+    // Test IncreaseDateByOneCentury
+    MyDate date8("15/06/2023");
+    MyDate nextCentury = date8.IncreaseDateByOneCentury(date8);
+    assert(nextCentury.GetDay() == 15);
+    assert(nextCentury.GetMonth() == 6);
+    assert(nextCentury.GetYear() == 2123);
+    std::cout << "✓ IncreaseDateByOneCentury test passed\n";
+    
+    // Test IncreaseDateByOneMillennium
+    MyDate date9("15/06/2023");
+    MyDate nextMillennium = date9.IncreaseDateByOneMillennium(date9);
+    assert(nextMillennium.GetDay() == 15);
+    assert(nextMillennium.GetMonth() == 6);
+    assert(nextMillennium.GetYear() == 3023);
+    std::cout << "✓ IncreaseDateByOneMillennium test passed\n";
+    
+    std::cout << "✓ MyDate advanced arithmetic tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
