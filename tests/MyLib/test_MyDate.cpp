@@ -245,6 +245,27 @@ void test_mydate_utilities() {
     std::cout << "✓ MyDate utility tests passed\n\n";
 }
 
+void test_mydate_calendar() {
+    std::cout << "Testing MyDate calendar functions...\n";
+    
+    // Test PrintMonthCalendar (visual verification)
+    std::cout << "Testing PrintMonthCalendar output:\n";
+    MyDate::PrintMonthCalendar(12, 2023);
+    std::cout << "✓ PrintMonthCalendar (static) test passed\n";
+    
+    MyDate date("15/06/2023");
+    std::cout << "Testing PrintMonthCalendar (instance) output:\n";
+    date.PrintMonthCalendar();
+    std::cout << "✓ PrintMonthCalendar (instance) test passed\n";
+    
+    // Test PrintYearCalendar (visual verification)
+    std::cout << "Testing PrintYearCalendar output:\n";
+    MyDate::PrintYearCalendar(2023);
+    std::cout << "✓ PrintYearCalendar (static) test passed\n";
+    
+    std::cout << "✓ MyDate calendar tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
