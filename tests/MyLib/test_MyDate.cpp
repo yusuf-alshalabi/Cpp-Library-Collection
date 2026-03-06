@@ -315,6 +315,53 @@ void test_mydate_business_vacation() {
     std::cout << "✓ MyDate business and vacation tests passed\n\n";
 }
 
+void test_mydate_time_functions() {
+    std::cout << "Testing MyDate time functions...\n";
+    
+    // Test hours in year
+    long long hours2023 = MyDate::NumberOfHoursInAYear(2023);
+    assert(hours2023 == 365 * 24);
+    long long hours2024 = MyDate::NumberOfHoursInAYear(2024);
+    assert(hours2024 == 366 * 24);
+    std::cout << "✓ NumberOfHoursInAYear test passed\n";
+    
+    // Test minutes in year
+    long long minutes2023 = MyDate::NumberOfMinutesInAYear(2023);
+    assert(minutes2023 == 365 * 24 * 60);
+    std::cout << "✓ NumberOfMinutesInAYear test passed\n";
+    
+    // Test seconds in year
+    long long seconds2023 = MyDate::NumberOfSecondsInAYear(2023);
+    assert(seconds2023 == 365 * 24 * 60 * 60);
+    std::cout << "✓ NumberOfSecondsInAYear test passed\n";
+    
+    // Test hours in month
+    short hoursDec2023 = MyDate::NumberOfHoursInAMonth(12, 2023);
+    assert(hoursDec2023 == 31 * 24);
+    short hoursFeb2024 = MyDate::NumberOfHoursInAMonth(2, 2024);
+    assert(hoursFeb2024 == 29 * 24);
+    std::cout << "✓ NumberOfHoursInAMonth test passed\n";
+    
+    // Test minutes in month
+    int minutesDec2023 = MyDate::NumberOfMinutesInAMonth(12, 2023);
+    assert(minutesDec2023 == 31 * 24 * 60);
+    std::cout << "✓ NumberOfMinutesInAMonth test passed\n";
+    
+    // Test seconds in month
+    int secondsDec2023 = MyDate::NumberOfSecondsInAMonth(12, 2023);
+    assert(secondsDec2023 == 31 * 24 * 60 * 60);
+    std::cout << "✓ NumberOfSecondsInAMonth test passed\n";
+    
+    // Test instance time functions
+    MyDate date("15/06/2023");
+    assert(date.NumberOfHoursInAYear() == 365 * 24);
+    assert(date.NumberOfMinutesInAYear() == 365 * 24 * 60);
+    assert(date.NumberOfSecondsInAYear() == 365 * 24 * 60 * 60);
+    std::cout << "✓ Instance time functions test passed\n";
+    
+    std::cout << "✓ MyDate time functions tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
