@@ -96,6 +96,14 @@ void test_myutil_swap_functions() {
     assert(c1 == 'B' && c2 == 'A');
     std::cout << "✓ Swap (char) test passed\n";
     
+    // Test MyDate swap
+    MyDate date1("25/12/2023");
+    MyDate date2("01/01/2024");
+    clsUtil::Swap(date1, date2);
+    assert(date1.ToString() == "01/01/2024");
+    assert(date2.ToString() == "25/12/2023");
+    std::cout << "✓ Swap (MyDate) test passed\n";
+    
     std::cout << "✓ MyUtil swap functions tests passed\n\n";
 }
 
