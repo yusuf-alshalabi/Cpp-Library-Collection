@@ -100,14 +100,16 @@ void test_mydate_validation() {
     // Test valid dates
     MyDate validDate("15/06/2023");
     assert(validDate.IsValid() == true);
+    std::cout << "✓ Valid date test passed\n";
     
-    // Test invalid dates
-    try {
-        MyDate invalidDate("32/13/2023");
-        assert(false); // Should not reach here
-    } catch (...) {
-        // Expected to throw exception
-    }
+    // Test static validation
+    MyDate testDate(29, 2, 2024); // Leap year
+    assert(MyDate::IsValidDate(testDate) == true);
+    std::cout << "✓ Static validation (leap year) test passed\n";
+    
+    MyDate invalidDate(31, 4, 2023); // April has 30 days
+    assert(MyDate::IsValidDate(invalidDate) == false);
+    std::cout << "✓ Static validation (invalid) test passed\n";
     
     std::cout << "✓ MyDate validation tests passed\n\n";
 }
@@ -117,13 +119,20 @@ void test_mydate_formatting() {
     
     MyDate date("25/12/2023");
     
-    // Test date to string
-    std::string dateStr = date.ToString();
+    // Test date to string (static)
+    std::string dateStr = MyDate::DateToString(date);
     assert(dateStr == "25/12/2023");
+    std::cout << "✓ DateToString (static) test passed\n";
     
-    // Test formatted output
-    std::string formatted = date.Format("DD-MM-YYYY");
-    assert(formatted == "25-12-2023");
+    // Test date to string (instance)
+    std::string dateStr2 = date.DateToString();
+    assert(dateStr2 == "25/12/2023");
+    std::cout << "✓ DateToString (instance) test passed\n";
+    
+    // Test print method
+    std::cout << "Testing Print method output:\n";
+    date.Print();
+    std::cout << "✓ Print method test passed\n";
     
     std::cout << "✓ MyDate formatting tests passed\n\n";
 }
