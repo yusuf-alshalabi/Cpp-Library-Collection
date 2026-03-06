@@ -144,10 +144,25 @@ void test_mydate_comparisons() {
     MyDate date2("26/12/2023");
     MyDate date3("25/12/2023");
     
-    assert(date1.IsEqual(date3) == true);
-    assert(date1.IsEqual(date2) == false);
-    assert(date1.IsBefore(date2) == true);
-    assert(date2.IsAfter(date1) == true);
+    // Test static comparison functions
+    assert(MyDate::IsDate1EqualDate2(date1, date3) == true);
+    assert(MyDate::IsDate1EqualDate2(date1, date2) == false);
+    assert(MyDate::IsDate1BeforeDate2(date1, date2) == true);
+    assert(MyDate::IsDate1AfterDate2(date2, date1) == true);
+    std::cout << "✓ Static comparison functions test passed\n";
+    
+    // Test instance comparison functions
+    assert(date1.IsDateEqualDate2(date3) == true);
+    assert(date1.IsDateEqualDate2(date2) == false);
+    assert(date1.IsDateBeforeDate2(date2) == true);
+    assert(date2.IsDateAfterDate2(date1) == true);
+    std::cout << "✓ Instance comparison functions test passed\n";
+    
+    // Test CompareDates with enum
+    assert(MyDate::CompareDates(date1, date3) == MyDate::enDateCompare::Equal);
+    assert(MyDate::CompareDates(date1, date2) == MyDate::enDateCompare::Before);
+    assert(MyDate::CompareDates(date2, date1) == MyDate::enDateCompare::After);
+    std::cout << "✓ CompareDates enum test passed\n";
     
     std::cout << "✓ MyDate comparison tests passed\n\n";
 }
