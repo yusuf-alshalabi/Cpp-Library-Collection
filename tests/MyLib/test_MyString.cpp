@@ -151,6 +151,42 @@ void test_mystring_case_operations() {
     std::cout << "✓ MyString case operations tests passed\n\n";
 }
 
+void test_mystring_case_instance_methods() {
+    std::cout << "Testing MyString case instance methods...\n";
+    
+    // Test UpperFirstLetterOfEachWord instance method
+    MyString str1("hello world");
+    str1.UpperFirstLetterOfEachWord();
+    assert(str1.GetValue() == "Hello World");
+    std::cout << "✓ UpperFirstLetterOfEachWord (instance) test passed\n";
+    
+    // Test LowerFirstLetterOfEachWord instance method
+    MyString str2("HELLO WORLD");
+    str2.LowerFirstLetterOfEachWord();
+    assert(str2.GetValue() == "hELLO wORLD");
+    std::cout << "✓ LowerFirstLetterOfEachWord (instance) test passed\n";
+    
+    // Test UpperAllString instance method
+    MyString str3("hello world");
+    str3.UpperAllString();
+    assert(str3.GetValue() == "HELLO WORLD");
+    std::cout << "✓ UpperAllString (instance) test passed\n";
+    
+    // Test LowerAllString instance method
+    MyString str4("HELLO WORLD");
+    str4.LowerAllString();
+    assert(str4.GetValue() == "hello world");
+    std::cout << "✓ LowerAllString (instance) test passed\n";
+    
+    // Test InvertAllLettersCase instance method
+    MyString str5("Hello World");
+    str5.InvertAllLettersCase();
+    assert(str5.GetValue() == "hELLO wORLD");
+    std::cout << "✓ InvertAllLettersCase (instance) test passed\n";
+    
+    std::cout << "✓ MyString case instance methods tests passed\n\n";
+}
+
 void test_mystring_counting_operations() {
     std::cout << "Testing MyString counting operations...\n";
     
