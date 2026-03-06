@@ -440,6 +440,76 @@ void test_mydate_advanced_arithmetic() {
     std::cout << "✓ MyDate advanced arithmetic tests passed\n\n";
 }
 
+void test_mydate_decrease_functions() {
+    std::cout << "Testing MyDate decrease functions...\n";
+    
+    // Test DecreaseDateByOneDay
+    MyDate date("01/01/2024");
+    MyDate previousDay = MyDate::DecreaseDateByOneDay(date);
+    assert(previousDay.GetDay() == 31);
+    assert(previousDay.GetMonth() == 12);
+    assert(previousDay.GetYear() == 2023);
+    std::cout << "✓ DecreaseDateByOneDay (static) test passed\n";
+    
+    // Test DecreaseDateByOneDay (instance)
+    MyDate date2("01/01/2024");
+    date2.DecreaseDateByOneDay();
+    assert(date2.GetDay() == 31);
+    assert(date2.GetMonth() == 12);
+    assert(date2.GetYear() == 2023);
+    std::cout << "✓ DecreaseDateByOneDay (instance) test passed\n";
+    
+    // Test DecreaseDateByOneWeek
+    MyDate date3("08/01/2024");
+    MyDate previousWeek = MyDate::DecreaseDateByOneWeek(date3);
+    assert(previousWeek.GetDay() == 1);
+    assert(previousWeek.GetMonth() == 1);
+    assert(previousWeek.GetYear() == 2024);
+    std::cout << "✓ DecreaseDateByOneWeek test passed\n";
+    
+    // Test DecreaseDateByOneMonth
+    MyDate date4("15/02/2024");
+    MyDate previousMonth = MyDate::DecreaseDateByOneMonth(date4);
+    assert(previousMonth.GetDay() == 15);
+    assert(previousMonth.GetMonth() == 1);
+    assert(previousMonth.GetYear() == 2024);
+    std::cout << "✓ DecreaseDateByOneMonth test passed\n";
+    
+    // Test DecreaseDateByOneYear
+    MyDate date5("15/06/2024");
+    MyDate previousYear = MyDate::DecreaseDateByOneYear(date5);
+    assert(previousYear.GetDay() == 15);
+    assert(previousYear.GetMonth() == 6);
+    assert(previousYear.GetYear() == 2023);
+    std::cout << "✓ DecreaseDateByOneYear test passed\n";
+    
+    // Test DecreaseDateByOneDecade
+    MyDate date6("15/06/2024");
+    MyDate previousDecade = date6.DecreaseDateByOneDecade(date6);
+    assert(previousDecade.GetDay() == 15);
+    assert(previousDecade.GetMonth() == 6);
+    assert(previousDecade.GetYear() == 2014);
+    std::cout << "✓ DecreaseDateByOneDecade test passed\n";
+    
+    // Test DecreaseDateByOneCentury
+    MyDate date7("15/06/2024");
+    MyDate previousCentury = date7.DecreaseDateByOneCentury(date7);
+    assert(previousCentury.GetDay() == 15);
+    assert(previousCentury.GetMonth() == 6);
+    assert(previousCentury.GetYear() == 1924);
+    std::cout << "✓ DecreaseDateByOneCentury test passed\n";
+    
+    // Test DecreaseDateByOneMillennium
+    MyDate date8("15/06/2024");
+    MyDate previousMillennium = date8.DecreaseDateByOneMillennium(date8);
+    assert(previousMillennium.GetDay() == 15);
+    assert(previousMillennium.GetMonth() == 6);
+    assert(previousMillennium.GetYear() == 1024);
+    std::cout << "✓ DecreaseDateByOneMillennium test passed\n";
+    
+    std::cout << "✓ MyDate decrease functions tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
