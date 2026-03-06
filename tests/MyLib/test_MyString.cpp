@@ -238,8 +238,11 @@ void test_mystring_utility_functions() {
 int main() {
     std::cout << "=== MyString Unit Tests ===\n\n";
     
-    test_mystring_basic();
+    test_mystring_constructors_operators();
     test_mystring_error_handling();
+    test_mystring_case_operations();
+    test_mystring_counting_operations();
+    test_mystring_advanced_operations();
     test_mystring_utility_functions();
     
     std::cout << "🎉 All MyString tests passed successfully!\n";
