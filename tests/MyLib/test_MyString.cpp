@@ -163,6 +163,59 @@ void test_mystring_counting_operations() {
     std::cout << "✓ MyString counting operations tests passed\n\n";
 }
 
+void test_mystring_advanced_operations() {
+    std::cout << "Testing MyString advanced operations...\n";
+    
+    // Test ReverseWordsInString
+    std::string reversed = MyString::ReverseWordsInString("Hello World Test");
+    assert(reversed == "Test World Hello");
+    std::cout << "✓ ReverseWordsInString (static) test passed\n";
+    
+    // Test ReplaceWord with case matching
+    std::string replaced = MyString::ReplaceWord("Hello World Hello", "Hello", "Hi", true);
+    assert(replaced == "Hi World Hi");
+    std::cout << "✓ ReplaceWord (case sensitive) test passed\n";
+    
+    // Test ReplaceWord without case matching
+    std::string replacedCase = MyString::ReplaceWord("Hello World hello", "hello", "Hi", false);
+    assert(replacedCase == "Hi World Hi");
+    std::cout << "✓ ReplaceWord (case insensitive) test passed\n";
+    
+    // Test RemovePunctuations
+    std::string noPunct = MyString::RemovePunctuations("Hello, World! How are you?");
+    assert(noPunct == "Hello World How are you");
+    std::cout << "✓ RemovePunctuations (static) test passed\n";
+    
+    // Test Contains
+    assert(MyString::Contains("Hello World", "World") == true);
+    assert(MyString::Contains("Hello World", "Test") == false);
+    std::cout << "✓ Contains (static) test passed\n";
+    
+    // Test StartsWith
+    assert(MyString::StartsWith("Hello World", "Hello") == true);
+    assert(MyString::StartsWith("Hello World", "World") == false);
+    std::cout << "✓ StartsWith (static) test passed\n";
+    
+    // Test EndsWith
+    assert(MyString::EndsWith("Hello World", "World") == true);
+    assert(MyString::EndsWith("Hello World", "Hello") == false);
+    std::cout << "✓ EndsWith (static) test passed\n";
+    
+    // Test Repeat
+    assert(MyString::Repeat("Hi", 3) == "HiHiHi");
+    assert(MyString::Repeat("Test", 0) == "");
+    assert(MyString::Repeat("", 5) == "");
+    std::cout << "✓ Repeat (static) test passed\n";
+    
+    // Test IsPalindrome
+    assert(MyString::IsPalindrome("racecar") == true);
+    assert(MyString::IsPalindrome("hello") == false);
+    assert(MyString::IsPalindrome("A man a plan a canal Panama") == true);
+    std::cout << "✓ IsPalindrome (static) test passed\n";
+    
+    std::cout << "✓ MyString advanced operations tests passed\n\n";
+}
+
 void test_mystring_utility_functions() {
     std::cout << "Testing MyString utility functions...\n";
     
