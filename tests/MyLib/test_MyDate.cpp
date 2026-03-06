@@ -38,6 +38,62 @@ void test_mydate_constructors() {
     std::cout << "✓ MyDate constructor tests passed\n\n";
 }
 
+void test_mydate_getters_setters() {
+    std::cout << "Testing MyDate getters and setters...\n";
+    
+    MyDate date(1, 1, 2023);
+    
+    // Test getters
+    assert(date.GetDay() == 1);
+    assert(date.GetMonth() == 1);
+    assert(date.GetYear() == 2023);
+    std::cout << "✓ Getters test passed\n";
+    
+    // Test setters
+    date.SetDay(15);
+    date.SetMonth(6);
+    date.SetYear(2024);
+    
+    assert(date.GetDay() == 15);
+    assert(date.GetMonth() == 6);
+    assert(date.GetYear() == 2024);
+    std::cout << "✓ Setters test passed\n";
+    
+    std::cout << "✓ MyDate getters and setters tests passed\n\n";
+}
+
+void test_mydate_error_handling() {
+    std::cout << "Testing MyDate error handling...\n";
+    
+    // Clear any previous errors
+    MyDate::ClearError();
+    assert(MyDate::GetLastError() == "");
+    std::cout << "✓ ClearError and GetLastError test passed\n";
+    
+    // Test invalid date format
+    try {
+        MyDate invalidDate("invalid");
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyDate::GetLastError() == "Invalid date format. Expected DD/MM/YYYY");
+        std::cout << "✓ Invalid format exception test passed\n";
+    }
+    
+    // Clear error for next test
+    MyDate::ClearError();
+    
+    // Test invalid date components
+    try {
+        MyDate invalidDate("32/13/2023");
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyDate::GetLastError() == "Invalid date format. Cannot parse date components");
+        std::cout << "✓ Invalid components exception test passed\n";
+    }
+    
+    std::cout << "✓ MyDate error handling tests passed\n\n";
+}
+
 void test_mydate_validation() {
     std::cout << "Testing MyDate validation...\n";
     
