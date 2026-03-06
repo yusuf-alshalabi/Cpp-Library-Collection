@@ -172,17 +172,28 @@ void test_mydate_arithmetic() {
     
     MyDate date("25/12/2023");
     
-    // Test adding days
-    MyDate tomorrow = date.AddDays(1);
-    assert(tomorrow.GetDay() == 26);
-    assert(tomorrow.GetMonth() == 12);
-    assert(tomorrow.GetYear() == 2023);
+    // Test AddDays (void function)
+    MyDate testDate = date;
+    testDate.AddDays(1);
+    assert(testDate.GetDay() == 26);
+    assert(testDate.GetMonth() == 12);
+    assert(testDate.GetYear() == 2023);
+    std::cout << "✓ AddDays test passed\n";
     
-    // Test subtracting days
-    MyDate yesterday = date.AddDays(-1);
-    assert(yesterday.GetDay() == 24);
-    assert(yesterday.GetMonth() == 12);
-    assert(yesterday.GetYear() == 2023);
+    // Test AddOneDay
+    MyDate testDate2 = date;
+    MyDate nextDay = MyDate::AddOneDay(testDate2);
+    assert(nextDay.GetDay() == 26);
+    assert(nextDay.GetMonth() == 12);
+    assert(nextDay.GetYear() == 2023);
+    std::cout << "✓ AddOneDay test passed\n";
+    
+    // Test GetDifferenceInDays
+    MyDate date1("25/12/2023");
+    MyDate date2("27/12/2023");
+    int diff = MyDate::GetDifferenceInDays(date1, date2);
+    assert(diff == 2);
+    std::cout << "✓ GetDifferenceInDays test passed\n";
     
     std::cout << "✓ MyDate arithmetic tests passed\n\n";
 }
@@ -192,19 +203,44 @@ void test_mydate_utilities() {
     
     MyDate date("25/12/2023");
     
-    // Test day of week
-    int dayOfWeek = date.DayOfWeek();
+    // Test day of week order
+    int dayOfWeek = date.DayOfWeekOrder();
     assert(dayOfWeek >= 0 && dayOfWeek <= 6);
+    std::cout << "✓ DayOfWeekOrder test passed\n";
     
-    // Test is leap year
-    assert(MyDate::IsLeapYear(2024) == true);
-    assert(MyDate::IsLeapYear(2023) == false);
+    // Test is leap year (static)
+    assert(MyDate::isLeapYear(2024) == true);
+    assert(MyDate::isLeapYear(2023) == false);
+    std::cout << "✓ isLeapYear (static) test passed\n";
     
-    // Test days in month
-    assert(MyDate::DaysInMonth(2, 2024) == 29);
-    assert(MyDate::DaysInMonth(2, 2023) == 28);
-    assert(MyDate::DaysInMonth(4, 2023) == 30);
-    assert(MyDate::DaysInMonth(12, 2023) == 31);
+    // Test is leap year (instance)
+    MyDate leapYearDate("01/01/2024");
+    MyDate normalYearDate("01/01/2023");
+    assert(leapYearDate.isLeapYear() == true);
+    assert(normalYearDate.isLeapYear() == false);
+    std::cout << "✓ isLeapYear (instance) test passed\n";
+    
+    // Test number of days in month
+    assert(MyDate::NumberOfDaysInAMonth(2, 2024) == 29);
+    assert(MyDate::NumberOfDaysInAMonth(2, 2023) == 28);
+    assert(MyDate::NumberOfDaysInAMonth(4, 2023) == 30);
+    assert(MyDate::NumberOfDaysInAMonth(12, 2023) == 31);
+    std::cout << "✓ NumberOfDaysInAMonth test passed\n";
+    
+    // Test number of days in year
+    assert(MyDate::NumberOfDaysInAYear(2024) == 366);
+    assert(MyDate::NumberOfDaysInAYear(2023) == 365);
+    std::cout << "✓ NumberOfDaysInAYear test passed\n";
+    
+    // Test day short name
+    std::string dayName = MyDate::DayShortName(0); // Sunday
+    assert(dayName == "Sun");
+    std::cout << "✓ DayShortName test passed\n";
+    
+    // Test month short name
+    std::string monthName = MyDate::MonthShortName(12);
+    assert(monthName == "Dec");
+    std::cout << "✓ MonthShortName test passed\n";
     
     std::cout << "✓ MyDate utility tests passed\n\n";
 }
@@ -213,6 +249,8 @@ int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
     test_mydate_constructors();
+    test_mydate_getters_setters();
+    test_mydate_error_handling();
     test_mydate_validation();
     test_mydate_formatting();
     test_mydate_comparisons();
