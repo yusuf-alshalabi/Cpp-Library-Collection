@@ -302,11 +302,17 @@ int main() {
     std::cout << "=== MyPeriod Unit Tests ===\n\n";
     
     test_myperiod_constructors();
+    test_myperiod_getters_setters();
+    test_myperiod_constructors_operators();
+    test_myperiod_error_handling();
     test_myperiod_validation();
+    test_myperiod_overlap_functions();
+    test_myperiod_duration_functions();
     test_myperiod_duration();
     test_myperiod_contains();
     test_myperiod_overlap();
     test_myperiod_utilities();
+    test_myperiod_print_utilities();
     
     std::cout << "🎉 All MyPeriod tests passed successfully!\n";
     return 0;
