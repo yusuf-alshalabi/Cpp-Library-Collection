@@ -230,6 +230,45 @@ void test_mystring_counting_operations() {
     std::cout << "✓ MyString counting operations tests passed\n\n";
 }
 
+void test_mystring_counting_instance_methods() {
+    std::cout << "Testing MyString counting instance methods...\n";
+    
+    // Test CountLetters instance method with enum
+    MyString str1("Hello World 123");
+    assert(str1.CountLetters(MyString::All) == 13);
+    assert(str1.CountLetters(MyString::CapitalLetters) == 2);
+    assert(str1.CountLetters(MyString::SmallLetters) == 8);
+    std::cout << "✓ CountLetters (instance with enum) test passed\n";
+    
+    // Test CountCapitalLetters instance method
+    MyString str2("Hello World");
+    assert(str2.CountCapitalLetters() == 2);
+    std::cout << "✓ CountCapitalLetters (instance) test passed\n";
+    
+    // Test CountSmallLetters instance method
+    MyString str3("Hello World");
+    assert(str3.CountSmallLetters() == 8);
+    std::cout << "✓ CountSmallLetters (instance) test passed\n";
+    
+    // Test CountSpecificLetter instance method with case matching
+    MyString str4("Hello World");
+    assert(str4.CountSpecificLetter('l') == 3);
+    assert(str4.CountSpecificLetter('L') == 2);
+    std::cout << "✓ CountSpecificLetter (instance, case sensitive) test passed\n";
+    
+    // Test CountSpecificLetter instance method without case matching
+    MyString str5("Hello World");
+    assert(str5.CountSpecificLetter('l', false) == 5);
+    std::cout << "✓ CountSpecificLetter (instance, case insensitive) test passed\n";
+    
+    // Test CountVowels instance method
+    MyString str6("Hello World");
+    assert(str6.CountVowels() == 3); // e, o, o
+    std::cout << "✓ CountVowels (instance) test passed\n";
+    
+    std::cout << "✓ MyString counting instance methods tests passed\n\n";
+}
+
 void test_mystring_advanced_operations() {
     std::cout << "Testing MyString advanced operations...\n";
     
