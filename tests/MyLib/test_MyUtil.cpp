@@ -209,10 +209,28 @@ void test_myutil_encryption_functions() {
 void test_myutil_formatting_functions() {
     std::cout << "Testing MyUtil formatting functions...\n";
     
-    // Test Tabs function
-    std::string tabs = clsUtil::Tabs(3);
-    assert(tabs.length() == 2); // Should have 2 tabs
-    std::cout << "✓ Tabs test passed\n";
+    // Test Tabs function with edge cases
+    std::string tabs1 = clsUtil::Tabs(1);
+    assert(tabs1.length() == 0); // Should have 0 tabs for 1
+    std::cout << "✓ Tabs(1) test passed\n";
+    
+    std::string tabs2 = clsUtil::Tabs(2);
+    assert(tabs2.length() == 1); // Should have 1 tab for 2
+    std::cout << "✓ Tabs(2) test passed\n";
+    
+    std::string tabs5 = clsUtil::Tabs(5);
+    assert(tabs5.length() == 4); // Should have 4 tabs for 5
+    std::cout << "✓ Tabs(5) test passed\n";
+    
+    std::string tabs10 = clsUtil::Tabs(10);
+    assert(tabs10.length() == 9); // Should have 9 tabs for 10
+    std::cout << "✓ Tabs(10) test passed\n";
+    
+    // Test that tabs are actually tab characters
+    for (char c : tabs5) {
+        assert(c == '\t');
+    }
+    std::cout << "✓ Tabs character validation test passed\n";
     
     std::cout << "✓ MyUtil formatting functions tests passed\n\n";
 }
