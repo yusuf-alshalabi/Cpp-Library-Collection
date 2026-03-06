@@ -72,6 +72,28 @@ void test_myperiod_constructors_operators() {
     std::cout << "✓ MyPeriod constructors and operators tests passed\n\n";
 }
 
+void test_myperiod_error_handling() {
+    std::cout << "Testing MyPeriod error handling...\n";
+    
+    // Clear any previous errors
+    MyPeriod::ClearError();
+    assert(MyPeriod::GetLastError() == "");
+    std::cout << "✓ ClearError and GetLastError test passed\n";
+    
+    // Test constructor exception
+    try {
+        MyDate invalidStart("31/12/2023");
+        MyDate invalidEnd("01/01/2023");
+        MyPeriod invalidPeriod(invalidStart, invalidEnd);
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyPeriod::GetLastError() == "Invalid period: Start date cannot be after end date");
+        std::cout << "✓ Constructor exception test passed\n";
+    }
+    
+    std::cout << "✓ MyPeriod error handling tests passed\n\n";
+}
+
 void test_myperiod_validation() {
     std::cout << "Testing MyPeriod validation...\n";
     
