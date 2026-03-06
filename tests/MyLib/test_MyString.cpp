@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <sstream>
 #include "../../include/MyLib/MyString.h"
 
 using namespace MyLib;
@@ -50,6 +51,36 @@ void test_mystring_constructors_operators() {
     std::cout << "✓ Move assignment operator test passed\n";
     
     std::cout << "✓ MyString constructors and operators tests passed\n\n";
+}
+
+void test_mystring_length_functions() {
+    std::cout << "Testing MyString length functions...\n";
+    
+    // Test static Length function
+    assert(MyString::Length("Hello") == 5);
+    assert(MyString::Length("") == 0);
+    assert(MyString::Length("Hello World") == 11);
+    std::cout << "✓ Length (static) test passed\n";
+    
+    // Test instance Length function
+    MyString str1("Hello");
+    assert(str1.Length() == 5);
+    
+    MyString str2("Hello World");
+    assert(str2.Length() == 11);
+    
+    MyString str3("");
+    assert(str3.Length() == 0);
+    std::cout << "✓ Length (instance) test passed\n";
+    
+    // Test operator<< (stream output)
+    std::ostringstream oss;
+    MyString streamStr("Test Output");
+    oss << streamStr;
+    assert(oss.str() == "Test Output");
+    std::cout << "✓ Operator<< test passed\n";
+    
+    std::cout << "✓ MyString length functions tests passed\n\n";
 }
 
 void test_mystring_error_handling() {
