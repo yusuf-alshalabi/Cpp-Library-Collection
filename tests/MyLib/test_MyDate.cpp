@@ -510,6 +510,69 @@ void test_mydate_decrease_functions() {
     std::cout << "✓ MyDate decrease functions tests passed\n\n";
 }
 
+void test_mydate_calculations() {
+    std::cout << "Testing MyDate calculation functions...\n";
+    
+    // Test DaysFromTheBeginingOfTheYear
+    MyDate date1("01/01/2023");
+    assert(date1.DaysFromTheBeginingOfTheYear() == 1);
+    
+    MyDate date2("31/12/2023");
+    assert(date2.DaysFromTheBeginingOfTheYear() == 365);
+    
+    MyDate date3("01/03/2024"); // Leap year
+    assert(date3.DaysFromTheBeginingOfTheYear() == 61); // 31 + 29 + 1
+    std::cout << "✓ DaysFromTheBeginingOfTheYear test passed\n";
+    
+    // Test static DaysFromTheBeginingOfTheYear
+    assert(MyDate::DaysFromTheBeginingOfTheYear(15, 6, 2023) == 166);
+    std::cout << "✓ DaysFromTheBeginingOfTheYear (static) test passed\n";
+    
+    // Test GetDateFromDayOrderInYear
+    MyDate date4 = MyDate::GetDateFromDayOrderInYear(60, 2023);
+    assert(date4.GetDay() == 1);
+    assert(date4.GetMonth() == 3);
+    assert(date4.GetYear() == 2023);
+    std::cout << "✓ GetDateFromDayOrderInYear test passed\n";
+    
+    // Test IsLastDayInMonth
+    MyDate lastDay("31/12/2023");
+    MyDate notLastDay("15/12/2023");
+    assert(lastDay.IsLastDayInMonth() == true);
+    assert(notLastDay.IsLastDayInMonth() == false);
+    std::cout << "✓ IsLastDayInMonth test passed\n";
+    
+    // Test IsLastMonthInYear
+    assert(MyDate::IsLastMonthInYear(12) == true);
+    assert(MyDate::IsLastMonthInYear(6) == false);
+    std::cout << "✓ IsLastMonthInYear test passed\n";
+    
+    // Test CalculateMyAgeInDays
+    MyDate birthDate("01/01/2000");
+    short ageInDays = MyDate::CalculateMyAgeInDays(birthDate);
+    assert(ageInDays > 0); // Should be positive
+    std::cout << "✓ CalculateMyAgeInDays test passed\n";
+    
+    // Test SwapDates
+    MyDate date5("01/01/2023");
+    MyDate date6("31/12/2023");
+    MyDate::SwapDates(date5, date6);
+    assert(date5.GetDay() == 31);
+    assert(date5.GetMonth() == 12);
+    assert(date6.GetDay() == 1);
+    assert(date6.GetMonth() == 1);
+    std::cout << "✓ SwapDates test passed\n";
+    
+    // Test GetSystemDate
+    MyDate systemDate = MyDate::GetSystemDate();
+    assert(systemDate.GetDay() >= 1 && systemDate.GetDay() <= 31);
+    assert(systemDate.GetMonth() >= 1 && systemDate.GetMonth() <= 12);
+    assert(systemDate.GetYear() >= 2023);
+    std::cout << "✓ GetSystemDate test passed\n";
+    
+    std::cout << "✓ MyDate calculation functions tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
