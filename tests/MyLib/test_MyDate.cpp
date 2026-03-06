@@ -12,12 +12,28 @@ void test_mydate_constructors() {
     assert(today.GetDay() >= 1 && today.GetDay() <= 31);
     assert(today.GetMonth() >= 1 && today.GetMonth() <= 12);
     assert(today.GetYear() >= 1900);
+    std::cout << "✓ Default constructor test passed\n";
     
     // Test string constructor
     MyDate date("25/12/2023");
     assert(date.GetDay() == 25);
     assert(date.GetMonth() == 12);
     assert(date.GetYear() == 2023);
+    std::cout << "✓ String constructor test passed\n";
+    
+    // Test day/month/year constructor
+    MyDate date2(15, 6, 2023);
+    assert(date2.GetDay() == 15);
+    assert(date2.GetMonth() == 6);
+    assert(date2.GetYear() == 2023);
+    std::cout << "✓ Day/Month/Year constructor test passed\n";
+    
+    // Test date order in year constructor
+    MyDate date3(60, 2023); // 60th day of 2023 = March 1 (non-leap year)
+    assert(date3.GetDay() == 1);
+    assert(date3.GetMonth() == 3);
+    assert(date3.GetYear() == 2023);
+    std::cout << "✓ Date order in year constructor test passed\n";
     
     std::cout << "✓ MyDate constructor tests passed\n\n";
 }
