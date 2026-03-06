@@ -45,6 +45,33 @@ void test_myperiod_getters_setters() {
     std::cout << "✓ MyPeriod getters and setters tests passed\n\n";
 }
 
+void test_myperiod_constructors_operators() {
+    std::cout << "Testing MyPeriod constructors and operators...\n";
+    
+    // Test move constructor
+    MyDate start("01/01/2023");
+    MyDate end("31/12/2023");
+    MyPeriod original(start, end);
+    
+    MyPeriod moved(std::move(original));
+    assert(moved.GetStartDate().ToString() == "01/01/2023");
+    assert(moved.GetEndDate().ToString() == "31/12/2023");
+    std::cout << "✓ Move constructor test passed\n";
+    
+    // Test move assignment operator
+    MyDate start2("15/06/2023");
+    MyDate end2("15/12/2023");
+    MyPeriod original2(start2, end2);
+    
+    MyPeriod assigned;
+    assigned = std::move(original2);
+    assert(assigned.GetStartDate().ToString() == "15/06/2023");
+    assert(assigned.GetEndDate().ToString() == "15/12/2023");
+    std::cout << "✓ Move assignment operator test passed\n";
+    
+    std::cout << "✓ MyPeriod constructors and operators tests passed\n\n";
+}
+
 void test_myperiod_validation() {
     std::cout << "Testing MyPeriod validation...\n";
     
