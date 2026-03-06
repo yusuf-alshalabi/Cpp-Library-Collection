@@ -266,6 +266,55 @@ void test_mydate_calendar() {
     std::cout << "✓ MyDate calendar tests passed\n\n";
 }
 
+void test_mydate_business_vacation() {
+    std::cout << "Testing MyDate business and vacation functions...\n";
+    
+    // Test IsEndOfWeek
+    MyDate friday("01/12/2023"); // Friday
+    MyDate saturday("02/12/2023"); // Saturday
+    MyDate sunday("03/12/2023"); // Sunday
+    MyDate monday("04/12/2023"); // Monday
+    
+    assert(friday.IsEndOfWeek() == 1); // Friday is end of week
+    assert(saturday.IsEndOfWeek() == 0); // Saturday is not end of week
+    std::cout << "✓ IsEndOfWeek test passed\n";
+    
+    // Test IsWeekEnd
+    assert(friday.IsWeekEnd() == true); // Friday is weekend
+    assert(saturday.IsWeekEnd() == true); // Saturday is weekend
+    assert(sunday.IsWeekEnd() == false); // Sunday is not weekend
+    assert(monday.IsWeekEnd() == false); // Monday is not weekend
+    std::cout << "✓ IsWeekEnd test passed\n";
+    
+    // Test IsBusinessDay
+    assert(friday.IsBusinessDay() == false); // Friday is not business day
+    assert(saturday.IsBusinessDay() == false); // Saturday is not business day
+    assert(sunday.IsBusinessDay() == true); // Sunday is business day
+    assert(monday.IsBusinessDay() == true); // Monday is business day
+    std::cout << "✓ IsBusinessDay test passed\n";
+    
+    // Test CalculateBusinessDays
+    MyDate startDate("01/12/2023"); // Friday
+    MyDate endDate("07/12/2023"); // Thursday
+    short businessDays = MyDate::CalculateBusinessDays(startDate, endDate);
+    assert(businessDays == 5); // Sun, Mon, Tue, Wed, Thu = 5 days
+    std::cout << "✓ CalculateBusinessDays test passed\n";
+    
+    // Test CalculateVacationDays
+    short vacationDays = MyDate::CalculateVacationDays(startDate, endDate);
+    assert(vacationDays == 2); // Fri, Sat = 2 days
+    std::cout << "✓ CalculateVacationDays test passed\n";
+    
+    // Test CalculateVacationReturnDate
+    MyDate vacationStart("01/12/2023"); // Friday
+    MyDate returnDate = MyDate::CalculateVacationReturnDate(vacationStart, 5);
+    assert(returnDate.GetDay() == 7); // Should return on Thursday
+    assert(returnDate.GetMonth() == 12);
+    std::cout << "✓ CalculateVacationReturnDate test passed\n";
+    
+    std::cout << "✓ MyDate business and vacation tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
