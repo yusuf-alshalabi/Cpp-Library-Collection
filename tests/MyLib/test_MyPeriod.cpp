@@ -112,6 +112,67 @@ void test_myperiod_validation() {
     std::cout << "✓ MyPeriod validation tests passed\n\n";
 }
 
+void test_myperiod_overlap_functions() {
+    std::cout << "Testing MyPeriod overlap functions...\n";
+    
+    MyDate start1("01/01/2023");
+    MyDate end1("31/12/2023");
+    MyPeriod period1(start1, end1);
+    
+    // Test static IsOverlapPeriods
+    MyDate start2("15/06/2023");
+    MyDate end2("15/12/2024");
+    MyPeriod period2(start2, end2);
+    
+    assert(MyPeriod::IsOverlapPeriods(period1, period2) == true);
+    std::cout << "✓ IsOverlapPeriods (static) test passed\n";
+    
+    // Test instance IsOverLapWith
+    assert(period1.IsOverLapWith(period2) == true);
+    std::cout << "✓ IsOverLapWith (instance) test passed\n";
+    
+    // Test non-overlapping periods
+    MyDate start3("01/01/2024");
+    MyDate end3("31/12/2024");
+    MyPeriod period3(start3, end3);
+    
+    assert(MyPeriod::IsOverlapPeriods(period1, period3) == false);
+    assert(period1.IsOverLapWith(period3) == false);
+    std::cout << "✓ Non-overlapping periods test passed\n";
+    
+    std::cout << "✓ MyPeriod overlap functions tests passed\n\n";
+}
+
+void test_myperiod_duration_functions() {
+    std::cout << "Testing MyPeriod duration functions...\n";
+    
+    MyDate start("01/01/2023");
+    MyDate end("31/12/2023");
+    MyPeriod period(start, end);
+    
+    // Test GetDurationInDays
+    int duration = period.GetDurationInDays();
+    assert(duration == 364); // 2023 is not a leap year
+    std::cout << "✓ GetDurationInDays test passed\n";
+    
+    // Test LengthInDays (alias)
+    int lengthDays = period.LengthInDays();
+    assert(lengthDays == 364);
+    std::cout << "✓ LengthInDays test passed\n";
+    
+    // Test LengthInMonths
+    int months = period.LengthInMonths();
+    assert(months == 11); // Jan to Dec is 11 full months
+    std::cout << "✓ LengthInMonths test passed\n";
+    
+    // Test LengthInYears
+    int years = period.LengthInYears();
+    assert(years == 0); // Less than 1 full year
+    std::cout << "✓ LengthInYears test passed\n";
+    
+    std::cout << "✓ MyPeriod duration functions tests passed\n\n";
+}
+
 void test_myperiod_duration() {
     std::cout << "Testing MyPeriod duration...\n";
     
