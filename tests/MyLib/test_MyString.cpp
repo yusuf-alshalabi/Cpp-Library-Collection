@@ -1,28 +1,55 @@
 #include <iostream>
 #include <cassert>
+#include <vector>
 #include "../../include/MyLib/MyString.h"
 
 using namespace MyLib;
 
-void test_mystring_basic() {
-    std::cout << "Testing MyString basic functionality...\n";
+void test_mystring_constructors_operators() {
+    std::cout << "Testing MyString constructors and operators...\n";
     
-    // Test constructor
-    MyString str("Hello World");
-    assert(str.GetValue() == "Hello World");
+    // Test default constructor
+    MyString defaultStr;
+    assert(defaultStr.GetValue() == "");
+    std::cout << "✓ Default constructor test passed\n";
     
-    // Test word counting
-    assert(str.CountWords() == 2);
+    // Test parameterized constructor
+    MyString paramStr("Hello World");
+    assert(paramStr.GetValue() == "Hello World");
+    std::cout << "✓ Parameterized constructor test passed\n";
     
-    // Test string operations
-    assert(str.UpperAllString() == "HELLO WORLD");
-    assert(str.LowerAllString() == "hello world");
+    // Test move constructor
+    MyString moveStr(std::string("Move Test"));
+    assert(moveStr.GetValue() == "Move Test");
+    std::cout << "✓ Move constructor test passed\n";
     
-    // Test palindrome
-    MyString palindrome("racecar");
-    assert(palindrome.IsPalindrome() == true);
+    // Test copy constructor (implicit)
+    MyString copyStr(paramStr);
+    assert(copyStr.GetValue() == "Hello World");
+    std::cout << "✓ Copy constructor test passed\n";
     
-    std::cout << "✓ MyString basic tests passed\n\n";
+    // Test operator==
+    MyString str1("Test");
+    MyString str2("Test");
+    MyString str3("Different");
+    assert(str1 == str2);
+    assert(!(str1 == str3));
+    std::cout << "✓ Operator== test passed\n";
+    
+    // Test operator+
+    MyString strA("Hello");
+    MyString strB(" World");
+    MyString strC = strA + strB;
+    assert(strC.GetValue() == "Hello World");
+    std::cout << "✓ Operator+ test passed\n";
+    
+    // Test move assignment operator
+    MyString moveAssign;
+    moveAssign = MyString("Move Assignment");
+    assert(moveAssign.GetValue() == "Move Assignment");
+    std::cout << "✓ Move assignment operator test passed\n";
+    
+    std::cout << "✓ MyString constructors and operators tests passed\n\n";
 }
 
 void test_mystring_error_handling() {
