@@ -264,6 +264,40 @@ void test_myperiod_utilities() {
     std::cout << "✓ MyPeriod utility tests passed\n\n";
 }
 
+void test_myperiod_print_utilities() {
+    std::cout << "Testing MyPeriod print and utilities...\n";
+    
+    MyDate start("01/01/2023");
+    MyDate end("31/12/2023");
+    MyPeriod period(start, end);
+    
+    // Test Print method (visual verification)
+    std::cout << "Testing Print method output:\n";
+    period.Print();
+    std::cout << "✓ Print method test passed\n";
+    
+    // Test ToString method
+    std::string periodStr = period.ToString();
+    assert(periodStr.find("Period: 01/01/2023 to 31/12/2023") != std::string::npos);
+    std::cout << "✓ ToString test passed\n";
+    
+    // Test IsSameDay method
+    MyDate sameDay("01/01/2023");
+    MyDate differentDay("02/01/2023");
+    assert(period.IsSameDay(sameDay) == false); // Period spans multiple days
+    assert(period.IsSameDay(differentDay) == false);
+    std::cout << "✓ IsSameDay test passed\n";
+    
+    // Test IsSameDay with same-day period
+    MyDate sameStart("15/06/2023");
+    MyDate sameEnd("15/06/2023");
+    MyPeriod sameDayPeriod(sameStart, sameEnd);
+    assert(sameDayPeriod.IsSameDay(sameDay) == true);
+    std::cout << "✓ IsSameDay (same-day period) test passed\n";
+    
+    std::cout << "✓ MyPeriod print and utilities tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyPeriod Unit Tests ===\n\n";
     
