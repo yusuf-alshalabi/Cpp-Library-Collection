@@ -19,6 +19,32 @@ void test_myperiod_constructors() {
     std::cout << "✓ MyPeriod constructor tests passed\n\n";
 }
 
+void test_myperiod_getters_setters() {
+    std::cout << "Testing MyPeriod getters and setters...\n";
+    
+    // Test getters
+    MyDate startDate("01/01/2023");
+    MyDate endDate("31/12/2023");
+    MyPeriod period(startDate, endDate);
+    
+    assert(period.GetStartDate().ToString() == "01/01/2023");
+    assert(period.GetEndDate().ToString() == "31/12/2023");
+    std::cout << "✓ Getters test passed\n";
+    
+    // Test setters
+    MyDate newStart("15/06/2023");
+    MyDate newEnd("15/12/2023");
+    
+    period.SetStartDate(newStart);
+    period.SetEndDate(newEnd);
+    
+    assert(period.GetStartDate().ToString() == "15/06/2023");
+    assert(period.GetEndDate().ToString() == "15/12/2023");
+    std::cout << "✓ Setters test passed\n";
+    
+    std::cout << "✓ MyPeriod getters and setters tests passed\n\n";
+}
+
 void test_myperiod_validation() {
     std::cout << "Testing MyPeriod validation...\n";
     
