@@ -57,10 +57,37 @@ void test_mystring_error_handling() {
     
     // Clear any previous errors
     MyString::ClearError();
+    assert(MyString::GetLastError() == "");
+    std::cout << "✓ ClearError and GetLastError test passed\n";
     
-    // Test empty string
-    MyString emptyStr("");
-    assert(emptyStr.GetValue() == "");
+    // Test empty string constructor exception
+    try {
+        MyString emptyStr("");
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyString::GetLastError() == "Cannot create MyString with empty value");
+        std::cout << "✓ Empty string constructor exception test passed\n";
+    }
+    
+    // Clear error for next test
+    MyString::ClearError();
+    
+    // Test SetValue with empty string exception
+    MyString validStr("Valid");
+    try {
+        validStr.SetValue("");
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyString::GetLastError() == "Cannot set empty value to MyString");
+        std::cout << "✓ SetValue empty string exception test passed\n";
+    }
+    
+    // Test CountWords error handling
+    MyString::ClearError();
+    size_t wordCount = MyString::CountWords("");
+    assert(wordCount == 0);
+    assert(MyString::GetLastError() == "Cannot count words in empty string");
+    std::cout << "✓ CountWords error handling test passed\n";
     
     std::cout << "✓ MyString error handling tests passed\n\n";
 }
