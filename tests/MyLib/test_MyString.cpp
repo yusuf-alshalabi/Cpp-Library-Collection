@@ -120,6 +120,49 @@ void test_mystring_case_operations() {
     std::cout << "✓ MyString case operations tests passed\n\n";
 }
 
+void test_mystring_counting_operations() {
+    std::cout << "Testing MyString counting operations...\n";
+    
+    // Test CountLetters with different enum values
+    std::string testStr = "Hello World 123";
+    assert(MyString::CountLetters(testStr, MyString::All) == 13);
+    assert(MyString::CountLetters(testStr, MyString::CapitalLetters) == 2);
+    assert(MyString::CountLetters(testStr, MyString::SmallLetters) == 8);
+    std::cout << "✓ CountLetters (static) with enum test passed\n";
+    
+    // Test CountCapitalLetters
+    assert(MyString::CountCapitalLetters("Hello World") == 2);
+    std::cout << "✓ CountCapitalLetters (static) test passed\n";
+    
+    // Test CountSmallLetters
+    assert(MyString::CountSmallLetters("Hello World") == 8);
+    std::cout << "✓ CountSmallLetters (static) test passed\n";
+    
+    // Test CountSpecificLetter with case matching
+    assert(MyString::CountSpecificLetter("Hello World", 'l') == 3);
+    assert(MyString::CountSpecificLetter("Hello World", 'L') == 2);
+    std::cout << "✓ CountSpecificLetter (case sensitive) test passed\n";
+    
+    // Test CountSpecificLetter without case matching
+    assert(MyString::CountSpecificLetter("Hello World", 'l', false) == 5);
+    std::cout << "✓ CountSpecificLetter (case insensitive) test passed\n";
+    
+    // Test IsVowel
+    assert(MyString::IsVowel('a') == true);
+    assert(MyString::IsVowel('E') == true);
+    assert(MyString::IsVowel('b') == false);
+    assert(MyString::IsVowel('Z') == false);
+    std::cout << "✓ IsVowel test passed\n";
+    
+    // Test CountVowels
+    assert(MyString::CountVowels("Hello World") == 3); // e, o, o
+    assert(MyString::CountVowels("AEIOU") == 5);
+    assert(MyString::CountVowels("bcdfg") == 0);
+    std::cout << "✓ CountVowels (static) test passed\n";
+    
+    std::cout << "✓ MyString counting operations tests passed\n\n";
+}
+
 void test_mystring_utility_functions() {
     std::cout << "Testing MyString utility functions...\n";
     
