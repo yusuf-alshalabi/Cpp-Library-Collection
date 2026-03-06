@@ -370,6 +370,68 @@ void test_mystring_split_trim_functions() {
     std::cout << "✓ MyString split and trim functions tests passed\n\n";
 }
 
+void test_mystring_advanced_instance_methods() {
+    std::cout << "Testing MyString advanced instance methods...\n";
+    
+    // Test ReverseWordsInString instance method
+    MyString str1("Hello World Test");
+    str1.ReverseWordsInString();
+    assert(str1.GetValue() == "Test World Hello");
+    std::cout << "✓ ReverseWordsInString (instance) test passed\n";
+    
+    // Test ReplaceWord instance method with case matching
+    MyString str2("Hello World Hello");
+    std::string result1 = str2.ReplaceWord("Hello", "Hi", true);
+    assert(result1 == "Hi World Hi");
+    std::cout << "✓ ReplaceWord (instance, case sensitive) test passed\n";
+    
+    // Test ReplaceWord instance method without case matching
+    MyString str3("Hello World hello");
+    std::string result2 = str3.ReplaceWord("hello", "Hi", false);
+    assert(result2 == "Hi World Hi");
+    std::cout << "✓ ReplaceWord (instance, case insensitive) test passed\n";
+    
+    // Test RemovePunctuations instance method
+    MyString str4("Hello, World! How are you?");
+    str4.RemovePunctuations();
+    assert(str4.GetValue() == "Hello World How are you");
+    std::cout << "✓ RemovePunctuations (instance) test passed\n";
+    
+    // Test Contains instance method
+    MyString str5("Hello World");
+    assert(str5.Contains("World") == true);
+    assert(str5.Contains("Test") == false);
+    std::cout << "✓ Contains (instance) test passed\n";
+    
+    // Test StartsWith instance method
+    MyString str6("Hello World");
+    assert(str6.StartsWith("Hello") == true);
+    assert(str6.StartsWith("World") == false);
+    std::cout << "✓ StartsWith (instance) test passed\n";
+    
+    // Test EndsWith instance method
+    MyString str7("Hello World");
+    assert(str7.EndsWith("World") == true);
+    assert(str7.EndsWith("Hello") == false);
+    std::cout << "✓ EndsWith (instance) test passed\n";
+    
+    // Test Repeat instance method
+    MyString str8("Hi");
+    assert(str8.Repeat(3) == "HiHiHi");
+    assert(str8.Repeat(0) == "");
+    std::cout << "✓ Repeat (instance) test passed\n";
+    
+    // Test IsPalindrome instance method
+    MyString str9("racecar");
+    assert(str9.IsPalindrome() == true);
+    
+    MyString str10("hello");
+    assert(str10.IsPalindrome() == false);
+    std::cout << "✓ IsPalindrome (instance) test passed\n";
+    
+    std::cout << "✓ MyString advanced instance methods tests passed\n\n";
+}
+
 void test_mystring_utility_functions() {
     std::cout << "Testing MyString utility functions...\n";
     
