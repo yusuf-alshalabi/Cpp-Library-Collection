@@ -303,7 +303,7 @@ void test_myperiod_print_utilities() {
     // Test IsSameDay method
     MyDate sameDay("01/01/2023");
     MyDate differentDay("02/01/2023");
-    assert(period.IsSameDay(sameDay) == false); // Period spans multiple days
+    assert(period.IsSameDay(sameDay) == false); // Period spans multiple days, not same-day period
     assert(period.IsSameDay(differentDay) == false);
     std::cout << "✓ IsSameDay test passed\n";
     
@@ -311,7 +311,7 @@ void test_myperiod_print_utilities() {
     MyDate sameStart("15/06/2023");
     MyDate sameEnd("15/06/2023");
     MyPeriod sameDayPeriod(sameStart, sameEnd);
-    assert(sameDayPeriod.IsSameDay(sameDay) == true);
+    assert(sameDayPeriod.IsSameDay(sameStart) == true);
     std::cout << "✓ IsSameDay (same-day period) test passed\n";
     
     std::cout << "✓ MyPeriod print and utilities tests passed\n\n";
