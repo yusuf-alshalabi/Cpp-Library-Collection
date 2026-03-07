@@ -185,7 +185,8 @@ void test_error_handling() {
     std::cout << "✓ Error handling tests passed\n\n";
 }
 
-void test_myperiod_validation() {
+// ===== VALIDATION TESTS =====
+void test_validation() {
     std::cout << "Testing MyPeriod validation...\n";
     
     // Test valid period
@@ -203,7 +204,8 @@ void test_myperiod_validation() {
     std::cout << "✓ MyPeriod validation tests passed\n\n";
 }
 
-void test_myperiod_overlap_functions() {
+// ===== OVERLAP FUNCTIONS TESTS =====
+void test_overlap_functions() {
     std::cout << "Testing MyPeriod overlap functions...\n";
     
     MyDate start1("01/01/2023");
@@ -239,7 +241,8 @@ void test_myperiod_overlap_functions() {
     std::cout << "✓ MyPeriod overlap functions tests passed\n\n";
 }
 
-void test_myperiod_duration_functions() {
+// ===== DURATION FUNCTIONS TESTS =====
+void test_duration_functions() {
     std::cout << "Testing MyPeriod duration functions...\n";
     
     MyDate start("01/01/2023");
@@ -310,7 +313,8 @@ void test_contains() {
     std::cout << "✓ MyPeriod contains tests passed\n\n";
 }
 
-void test_myperiod_contains_edge_cases() {
+// ===== CONTAINS EDGE CASES TESTS =====
+void test_contains_edge_cases() {
     std::cout << "Testing MyPeriod Contains edge cases...\n";
     
     // Test same-day period
@@ -363,7 +367,8 @@ void test_myperiod_contains_edge_cases() {
     std::cout << "✓ MyPeriod Contains edge cases tests passed\n\n";
 }
 
-void test_myperiod_overlap() {
+// ===== OVERLAP TESTS =====
+void test_overlap() {
     std::cout << "Testing MyPeriod overlap...\n";
     
     MyDate start1("01/01/2023");
@@ -385,7 +390,8 @@ void test_myperiod_overlap() {
     std::cout << "✓ MyPeriod overlap tests passed\n\n";
 }
 
-void test_myperiod_overlap_edge_cases() {
+// ===== OVERLAP EDGE CASES TESTS =====
+void test_overlap_edge_cases() {
     std::cout << "Testing MyPeriod overlap edge cases...\n";
     
     // Test identical periods
@@ -465,7 +471,8 @@ void test_myperiod_overlap_edge_cases() {
     std::cout << "✓ MyPeriod overlap edge cases tests passed\n\n";
 }
 
-void test_myperiod_utilities() {
+// ===== UTILITIES TESTS =====
+void test_utilities() {
     std::cout << "Testing MyPeriod utilities...\n";
     
     MyDate start("01/01/2023");
@@ -486,7 +493,8 @@ void test_myperiod_utilities() {
     std::cout << "✓ MyPeriod utility tests passed\n\n";
 }
 
-void test_myperiod_print_utilities() {
+// ===== PRINT UTILITIES TESTS =====
+void test_print_utilities() {
     std::cout << "Testing MyPeriod print and utilities...\n";
     
     MyDate start("01/01/2023");
@@ -520,7 +528,8 @@ void test_myperiod_print_utilities() {
     std::cout << "✓ MyPeriod print and utilities tests passed\n\n";
 }
 
-void test_myperiod_extreme_cases() {
+// ===== EXTREME CASES TESTS =====
+void test_extreme_cases() {
     std::cout << "Testing MyPeriod extreme cases...\n";
     
     // Test very old dates
