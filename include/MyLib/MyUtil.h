@@ -133,58 +133,22 @@ namespace MyLib {
         static void FillArrayWithRandomKeys(std::string arr[100], int arrLength, enCharType CharType)
         {
             for (int i = 0; i < arrLength; i++)
-                arr[i] = GenerateKey(CharType);
+               arr[i] = GenerateKey(CharType);
         }
 
-        static  void Swap(int& A, int& B)
+        // Template-based swap function to eliminate code duplication
+        template<typename T>
+        static void Swap(T& A, T& B)
         {
-            int Temp;
-
-            Temp = A;
+            T Temp = A;
             A = B;
             B = Temp;
         }
 
-        static  void Swap(double& A, double& B)
-        {
-            double Temp;
-
-            Temp = A;
-            A = B;
-            B = Temp;
-        }
-
-        static  void Swap(bool& A, bool& B)
-        {
-            bool Temp;
-
-            Temp = A;
-            A = B;
-            B = Temp;
-        }
-
-        static  void Swap(char& A, char& B)
-        {
-            char Temp;
-
-            Temp = A;
-            A = B;
-            B = Temp;
-        }
-
-        static  void Swap(std::string& A, std::string& B)
-        {
-            std::string Temp;
-
-            Temp = A;
-            A = B;
-            B = Temp;
-        }
-
-        static  void Swap(MyDate& A, MyDate& B)
+        // Specialized swap for MyDate to use the class method
+        static void Swap(MyDate& A, MyDate& B)
         {
             MyDate::SwapDates(A, B);
-
         }
 
         static  void ShuffleArray(int arr[100], int arrLength)
