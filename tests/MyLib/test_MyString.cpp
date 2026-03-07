@@ -6,465 +6,340 @@
 
 using namespace MyLib;
 
-void test_mystring_constructors_operators() {
-    std::cout << "Testing MyString constructors and operators...\n";
-    
-    // Test default constructor
-    MyString defaultStr;
-    assert(defaultStr.GetValue() == "");
-    std::cout << "✓ Default constructor test passed\n";
-    
-    // Test parameterized constructor
-    MyString paramStr("Hello World");
-    assert(paramStr.GetValue() == "Hello World");
-    std::cout << "✓ Parameterized constructor test passed\n";
-    
-    // Test move constructor
-    MyString moveStr(std::string("Move Test"));
-    assert(moveStr.GetValue() == "Move Test");
-    std::cout << "✓ Move constructor test passed\n";
-    
-    // Test copy constructor (implicit)
-    MyString copyStr(paramStr);
-    assert(copyStr.GetValue() == "Hello World");
-    std::cout << "✓ Copy constructor test passed\n";
-    
-    // Test operator==
-    MyString str1("Test");
-    MyString str2("Test");
-    MyString str3("Different");
-    assert(str1 == str2);
-    assert(!(str1 == str3));
-    std::cout << "✓ Operator== test passed\n";
-    
-    // Test operator+
-    MyString strA("Hello");
-    MyString strB(" World");
-    MyString strC = strA + strB;
-    assert(strC.GetValue() == "Hello World");
-    std::cout << "✓ Operator+ test passed\n";
-    
-    // Test move assignment operator
-    MyString moveAssign;
-    moveAssign = MyString("Move Assignment");
-    assert(moveAssign.GetValue() == "Move Assignment");
-    std::cout << "✓ Move assignment operator test passed\n";
-    
-    std::cout << "✓ MyString constructors and operators tests passed\n\n";
+// Test helper functions
+void assert_equal(const std::string& expected, const std::string& actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
 }
 
-void test_mystring_length_functions() {
-    std::cout << "Testing MyString length functions...\n";
+void assert_true(bool condition, const std::string& test_name) {
+    assert(condition);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+void test_constructors_and_operators() {
+    std::cout << "Testing constructors and operators...\n";
     
-    // Test static Length function
-    assert(MyString::Length("Hello") == 5);
-    assert(MyString::Length("") == 0);
-    assert(MyString::Length("Hello World") == 11);
-    std::cout << "✓ Length (static) test passed\n";
+    // Default constructor
+    MyString defaultStr;
+    assert_equal("", defaultStr.GetValue(), "Default constructor");
     
-    // Test instance Length function
-    MyString str1("Hello");
-    assert(str1.Length() == 5);
+    // Parameterized constructor
+    MyString paramStr("Hello World");
+    assert_equal("Hello World", paramStr.GetValue(), "Parameterized constructor");
     
-    MyString str2("Hello World");
-    assert(str2.Length() == 11);
+    // Move constructor
+    MyString moveStr(std::string("Move Test"));
+    assert_equal("Move Test", moveStr.GetValue(), "Move constructor");
     
-    MyString str3("");
-    assert(str3.Length() == 0);
-    std::cout << "✓ Length (instance) test passed\n";
+    // Copy constructor
+    MyString copyStr(paramStr);
+    assert_equal("Hello World", copyStr.GetValue(), "Copy constructor");
     
-    // Test operator<< (stream output)
+    // Equality operator
+    MyString str1("Test"), str2("Test"), str3("Different");
+    assert_true(str1 == str2, "Operator== (equal)");
+    assert_true(!(str1 == str3), "Operator== (not equal)");
+    
+    // Concatenation operator
+    MyString strA("Hello"), strB(" World");
+    MyString strC = strA + strB;
+    assert_equal("Hello World", strC.GetValue(), "Operator+");
+    
+    // Move assignment
+    MyString moveAssign;
+    moveAssign = MyString("Move Assignment");
+    assert_equal("Move Assignment", moveAssign.GetValue(), "Move assignment");
+    
+    std::cout << "✓ Constructors and operators tests passed\n\n";
+}
+
+void test_length_and_stream() {
+    std::cout << "Testing length and stream operations...\n";
+    
+    // Static Length function
+    assert_true(MyString::Length("Hello") == 5, "Length static (Hello)");
+    assert_true(MyString::Length("") == 0, "Length static (empty)");
+    assert_true(MyString::Length("Hello World") == 11, "Length static (Hello World)");
+    
+    // Instance Length function
+    MyString str1("Hello"), str2("Hello World"), str3("");
+    assert_true(str1.Length() == 5, "Length instance (Hello)");
+    assert_true(str2.Length() == 11, "Length instance (Hello World)");
+    assert_true(str3.Length() == 0, "Length instance (empty)");
+    
+    // Stream output operator
     std::ostringstream oss;
     MyString streamStr("Test Output");
     oss << streamStr;
-    assert(oss.str() == "Test Output");
-    std::cout << "✓ Operator<< test passed\n";
+    assert_equal("Test Output", oss.str(), "Stream output operator");
     
-    std::cout << "✓ MyString length functions tests passed\n\n";
+    std::cout << "✓ Length and stream operations tests passed\n\n";
 }
 
-void test_mystring_error_handling() {
-    std::cout << "Testing MyString error handling...\n";
+void test_error_handling() {
+    std::cout << "Testing error handling...\n";
     
-    // Clear any previous errors
+    // Clear and check error functions
     MyString::ClearError();
-    assert(MyString::GetLastError() == "");
-    std::cout << "✓ ClearError and GetLastError test passed\n";
+    assert_equal("", MyString::GetLastError(), "ClearError and GetLastError");
     
-    // Test empty string constructor exception
+    // Empty string constructor exception
     try {
         MyString emptyStr("");
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyString::GetLastError() == "Cannot create MyString with empty value");
-        std::cout << "✓ Empty string constructor exception test passed\n";
+        assert_true(false, "Should throw exception for empty constructor");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Cannot create MyString with empty value", MyString::GetLastError(), 
+                   "Empty constructor exception");
     }
     
-    // Clear error for next test
+    // SetValue empty string exception
     MyString::ClearError();
-    
-    // Test SetValue with empty string exception
     MyString validStr("Valid");
     try {
         validStr.SetValue("");
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyString::GetLastError() == "Cannot set empty value to MyString");
-        std::cout << "✓ SetValue empty string exception test passed\n";
+        assert_true(false, "Should throw exception for empty SetValue");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Cannot set empty value to MyString", MyString::GetLastError(),
+                   "Empty SetValue exception");
     }
     
-    // Test CountWords error handling
+    // CountWords error handling
     MyString::ClearError();
     size_t wordCount = MyString::CountWords("");
-    assert(wordCount == 0);
-    assert(MyString::GetLastError() == "Cannot count words in empty string");
-    std::cout << "✓ CountWords error handling test passed\n";
+    assert_true(wordCount == 0, "CountWords empty returns 0");
+    assert_equal("Cannot count words in empty string", MyString::GetLastError(),
+               "CountWords error message");
     
-    std::cout << "✓ MyString error handling tests passed\n\n";
+    std::cout << "✓ Error handling tests passed\n\n";
 }
 
-void test_mystring_case_operations() {
-    std::cout << "Testing MyString case operations...\n";
+void test_case_operations() {
+    std::cout << "Testing case operations...\n";
     
-    // Test UpperFirstLetterOfEachWord
-    std::string upperFirst = MyString::UpperFirstLetterOfEachWord("hello world");
-    assert(upperFirst == "Hello World");
-    std::cout << "✓ UpperFirstLetterOfEachWord (static) test passed\n";
+    // Static case operations
+    assert_equal("Hello World", MyString::UpperFirstLetterOfEachWord("hello world"), 
+               "UpperFirstLetterOfEachWord static");
+    assert_equal("hELLO wORLD", MyString::LowerFirstLetterOfEachWord("HELLO WORLD"),
+               "LowerFirstLetterOfEachWord static");
+    assert_equal('a', MyString::InvertLetterCase('A'), "InvertLetterCase (A->a)");
+    assert_equal('B', MyString::InvertLetterCase('b'), "InvertLetterCase (b->B)");
+    assert_equal("hELLO wORLD", MyString::InvertAllLettersCase("Hello World"),
+               "InvertAllLettersCase static");
+    assert_equal("HELLO WORLD", MyString::UpperAllString("hello world"),
+               "UpperAllString static");
+    assert_equal("hello world", MyString::LowerAllString("HELLO WORLD"),
+               "LowerAllString static");
     
-    // Test LowerFirstLetterOfEachWord
-    std::string lowerFirst = MyString::LowerFirstLetterOfEachWord("HELLO WORLD");
-    assert(lowerFirst == "hELLO wORLD");
-    std::cout << "✓ LowerFirstLetterOfEachWord (static) test passed\n";
-    
-    // Test InvertLetterCase
-    char invertedChar = MyString::InvertLetterCase('A');
-    assert(invertedChar == 'a');
-    invertedChar = MyString::InvertLetterCase('b');
-    assert(invertedChar == 'B');
-    std::cout << "✓ InvertLetterCase test passed\n";
-    
-    // Test InvertAllLettersCase
-    std::string inverted = MyString::InvertAllLettersCase("Hello World");
-    assert(inverted == "hELLO wORLD");
-    std::cout << "✓ InvertAllLettersCase (static) test passed\n";
-    
-    std::cout << "✓ MyString case operations tests passed\n\n";
-}
-
-void test_mystring_case_instance_methods() {
-    std::cout << "Testing MyString case instance methods...\n";
-    
-    // Test UpperFirstLetterOfEachWord instance method
+    // Instance case operations
     MyString str1("hello world");
     str1.UpperFirstLetterOfEachWord();
-    assert(str1.GetValue() == "Hello World");
-    std::cout << "✓ UpperFirstLetterOfEachWord (instance) test passed\n";
+    assert_equal("Hello World", str1.GetValue(), "UpperFirstLetterOfEachWord instance");
     
-    // Test LowerFirstLetterOfEachWord instance method
     MyString str2("HELLO WORLD");
     str2.LowerFirstLetterOfEachWord();
-    assert(str2.GetValue() == "hELLO wORLD");
-    std::cout << "✓ LowerFirstLetterOfEachWord (instance) test passed\n";
+    assert_equal("hELLO wORLD", str2.GetValue(), "LowerFirstLetterOfEachWord instance");
     
-    // Test UpperAllString instance method
     MyString str3("hello world");
     str3.UpperAllString();
-    assert(str3.GetValue() == "HELLO WORLD");
-    std::cout << "✓ UpperAllString (instance) test passed\n";
+    assert_equal("HELLO WORLD", str3.GetValue(), "UpperAllString instance");
     
-    // Test LowerAllString instance method
     MyString str4("HELLO WORLD");
     str4.LowerAllString();
-    assert(str4.GetValue() == "hello world");
-    std::cout << "✓ LowerAllString (instance) test passed\n";
+    assert_equal("hello world", str4.GetValue(), "LowerAllString instance");
     
-    // Test InvertAllLettersCase instance method
     MyString str5("Hello World");
     str5.InvertAllLettersCase();
-    assert(str5.GetValue() == "hELLO wORLD");
-    std::cout << "✓ InvertAllLettersCase (instance) test passed\n";
+    assert_equal("hELLO wORLD", str5.GetValue(), "InvertAllLettersCase instance");
     
-    std::cout << "✓ MyString case instance methods tests passed\n\n";
+    std::cout << "✓ Case operations tests passed\n\n";
 }
 
-void test_mystring_counting_operations() {
-    std::cout << "Testing MyString counting operations...\n";
+void test_counting_operations() {
+    std::cout << "Testing counting operations...\n";
     
-    // Test CountLetters with different enum values
     std::string testStr = "Hello World 123";
-    assert(MyString::CountLetters(testStr, MyString::All) == 13);
-    assert(MyString::CountLetters(testStr, MyString::CapitalLetters) == 2);
-    assert(MyString::CountLetters(testStr, MyString::SmallLetters) == 8);
-    std::cout << "✓ CountLetters (static) with enum test passed\n";
     
-    // Test CountCapitalLetters
-    assert(MyString::CountCapitalLetters("Hello World") == 2);
-    std::cout << "✓ CountCapitalLetters (static) test passed\n";
+    // Static counting functions
+    assert_true(MyString::CountLetters(testStr, MyString::All) == 13, "CountLetters (All)");
+    assert_true(MyString::CountLetters(testStr, MyString::CapitalLetters) == 2, "CountLetters (Capital)");
+    assert_true(MyString::CountLetters(testStr, MyString::SmallLetters) == 8, "CountLetters (Small)");
+    assert_true(MyString::CountCapitalLetters("Hello World") == 2, "CountCapitalLetters");
+    assert_true(MyString::CountSmallLetters("Hello World") == 8, "CountSmallLetters");
+    assert_true(MyString::CountSpecificLetter("Hello World", 'l') == 3, "CountSpecificLetter case-sensitive");
+    assert_true(MyString::CountSpecificLetter("Hello World", 'L') == 2, "CountSpecificLetter case-sensitive L");
+    assert_true(MyString::CountSpecificLetter("Hello World", 'l', false) == 5, "CountSpecificLetter case-insensitive");
+    assert_true(MyString::IsVowel('a'), "IsVowel (a)");
+    assert_true(MyString::IsVowel('E'), "IsVowel (E)");
+    assert_true(!MyString::IsVowel('b'), "IsVowel (b - not vowel)");
+    assert_true(MyString::CountVowels("Hello World") == 3, "CountVowels (Hello World)");
+    assert_true(MyString::CountVowels("AEIOU") == 5, "CountVowels (AEIOU)");
+    assert_true(MyString::CountVowels("bcdfg") == 0, "CountVowels (no vowels)");
     
-    // Test CountSmallLetters
-    assert(MyString::CountSmallLetters("Hello World") == 8);
-    std::cout << "✓ CountSmallLetters (static) test passed\n";
-    
-    // Test CountSpecificLetter with case matching
-    assert(MyString::CountSpecificLetter("Hello World", 'l') == 3);
-    assert(MyString::CountSpecificLetter("Hello World", 'L') == 2);
-    std::cout << "✓ CountSpecificLetter (case sensitive) test passed\n";
-    
-    // Test CountSpecificLetter without case matching
-    assert(MyString::CountSpecificLetter("Hello World", 'l', false) == 5);
-    std::cout << "✓ CountSpecificLetter (case insensitive) test passed\n";
-    
-    // Test IsVowel
-    assert(MyString::IsVowel('a') == true);
-    assert(MyString::IsVowel('E') == true);
-    assert(MyString::IsVowel('b') == false);
-    assert(MyString::IsVowel('Z') == false);
-    std::cout << "✓ IsVowel test passed\n";
-    
-    // Test CountVowels
-    assert(MyString::CountVowels("Hello World") == 3); // e, o, o
-    assert(MyString::CountVowels("AEIOU") == 5);
-    assert(MyString::CountVowels("bcdfg") == 0);
-    std::cout << "✓ CountVowels (static) test passed\n";
-    
-    std::cout << "✓ MyString counting operations tests passed\n\n";
-}
-
-void test_mystring_counting_instance_methods() {
-    std::cout << "Testing MyString counting instance methods...\n";
-    
-    // Test CountLetters instance method with enum
+    // Instance counting functions
     MyString str1("Hello World 123");
-    assert(str1.CountLetters(MyString::All) == 13);
-    assert(str1.CountLetters(MyString::CapitalLetters) == 2);
-    assert(str1.CountLetters(MyString::SmallLetters) == 8);
-    std::cout << "✓ CountLetters (instance with enum) test passed\n";
+    assert_true(str1.CountLetters(MyString::All) == 13, "Instance CountLetters (All)");
+    assert_true(str1.CountLetters(MyString::CapitalLetters) == 2, "Instance CountLetters (Capital)");
+    assert_true(str1.CountLetters(MyString::SmallLetters) == 8, "Instance CountLetters (Small)");
     
-    // Test CountCapitalLetters instance method
     MyString str2("Hello World");
-    assert(str2.CountCapitalLetters() == 2);
-    std::cout << "✓ CountCapitalLetters (instance) test passed\n";
+    assert_true(str2.CountCapitalLetters() == 2, "Instance CountCapitalLetters");
+    assert_true(str2.CountSmallLetters() == 8, "Instance CountSmallLetters");
+    assert_true(str2.CountSpecificLetter('l') == 3, "Instance CountSpecificLetter case-sensitive");
+    assert_true(str2.CountSpecificLetter('L') == 2, "Instance CountSpecificLetter case-sensitive L");
+    assert_true(str2.CountSpecificLetter('l', false) == 5, "Instance CountSpecificLetter case-insensitive");
+    assert_true(str2.CountVowels() == 3, "Instance CountVowels");
     
-    // Test CountSmallLetters instance method
-    MyString str3("Hello World");
-    assert(str3.CountSmallLetters() == 8);
-    std::cout << "✓ CountSmallLetters (instance) test passed\n";
-    
-    // Test CountSpecificLetter instance method with case matching
-    MyString str4("Hello World");
-    assert(str4.CountSpecificLetter('l') == 3);
-    assert(str4.CountSpecificLetter('L') == 2);
-    std::cout << "✓ CountSpecificLetter (instance, case sensitive) test passed\n";
-    
-    // Test CountSpecificLetter instance method without case matching
-    MyString str5("Hello World");
-    assert(str5.CountSpecificLetter('l', false) == 5);
-    std::cout << "✓ CountSpecificLetter (instance, case insensitive) test passed\n";
-    
-    // Test CountVowels instance method
-    MyString str6("Hello World");
-    assert(str6.CountVowels() == 3); // e, o, o
-    std::cout << "✓ CountVowels (instance) test passed\n";
-    
-    std::cout << "✓ MyString counting instance methods tests passed\n\n";
+    std::cout << "✓ Counting operations tests passed\n\n";
 }
 
-void test_mystring_advanced_operations() {
-    std::cout << "Testing MyString advanced operations...\n";
+void test_string_operations() {
+    std::cout << "Testing string operations...\n";
     
-    // Test ReverseWordsInString
-    std::string reversed = MyString::ReverseWordsInString("Hello World Test");
-    assert(reversed == "Test World Hello");
-    std::cout << "✓ ReverseWordsInString (static) test passed\n";
+    // Static string operations
+    assert_equal("Test World Hello", MyString::ReverseWordsInString("Hello World Test"),
+               "ReverseWordsInString static");
+    assert_equal("Hi World Hi", MyString::ReplaceWord("Hello World Hello", "Hello", "Hi", true),
+               "ReplaceWord case-sensitive");
+    assert_equal("Hi World Hi", MyString::ReplaceWord("Hello World hello", "hello", "Hi", false),
+               "ReplaceWord case-insensitive");
+    assert_equal("Hello World How are you", MyString::RemovePunctuations("Hello, World! How are you?"),
+               "RemovePunctuations static");
+    assert_true(MyString::Contains("Hello World", "World"), "Contains (true)");
+    assert_true(!MyString::Contains("Hello World", "Test"), "Contains (false)");
+    assert_true(MyString::StartsWith("Hello World", "Hello"), "StartsWith (true)");
+    assert_true(!MyString::StartsWith("Hello World", "World"), "StartsWith (false)");
+    assert_true(MyString::EndsWith("Hello World", "World"), "EndsWith (true)");
+    assert_true(!MyString::EndsWith("Hello World", "Hello"), "EndsWith (false)");
+    assert_equal("HiHiHi", MyString::Repeat("Hi", 3), "Repeat (Hi, 3)");
+    assert_equal("", MyString::Repeat("Test", 0), "Repeat (Test, 0)");
+    assert_equal("", MyString::Repeat("", 5), "Repeat (empty, 5)");
+    assert_true(MyString::IsPalindrome("racecar"), "IsPalindrome (racecar)");
+    assert_true(!MyString::IsPalindrome("hello"), "IsPalindrome (hello)");
+    assert_true(MyString::IsPalindrome("A man a plan a canal Panama"), "IsPalindrome (phrase)");
     
-    // Test ReplaceWord with case matching
-    std::string replaced = MyString::ReplaceWord("Hello World Hello", "Hello", "Hi", true);
-    assert(replaced == "Hi World Hi");
-    std::cout << "✓ ReplaceWord (case sensitive) test passed\n";
-    
-    // Test ReplaceWord without case matching
-    std::string replacedCase = MyString::ReplaceWord("Hello World hello", "hello", "Hi", false);
-    assert(replacedCase == "Hi World Hi");
-    std::cout << "✓ ReplaceWord (case insensitive) test passed\n";
-    
-    // Test RemovePunctuations
-    std::string noPunct = MyString::RemovePunctuations("Hello, World! How are you?");
-    assert(noPunct == "Hello World How are you");
-    std::cout << "✓ RemovePunctuations (static) test passed\n";
-    
-    // Test Contains
-    assert(MyString::Contains("Hello World", "World") == true);
-    assert(MyString::Contains("Hello World", "Test") == false);
-    std::cout << "✓ Contains (static) test passed\n";
-    
-    // Test StartsWith
-    assert(MyString::StartsWith("Hello World", "Hello") == true);
-    assert(MyString::StartsWith("Hello World", "World") == false);
-    std::cout << "✓ StartsWith (static) test passed\n";
-    
-    // Test EndsWith
-    assert(MyString::EndsWith("Hello World", "World") == true);
-    assert(MyString::EndsWith("Hello World", "Hello") == false);
-    std::cout << "✓ EndsWith (static) test passed\n";
-    
-    // Test Repeat
-    assert(MyString::Repeat("Hi", 3) == "HiHiHi");
-    assert(MyString::Repeat("Test", 0) == "");
-    assert(MyString::Repeat("", 5) == "");
-    std::cout << "✓ Repeat (static) test passed\n";
-    
-    // Test IsPalindrome
-    assert(MyString::IsPalindrome("racecar") == true);
-    assert(MyString::IsPalindrome("hello") == false);
-    assert(MyString::IsPalindrome("A man a plan a canal Panama") == true);
-    std::cout << "✓ IsPalindrome (static) test passed\n";
-    
-    std::cout << "✓ MyString advanced operations tests passed\n\n";
-}
-
-void test_mystring_split_trim_functions() {
-    std::cout << "Testing MyString split and trim functions...\n";
-    
-    // Test Split instance method
-    MyString str1("word1,word2,word3");
-    std::vector<std::string> words = str1.Split(",");
-    assert(words.size() == 3);
-    assert(words[0] == "word1");
-    assert(words[1] == "word2");
-    assert(words[2] == "word3");
-    std::cout << "✓ Split (instance) test passed\n";
-    
-    // Test TrimLeft instance method
-    MyString str2("   Hello");
-    str2.TrimLeft();
-    assert(str2.GetValue() == "Hello");
-    std::cout << "✓ TrimLeft (instance) test passed\n";
-    
-    // Test TrimRight instance method
-    MyString str3("Hello   ");
-    str3.TrimRight();
-    assert(str3.GetValue() == "Hello");
-    std::cout << "✓ TrimRight (instance) test passed\n";
-    
-    // Test Trim instance method
-    MyString str4("   Hello World   ");
-    str4.Trim();
-    assert(str4.GetValue() == "Hello World");
-    std::cout << "✓ Trim (instance) test passed\n";
-    
-    // Test JoinString static methods
-    std::vector<std::string> joinVec = {"A", "B", "C"};
-    assert(MyString::JoinString(joinVec, ",") == "A,B,C");
-    std::cout << "✓ JoinString with vector test passed\n";
-    
-    std::string joinArr[] = {"X", "Y", "Z"};
-    assert(MyString::JoinString(joinArr, 3, "|") == "X|Y|Z");
-    std::cout << "✓ JoinString with array test passed\n";
-    
-    // Test JoinString edge cases
-    std::vector<std::string> emptyVec;
-    assert(MyString::JoinString(emptyVec, ",") == "");
-    assert(MyString::JoinString(joinArr, 0, ",") == "");
-    std::cout << "✓ JoinString edge cases test passed\n";
-    
-    std::cout << "✓ MyString split and trim functions tests passed\n\n";
-}
-
-void test_mystring_advanced_instance_methods() {
-    std::cout << "Testing MyString advanced instance methods...\n";
-    
-    // Test ReverseWordsInString instance method
+    // Instance string operations
     MyString str1("Hello World Test");
     str1.ReverseWordsInString();
-    assert(str1.GetValue() == "Test World Hello");
-    std::cout << "✓ ReverseWordsInString (instance) test passed\n";
+    assert_equal("Test World Hello", str1.GetValue(), "ReverseWordsInString instance");
     
-    // Test ReplaceWord instance method with case matching
     MyString str2("Hello World Hello");
-    std::string result1 = str2.ReplaceWord("Hello", "Hi", true);
-    assert(result1 == "Hi World Hi");
-    std::cout << "✓ ReplaceWord (instance, case sensitive) test passed\n";
+    assert_equal("Hi World Hi", str2.ReplaceWord("Hello", "Hi", true), "ReplaceWord instance case-sensitive");
     
-    // Test ReplaceWord instance method without case matching
     MyString str3("Hello World hello");
-    std::string result2 = str3.ReplaceWord("hello", "Hi", false);
-    assert(result2 == "Hi World Hi");
-    std::cout << "✓ ReplaceWord (instance, case insensitive) test passed\n";
+    assert_equal("Hi World Hi", str3.ReplaceWord("hello", "Hi", false), "ReplaceWord instance case-insensitive");
     
-    // Test RemovePunctuations instance method
     MyString str4("Hello, World! How are you?");
     str4.RemovePunctuations();
-    assert(str4.GetValue() == "Hello World How are you");
-    std::cout << "✓ RemovePunctuations (instance) test passed\n";
+    assert_equal("Hello World How are you", str4.GetValue(), "RemovePunctuations instance");
     
-    // Test Contains instance method
     MyString str5("Hello World");
-    assert(str5.Contains("World") == true);
-    assert(str5.Contains("Test") == false);
-    std::cout << "✓ Contains (instance) test passed\n";
+    assert_true(str5.Contains("World"), "Instance Contains (true)");
+    assert_true(!str5.Contains("Test"), "Instance Contains (false)");
+    assert_true(str5.StartsWith("Hello"), "Instance StartsWith (true)");
+    assert_true(!str5.StartsWith("World"), "Instance StartsWith (false)");
+    assert_true(str5.EndsWith("World"), "Instance EndsWith (true)");
+    assert_true(!str5.EndsWith("Hello"), "Instance EndsWith (false)");
+    assert_equal("HiHiHi", str5.Repeat(3), "Instance Repeat (Hi, 3)");
+    assert_equal("", str5.Repeat(0), "Instance Repeat (0)");
     
-    // Test StartsWith instance method
-    MyString str6("Hello World");
-    assert(str6.StartsWith("Hello") == true);
-    assert(str6.StartsWith("World") == false);
-    std::cout << "✓ StartsWith (instance) test passed\n";
+    MyString str6("racecar");
+    assert_true(str6.IsPalindrome(), "Instance IsPalindrome (racecar)");
     
-    // Test EndsWith instance method
-    MyString str7("Hello World");
-    assert(str7.EndsWith("World") == true);
-    assert(str7.EndsWith("Hello") == false);
-    std::cout << "✓ EndsWith (instance) test passed\n";
+    MyString str7("hello");
+    assert_true(!str7.IsPalindrome(), "Instance IsPalindrome (hello)");
     
-    // Test Repeat instance method
-    MyString str8("Hi");
-    assert(str8.Repeat(3) == "HiHiHi");
-    assert(str8.Repeat(0) == "");
-    std::cout << "✓ Repeat (instance) test passed\n";
-    
-    // Test IsPalindrome instance method
-    MyString str9("racecar");
-    assert(str9.IsPalindrome() == true);
-    
-    MyString str10("hello");
-    assert(str10.IsPalindrome() == false);
-    std::cout << "✓ IsPalindrome (instance) test passed\n";
-    
-    std::cout << "✓ MyString advanced instance methods tests passed\n\n";
+    std::cout << "✓ String operations tests passed\n\n";
 }
 
-void test_mystring_utility_functions() {
-    std::cout << "Testing MyString utility functions...\n";
+void test_split_and_join_operations() {
+    std::cout << "Testing split and join operations...\n";
     
-    // Test string splitting
+    // Split operations
     MyString testStr("word1,word2,word3");
     std::vector<std::string> words = testStr.Split(",");
-    assert(words.size() == 3);
-    assert(words[0] == "word1");
-    assert(words[1] == "word2");
-    assert(words[2] == "word3");
+    assert_true(words.size() == 3, "Split vector size");
+    assert_equal("word1", words[0], "Split first element");
+    assert_equal("word2", words[1], "Split second element");
+    assert_equal("word3", words[2], "Split third element");
     
-    // Test string trimming
-    MyString trimStr("  Hello  ");
-    std::string trimmed = trimStr.Trim();
-    assert(trimmed == "Hello");
+    // Static split
+    std::vector<std::string> staticWords = MyString::Split("a,b,c", ",");
+    assert_true(staticWords.size() == 3, "Static split size");
     
-    std::cout << "✓ MyString utility functions tests passed\n\n";
+    // Join operations
+    std::vector<std::string> joinVec = {"A", "B", "C"};
+    assert_equal("A,B,C", MyString::JoinString(joinVec, ","), "Join vector");
+    
+    std::string joinArr[] = {"X", "Y", "Z"};
+    assert_equal("X|Y|Z", MyString::JoinString(joinArr, 3, "|"), "Join array");
+    
+    // Edge cases
+    std::vector<std::string> emptyVec;
+    assert_equal("", MyString::JoinString(emptyVec, ","), "Join empty vector");
+    assert_equal("", MyString::JoinString(joinArr, 0, ","), "Join zero length");
+    
+    std::cout << "✓ Split and join operations tests passed\n\n";
+}
+
+void test_trim_operations() {
+    std::cout << "Testing trim operations...\n";
+    
+    // Static trim operations
+    assert_equal("Hello", MyString::TrimLeft("   Hello"), "TrimLeft static");
+    assert_equal("Hello", MyString::TrimRight("Hello   "), "TrimRight static");
+    assert_equal("Hello", MyString::Trim("   Hello   "), "Trim static");
+    assert_equal("", MyString::TrimLeft(""), "TrimLeft empty");
+    assert_equal("", MyString::TrimRight(""), "TrimRight empty");
+    assert_equal("", MyString::Trim(""), "Trim empty");
+    
+    // Instance trim operations
+    MyString str1("   Hello");
+    str1.TrimLeft();
+    assert_equal("Hello", str1.GetValue(), "TrimLeft instance");
+    
+    MyString str2("Hello   ");
+    str2.TrimRight();
+    assert_equal("Hello", str2.GetValue(), "TrimRight instance");
+    
+    MyString str3("   Hello World   ");
+    str3.Trim();
+    assert_equal("Hello World", str3.GetValue(), "Trim instance");
+    
+    std::cout << "✓ Trim operations tests passed\n\n";
+}
+
+void test_word_counting() {
+    std::cout << "Testing word counting...\n";
+    
+    // Static word counting
+    assert_true(MyString::CountWords("Hello World") == 2, "CountWords (2 words)");
+    assert_true(MyString::CountWords("Hello") == 1, "CountWords (1 word)");
+    assert_true(MyString::CountWords("Hello   World") == 2, "CountWords with extra spaces");
+    assert_true(MyString::CountWords("   Hello World   ") == 2, "CountWords with leading/trailing spaces");
+    
+    // Instance word counting
+    MyString str1("Hello World Test");
+    assert_true(str1.CountWords() == 3, "Instance CountWords (3 words)");
+    
+    MyString str2("Single");
+    assert_true(str2.CountWords() == 1, "Instance CountWords (1 word)");
+    
+    std::cout << "✓ Word counting tests passed\n\n";
 }
 
 int main() {
     std::cout << "=== MyString Unit Tests ===\n\n";
     
-    test_mystring_constructors_operators();
-    test_mystring_length_functions();
-    test_mystring_error_handling();
-    test_mystring_case_operations();
-    test_mystring_case_instance_methods();
-    test_mystring_counting_operations();
-    test_mystring_counting_instance_methods();
-    test_mystring_advanced_operations();
-    test_mystring_advanced_instance_methods();
-    test_mystring_split_trim_functions();
-    test_mystring_utility_functions();
+    test_constructors_and_operators();
+    test_length_and_stream();
+    test_error_handling();
+    test_case_operations();
+    test_counting_operations();
+    test_string_operations();
+    test_split_and_join_operations();
+    test_trim_operations();
+    test_word_counting();
     
     std::cout << "🎉 All MyString tests passed successfully!\n";
     return 0;
