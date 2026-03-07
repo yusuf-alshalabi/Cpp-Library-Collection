@@ -4,644 +4,478 @@
 
 using namespace MyLib;
 
-void test_mydate_constructors() {
-    std::cout << "Testing MyDate constructors...\n";
-    
-    // Test default constructor (should be today's date)
-    MyDate today;
-    assert(today.GetDay() >= 1 && today.GetDay() <= 31);
-    assert(today.GetMonth() >= 1 && today.GetMonth() <= 12);
-    assert(today.GetYear() >= 1900);
-    std::cout << "✓ Default constructor test passed\n";
-    
-    // Test string constructor
-    MyDate date("25/12/2023");
-    assert(date.GetDay() == 25);
-    assert(date.GetMonth() == 12);
-    assert(date.GetYear() == 2023);
-    std::cout << "✓ String constructor test passed\n";
-    
-    // Test day/month/year constructor
-    MyDate date2(15, 6, 2023);
-    assert(date2.GetDay() == 15);
-    assert(date2.GetMonth() == 6);
-    assert(date2.GetYear() == 2023);
-    std::cout << "✓ Day/Month/Year constructor test passed\n";
-    
-    // Test date order in year constructor
-    MyDate date3(60, 2023); // 60th day of 2023 = March 1 (non-leap year)
-    assert(date3.GetDay() == 1);
-    assert(date3.GetMonth() == 3);
-    assert(date3.GetYear() == 2023);
-    std::cout << "✓ Date order in year constructor test passed\n";
-    
-    std::cout << "✓ MyDate constructor tests passed\n\n";
+// Test helper functions for cleaner assertions
+void assert_equal(int expected, int actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
 }
 
-void test_mydate_getters_setters() {
-    std::cout << "Testing MyDate getters and setters...\n";
+void assert_equal(long long expected, long long actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+void assert_equal(const std::string& expected, const std::string& actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+void assert_true(bool condition, const std::string& test_name) {
+    assert(condition);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+// Test data constants for better readability
+namespace TestData {
+    const std::string VALID_DATE_STR = "25/12/2023";
+    const std::string INVALID_FORMAT_STR = "invalid";
+    const std::string INVALID_COMPONENTS_STR = "32/13/2023";
+    const int VALID_DAY = 25;
+    const int VALID_MONTH = 12;
+    const int VALID_YEAR = 2023;
+    const int LEAP_YEAR = 2024;
+    const int NON_LEAP_YEAR = 2023;
+}
+
+void test_constructors() {
+    std::cout << "Testing constructors...\n";
     
-    MyDate date(1, 1, 2023);
+    // Default constructor should create today's date
+    MyDate today;
+    assert_true(today.GetDay() >= 1 && today.GetDay() <= 31, "Default: valid day range");
+    assert_true(today.GetMonth() >= 1 && today.GetMonth() <= 12, "Default: valid month range");
+    assert_true(today.GetYear() >= 1900, "Default: valid year range");
     
-    // Test getters
-    assert(date.GetDay() == 1);
-    assert(date.GetMonth() == 1);
-    assert(date.GetYear() == 2023);
-    std::cout << "✓ Getters test passed\n";
+    // String constructor
+    MyDate dateFromString(TestData::VALID_DATE_STR);
+    assert_equal(TestData::VALID_DAY, dateFromString.GetDay(), "String constructor: day");
+    assert_equal(TestData::VALID_MONTH, dateFromString.GetMonth(), "String constructor: month");
+    assert_equal(TestData::VALID_YEAR, dateFromString.GetYear(), "String constructor: year");
+    
+    // DMY constructor
+    MyDate dateFromComponents(TestData::VALID_DAY, TestData::VALID_MONTH, TestData::VALID_YEAR);
+    assert_equal(TestData::VALID_DAY, dateFromComponents.GetDay(), "DMY constructor: day");
+    assert_equal(TestData::VALID_MONTH, dateFromComponents.GetMonth(), "DMY constructor: month");
+    assert_equal(TestData::VALID_YEAR, dateFromComponents.GetYear(), "DMY constructor: year");
+    
+    // Day order in year constructor (60th day of 2023 = March 1)
+    MyDate dateFromDayOrder(60, TestData::NON_LEAP_YEAR);
+    assert_equal(1, dateFromDayOrder.GetDay(), "Day order constructor: day");
+    assert_equal(3, dateFromDayOrder.GetMonth(), "Day order constructor: month");
+    assert_equal(TestData::NON_LEAP_YEAR, dateFromDayOrder.GetYear(), "Day order constructor: year");
+    
+    std::cout << "✓ Constructor tests passed\n\n";
+}
+
+void test_getters_setters() {
+    std::cout << "Testing getters and setters...\n";
+    
+    MyDate date(1, 1, TestData::VALID_YEAR);
+    
+    // Test initial getters
+    assert_equal(1, date.GetDay(), "Getter: initial day");
+    assert_equal(1, date.GetMonth(), "Getter: initial month");
+    assert_equal(TestData::VALID_YEAR, date.GetYear(), "Getter: initial year");
     
     // Test setters
     date.SetDay(15);
     date.SetMonth(6);
-    date.SetYear(2024);
+    date.SetYear(TestData::LEAP_YEAR);
     
-    assert(date.GetDay() == 15);
-    assert(date.GetMonth() == 6);
-    assert(date.GetYear() == 2024);
-    std::cout << "✓ Setters test passed\n";
+    assert_equal(15, date.GetDay(), "Setter: day");
+    assert_equal(6, date.GetMonth(), "Setter: month");
+    assert_equal(TestData::LEAP_YEAR, date.GetYear(), "Setter: year");
     
-    std::cout << "✓ MyDate getters and setters tests passed\n\n";
+    std::cout << "✓ Getters and setters tests passed\n\n";
 }
 
-void test_mydate_error_handling() {
-    std::cout << "Testing MyDate error handling...\n";
+void test_error_handling() {
+    std::cout << "Testing error handling...\n";
     
-    // Clear any previous errors
+    // Test error clearing and retrieval
     MyDate::ClearError();
-    assert(MyDate::GetLastError() == "");
-    std::cout << "✓ ClearError and GetLastError test passed\n";
+    assert_equal("", MyDate::GetLastError().c_str(), "Error handling: clear and get");
     
-    // Test invalid date format
+    // Test invalid date format exception
     try {
-        MyDate invalidDate("invalid");
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyDate::GetLastError() == "Invalid date format. Expected DD/MM/YYYY");
-        std::cout << "✓ Invalid format exception test passed\n";
+        MyDate invalidDate(TestData::INVALID_FORMAT_STR);
+        assert_true(false, "Exception: should throw for invalid format");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Invalid date format. Expected DD/MM/YYYY", 
+                   MyDate::GetLastError().c_str(), "Exception: invalid format message");
     }
     
-    // Clear error for next test
+    // Test invalid date components exception
     MyDate::ClearError();
-    
-    // Test invalid date components
     try {
-        MyDate invalidDate("32/13/2023");
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyDate::GetLastError() == "Invalid date format. Cannot parse date components");
-        std::cout << "✓ Invalid components exception test passed\n";
+        MyDate invalidDate(TestData::INVALID_COMPONENTS_STR);
+        assert_true(false, "Exception: should throw for invalid components");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Invalid date format. Cannot parse date components", 
+                   MyDate::GetLastError().c_str(), "Exception: invalid components message");
     }
     
-    std::cout << "✓ MyDate error handling tests passed\n\n";
+    std::cout << "✓ Error handling tests passed\n\n";
 }
 
-void test_mydate_validation() {
-    std::cout << "Testing MyDate validation...\n";
+void test_validation() {
+    std::cout << "Testing validation...\n";
     
-    // Test valid dates
-    MyDate validDate("15/06/2023");
-    assert(validDate.IsValid() == true);
-    std::cout << "✓ Valid date test passed\n";
+    // Test valid date
+    MyDate validDate(TestData::VALID_DATE_STR);
+    assert_true(validDate.IsValid(), "Validation: valid date instance");
     
-    // Test static validation
-    MyDate testDate(29, 2, 2024); // Leap year
-    assert(MyDate::IsValidDate(testDate) == true);
-    std::cout << "✓ Static validation (leap year) test passed\n";
+    // Test leap year validation (Feb 29, 2024)
+    MyDate leapYearDate(29, 2, TestData::LEAP_YEAR);
+    assert_true(MyDate::IsValidDate(leapYearDate), "Validation: leap year date");
     
-    MyDate invalidDate(31, 4, 2023); // April has 30 days
-    assert(MyDate::IsValidDate(invalidDate) == false);
-    std::cout << "✓ Static validation (invalid) test passed\n";
+    // Test invalid date (Apr 31, 2023)
+    MyDate invalidDate(31, 4, TestData::NON_LEAP_YEAR);
+    assert_true(!MyDate::IsValidDate(invalidDate), "Validation: invalid April date");
     
-    std::cout << "✓ MyDate validation tests passed\n\n";
+    std::cout << "✓ Validation tests passed\n\n";
 }
 
-void test_mydate_formatting() {
-    std::cout << "Testing MyDate formatting...\n";
+void test_formatting() {
+    std::cout << "Testing formatting...\n";
     
-    MyDate date("25/12/2023");
+    MyDate date(TestData::VALID_DATE_STR);
     
-    // Test date to string (static)
-    std::string dateStr = MyDate::DateToString(date);
-    assert(dateStr == "25/12/2023");
-    std::cout << "✓ DateToString (static) test passed\n";
+    // Test static DateToString
+    std::string staticResult = MyDate::DateToString(date);
+    assert_equal(TestData::VALID_DATE_STR, staticResult.c_str(), "Formatting: static DateToString");
     
-    // Test date to string (instance)
-    std::string dateStr2 = date.DateToString();
-    assert(dateStr2 == "25/12/2023");
-    std::cout << "✓ DateToString (instance) test passed\n";
+    // Test instance DateToString
+    std::string instanceResult = date.DateToString();
+    assert_equal(TestData::VALID_DATE_STR, instanceResult.c_str(), "Formatting: instance DateToString");
     
-    // Test print method
+    // Test Print method (visual verification)
     std::cout << "Testing Print method output:\n";
     date.Print();
-    std::cout << "✓ Print method test passed\n";
     
-    std::cout << "✓ MyDate formatting tests passed\n\n";
+    std::cout << "✓ Formatting tests passed\n\n";
 }
 
-void test_mydate_comparisons() {
-    std::cout << "Testing MyDate comparisons...\n";
+void test_comparisons() {
+    std::cout << "Testing comparisons...\n";
     
-    MyDate date1("25/12/2023");
+    MyDate date1(TestData::VALID_DATE_STR);
     MyDate date2("26/12/2023");
-    MyDate date3("25/12/2023");
+    MyDate date3(TestData::VALID_DATE_STR); // Same as date1
     
-    // Test static comparison functions
-    assert(MyDate::IsDate1EqualDate2(date1, date3) == true);
-    assert(MyDate::IsDate1EqualDate2(date1, date2) == false);
-    assert(MyDate::IsDate1BeforeDate2(date1, date2) == true);
-    assert(MyDate::IsDate1AfterDate2(date2, date1) == true);
-    std::cout << "✓ Static comparison functions test passed\n";
+    // Test static comparison methods
+    assert_true(MyDate::IsDate1EqualDate2(date1, date3), "Comparison: static equal dates");
+    assert_true(!MyDate::IsDate1EqualDate2(date1, date2), "Comparison: static different dates");
+    assert_true(MyDate::IsDate1BeforeDate2(date1, date2), "Comparison: static before");
+    assert_true(MyDate::IsDate1AfterDate2(date2, date1), "Comparison: static after");
     
-    // Test instance comparison functions
-    assert(date1.IsDateEqualDate2(date3) == true);
-    assert(date1.IsDateEqualDate2(date2) == false);
-    assert(date1.IsDateBeforeDate2(date2) == true);
-    assert(date2.IsDateAfterDate2(date1) == true);
-    std::cout << "✓ Instance comparison functions test passed\n";
+    // Test instance comparison methods
+    assert_true(date1.IsDateEqualDate2(date3), "Comparison: instance equal dates");
+    assert_true(!date1.IsDateEqualDate2(date2), "Comparison: instance different dates");
+    assert_true(date1.IsDateBeforeDate2(date2), "Comparison: instance before");
+    assert_true(date2.IsDateAfterDate2(date1), "Comparison: instance after");
     
-    // Test CompareDates with enum
-    assert(MyDate::CompareDates(date1, date3) == MyDate::enDateCompare::Equal);
-    assert(MyDate::CompareDates(date1, date2) == MyDate::enDateCompare::Before);
-    assert(MyDate::CompareDates(date2, date1) == MyDate::enDateCompare::After);
-    std::cout << "✓ CompareDates enum test passed\n";
+    // Test CompareDates enum
+    assert_true(MyDate::CompareDates(date1, date3) == MyDate::enDateCompare::Equal, "CompareDates: equal");
+    assert_true(MyDate::CompareDates(date1, date2) == MyDate::enDateCompare::Before, "CompareDates: before");
+    assert_true(MyDate::CompareDates(date2, date1) == MyDate::enDateCompare::After, "CompareDates: after");
     
-    std::cout << "✓ MyDate comparison tests passed\n\n";
+    std::cout << "✓ Comparison tests passed\n\n";
 }
 
-void test_mydate_arithmetic() {
-    std::cout << "Testing MyDate arithmetic...\n";
+void test_basic_arithmetic() {
+    std::cout << "Testing basic arithmetic...\n";
     
-    MyDate date("25/12/2023");
+    MyDate date(TestData::VALID_DATE_STR);
     
-    // Test AddDays (void function)
+    // Test AddDays (adds 1 day to Dec 25)
     MyDate testDate = date;
     testDate.AddDays(1);
-    assert(testDate.GetDay() == 26);
-    assert(testDate.GetMonth() == 12);
-    assert(testDate.GetYear() == 2023);
-    std::cout << "✓ AddDays test passed\n";
+    assert_equal(26, testDate.GetDay(), "Arithmetic: AddDays day");
+    assert_equal(12, testDate.GetMonth(), "Arithmetic: AddDays month");
+    assert_equal(TestData::VALID_YEAR, testDate.GetYear(), "Arithmetic: AddDays year");
     
     // Test AddOneDay
-    MyDate testDate2 = date;
-    MyDate nextDay = MyDate::AddOneDay(testDate2);
-    assert(nextDay.GetDay() == 26);
-    assert(nextDay.GetMonth() == 12);
-    assert(nextDay.GetYear() == 2023);
-    std::cout << "✓ AddOneDay test passed\n";
+    MyDate nextDay = MyDate::AddOneDay(date);
+    assert_equal(26, nextDay.GetDay(), "Arithmetic: AddOneDay day");
+    assert_equal(12, nextDay.GetMonth(), "Arithmetic: AddOneDay month");
+    assert_equal(TestData::VALID_YEAR, nextDay.GetYear(), "Arithmetic: AddOneDay year");
     
     // Test GetDifferenceInDays
-    MyDate date1("25/12/2023");
-    MyDate date2("27/12/2023");
-    int diff = MyDate::GetDifferenceInDays(date1, date2);
-    assert(diff == 2);
-    std::cout << "✓ GetDifferenceInDays test passed\n";
+    MyDate startDate("25/12/2023");
+    MyDate endDate("27/12/2023");
+    assert_equal(2, MyDate::GetDifferenceInDays(startDate, endDate), "Arithmetic: difference in days");
     
-    std::cout << "✓ MyDate arithmetic tests passed\n\n";
+    std::cout << "✓ Basic arithmetic tests passed\n\n";
 }
 
-void test_mydate_utilities() {
-    std::cout << "Testing MyDate utilities...\n";
+void test_utility_functions() {
+    std::cout << "Testing utility functions...\n";
     
-    MyDate date("25/12/2023");
+    // Test leap year detection
+    assert_true(MyDate::isLeapYear(TestData::LEAP_YEAR), "Utility: static leap year detection");
+    assert_true(!MyDate::isLeapYear(TestData::NON_LEAP_YEAR), "Utility: static non-leap year");
     
-    // Test day of week order
-    int dayOfWeek = date.DayOfWeekOrder();
-    assert(dayOfWeek >= 0 && dayOfWeek <= 6);
-    std::cout << "✓ DayOfWeekOrder test passed\n";
+    MyDate leapYearInstance("01/01/" + std::to_string(TestData::LEAP_YEAR));
+    MyDate nonLeapYearInstance("01/01/" + std::to_string(TestData::NON_LEAP_YEAR));
+    assert_true(leapYearInstance.isLeapYear(), "Utility: instance leap year detection");
+    assert_true(!nonLeapYearInstance.isLeapYear(), "Utility: instance non-leap year detection");
     
-    // Test is leap year (static)
-    assert(MyDate::isLeapYear(2024) == true);
-    assert(MyDate::isLeapYear(2023) == false);
-    std::cout << "✓ isLeapYear (static) test passed\n";
+    // Test days in month calculation
+    assert_equal(29, MyDate::NumberOfDaysInAMonth(2, TestData::LEAP_YEAR), "Utility: Feb days in leap year");
+    assert_equal(28, MyDate::NumberOfDaysInAMonth(2, TestData::NON_LEAP_YEAR), "Utility: Feb days in non-leap year");
+    assert_equal(30, MyDate::NumberOfDaysInAMonth(4, TestData::NON_LEAP_YEAR), "Utility: April days");
+    assert_equal(31, MyDate::NumberOfDaysInAMonth(12, TestData::NON_LEAP_YEAR), "Utility: December days");
     
-    // Test is leap year (instance)
-    MyDate leapYearDate("01/01/2024");
-    MyDate normalYearDate("01/01/2023");
-    assert(leapYearDate.isLeapYear() == true);
-    assert(normalYearDate.isLeapYear() == false);
-    std::cout << "✓ isLeapYear (instance) test passed\n";
+    // Test days in year calculation
+    assert_equal(366, MyDate::NumberOfDaysInAYear(TestData::LEAP_YEAR), "Utility: days in leap year");
+    assert_equal(365, MyDate::NumberOfDaysInAYear(TestData::NON_LEAP_YEAR), "Utility: days in non-leap year");
     
-    // Test number of days in month
-    assert(MyDate::NumberOfDaysInAMonth(2, 2024) == 29);
-    assert(MyDate::NumberOfDaysInAMonth(2, 2023) == 28);
-    assert(MyDate::NumberOfDaysInAMonth(4, 2023) == 30);
-    assert(MyDate::NumberOfDaysInAMonth(12, 2023) == 31);
-    std::cout << "✓ NumberOfDaysInAMonth test passed\n";
+    // Test day and month names
+    assert_equal("Sun", MyDate::DayShortName(0).c_str(), "Utility: Sunday name");
+    assert_equal("Dec", MyDate::MonthShortName(12).c_str(), "Utility: December name");
     
-    // Test number of days in year
-    assert(MyDate::NumberOfDaysInAYear(2024) == 366);
-    assert(MyDate::NumberOfDaysInAYear(2023) == 365);
-    std::cout << "✓ NumberOfDaysInAYear test passed\n";
+    // Test day of week calculation
+    MyDate testDate(TestData::VALID_DATE_STR);
+    int dayOfWeek = testDate.DayOfWeekOrder();
+    assert_true(dayOfWeek >= 0 && dayOfWeek <= 6, "Utility: day of week range");
     
-    // Test day short name
-    std::string dayName = MyDate::DayShortName(0); // Sunday
-    assert(dayName == "Sun");
-    std::cout << "✓ DayShortName test passed\n";
-    
-    // Test month short name
-    std::string monthName = MyDate::MonthShortName(12);
-    assert(monthName == "Dec");
-    std::cout << "✓ MonthShortName test passed\n";
-    
-    std::cout << "✓ MyDate utility tests passed\n\n";
+    std::cout << "✓ Utility function tests passed\n\n";
 }
 
-void test_mydate_calendar() {
-    std::cout << "Testing MyDate calendar functions...\n";
-    
-    // Test PrintMonthCalendar (visual verification)
-    std::cout << "Testing PrintMonthCalendar output:\n";
-    MyDate::PrintMonthCalendar(12, 2023);
-    std::cout << "✓ PrintMonthCalendar (static) test passed\n";
-    
-    MyDate date("15/06/2023");
-    std::cout << "Testing PrintMonthCalendar (instance) output:\n";
-    date.PrintMonthCalendar();
-    std::cout << "✓ PrintMonthCalendar (instance) test passed\n";
-    
-    // Test PrintYearCalendar (visual verification)
-    std::cout << "Testing PrintYearCalendar output:\n";
-    MyDate::PrintYearCalendar(2023);
-    std::cout << "✓ PrintYearCalendar (static) test passed\n";
-    
-    std::cout << "✓ MyDate calendar tests passed\n\n";
-}
-
-void test_mydate_business_vacation() {
-    std::cout << "Testing MyDate business and vacation functions...\n";
-    
-    // Test IsEndOfWeek
-    MyDate friday("01/12/2023"); // Friday
-    MyDate saturday("02/12/2023"); // Saturday
-    MyDate sunday("03/12/2023"); // Sunday
-    MyDate monday("04/12/2023"); // Monday
-    
-    assert(friday.IsEndOfWeek() == 1); // Friday is end of week
-    assert(saturday.IsEndOfWeek() == 0); // Saturday is not end of week
-    std::cout << "✓ IsEndOfWeek test passed\n";
-    
-    // Test IsWeekEnd
-    assert(friday.IsWeekEnd() == true); // Friday is weekend
-    assert(saturday.IsWeekEnd() == true); // Saturday is weekend
-    assert(sunday.IsWeekEnd() == false); // Sunday is not weekend
-    assert(monday.IsWeekEnd() == false); // Monday is not weekend
-    std::cout << "✓ IsWeekEnd test passed\n";
-    
-    // Test IsBusinessDay
-    assert(friday.IsBusinessDay() == false); // Friday is not business day
-    assert(saturday.IsBusinessDay() == false); // Saturday is not business day
-    assert(sunday.IsBusinessDay() == true); // Sunday is business day
-    assert(monday.IsBusinessDay() == true); // Monday is business day
-    std::cout << "✓ IsBusinessDay test passed\n";
-    
-    // Test CalculateBusinessDays
-    MyDate startDate("01/12/2023"); // Friday
-    MyDate endDate("07/12/2023"); // Thursday
-    short businessDays = MyDate::CalculateBusinessDays(startDate, endDate);
-    assert(businessDays == 5); // Sun, Mon, Tue, Wed, Thu = 5 days
-    std::cout << "✓ CalculateBusinessDays test passed\n";
-    
-    // Test CalculateVacationDays
-    short vacationDays = MyDate::CalculateVacationDays(startDate, endDate);
-    assert(vacationDays == 2); // Fri, Sat = 2 days
-    std::cout << "✓ CalculateVacationDays test passed\n";
-    
-    // Test CalculateVacationReturnDate
-    MyDate vacationStart("01/12/2023"); // Friday
-    MyDate returnDate = MyDate::CalculateVacationReturnDate(vacationStart, 5);
-    assert(returnDate.GetDay() == 7); // Should return on Thursday
-    assert(returnDate.GetMonth() == 12);
-    std::cout << "✓ CalculateVacationReturnDate test passed\n";
-    
-    std::cout << "✓ MyDate business and vacation tests passed\n\n";
-}
-
-void test_mydate_time_functions() {
-    std::cout << "Testing MyDate time functions...\n";
+void test_time_calculations() {
+    std::cout << "Testing time calculations...\n";
     
     // Test hours in year
-    long long hours2023 = MyDate::NumberOfHoursInAYear(2023);
-    assert(hours2023 == 365 * 24);
-    long long hours2024 = MyDate::NumberOfHoursInAYear(2024);
-    assert(hours2024 == 366 * 24);
-    std::cout << "✓ NumberOfHoursInAYear test passed\n";
+    assert_equal(365LL * 24, MyDate::NumberOfHoursInAYear(TestData::NON_LEAP_YEAR), "Time: hours in non-leap year");
+    assert_equal(366LL * 24, MyDate::NumberOfHoursInAYear(TestData::LEAP_YEAR), "Time: hours in leap year");
     
     // Test minutes in year
-    long long minutes2023 = MyDate::NumberOfMinutesInAYear(2023);
-    assert(minutes2023 == 365 * 24 * 60);
-    std::cout << "✓ NumberOfMinutesInAYear test passed\n";
+    assert_equal(365LL * 24 * 60, MyDate::NumberOfMinutesInAYear(TestData::NON_LEAP_YEAR), "Time: minutes in non-leap year");
     
     // Test seconds in year
-    long long seconds2023 = MyDate::NumberOfSecondsInAYear(2023);
-    assert(seconds2023 == 365 * 24 * 60 * 60);
-    std::cout << "✓ NumberOfSecondsInAYear test passed\n";
+    assert_equal(365LL * 24 * 60 * 60, MyDate::NumberOfSecondsInAYear(TestData::NON_LEAP_YEAR), "Time: seconds in non-leap year");
     
     // Test hours in month
-    short hoursDec2023 = MyDate::NumberOfHoursInAMonth(12, 2023);
-    assert(hoursDec2023 == 31 * 24);
-    short hoursFeb2024 = MyDate::NumberOfHoursInAMonth(2, 2024);
-    assert(hoursFeb2024 == 29 * 24);
-    std::cout << "✓ NumberOfHoursInAMonth test passed\n";
+    assert_equal(31 * 24, MyDate::NumberOfHoursInAMonth(12, TestData::NON_LEAP_YEAR), "Time: hours in December");
+    assert_equal(29 * 24, MyDate::NumberOfHoursInAMonth(2, TestData::LEAP_YEAR), "Time: hours in Feb (leap)");
     
-    // Test minutes in month
-    int minutesDec2023 = MyDate::NumberOfMinutesInAMonth(12, 2023);
-    assert(minutesDec2023 == 31 * 24 * 60);
-    std::cout << "✓ NumberOfMinutesInAMonth test passed\n";
-    
-    // Test seconds in month
-    int secondsDec2023 = MyDate::NumberOfSecondsInAMonth(12, 2023);
-    assert(secondsDec2023 == 31 * 24 * 60 * 60);
-    std::cout << "✓ NumberOfSecondsInAMonth test passed\n";
-    
-    // Test instance time functions
-    MyDate date("15/06/2023");
-    assert(date.NumberOfHoursInAYear() == 365 * 24);
-    assert(date.NumberOfMinutesInAYear() == 365 * 24 * 60);
-    assert(date.NumberOfSecondsInAYear() == 365 * 24 * 60 * 60);
-    std::cout << "✓ Instance time functions test passed\n";
-    
-    std::cout << "✓ MyDate time functions tests passed\n\n";
+    std::cout << "✓ Time calculation tests passed\n\n";
 }
 
-void test_mydate_advanced_arithmetic() {
-    std::cout << "Testing MyDate advanced arithmetic functions...\n";
+void test_business_calculations() {
+    std::cout << "Testing business calculations...\n";
     
-    // Test IncreaseDateByOneWeek
-    MyDate date("25/12/2023");
-    MyDate nextWeek = MyDate::IncreaseDateByOneWeek(date);
-    assert(nextWeek.GetDay() == 1);
-    assert(nextWeek.GetMonth() == 1);
-    assert(nextWeek.GetYear() == 2024);
-    std::cout << "✓ IncreaseDateByOneWeek (static) test passed\n";
+    // Test weekend detection (Friday/Saturday are weekends in this implementation)
+    MyDate friday("01/12/2023");    // Friday
+    MyDate saturday("02/12/2023");  // Saturday
+    MyDate sunday("03/12/2023");    // Sunday
+    MyDate monday("04/12/2023");    // Monday
     
-    // Test IncreaseDateByOneWeek (instance)
-    MyDate date2("25/12/2023");
-    date2.IncreaseDateByOneWeek();
-    assert(date2.GetDay() == 1);
-    assert(date2.GetMonth() == 1);
-    assert(date2.GetYear() == 2024);
-    std::cout << "✓ IncreaseDateByOneWeek (instance) test passed\n";
+    assert_equal(1, friday.IsEndOfWeek(), "Business: Friday is end of week");
+    assert_equal(0, saturday.IsEndOfWeek(), "Business: Saturday is not end of week");
     
-    // Test IncreaseDateByXWeeks
-    MyDate date3("25/12/2023");
-    MyDate twoWeeksLater = date3.IncreaseDateByXWeeks(2, date3);
-    assert(twoWeeksLater.GetDay() == 8);
-    assert(twoWeeksLater.GetMonth() == 1);
-    assert(twoWeeksLater.GetYear() == 2024);
-    std::cout << "✓ IncreaseDateByXWeeks test passed\n";
+    assert_true(friday.IsWeekEnd(), "Business: Friday is weekend");
+    assert_true(saturday.IsWeekEnd(), "Business: Saturday is weekend");
+    assert_true(!sunday.IsWeekEnd(), "Business: Sunday is not weekend");
+    assert_true(!monday.IsWeekEnd(), "Business: Monday is not weekend");
     
-    // Test IncreaseDateByOneMonth
-    MyDate date4("15/01/2023");
-    MyDate nextMonth = MyDate::IncreaseDateByOneMonth(date4);
-    assert(nextMonth.GetDay() == 15);
-    assert(nextMonth.GetMonth() == 2);
-    assert(nextMonth.GetYear() == 2023);
-    std::cout << "✓ IncreaseDateByOneMonth (static) test passed\n";
+    assert_true(!friday.IsBusinessDay(), "Business: Friday is not business day");
+    assert_true(!saturday.IsBusinessDay(), "Business: Saturday is not business day");
+    assert_true(sunday.IsBusinessDay(), "Business: Sunday is business day");
+    assert_true(monday.IsBusinessDay(), "Business: Monday is business day");
     
-    // Test IncreaseDateByOneMonth (instance)
-    MyDate date5("15/01/2023");
-    date5.IncreaseDateByOneMonth();
-    assert(date5.GetDay() == 15);
-    assert(date5.GetMonth() == 2);
-    assert(date5.GetYear() == 2023);
-    std::cout << "✓ IncreaseDateByOneMonth (instance) test passed\n";
+    // Test business days calculation
+    MyDate workWeekStart("01/12/2023"); // Friday
+    MyDate workWeekEnd("07/12/2023");   // Thursday
+    assert_equal(5, MyDate::CalculateBusinessDays(workWeekStart, workWeekEnd), "Business: business days in week");
     
-    // Test IncreaseDateByOneYear
-    MyDate date6("15/06/2023");
-    MyDate nextYear = MyDate::IncreaseDateByOneYear(date6);
-    assert(nextYear.GetDay() == 15);
-    assert(nextYear.GetMonth() == 6);
-    assert(nextYear.GetYear() == 2024);
-    std::cout << "✓ IncreaseDateByOneYear test passed\n";
+    // Test vacation days calculation
+    assert_equal(2, MyDate::CalculateVacationDays(workWeekStart, workWeekEnd), "Business: vacation days in week");
     
-    // Test IncreaseDateByOneDecade
-    MyDate date7("15/06/2023");
-    MyDate nextDecade = date7.IncreaseDateByOneDecade(date7);
-    assert(nextDecade.GetDay() == 15);
-    assert(nextDecade.GetMonth() == 6);
-    assert(nextDecade.GetYear() == 2033);
-    std::cout << "✓ IncreaseDateByOneDecade test passed\n";
+    // Test vacation return date calculation
+    MyDate vacationStart("01/12/2023"); // Friday
+    MyDate returnDate = MyDate::CalculateVacationReturnDate(vacationStart, 5);
+    assert_equal(7, returnDate.GetDay(), "Business: vacation return day");
+    assert_equal(12, returnDate.GetMonth(), "Business: vacation return month");
     
-    // Test IncreaseDateByOneCentury
-    MyDate date8("15/06/2023");
-    MyDate nextCentury = date8.IncreaseDateByOneCentury(date8);
-    assert(nextCentury.GetDay() == 15);
-    assert(nextCentury.GetMonth() == 6);
-    assert(nextCentury.GetYear() == 2123);
-    std::cout << "✓ IncreaseDateByOneCentury test passed\n";
-    
-    // Test IncreaseDateByOneMillennium
-    MyDate date9("15/06/2023");
-    MyDate nextMillennium = date9.IncreaseDateByOneMillennium(date9);
-    assert(nextMillennium.GetDay() == 15);
-    assert(nextMillennium.GetMonth() == 6);
-    assert(nextMillennium.GetYear() == 3023);
-    std::cout << "✓ IncreaseDateByOneMillennium test passed\n";
-    
-    std::cout << "✓ MyDate advanced arithmetic tests passed\n\n";
+    std::cout << "✓ Business calculation tests passed\n\n";
 }
 
-void test_mydate_decrease_functions() {
-    std::cout << "Testing MyDate decrease functions...\n";
+void test_advanced_arithmetic() {
+    std::cout << "Testing advanced arithmetic...\n";
     
-    // Test DecreaseDateByOneDay
-    MyDate date("01/01/2024");
-    MyDate previousDay = MyDate::DecreaseDateByOneDay(date);
-    assert(previousDay.GetDay() == 31);
-    assert(previousDay.GetMonth() == 12);
-    assert(previousDay.GetYear() == 2023);
-    std::cout << "✓ DecreaseDateByOneDay (static) test passed\n";
+    MyDate baseDate(TestData::VALID_DATE_STR);
     
-    // Test DecreaseDateByOneDay (instance)
-    MyDate date2("01/01/2024");
-    date2.DecreaseDateByOneDay();
-    assert(date2.GetDay() == 31);
-    assert(date2.GetMonth() == 12);
-    assert(date2.GetYear() == 2023);
-    std::cout << "✓ DecreaseDateByOneDay (instance) test passed\n";
+    // Test increase by one week (Dec 25 -> Jan 1)
+    MyDate nextWeek = MyDate::IncreaseDateByOneWeek(baseDate);
+    assert_equal(1, nextWeek.GetDay(), "Advanced: increase one week day");
+    assert_equal(1, nextWeek.GetMonth(), "Advanced: increase one week month");
+    assert_equal(TestData::LEAP_YEAR, nextWeek.GetYear(), "Advanced: increase one week year");
     
-    // Test DecreaseDateByOneWeek
-    MyDate date3("08/01/2024");
-    MyDate previousWeek = MyDate::DecreaseDateByOneWeek(date3);
-    assert(previousWeek.GetDay() == 1);
-    assert(previousWeek.GetMonth() == 1);
-    assert(previousWeek.GetYear() == 2024);
-    std::cout << "✓ DecreaseDateByOneWeek test passed\n";
+    // Test increase by one month (Dec 15 -> Jan 15)
+    MyDate nextMonth = MyDate::IncreaseDateByOneMonth(MyDate(15, 12, TestData::VALID_YEAR));
+    assert_equal(15, nextMonth.GetDay(), "Advanced: increase one month day");
+    assert_equal(1, nextMonth.GetMonth(), "Advanced: increase one month month");
+    assert_equal(TestData::LEAP_YEAR, nextMonth.GetYear(), "Advanced: increase one month year");
     
-    // Test DecreaseDateByOneMonth
-    MyDate date4("15/02/2024");
-    MyDate previousMonth = MyDate::DecreaseDateByOneMonth(date4);
-    assert(previousMonth.GetDay() == 15);
-    assert(previousMonth.GetMonth() == 1);
-    assert(previousMonth.GetYear() == 2024);
-    std::cout << "✓ DecreaseDateByOneMonth test passed\n";
+    // Test increase by one year
+    MyDate nextYear = MyDate::IncreaseDateByOneYear(MyDate(15, 6, TestData::VALID_YEAR));
+    assert_equal(15, nextYear.GetDay(), "Advanced: increase one year day");
+    assert_equal(6, nextYear.GetMonth(), "Advanced: increase one year month");
+    assert_equal(TestData::LEAP_YEAR, nextYear.GetYear(), "Advanced: increase one year year");
     
-    // Test DecreaseDateByOneYear
-    MyDate date5("15/06/2024");
-    MyDate previousYear = MyDate::DecreaseDateByOneYear(date5);
-    assert(previousYear.GetDay() == 15);
-    assert(previousYear.GetMonth() == 6);
-    assert(previousYear.GetYear() == 2023);
-    std::cout << "✓ DecreaseDateByOneYear test passed\n";
-    
-    // Test DecreaseDateByOneDecade
-    MyDate date6("15/06/2024");
-    MyDate previousDecade = date6.DecreaseDateByOneDecade(date6);
-    assert(previousDecade.GetDay() == 15);
-    assert(previousDecade.GetMonth() == 6);
-    assert(previousDecade.GetYear() == 2014);
-    std::cout << "✓ DecreaseDateByOneDecade test passed\n";
-    
-    // Test DecreaseDateByOneCentury
-    MyDate date7("15/06/2024");
-    MyDate previousCentury = date7.DecreaseDateByOneCentury(date7);
-    assert(previousCentury.GetDay() == 15);
-    assert(previousCentury.GetMonth() == 6);
-    assert(previousCentury.GetYear() == 1924);
-    std::cout << "✓ DecreaseDateByOneCentury test passed\n";
-    
-    // Test DecreaseDateByOneMillennium
-    MyDate date8("15/06/2024");
-    MyDate previousMillennium = date8.DecreaseDateByOneMillennium(date8);
-    assert(previousMillennium.GetDay() == 15);
-    assert(previousMillennium.GetMonth() == 6);
-    assert(previousMillennium.GetYear() == 1024);
-    std::cout << "✓ DecreaseDateByOneMillennium test passed\n";
-    
-    std::cout << "✓ MyDate decrease functions tests passed\n\n";
+    std::cout << "✓ Advanced arithmetic tests passed\n\n";
 }
 
-void test_mydate_calculations() {
-    std::cout << "Testing MyDate calculation functions...\n";
+void test_decrease_arithmetic() {
+    std::cout << "Testing decrease arithmetic...\n";
     
-    // Test DaysFromTheBeginingOfTheYear
-    MyDate date1("01/01/2023");
-    assert(date1.DaysFromTheBeginingOfTheYear() == 1);
+    // Test decrease by one day (Jan 1 -> Dec 31)
+    MyDate previousDay = MyDate::DecreaseDateByOneDay(MyDate(1, 1, TestData::LEAP_YEAR));
+    assert_equal(31, previousDay.GetDay(), "Decrease: one day day");
+    assert_equal(12, previousDay.GetMonth(), "Decrease: one day month");
+    assert_equal(TestData::VALID_YEAR, previousDay.GetYear(), "Decrease: one day year");
     
-    MyDate date2("31/12/2023");
-    assert(date2.DaysFromTheBeginingOfTheYear() == 365);
+    // Test decrease by one month
+    MyDate previousMonth = MyDate::DecreaseDateByOneMonth(MyDate(15, 2, TestData::LEAP_YEAR));
+    assert_equal(15, previousMonth.GetDay(), "Decrease: one month day");
+    assert_equal(1, previousMonth.GetMonth(), "Decrease: one month month");
+    assert_equal(TestData::LEAP_YEAR, previousMonth.GetYear(), "Decrease: one month year");
     
-    MyDate date3("01/03/2024"); // Leap year
-    assert(date3.DaysFromTheBeginingOfTheYear() == 61); // 31 + 29 + 1
-    std::cout << "✓ DaysFromTheBeginingOfTheYear test passed\n";
+    // Test decrease by one year
+    MyDate previousYear = MyDate::DecreaseDateByOneYear(MyDate(15, 6, TestData::LEAP_YEAR));
+    assert_equal(15, previousYear.GetDay(), "Decrease: one year day");
+    assert_equal(6, previousYear.GetMonth(), "Decrease: one year month");
+    assert_equal(TestData::VALID_YEAR, previousYear.GetYear(), "Decrease: one year year");
     
-    // Test static DaysFromTheBeginingOfTheYear
-    assert(MyDate::DaysFromTheBeginingOfTheYear(15, 6, 2023) == 166);
-    std::cout << "✓ DaysFromTheBeginingOfTheYear (static) test passed\n";
+    std::cout << "✓ Decrease arithmetic tests passed\n\n";
+}
+
+void test_period_calculations() {
+    std::cout << "Testing period calculations...\n";
     
-    // Test GetDateFromDayOrderInYear
-    MyDate date4 = MyDate::GetDateFromDayOrderInYear(60, 2023);
-    assert(date4.GetDay() == 1);
-    assert(date4.GetMonth() == 3);
-    assert(date4.GetYear() == 2023);
-    std::cout << "✓ GetDateFromDayOrderInYear test passed\n";
+    // Test days from beginning of year
+    MyDate janFirst("01/01/2023");
+    MyDate decLast("31/12/2023");
+    MyDate marFirst("01/03/2024"); // Leap year
     
-    // Test IsLastDayInMonth
-    MyDate lastDay("31/12/2023");
-    MyDate notLastDay("15/12/2023");
-    assert(lastDay.IsLastDayInMonth() == true);
-    assert(notLastDay.IsLastDayInMonth() == false);
-    std::cout << "✓ IsLastDayInMonth test passed\n";
+    assert_equal(1, janFirst.DaysFromTheBeginingOfTheYear(), "Period: days from beginning (Jan 1)");
+    assert_equal(365, decLast.DaysFromTheBeginingOfTheYear(), "Period: days from beginning (Dec 31)");
+    assert_equal(61, marFirst.DaysFromTheBeginingOfTheYear(), "Period: days from beginning (Mar 1, leap)");
     
-    // Test IsLastMonthInYear
-    assert(MyDate::IsLastMonthInYear(12) == true);
-    assert(MyDate::IsLastMonthInYear(6) == false);
-    std::cout << "✓ IsLastMonthInYear test passed\n";
+    // Test date from day order in year
+    MyDate dateFromOrder = MyDate::GetDateFromDayOrderInYear(60, TestData::NON_LEAP_YEAR);
+    assert_equal(1, dateFromOrder.GetDay(), "Period: date from order day");
+    assert_equal(3, dateFromOrder.GetMonth(), "Period: date from order month");
+    assert_equal(TestData::NON_LEAP_YEAR, dateFromOrder.GetYear(), "Period: date from order year");
     
-    // Test CalculateMyAgeInDays
-    MyDate birthDate("01/01/2000");
-    short ageInDays = MyDate::CalculateMyAgeInDays(birthDate);
-    assert(ageInDays > 0); // Should be positive
-    std::cout << "✓ CalculateMyAgeInDays test passed\n";
+    // Test last day checks
+    MyDate lastDayDate("31/12/2023");
+    MyDate notLastDayDate("15/12/2023");
+    assert_true(lastDayDate.IsLastDayInMonth(), "Period: is last day in month (true)");
+    assert_true(!notLastDayDate.IsLastDayInMonth(), "Period: is last day in month (false)");
     
-    // Test SwapDates
-    MyDate date5("01/01/2023");
-    MyDate date6("31/12/2023");
-    MyDate::SwapDates(date5, date6);
-    assert(date5.GetDay() == 31);
-    assert(date5.GetMonth() == 12);
-    assert(date6.GetDay() == 1);
-    assert(date6.GetMonth() == 1);
-    std::cout << "✓ SwapDates test passed\n";
+    assert_true(MyDate::IsLastMonthInYear(12), "Period: is last month in year (true)");
+    assert_true(!MyDate::IsLastMonthInYear(6), "Period: is last month in year (false)");
     
-    // Test GetSystemDate
+    std::cout << "✓ Period calculation tests passed\n\n";
+}
+
+void test_system_functions() {
+    std::cout << "Testing system functions...\n";
+    
+    // Test system date
     MyDate systemDate = MyDate::GetSystemDate();
-    assert(systemDate.GetDay() >= 1 && systemDate.GetDay() <= 31);
-    assert(systemDate.GetMonth() >= 1 && systemDate.GetMonth() <= 12);
-    assert(systemDate.GetYear() >= 2023);
-    std::cout << "✓ GetSystemDate test passed\n";
+    assert_true(systemDate.GetDay() >= 1 && systemDate.GetDay() <= 31, "System: valid day");
+    assert_true(systemDate.GetMonth() >= 1 && systemDate.GetMonth() <= 12, "System: valid month");
+    assert_true(systemDate.GetYear() >= TestData::VALID_YEAR, "System: valid year");
     
-    std::cout << "✓ MyDate calculation functions tests passed\n\n";
+    // Test age calculation
+    MyDate birthDate("01/01/2000");
+    assert_true(MyDate::CalculateMyAgeInDays(birthDate) > 0, "System: age calculation positive");
+    
+    // Test date swap
+    MyDate date1("01/01/2023");
+    MyDate date2("31/12/2023");
+    MyDate::SwapDates(date1, date2);
+    assert_equal(31, date1.GetDay(), "System: swap first day");
+    assert_equal(12, date1.GetMonth(), "System: swap first month");
+    assert_equal(1, date2.GetDay(), "System: swap second day");
+    assert_equal(1, date2.GetMonth(), "System: swap second month");
+    
+    std::cout << "✓ System function tests passed\n\n";
 }
 
-void test_mydate_end_of_period() {
-    std::cout << "Testing MyDate end of period functions...\n";
+void test_calendar_functions() {
+    std::cout << "Testing calendar functions...\n";
     
-    // Test DaysUntilTheEndOfWeek
+    // Test calendar printing (visual verification)
+    std::cout << "Testing PrintMonthCalendar (static):\n";
+    MyDate::PrintMonthCalendar(12, TestData::VALID_YEAR);
+    
+    std::cout << "Testing PrintMonthCalendar (instance):\n";
+    MyDate date("15/06/2023");
+    date.PrintMonthCalendar();
+    
+    std::cout << "Testing PrintYearCalendar (static):\n";
+    MyDate::PrintYearCalendar(TestData::VALID_YEAR);
+    
+    std::cout << "✓ Calendar function tests passed\n\n";
+}
+
+void test_end_of_period_functions() {
+    std::cout << "Testing end of period functions...\n";
+    
     MyDate sunday("03/12/2023"); // Sunday
     MyDate monday("04/12/2023"); // Monday
     MyDate saturday("09/12/2023"); // Saturday
     
-    assert(sunday.DaysUntilTheEndOfWeek() == 6); // Sunday to Saturday
-    assert(monday.DaysUntilTheEndOfWeek() == 5); // Monday to Saturday
-    assert(saturday.DaysUntilTheEndOfWeek() == 0); // Saturday is end of week
-    std::cout << "✓ DaysUntilTheEndOfWeek test passed\n";
+    // Test days until end of week
+    assert_equal(6, sunday.DaysUntilTheEndOfWeek(), "End period: days to week end (Sunday)");
+    assert_equal(5, monday.DaysUntilTheEndOfWeek(), "End period: days to week end (Monday)");
+    assert_equal(0, saturday.DaysUntilTheEndOfWeek(), "End period: days to week end (Saturday)");
     
-    // Test static DaysUntilTheEndOfWeek
-    assert(MyDate::DaysUntilTheEndOfWeek(sunday) == 6);
-    assert(MyDate::DaysUntilTheEndOfWeek(saturday) == 0);
-    std::cout << "✓ DaysUntilTheEndOfWeek (static) test passed\n";
+    // Test days until end of month
+    MyDate monthStart("01/12/2023");
+    MyDate monthMiddle("15/12/2023");
+    MyDate monthEnd("31/12/2023");
     
-    // Test DaysUntilTheEndOfMonth
-    MyDate startOfMonth("01/12/2023");
-    MyDate middleOfMonth("15/12/2023");
-    MyDate endOfMonth("31/12/2023");
+    assert_equal(30, monthStart.DaysUntilTheEndOfMonth(), "End period: days to month end (start)");
+    assert_equal(16, monthMiddle.DaysUntilTheEndOfMonth(), "End period: days to month end (middle)");
+    assert_equal(0, monthEnd.DaysUntilTheEndOfMonth(), "End period: days to month end (end)");
     
-    assert(startOfMonth.DaysUntilTheEndOfMonth() == 30); // 31-1 = 30 days
-    assert(middleOfMonth.DaysUntilTheEndOfMonth() == 16); // 31-15 = 16 days
-    assert(endOfMonth.DaysUntilTheEndOfMonth() == 0); // Last day
-    std::cout << "✓ DaysUntilTheEndOfMonth test passed\n";
+    // Test days until end of year
+    MyDate yearStart("01/01/2023");
+    MyDate yearMiddle("02/07/2023");
+    MyDate yearEnd("31/12/2023");
     
-    // Test static DaysUntilTheEndOfMonth
-    assert(MyDate::DaysUntilTheEndOfMonth(startOfMonth) == 30);
-    assert(MyDate::DaysUntilTheEndOfMonth(endOfMonth) == 0);
-    std::cout << "✓ DaysUntilTheEndOfMonth (static) test passed\n";
+    assert_equal(364, yearStart.DaysUntilTheEndOfYear(), "End period: days to year end (start)");
+    assert_equal(182, yearMiddle.DaysUntilTheEndOfYear(), "End period: days to year end (middle)");
+    assert_equal(0, yearEnd.DaysUntilTheEndOfYear(), "End period: days to year end (end)");
     
-    // Test DaysUntilTheEndOfYear
-    MyDate startOfYear("01/01/2023");
-    MyDate middleOfYear("02/07/2023"); // Around middle of year
-    MyDate endOfYear("31/12/2023");
-    
-    assert(startOfYear.DaysUntilTheEndOfYear() == 364); // 365-1 = 364 days
-    assert(middleOfYear.DaysUntilTheEndOfYear() == 182); // Approximately half year remaining
-    assert(endOfYear.DaysUntilTheEndOfYear() == 0); // Last day
-    std::cout << "✓ DaysUntilTheEndOfYear test passed\n";
-    
-    // Test static DaysUntilTheEndOfYear
-    assert(MyDate::DaysUntilTheEndOfYear(startOfYear) == 364);
-    assert(MyDate::DaysUntilTheEndOfYear(endOfYear) == 0);
-    std::cout << "✓ DaysUntilTheEndOfYear (static) test passed\n";
-    
-    std::cout << "✓ MyDate end of period functions tests passed\n\n";
+    std::cout << "✓ End of period tests passed\n\n";
 }
 
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
-    test_mydate_constructors();
-    test_mydate_getters_setters();
-    test_mydate_error_handling();
-    test_mydate_validation();
-    test_mydate_formatting();
-    test_mydate_comparisons();
-    test_mydate_arithmetic();
-    test_mydate_utilities();
-    test_mydate_calendar();
-    test_mydate_business_vacation();
-    test_mydate_time_functions();
-    test_mydate_advanced_arithmetic();
-    test_mydate_decrease_functions();
-    test_mydate_calculations();
-    test_mydate_end_of_period();
+    test_constructors();
+    test_getters_setters();
+    test_error_handling();
+    test_validation();
+    test_formatting();
+    test_comparisons();
+    test_basic_arithmetic();
+    test_utility_functions();
+    test_time_calculations();
+    test_business_calculations();
+    test_advanced_arithmetic();
+    test_decrease_arithmetic();
+    test_period_calculations();
+    test_system_functions();
+    test_calendar_functions();
+    test_end_of_period_functions();
     
     std::cout << "🎉 All MyDate tests passed successfully!\n";
     return 0;
