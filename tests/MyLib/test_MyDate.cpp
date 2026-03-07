@@ -573,6 +573,57 @@ void test_mydate_calculations() {
     std::cout << "✓ MyDate calculation functions tests passed\n\n";
 }
 
+void test_mydate_end_of_period() {
+    std::cout << "Testing MyDate end of period functions...\n";
+    
+    // Test DaysUntilTheEndOfWeek
+    MyDate sunday("03/12/2023"); // Sunday
+    MyDate monday("04/12/2023"); // Monday
+    MyDate saturday("09/12/2023"); // Saturday
+    
+    assert(sunday.DaysUntilTheEndOfWeek() == 6); // Sunday to Saturday
+    assert(monday.DaysUntilTheEndOfWeek() == 5); // Monday to Saturday
+    assert(saturday.DaysUntilTheEndOfWeek() == 0); // Saturday is end of week
+    std::cout << "✓ DaysUntilTheEndOfWeek test passed\n";
+    
+    // Test static DaysUntilTheEndOfWeek
+    assert(MyDate::DaysUntilTheEndOfWeek(sunday) == 6);
+    assert(MyDate::DaysUntilTheEndOfWeek(saturday) == 0);
+    std::cout << "✓ DaysUntilTheEndOfWeek (static) test passed\n";
+    
+    // Test DaysUntilTheEndOfMonth
+    MyDate startOfMonth("01/12/2023");
+    MyDate middleOfMonth("15/12/2023");
+    MyDate endOfMonth("31/12/2023");
+    
+    assert(startOfMonth.DaysUntilTheEndOfMonth() == 30); // 31-1 = 30 days
+    assert(middleOfMonth.DaysUntilTheEndOfMonth() == 16); // 31-15 = 16 days
+    assert(endOfMonth.DaysUntilTheEndOfMonth() == 0); // Last day
+    std::cout << "✓ DaysUntilTheEndOfMonth test passed\n";
+    
+    // Test static DaysUntilTheEndOfMonth
+    assert(MyDate::DaysUntilTheEndOfMonth(startOfMonth) == 30);
+    assert(MyDate::DaysUntilTheEndOfMonth(endOfMonth) == 0);
+    std::cout << "✓ DaysUntilTheEndOfMonth (static) test passed\n";
+    
+    // Test DaysUntilTheEndOfYear
+    MyDate startOfYear("01/01/2023");
+    MyDate middleOfYear("02/07/2023"); // Around middle of year
+    MyDate endOfYear("31/12/2023");
+    
+    assert(startOfYear.DaysUntilTheEndOfYear() == 364); // 365-1 = 364 days
+    assert(middleOfYear.DaysUntilTheEndOfYear() == 182); // Approximately half year remaining
+    assert(endOfYear.DaysUntilTheEndOfYear() == 0); // Last day
+    std::cout << "✓ DaysUntilTheEndOfYear test passed\n";
+    
+    // Test static DaysUntilTheEndOfYear
+    assert(MyDate::DaysUntilTheEndOfYear(startOfYear) == 364);
+    assert(MyDate::DaysUntilTheEndOfYear(endOfYear) == 0);
+    std::cout << "✓ DaysUntilTheEndOfYear (static) test passed\n";
+    
+    std::cout << "✓ MyDate end of period functions tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyDate Unit Tests ===\n\n";
     
