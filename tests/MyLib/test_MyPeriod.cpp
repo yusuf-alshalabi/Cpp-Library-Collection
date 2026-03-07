@@ -53,6 +53,17 @@ void test_myperiod_getters_setters() {
         std::cout << "✓ SetStartDate validation test passed\n";
     }
     
+    // Test invalid SetEndDate
+    MyPeriod::ClearError();
+    try {
+        MyDate invalidEnd("01/01/2023");
+        period.SetEndDate(invalidEnd); // Should fail - current start is 15/06/2023
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyPeriod::GetLastError() == "Invalid period: End date cannot be before start date");
+        std::cout << "✓ SetEndDate validation test passed\n";
+    }
+    
     std::cout << "✓ MyPeriod getters and setters tests passed\n\n";
 }
 

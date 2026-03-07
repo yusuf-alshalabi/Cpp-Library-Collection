@@ -26,7 +26,13 @@ public:
     }
     MyDate GetStartDate() const { return _StartDate; }
 
-    void SetEndDate(const MyDate& EndDate) { _EndDate = EndDate; }
+    void SetEndDate(const MyDate& EndDate) { 
+        if (MyDate::CompareDates(_StartDate, EndDate) == MyDate::enDateCompare::After) {
+            _lastError = "Invalid period: End date cannot be before start date";
+            throw std::invalid_argument("MyPeriod: End date cannot be before start date");
+        }
+        _EndDate = EndDate; 
+    }
     MyDate GetEndDate() const { return _EndDate; }
 
     // ---- Constructor ----
