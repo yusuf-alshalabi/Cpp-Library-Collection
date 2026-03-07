@@ -2,6 +2,19 @@
 #include <cassert>
 #include "../../include/MyLib/MyUtil.h"
 
+// Test data constants for better readability and maintainability
+namespace UtilTestData {
+    const int MIN_RANDOM = 1;
+    const int MAX_RANDOM = 100;
+    const int WORD_LENGTH = 5;
+    const int KEY_PARTS = 4;
+    const int ARRAY_SIZE = 10;
+    const int TEST_KEYS = 3;
+    const short ENCRYPTION_KEY = 3;
+    const short NEGATIVE_KEY = -2;
+    const short SPECIAL_KEY = 10;
+}
+
 using namespace MyLib;
 
 void test_myutil_random_functions() {
@@ -9,8 +22,8 @@ void test_myutil_random_functions() {
     
     // Test Srand and RandomNumber
     clsUtil::Srand();
-    int randNum = clsUtil::RandomNumber(1, 100);
-    assert(randNum >= 1 && randNum <= 100);
+    int randNum = clsUtil::RandomNumber(UtilTestData::MIN_RANDOM, UtilTestData::MAX_RANDOM);
+    assert(randNum >= UtilTestData::MIN_RANDOM && randNum <= UtilTestData::MAX_RANDOM);
     std::cout << "✓ RandomNumber test passed\n";
     
     // Test GetRandomCharacter - ALL enum types
@@ -18,9 +31,9 @@ void test_myutil_random_functions() {
     assert(capitalChar >= 'A' && capitalChar <= 'Z');
     std::cout << "✓ GetRandomCharacter (CapitalLetter) test passed\n";
     
-    char smallChar = clsUtil::GetRandomCharacter(clsUtil::SamallLetter);
+    char smallChar = clsUtil::GetRandomCharacter(clsUtil::SmallLetter);
     assert(smallChar >= 'a' && smallChar <= 'z');
-    std::cout << "✓ GetRandomCharacter (SamallLetter) test passed\n";
+    std::cout << "✓ GetRandomCharacter (SmallLetter) test passed\n";
     
     char digitChar = clsUtil::GetRandomCharacter(clsUtil::Digit);
     assert(digitChar >= '0' && digitChar <= '9');
@@ -44,8 +57,8 @@ void test_myutil_generation_functions() {
     std::cout << "Testing MyUtil generation functions...\n";
     
     // Test GenerateWord
-    std::string word = clsUtil::GenerateWord(clsUtil::CapitalLetter, 5);
-    assert(word.length() == 5);
+    std::string word = clsUtil::GenerateWord(clsUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
+    assert(word.length() == UtilTestData::WORD_LENGTH);
     std::cout << "✓ GenerateWord test passed: " << word << "\n";
     
     // Test GenerateKey
@@ -57,7 +70,7 @@ void test_myutil_generation_functions() {
     // Test GenerateKeys (this method prints to console, so we can't easily test output)
     // But we can at least verify it doesn't crash
     std::cout << "Testing GenerateKeys output:\n";
-    clsUtil::GenerateKeys(2, clsUtil::CapitalLetter);
+    clsUtil::GenerateKeys(UtilTestData::TEST_KEYS, clsUtil::CapitalLetter);
     std::cout << "✓ GenerateKeys test passed (no crash)\n";
     
     std::cout << "✓ MyUtil generation functions tests passed\n\n";
@@ -100,8 +113,8 @@ void test_myutil_swap_functions() {
     MyDate date1("25/12/2023");
     MyDate date2("01/01/2024");
     clsUtil::Swap(date1, date2);
-    assert(date1.ToString() == "01/01/2024");
-    assert(date2.ToString() == "25/12/2023");
+    assert(date1.DateToString() == "01/01/2024");
+    assert(date2.DateToString() == "25/12/2023");
     std::cout << "✓ Swap (MyDate) test passed\n";
     
     std::cout << "✓ MyUtil swap functions tests passed\n\n";
@@ -112,24 +125,24 @@ void test_myutil_array_functions() {
     
     // Test FillArrayWithRandomNumbers
     int arr[100];
-    clsUtil::FillArrayWithRandomNumbers(arr, 10, 1, 50);
-    for (int i = 0; i < 10; i++) {
-        assert(arr[i] >= 1 && arr[i] <= 50);
+    clsUtil::FillArrayWithRandomNumbers(arr, UtilTestData::ARRAY_SIZE, UtilTestData::MIN_RANDOM, 50);
+    for (int i = 0; i < UtilTestData::ARRAY_SIZE; i++) {
+        assert(arr[i] >= UtilTestData::MIN_RANDOM && arr[i] <= 50);
     }
     std::cout << "✓ FillArrayWithRandomNumbers test passed\n";
     
     // Test FillArrayWithRandomWords
     std::string words[100];
-    clsUtil::FillArrayWithRandomWords(words, 5, clsUtil::CapitalLetter, 3);
+    clsUtil::FillArrayWithRandomWords(words, 5, clsUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
     for (int i = 0; i < 5; i++) {
-        assert(words[i].length() == 3);
+        assert(words[i].length() == UtilTestData::WORD_LENGTH);
     }
     std::cout << "✓ FillArrayWithRandomWords test passed\n";
     
     // Test FillArrayWithRandomKeys
     std::string keys[100];
-    clsUtil::FillArrayWithRandomKeys(keys, 3, clsUtil::CapitalLetter);
-    for (int i = 0; i < 3; i++) {
+    clsUtil::FillArrayWithRandomKeys(keys, UtilTestData::TEST_KEYS, clsUtil::CapitalLetter);
+    for (int i = 0; i < UtilTestData::TEST_KEYS; i++) {
         assert(keys[i].length() == 19);
     }
     std::cout << "✓ FillArrayWithRandomKeys test passed\n";
@@ -170,13 +183,12 @@ void test_myutil_encryption_functions() {
     
     // Test basic Encrypt/Decrypt
     std::string originalText = "Hello World";
-    short encryptionKey = 3;
-    std::string encrypted = clsUtil::EncryptText(originalText, encryptionKey);
-    std::string decrypted = clsUtil::DecryptText(encrypted, encryptionKey);
+    std::string encrypted = clsUtil::EncryptText(originalText, UtilTestData::ENCRYPTION_KEY);
+    std::string decrypted = clsUtil::DecryptText(encrypted, UtilTestData::ENCRYPTION_KEY);
     assert(originalText == decrypted);
     std::cout << "✓ Basic Encrypt/Decrypt test passed\n";
     
-    // Test that encryption changes the text
+    // Test that encryption changes text
     assert(encrypted != originalText);
     std::cout << "✓ Encryption changes text test passed\n";
     
@@ -189,17 +201,15 @@ void test_myutil_encryption_functions() {
     
     // Test negative encryption key
     std::string originalText2 = "Test";
-    short negativeKey = -2;
-    std::string encryptedNeg = clsUtil::EncryptText(originalText2, negativeKey);
-    std::string decryptedNeg = clsUtil::DecryptText(encryptedNeg, negativeKey);
+    std::string encryptedNeg = clsUtil::EncryptText(originalText2, UtilTestData::NEGATIVE_KEY);
+    std::string decryptedNeg = clsUtil::DecryptText(encryptedNeg, UtilTestData::NEGATIVE_KEY);
     assert(originalText2 == decryptedNeg);
     std::cout << "✓ Negative encryption key test passed\n";
     
     // Test special characters
     std::string specialText = "Hello@#$%";
-    short specialKey = 10;
-    std::string encryptedSpecial = clsUtil::EncryptText(specialText, specialKey);
-    std::string decryptedSpecial = clsUtil::DecryptText(encryptedSpecial, specialKey);
+    std::string encryptedSpecial = clsUtil::EncryptText(specialText, UtilTestData::SPECIAL_KEY);
+    std::string decryptedSpecial = clsUtil::DecryptText(encryptedSpecial, UtilTestData::SPECIAL_KEY);
     assert(specialText == decryptedSpecial);
     std::cout << "✓ Special characters encryption test passed\n";
     
