@@ -48,21 +48,35 @@ void test_myperiod_getters_setters() {
 void test_myperiod_constructors_operators() {
     std::cout << "Testing MyPeriod constructors and operators...\n";
     
-    // Test move constructor
+    // Test constructor with dates
     MyDate start("01/01/2023");
     MyDate end("31/12/2023");
     MyPeriod original(start, end);
     
+    // Test copy constructor
+    MyPeriod copied(original);
+    assert(copied.GetStartDate().ToString() == "01/01/2023");
+    assert(copied.GetEndDate().ToString() == "31/12/2023");
+    std::cout << "✓ Copy constructor test passed\n";
+    
+    // Test move constructor
     MyPeriod moved(std::move(original));
     assert(moved.GetStartDate().ToString() == "01/01/2023");
     assert(moved.GetEndDate().ToString() == "31/12/2023");
     std::cout << "✓ Move constructor test passed\n";
     
-    // Test move assignment operator
+    // Test copy assignment operator
     MyDate start2("15/06/2023");
     MyDate end2("15/12/2023");
     MyPeriod original2(start2, end2);
     
+    MyPeriod copyAssigned;
+    copyAssigned = original2;
+    assert(copyAssigned.GetStartDate().ToString() == "15/06/2023");
+    assert(copyAssigned.GetEndDate().ToString() == "15/12/2023");
+    std::cout << "✓ Copy assignment operator test passed\n";
+    
+    // Test move assignment operator
     MyPeriod assigned;
     assigned = std::move(original2);
     assert(assigned.GetStartDate().ToString() == "15/06/2023");

@@ -45,6 +45,12 @@ public:
     {
     }
 
+    // Copy constructor
+    MyPeriod(const MyPeriod& other)
+        : _StartDate(other._StartDate), _EndDate(other._EndDate)
+    {
+    }
+
     // ---- Overlap ----
 
     static bool IsOverlapPeriods(const MyPeriod& Period1, const MyPeriod& Period2)
@@ -66,6 +72,17 @@ public:
         {
             _StartDate = std::move(other._StartDate);
             _EndDate = std::move(other._EndDate);
+        }
+        return *this;
+    }
+
+    // Copy assignment operator
+    MyPeriod& operator=(const MyPeriod& other)
+    {
+        if (this != &other)
+        {
+            _StartDate = other._StartDate;
+            _EndDate = other._EndDate;
         }
         return *this;
     }
