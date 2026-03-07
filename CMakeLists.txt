@@ -8,6 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Include directories
 include_directories(include)
 
+# Source files
+set(SOURCES
+    src/MyLib.cpp
+)
+
 # Header files
 set(HEADERS
     include/MyLib/MyString.h
@@ -16,9 +21,9 @@ set(HEADERS
     include/MyLib/MyUtil.h
 )
 
-# Create header-only library
-add_library(MyLib INTERFACE)
-target_include_directories(MyLib INTERFACE include)
+# Create library
+add_library(MyLib ${SOURCES} ${HEADERS})
+target_include_directories(MyLib PUBLIC include)
 
 # Installation
 install(FILES ${HEADERS}

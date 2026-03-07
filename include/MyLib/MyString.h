@@ -35,9 +35,14 @@ public:
     }
 
     // Move constructor
-    MyString(std::string&& Value) noexcept
-        : _Value(std::move(Value))
+    MyString(std::string&& Value)
     {
+        if (Value.empty())
+        {
+            _lastError = "Cannot create MyString with empty value";
+            throw std::invalid_argument("MyString: Cannot create with empty value");
+        }
+        _Value = std::move(Value);
     }
 
     void SetValue(const std::string& Value)

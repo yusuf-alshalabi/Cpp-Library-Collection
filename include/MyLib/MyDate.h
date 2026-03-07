@@ -52,6 +52,13 @@ public:
 			_lastError = "Invalid date format. Cannot parse date components";
 			throw std::invalid_argument("MyDate: Cannot parse date components");
 		}
+		
+		// Validate the date
+		if (!IsValidDate(*this))
+		{
+			_lastError = "Invalid date: Day, month, or year values are out of range";
+			throw std::invalid_argument("MyDate: Invalid date values");
+		}
 	}
 
 	MyDate(short Day, short Month, short Year)
@@ -59,6 +66,13 @@ public:
 		_Day = Day;
 		_Month = Month;
 		_Year = Year;
+		
+		// Validate the date
+		if (!IsValidDate(*this))
+		{
+			_lastError = "Invalid date: Day, month, or year values are out of range";
+			throw std::invalid_argument("MyDate: Invalid date values");
+		}
 	}
 
 	MyDate(short DateOrderInYear, short Year)
@@ -160,7 +174,7 @@ public:
 			std::to_string(Date.GetYear());
 	}
 
-	std::string DateToString()
+	std::string DateToString() const
 	{
 		return DateToString(*this);
 	}

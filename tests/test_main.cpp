@@ -17,8 +17,8 @@ void test_mystring_basic() {
     assert(str.CountWords() == 2);
     
     // Test string operations
-    assert(str.UpperAllString() == "HELLO WORLD");
-    assert(str.LowerAllString() == "hello world");
+    assert(MyString::UpperAllString(str.GetValue()) == "HELLO WORLD");
+    assert(MyString::LowerAllString(str.GetValue()) == "hello world");
     
     // Test palindrome
     MyString palindrome("racecar");
@@ -70,7 +70,7 @@ void test_mydate_error_handling() {
     
     // Test invalid date format
     try {
-        MyDate invalid("32/13/2024");
+        MyDate invalid("32-13-2024");  // Wrong delimiter
         assert(false); // Should not reach here
     } catch (const std::exception& e) {
         assert(MyDate::GetLastError() == "Invalid date format. Expected DD/MM/YYYY");
@@ -91,7 +91,9 @@ void test_myperiod_basic() {
     assert(period.GetEndDate().GetDay() == 31);
     
     // Test duration
-    assert(period.GetDurationInDays() == 365); // 2024 is a leap year
+    int duration = period.GetDurationInDays();
+    std::cout << "Actual duration: " << duration << " days" << std::endl;
+    assert(duration == 366); // 2024 is a leap year
     
     std::cout << "✓ MyPeriod basic tests passed\n";
 }
