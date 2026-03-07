@@ -17,7 +17,13 @@ public:
 
     // ---- Getters & Setters ----
 
-    void SetStartDate(const MyDate& StartDate) { _StartDate = StartDate; }
+    void SetStartDate(const MyDate& StartDate) { 
+        if (MyDate::CompareDates(StartDate, _EndDate) == MyDate::enDateCompare::After) {
+            _lastError = "Invalid period: Start date cannot be after end date";
+            throw std::invalid_argument("MyPeriod: Start date cannot be after end date");
+        }
+        _StartDate = StartDate; 
+    }
     MyDate GetStartDate() const { return _StartDate; }
 
     void SetEndDate(const MyDate& EndDate) { _EndDate = EndDate; }

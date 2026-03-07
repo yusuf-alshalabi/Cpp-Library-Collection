@@ -31,7 +31,7 @@ void test_myperiod_getters_setters() {
     assert(period.GetEndDate().ToString() == "31/12/2023");
     std::cout << "✓ Getters test passed\n";
     
-    // Test setters
+    // Test valid setters
     MyDate newStart("15/06/2023");
     MyDate newEnd("15/12/2023");
     
@@ -40,7 +40,18 @@ void test_myperiod_getters_setters() {
     
     assert(period.GetStartDate().ToString() == "15/06/2023");
     assert(period.GetEndDate().ToString() == "15/12/2023");
-    std::cout << "✓ Setters test passed\n";
+    std::cout << "✓ Valid setters test passed\n";
+    
+    // Test invalid SetStartDate
+    MyPeriod::ClearError();
+    try {
+        MyDate invalidStart("31/12/2023");
+        period.SetStartDate(invalidStart); // Should fail - current end is 15/12/2023
+        assert(false); // Should not reach here
+    } catch (const std::invalid_argument& e) {
+        assert(MyPeriod::GetLastError() == "Invalid period: Start date cannot be after end date");
+        std::cout << "✓ SetStartDate validation test passed\n";
+    }
     
     std::cout << "✓ MyPeriod getters and setters tests passed\n\n";
 }
