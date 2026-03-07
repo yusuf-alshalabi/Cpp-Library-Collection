@@ -7,7 +7,7 @@
 namespace MyLib {
     //ProgrammingAdvices.com
     //Mohammed Abu-Hadhoud
-    class clsUtil
+    class MyUtil
     {
 
     public:

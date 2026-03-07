@@ -21,30 +21,30 @@ void test_myutil_random_functions() {
     std::cout << "Testing MyUtil random functions...\n";
     
     // Test Srand and RandomNumber
-    clsUtil::Srand();
-    int randNum = clsUtil::RandomNumber(UtilTestData::MIN_RANDOM, UtilTestData::MAX_RANDOM);
+    MyUtil::Srand();
+    int randNum = MyUtil::RandomNumber(UtilTestData::MIN_RANDOM, UtilTestData::MAX_RANDOM);
     assert(randNum >= UtilTestData::MIN_RANDOM && randNum <= UtilTestData::MAX_RANDOM);
     std::cout << "✓ RandomNumber test passed\n";
     
     // Test GetRandomCharacter - ALL enum types
-    char capitalChar = clsUtil::GetRandomCharacter(clsUtil::CapitalLetter);
+    char capitalChar = MyUtil::GetRandomCharacter(MyUtil::CapitalLetter);
     assert(capitalChar >= 'A' && capitalChar <= 'Z');
     std::cout << "✓ GetRandomCharacter (CapitalLetter) test passed\n";
     
-    char smallChar = clsUtil::GetRandomCharacter(clsUtil::SmallLetter);
+    char smallChar = MyUtil::GetRandomCharacter(MyUtil::SmallLetter);
     assert(smallChar >= 'a' && smallChar <= 'z');
     std::cout << "✓ GetRandomCharacter (SmallLetter) test passed\n";
     
-    char digitChar = clsUtil::GetRandomCharacter(clsUtil::Digit);
+    char digitChar = MyUtil::GetRandomCharacter(MyUtil::Digit);
     assert(digitChar >= '0' && digitChar <= '9');
     std::cout << "✓ GetRandomCharacter (Digit) test passed\n";
     
-    char specialChar = clsUtil::GetRandomCharacter(clsUtil::SpecialCharacter);
+    char specialChar = MyUtil::GetRandomCharacter(MyUtil::SpecialCharacter);
     assert(specialChar >= '!' && specialChar <= '/');
     std::cout << "✓ GetRandomCharacter (SpecialCharacter) test passed\n";
     
     // Test MixChars (should return one of Capital, Small, or Digit)
-    char mixChar = clsUtil::GetRandomCharacter(clsUtil::MixChars);
+    char mixChar = MyUtil::GetRandomCharacter(MyUtil::MixChars);
     assert((mixChar >= 'A' && mixChar <= 'Z') || 
            (mixChar >= 'a' && mixChar <= 'z') || 
            (mixChar >= '0' && mixChar <= '9'));
@@ -57,12 +57,12 @@ void test_myutil_generation_functions() {
     std::cout << "Testing MyUtil generation functions...\n";
     
     // Test GenerateWord
-    std::string word = clsUtil::GenerateWord(clsUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
+    std::string word = MyUtil::GenerateWord(MyUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
     assert(word.length() == UtilTestData::WORD_LENGTH);
     std::cout << "✓ GenerateWord test passed: " << word << "\n";
     
     // Test GenerateKey
-    std::string key = clsUtil::GenerateKey(clsUtil::CapitalLetter);
+    std::string key = MyUtil::GenerateKey(MyUtil::CapitalLetter);
     assert(key.length() == 19); // 4*4 + 3 dashes = 19
     assert(key[4] == '-' && key[9] == '-' && key[14] == '-');
     std::cout << "✓ GenerateKey test passed: " << key << "\n";
@@ -70,7 +70,7 @@ void test_myutil_generation_functions() {
     // Test GenerateKeys (this method prints to console, so we can't easily test output)
     // But we can at least verify it doesn't crash
     std::cout << "Testing GenerateKeys output:\n";
-    clsUtil::GenerateKeys(UtilTestData::TEST_KEYS, clsUtil::CapitalLetter);
+    MyUtil::GenerateKeys(UtilTestData::TEST_KEYS, MyUtil::CapitalLetter);
     std::cout << "✓ GenerateKeys test passed (no crash)\n";
     
     std::cout << "✓ MyUtil generation functions tests passed\n\n";
@@ -81,38 +81,38 @@ void test_myutil_swap_functions() {
     
     // Test int swap
     int a = 5, b = 10;
-    clsUtil::Swap(a, b);
+    MyUtil::Swap(a, b);
     assert(a == 10 && b == 5);
     std::cout << "✓ Swap (int) test passed\n";
     
     // Test double swap
     double d1 = 3.14, d2 = 2.71;
-    clsUtil::Swap(d1, d2);
+    MyUtil::Swap(d1, d2);
     assert(d1 == 2.71 && d2 == 3.14);
     std::cout << "✓ Swap (double) test passed\n";
     
     // Test string swap
     std::string str1 = "Hello", str2 = "World";
-    clsUtil::Swap(str1, str2);
+    MyUtil::Swap(str1, str2);
     assert(str1 == "World" && str2 == "Hello");
     std::cout << "✓ Swap (string) test passed\n";
     
     // Test bool swap
     bool flag1 = true, flag2 = false;
-    clsUtil::Swap(flag1, flag2);
+    MyUtil::Swap(flag1, flag2);
     assert(flag1 == false && flag2 == true);
     std::cout << "✓ Swap (bool) test passed\n";
     
     // Test char swap
     char c1 = 'A', c2 = 'B';
-    clsUtil::Swap(c1, c2);
+    MyUtil::Swap(c1, c2);
     assert(c1 == 'B' && c2 == 'A');
     std::cout << "✓ Swap (char) test passed\n";
     
     // Test MyDate swap
     MyDate date1("25/12/2023");
     MyDate date2("01/01/2024");
-    clsUtil::Swap(date1, date2);
+    MyUtil::Swap(date1, date2);
     assert(date1.DateToString() == "01/01/2024");
     assert(date2.DateToString() == "25/12/2023");
     std::cout << "✓ Swap (MyDate) test passed\n";
@@ -125,7 +125,7 @@ void test_myutil_array_functions() {
     
     // Test FillArrayWithRandomNumbers
     int arr[100];
-    clsUtil::FillArrayWithRandomNumbers(arr, UtilTestData::ARRAY_SIZE, UtilTestData::MIN_RANDOM, 50);
+    MyUtil::FillArrayWithRandomNumbers(arr, UtilTestData::ARRAY_SIZE, UtilTestData::MIN_RANDOM, 50);
     for (int i = 0; i < UtilTestData::ARRAY_SIZE; i++) {
         assert(arr[i] >= UtilTestData::MIN_RANDOM && arr[i] <= 50);
     }
@@ -133,7 +133,7 @@ void test_myutil_array_functions() {
     
     // Test FillArrayWithRandomWords
     std::string words[100];
-    clsUtil::FillArrayWithRandomWords(words, 5, clsUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
+    MyUtil::FillArrayWithRandomWords(words, 5, MyUtil::CapitalLetter, UtilTestData::WORD_LENGTH);
     for (int i = 0; i < 5; i++) {
         assert(words[i].length() == UtilTestData::WORD_LENGTH);
     }
@@ -141,7 +141,7 @@ void test_myutil_array_functions() {
     
     // Test FillArrayWithRandomKeys
     std::string keys[100];
-    clsUtil::FillArrayWithRandomKeys(keys, UtilTestData::TEST_KEYS, clsUtil::CapitalLetter);
+    MyUtil::FillArrayWithRandomKeys(keys, UtilTestData::TEST_KEYS, MyUtil::CapitalLetter);
     for (int i = 0; i < UtilTestData::TEST_KEYS; i++) {
         assert(keys[i].length() == 19);
     }
@@ -149,7 +149,7 @@ void test_myutil_array_functions() {
     
     // Test ShuffleArray (int)
     int testArr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    clsUtil::ShuffleArray(testArr, 10);
+    MyUtil::ShuffleArray(testArr, 10);
     // Check that array is shuffled (not all elements in original order)
     bool isShuffled = false;
     for (int i = 0; i < 10; i++) {
@@ -163,7 +163,7 @@ void test_myutil_array_functions() {
     
     // Test ShuffleArray (string)
     std::string stringArr[5] = {"A", "B", "C", "D", "E"};
-    clsUtil::ShuffleArray(stringArr, 5);
+    MyUtil::ShuffleArray(stringArr, 5);
     // Check that array is shuffled
     bool isStringShuffled = false;
     for (int i = 0; i < 5; i++) {
@@ -183,8 +183,8 @@ void test_myutil_encryption_functions() {
     
     // Test basic Encrypt/Decrypt
     std::string originalText = "Hello World";
-    std::string encrypted = clsUtil::EncryptText(originalText, UtilTestData::ENCRYPTION_KEY);
-    std::string decrypted = clsUtil::DecryptText(encrypted, UtilTestData::ENCRYPTION_KEY);
+    std::string encrypted = MyUtil::EncryptText(originalText, UtilTestData::ENCRYPTION_KEY);
+    std::string decrypted = MyUtil::DecryptText(encrypted, UtilTestData::ENCRYPTION_KEY);
     assert(originalText == decrypted);
     std::cout << "✓ Basic Encrypt/Decrypt test passed\n";
     
@@ -194,22 +194,22 @@ void test_myutil_encryption_functions() {
     
     // Test empty string
     std::string emptyText = "";
-    std::string encryptedEmpty = clsUtil::EncryptText(emptyText, 5);
-    std::string decryptedEmpty = clsUtil::DecryptText(encryptedEmpty, 5);
+    std::string encryptedEmpty = MyUtil::EncryptText(emptyText, 5);
+    std::string decryptedEmpty = MyUtil::DecryptText(encryptedEmpty, 5);
     assert(emptyText == decryptedEmpty);
     std::cout << "✓ Empty string encryption test passed\n";
     
     // Test negative encryption key
     std::string originalText2 = "Test";
-    std::string encryptedNeg = clsUtil::EncryptText(originalText2, UtilTestData::NEGATIVE_KEY);
-    std::string decryptedNeg = clsUtil::DecryptText(encryptedNeg, UtilTestData::NEGATIVE_KEY);
+    std::string encryptedNeg = MyUtil::EncryptText(originalText2, UtilTestData::NEGATIVE_KEY);
+    std::string decryptedNeg = MyUtil::DecryptText(encryptedNeg, UtilTestData::NEGATIVE_KEY);
     assert(originalText2 == decryptedNeg);
     std::cout << "✓ Negative encryption key test passed\n";
     
     // Test special characters
     std::string specialText = "Hello@#$%";
-    std::string encryptedSpecial = clsUtil::EncryptText(specialText, UtilTestData::SPECIAL_KEY);
-    std::string decryptedSpecial = clsUtil::DecryptText(encryptedSpecial, UtilTestData::SPECIAL_KEY);
+    std::string encryptedSpecial = MyUtil::EncryptText(specialText, UtilTestData::SPECIAL_KEY);
+    std::string decryptedSpecial = MyUtil::DecryptText(encryptedSpecial, UtilTestData::SPECIAL_KEY);
     assert(specialText == decryptedSpecial);
     std::cout << "✓ Special characters encryption test passed\n";
     
@@ -220,19 +220,19 @@ void test_myutil_formatting_functions() {
     std::cout << "Testing MyUtil formatting functions...\n";
     
     // Test Tabs function with edge cases
-    std::string tabs1 = clsUtil::Tabs(1);
+    std::string tabs1 = MyUtil::Tabs(1);
     assert(tabs1.length() == 0); // Should have 0 tabs for 1
     std::cout << "✓ Tabs(1) test passed\n";
     
-    std::string tabs2 = clsUtil::Tabs(2);
+    std::string tabs2 = MyUtil::Tabs(2);
     assert(tabs2.length() == 1); // Should have 1 tab for 2
     std::cout << "✓ Tabs(2) test passed\n";
     
-    std::string tabs5 = clsUtil::Tabs(5);
+    std::string tabs5 = MyUtil::Tabs(5);
     assert(tabs5.length() == 4); // Should have 4 tabs for 5
     std::cout << "✓ Tabs(5) test passed\n";
     
-    std::string tabs10 = clsUtil::Tabs(10);
+    std::string tabs10 = MyUtil::Tabs(10);
     assert(tabs10.length() == 9); // Should have 9 tabs for 10
     std::cout << "✓ Tabs(10) test passed\n";
     
