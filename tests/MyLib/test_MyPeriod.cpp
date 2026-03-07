@@ -340,6 +340,86 @@ void test_myperiod_overlap() {
     std::cout << "✓ MyPeriod overlap tests passed\n\n";
 }
 
+void test_myperiod_overlap_edge_cases() {
+    std::cout << "Testing MyPeriod overlap edge cases...\n";
+    
+    // Test identical periods
+    MyDate start("01/01/2023");
+    MyDate end("31/12/2023");
+    MyPeriod period1(start, end);
+    MyPeriod period2(start, end);
+    
+    assert(period1.IsOverlap(period2) == true);
+    std::cout << "✓ Identical periods overlap test passed\n";
+    
+    // Test periods touching at boundaries (end == start)
+    MyDate start1("01/01/2023");
+    MyDate end1("31/12/2023");
+    MyPeriod period1_boundary(start1, end1);
+    
+    MyDate start2("31/12/2023");  // Same as end of period1
+    MyDate end2("31/12/2024");
+    MyPeriod period2_boundary(start2, end2);
+    
+    assert(period1_boundary.IsOverlap(period2_boundary) == true);
+    std::cout << "✓ Boundary touching overlap test passed\n";
+    
+    // Test periods touching at boundaries (start == end)
+    MyDate start3("01/01/2022");
+    MyDate end3("01/01/2023");  // Same as start of period1
+    MyPeriod period3_boundary(start3, end3);
+    
+    assert(period3_boundary.IsOverlap(period1) == true);
+    std::cout << "✓ Reverse boundary touching overlap test passed\n";
+    
+    // Test one period completely contained within another
+    MyDate outerStart("01/01/2022");
+    MyDate outerEnd("31/12/2024");
+    MyPeriod outerPeriod(outerStart, outerEnd);
+    
+    MyDate innerStart("15/06/2023");
+    MyDate innerEnd("15/12/2023");
+    MyPeriod innerPeriod(innerStart, innerEnd);
+    
+    assert(outerPeriod.IsOverlap(innerPeriod) == true);
+    assert(innerPeriod.IsOverlap(outerPeriod) == true);
+    std::cout << "✓ Contained period overlap test passed\n";
+    
+    // Test same-day periods overlapping
+    MyDate sameDay("15/06/2023");
+    MyPeriod sameDay1(sameDay, sameDay);
+    MyPeriod sameDay2(sameDay, sameDay);
+    
+    assert(sameDay1.IsOverlap(sameDay2) == true);
+    std::cout << "✓ Same-day periods overlap test passed\n";
+    
+    // Test non-overlapping with gap
+    MyDate gapStart1("01/01/2023");
+    MyDate gapEnd1("31/12/2023");
+    MyPeriod gapPeriod1(gapStart1, gapEnd1);
+    
+    MyDate gapStart2("15/06/2024");  // Clear gap between periods
+    MyDate gapEnd2("15/12/2024");
+    MyPeriod gapPeriod2(gapStart2, gapEnd2);
+    
+    assert(gapPeriod1.IsOverlap(gapPeriod2) == false);
+    std::cout << "✓ Non-overlapping with gap test passed\n";
+    
+    // Test overlapping by one day
+    MyDate oneDayStart1("01/01/2023");
+    MyDate oneDayEnd1("15/06/2023");
+    MyPeriod oneDayPeriod1(oneDayStart1, oneDayEnd1);
+    
+    MyDate oneDayStart2("15/06/2023");  // Same day as end of first
+    MyDate oneDayEnd2("31/12/2023");
+    MyPeriod oneDayPeriod2(oneDayStart2, oneDayEnd2);
+    
+    assert(oneDayPeriod1.IsOverlap(oneDayPeriod2) == true);
+    std::cout << "✓ One-day overlap test passed\n";
+    
+    std::cout << "✓ MyPeriod overlap edge cases tests passed\n\n";
+}
+
 void test_myperiod_utilities() {
     std::cout << "Testing MyPeriod utilities...\n";
     
@@ -409,6 +489,7 @@ int main() {
     test_myperiod_contains();
     test_myperiod_contains_edge_cases();
     test_myperiod_overlap();
+    test_myperiod_overlap_edge_cases();
     test_myperiod_utilities();
     test_myperiod_print_utilities();
     
