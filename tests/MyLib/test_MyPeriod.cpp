@@ -175,6 +175,20 @@ void test_myperiod_duration_functions() {
     assert(years == 0); // Less than 1 full year
     std::cout << "✓ LengthInYears test passed\n";
     
+    // Test multi-year period
+    MyDate multiYearStart("01/01/2020");
+    MyDate multiYearEnd("31/12/2023");
+    MyPeriod multiYearPeriod(multiYearStart, multiYearEnd);
+    
+    int multiYearDays = multiYearPeriod.LengthInDays();
+    int multiYearMonths = multiYearPeriod.LengthInMonths();
+    int multiYears = multiYearPeriod.LengthInYears();
+    
+    assert(multiYearDays > 1000); // Should be more than 1000 days
+    assert(multiYearMonths == 47); // 2020-2023 is 47 full months
+    assert(multiYears == 3); // Almost 4 full years
+    std::cout << "✓ Multi-year period test passed\n";
+    
     std::cout << "✓ MyPeriod duration functions tests passed\n\n";
 }
 
