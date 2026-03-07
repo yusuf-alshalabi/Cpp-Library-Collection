@@ -638,6 +638,10 @@ int main() {
     test_mydate_calendar();
     test_mydate_business_vacation();
     test_mydate_time_functions();
+    test_mydate_advanced_arithmetic();
+    test_mydate_decrease_functions();
+    test_mydate_calculations();
+    test_mydate_end_of_period();
     
     std::cout << "🎉 All MyDate tests passed successfully!\n";
     return 0;
