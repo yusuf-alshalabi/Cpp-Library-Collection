@@ -172,7 +172,7 @@ public:
         return temp;
     }
 
-    void UpperFirstLetterOfEachWord() const
+    void UpperFirstLetterOfEachWord()
     {
         _Value = UpperFirstLetterOfEachWord(_Value);
     }
@@ -194,7 +194,7 @@ public:
         return temp;
     }
 
-    void LowerFirstLetterOfEachWord() const
+    void LowerFirstLetterOfEachWord()
     {
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
@@ -211,7 +211,7 @@ public:
         return temp;
     }
 
-    void UpperAllString() const
+    void UpperAllString()
     {
         _Value = UpperAllString(_Value);
     }
@@ -226,7 +226,7 @@ public:
         return temp;
     }
 
-    void LowerAllString() const
+    void LowerAllString()
     {
         _Value = LowerAllString(_Value);
     }
@@ -248,7 +248,7 @@ public:
         return temp;
     }
 
-    void InvertAllLettersCase() const
+    void InvertAllLettersCase()
     {
         _Value = InvertAllLettersCase(_Value);
     }
@@ -427,7 +427,7 @@ public:
         return "";
     }
 
-    void TrimLeft() const
+    void TrimLeft()
     {
         _Value = TrimLeft(_Value);
     }
@@ -444,7 +444,7 @@ public:
         return "";
     }
 
-    void TrimRight() const
+    void TrimRight()
     {
         _Value = TrimRight(_Value);
     }
@@ -454,7 +454,7 @@ public:
         return TrimLeft(TrimRight(S1));
     }
 
-    void Trim() const
+    void Trim()
     {
         _Value = Trim(_Value);
     }
