@@ -265,6 +265,59 @@ void test_myperiod_contains() {
     std::cout << "✓ MyPeriod contains tests passed\n\n";
 }
 
+void test_myperiod_contains_edge_cases() {
+    std::cout << "Testing MyPeriod Contains edge cases...\n";
+    
+    // Test same-day period
+    MyDate sameDay("15/06/2023");
+    MyPeriod sameDayPeriod(sameDay, sameDay);
+    
+    assert(sameDayPeriod.Contains(sameDay) == true);
+    std::cout << "✓ Same-day period contains test passed\n";
+    
+    // Test dates one day outside boundaries
+    MyDate start("01/01/2023");
+    MyDate end("31/12/2023");
+    MyPeriod period(start, end);
+    
+    MyDate beforeStart("31/12/2022");
+    MyDate afterEnd("01/01/2024");
+    
+    assert(period.Contains(beforeStart) == false);
+    assert(period.Contains(afterEnd) == false);
+    std::cout << "✓ Outside boundaries test passed\n";
+    
+    // Test with leap year
+    MyDate leapStart("01/01/2020");
+    MyDate leapEnd("31/12/2020");
+    MyPeriod leapPeriod(leapStart, leapEnd);
+    
+    MyDate feb29("29/02/2020");
+    assert(leapPeriod.Contains(feb29) == true);
+    std::cout << "✓ Leap year date test passed\n";
+    
+    // Test period spanning multiple years
+    MyDate multiYearStart("15/06/2022");
+    MyDate multiYearEnd("15/06/2024");
+    MyPeriod multiYearPeriod(multiYearStart, multiYearEnd);
+    
+    MyDate inMiddle("01/01/2023");
+    assert(multiYearPeriod.Contains(inMiddle) == true);
+    std::cout << "✓ Multi-year period test passed\n";
+    
+    // Test with very small period (1 day)
+    MyDate dayStart("01/01/2023");
+    MyDate dayEnd("01/01/2023");
+    MyPeriod dayPeriod(dayStart, dayEnd);
+    
+    assert(dayPeriod.Contains(dayStart) == true);
+    MyDate nextDay("02/01/2023");
+    assert(dayPeriod.Contains(nextDay) == false);
+    std::cout << "✓ One-day period test passed\n";
+    
+    std::cout << "✓ MyPeriod Contains edge cases tests passed\n\n";
+}
+
 void test_myperiod_overlap() {
     std::cout << "Testing MyPeriod overlap...\n";
     
@@ -354,6 +407,7 @@ int main() {
     test_myperiod_duration_functions();
     test_myperiod_duration();
     test_myperiod_contains();
+    test_myperiod_contains_edge_cases();
     test_myperiod_overlap();
     test_myperiod_utilities();
     test_myperiod_print_utilities();
