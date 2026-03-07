@@ -8,6 +8,13 @@ using namespace MyLib;
 void test_myperiod_constructors() {
     std::cout << "Testing MyPeriod constructors...\n";
     
+    // Test default constructor values
+    MyPeriod defaultPeriod;
+    assert(defaultPeriod.GetStartDate().ToString() == "01/01/1900");
+    assert(defaultPeriod.GetEndDate().ToString() == "01/01/1900");
+    assert(defaultPeriod.IsValid() == true);
+    std::cout << "✓ Default constructor values test passed\n";
+    
     // Test constructor with dates
     MyDate startDate("01/01/2023");
     MyDate endDate("31/12/2023");
@@ -104,6 +111,22 @@ void test_myperiod_constructors_operators() {
     assert(assigned.GetStartDate().ToString() == "15/06/2023");
     assert(assigned.GetEndDate().ToString() == "15/12/2023");
     std::cout << "✓ Move assignment operator test passed\n";
+    
+    // Test self-assignment (copy)
+    MyDate selfStart("01/01/2023");
+    MyDate selfEnd("31/12/2023");
+    MyPeriod selfPeriod(selfStart, selfEnd);
+    selfPeriod = selfPeriod; // Should not crash
+    assert(selfPeriod.GetStartDate().ToString() == "01/01/2023");
+    assert(selfPeriod.GetEndDate().ToString() == "31/12/2023");
+    std::cout << "✓ Self-assignment (copy) test passed\n";
+    
+    // Test self-assignment (move)
+    MyPeriod selfMovePeriod(selfStart, selfEnd);
+    selfMovePeriod = std::move(selfMovePeriod); // Should not crash
+    assert(selfMovePeriod.GetStartDate().ToString() == "01/01/2023");
+    assert(selfMovePeriod.GetEndDate().ToString() == "31/12/2023");
+    std::cout << "✓ Self-assignment (move) test passed\n";
     
     std::cout << "✓ MyPeriod constructors and operators tests passed\n\n";
 }
@@ -486,6 +509,58 @@ void test_myperiod_print_utilities() {
     std::cout << "✓ MyPeriod print and utilities tests passed\n\n";
 }
 
+void test_myperiod_extreme_cases() {
+    std::cout << "Testing MyPeriod extreme cases...\n";
+    
+    // Test very old dates
+    MyDate oldStart("01/01/1900");
+    MyDate oldEnd("31/12/1900");
+    MyPeriod oldPeriod(oldStart, oldEnd);
+    
+    assert(oldPeriod.IsValid() == true);
+    assert(oldPeriod.LengthInDays() == 364); // 1900 is not a leap year
+    std::cout << "✓ Very old dates test passed\n";
+    
+    // Test future dates
+    MyDate futureStart("01/01/2100");
+    MyDate futureEnd("31/12/2100");
+    MyPeriod futurePeriod(futureStart, futureEnd);
+    
+    assert(futurePeriod.IsValid() == true);
+    assert(futurePeriod.LengthInYears() == 0); // Less than 1 full year
+    std::cout << "✓ Future dates test passed\n";
+    
+    // Test very long period (century)
+    MyDate centuryStart("01/01/2000");
+    MyDate centuryEnd("31/12/2099");
+    MyPeriod centuryPeriod(centuryStart, centuryEnd);
+    
+    assert(centuryPeriod.IsValid() == true);
+    assert(centuryPeriod.LengthInYears() == 99); // Almost 100 years
+    assert(centuryPeriod.LengthInMonths() == 1199); // 100 years * 12 - 1 month
+    std::cout << "✓ Century period test passed\n";
+    
+    // Test period spanning year 2000 (leap year)
+    MyDate y2kStart("01/01/1999");
+    MyDate y2kEnd("31/12/2000");
+    MyPeriod y2kPeriod(y2kStart, y2kEnd);
+    
+    assert(y2kPeriod.IsValid() == true);
+    assert(y2kPeriod.LengthInDays() > 700); // Should be more than 700 days
+    std::cout << "✓ Y2K period test passed\n";
+    
+    // Test same-day period with different date
+    MyDate testDate("25/12/2023");
+    MyPeriod christmasPeriod(testDate, testDate);
+    
+    assert(christmasPeriod.Contains(testDate) == true);
+    assert(christmasPeriod.IsSameDay(testDate) == true);
+    assert(christmasPeriod.LengthInDays() == 0);
+    std::cout << "✓ Same-day period edge case test passed\n";
+    
+    std::cout << "✓ MyPeriod extreme cases tests passed\n\n";
+}
+
 int main() {
     std::cout << "=== MyPeriod Unit Tests ===\n\n";
     
@@ -503,6 +578,7 @@ int main() {
     test_myperiod_overlap_edge_cases();
     test_myperiod_utilities();
     test_myperiod_print_utilities();
+    test_myperiod_extreme_cases();
     
     std::cout << "🎉 All MyPeriod tests passed successfully!\n";
     return 0;
