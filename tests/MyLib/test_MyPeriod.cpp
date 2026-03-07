@@ -131,6 +131,10 @@ void test_myperiod_overlap_functions() {
     assert(period1.IsOverLapWith(period2) == true);
     std::cout << "✓ IsOverLapWith (instance) test passed\n";
     
+    // Test IsOverlap alias
+    assert(period1.IsOverlap(period2) == true);
+    std::cout << "✓ IsOverlap (alias) test passed\n";
+    
     // Test non-overlapping periods
     MyDate start3("01/01/2024");
     MyDate end3("31/12/2024");
@@ -138,6 +142,7 @@ void test_myperiod_overlap_functions() {
     
     assert(MyPeriod::IsOverlapPeriods(period1, period3) == false);
     assert(period1.IsOverLapWith(period3) == false);
+    assert(period1.IsOverlap(period3) == false);
     std::cout << "✓ Non-overlapping periods test passed\n";
     
     std::cout << "✓ MyPeriod overlap functions tests passed\n\n";
