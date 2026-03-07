@@ -10,8 +10,8 @@ void test_myperiod_constructors() {
     
     // Test default constructor values
     MyPeriod defaultPeriod;
-    assert(defaultPeriod.GetStartDate().ToString() == "01/01/1900");
-    assert(defaultPeriod.GetEndDate().ToString() == "01/01/1900");
+    assert(defaultPeriod.GetStartDate().DateToString() == "01/01/1900");
+    assert(defaultPeriod.GetEndDate().DateToString() == "01/01/1900");
     assert(defaultPeriod.IsValid() == true);
     std::cout << "✓ Default constructor values test passed\n";
     
@@ -20,8 +20,8 @@ void test_myperiod_constructors() {
     MyDate endDate("31/12/2023");
     MyPeriod period(startDate, endDate);
     
-    assert(period.GetStartDate().ToString() == "01/01/2023");
-    assert(period.GetEndDate().ToString() == "31/12/2023");
+    assert(period.GetStartDate().DateToString() == "01/01/2023");
+    assert(period.GetEndDate().DateToString() == "31/12/2023");
     
     std::cout << "✓ MyPeriod constructor tests passed\n\n";
 }
@@ -34,8 +34,8 @@ void test_myperiod_getters_setters() {
     MyDate endDate("31/12/2023");
     MyPeriod period(startDate, endDate);
     
-    assert(period.GetStartDate().ToString() == "01/01/2023");
-    assert(period.GetEndDate().ToString() == "31/12/2023");
+    assert(period.GetStartDate().DateToString() == "01/01/2023");
+    assert(period.GetEndDate().DateToString() == "31/12/2023");
     std::cout << "✓ Getters test passed\n";
     
     // Test valid setters
@@ -45,8 +45,8 @@ void test_myperiod_getters_setters() {
     period.SetStartDate(newStart);
     period.SetEndDate(newEnd);
     
-    assert(period.GetStartDate().ToString() == "15/06/2023");
-    assert(period.GetEndDate().ToString() == "15/12/2023");
+    assert(period.GetStartDate().DateToString() == "15/06/2023");
+    assert(period.GetEndDate().DateToString() == "15/12/2023");
     std::cout << "✓ Valid setters test passed\n";
     
     // Test invalid SetStartDate
@@ -84,14 +84,14 @@ void test_myperiod_constructors_operators() {
     
     // Test copy constructor
     MyPeriod copied(original);
-    assert(copied.GetStartDate().ToString() == "01/01/2023");
-    assert(copied.GetEndDate().ToString() == "31/12/2023");
+    assert(copied.GetStartDate().DateToString() == "01/01/2023");
+    assert(copied.GetEndDate().DateToString() == "31/12/2023");
     std::cout << "✓ Copy constructor test passed\n";
     
     // Test move constructor
     MyPeriod moved(std::move(original));
-    assert(moved.GetStartDate().ToString() == "01/01/2023");
-    assert(moved.GetEndDate().ToString() == "31/12/2023");
+    assert(moved.GetStartDate().DateToString() == "01/01/2023");
+    assert(moved.GetEndDate().DateToString() == "31/12/2023");
     std::cout << "✓ Move constructor test passed\n";
     
     // Test copy assignment operator
@@ -101,15 +101,15 @@ void test_myperiod_constructors_operators() {
     
     MyPeriod copyAssigned;
     copyAssigned = original2;
-    assert(copyAssigned.GetStartDate().ToString() == "15/06/2023");
-    assert(copyAssigned.GetEndDate().ToString() == "15/12/2023");
+    assert(copyAssigned.GetStartDate().DateToString() == "15/06/2023");
+    assert(copyAssigned.GetEndDate().DateToString() == "15/12/2023");
     std::cout << "✓ Copy assignment operator test passed\n";
     
     // Test move assignment operator
     MyPeriod assigned;
     assigned = std::move(original2);
-    assert(assigned.GetStartDate().ToString() == "15/06/2023");
-    assert(assigned.GetEndDate().ToString() == "15/12/2023");
+    assert(assigned.GetStartDate().DateToString() == "15/06/2023");
+    assert(assigned.GetEndDate().DateToString() == "15/12/2023");
     std::cout << "✓ Move assignment operator test passed\n";
     
     // Test self-assignment (copy)
@@ -117,15 +117,15 @@ void test_myperiod_constructors_operators() {
     MyDate selfEnd("31/12/2023");
     MyPeriod selfPeriod(selfStart, selfEnd);
     selfPeriod = selfPeriod; // Should not crash
-    assert(selfPeriod.GetStartDate().ToString() == "01/01/2023");
-    assert(selfPeriod.GetEndDate().ToString() == "31/12/2023");
+    assert(selfPeriod.GetStartDate().DateToString() == "01/01/2023");
+    assert(selfPeriod.GetEndDate().DateToString() == "31/12/2023");
     std::cout << "✓ Self-assignment (copy) test passed\n";
     
     // Test self-assignment (move)
     MyPeriod selfMovePeriod(selfStart, selfEnd);
     selfMovePeriod = std::move(selfMovePeriod); // Should not crash
-    assert(selfMovePeriod.GetStartDate().ToString() == "01/01/2023");
-    assert(selfMovePeriod.GetEndDate().ToString() == "31/12/2023");
+    assert(selfMovePeriod.GetStartDate().DateToString() == "01/01/2023");
+    assert(selfMovePeriod.GetEndDate().DateToString() == "31/12/2023");
     std::cout << "✓ Self-assignment (move) test passed\n";
     
     std::cout << "✓ MyPeriod constructors and operators tests passed\n\n";

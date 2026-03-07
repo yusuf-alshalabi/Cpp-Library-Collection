@@ -172,12 +172,12 @@ public:
 
     bool IsSameDay(const MyDate& date) const
     {
-        return _StartDate.ToString() == date.ToString() && _EndDate.ToString() == date.ToString();
+        return _StartDate.DateToString() == date.DateToString() && _EndDate.DateToString() == date.DateToString();
     }
 
     std::string ToString() const
     {
-        return "Period: " + _StartDate.ToString() + " to " + _EndDate.ToString();
+        return "Period: " + _StartDate.DateToString() + " to " + _EndDate.DateToString();
     }
 
     // ---- Print ----
