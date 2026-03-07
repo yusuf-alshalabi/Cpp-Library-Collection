@@ -11,8 +11,18 @@ namespace MyLib {
     {
 
     public:
+        // ASCII character ranges for better readability
+        static constexpr int ASCII_LOWERCASE_A = 97;
+        static constexpr int ASCII_LOWERCASE_Z = 122;
+        static constexpr int ASCII_UPPERCASE_A = 65;
+        static constexpr int ASCII_UPPERCASE_Z = 90;
+        static constexpr int ASCII_DIGIT_0 = 48;
+        static constexpr int ASCII_DIGIT_9 = 57;
+        static constexpr int ASCII_SPECIAL_START = 33;
+        static constexpr int ASCII_SPECIAL_END = 47;
+
         enum enCharType {
-            SamallLetter = 1, CapitalLetter = 2,
+            SmallLetter = 1, CapitalLetter = 2,
             Digit = 3, MixChars = 4, SpecialCharacter = 5
         };
 
@@ -35,7 +45,7 @@ namespace MyLib {
             //updated this method to accept mixchars
             if (CharType == MixChars)
             {
-                //Capital/Samall/Digits only
+                //Capital/Small/Digits only
                 CharType = (enCharType)RandomNumber(1, 3);
 
             }
@@ -43,29 +53,29 @@ namespace MyLib {
             switch (CharType)
             {
 
-            case enCharType::SamallLetter:
+            case enCharType::SmallLetter:
             {
-                return char(RandomNumber(97, 122));
+                return char(RandomNumber(ASCII_LOWERCASE_A, ASCII_LOWERCASE_Z));
                 break;
             }
             case enCharType::CapitalLetter:
             {
-                return char(RandomNumber(65, 90));
+                return char(RandomNumber(ASCII_UPPERCASE_A, ASCII_UPPERCASE_Z));
                 break;
             }
             case enCharType::SpecialCharacter:
             {
-                return char(RandomNumber(33, 47));
+                return char(RandomNumber(ASCII_SPECIAL_START, ASCII_SPECIAL_END));
                 break;
             }
             case enCharType::Digit:
             {
-                return char(RandomNumber(48, 57));
+                return char(RandomNumber(ASCII_DIGIT_0, ASCII_DIGIT_9));
                 break;
             }
             default:
             {
-                return char(RandomNumber(65, 90));
+                return char(RandomNumber(ASCII_UPPERCASE_A, ASCII_UPPERCASE_Z));
                 break;
             }
             }
@@ -88,16 +98,10 @@ namespace MyLib {
 
         static std::string  GenerateKey(enCharType CharType = CapitalLetter)
         {
-
-            std::string Key = "";
-
-
-            Key = GenerateWord(CharType, 4) + "-";
-            Key = Key + GenerateWord(CharType, 4) + "-";
-            Key = Key + GenerateWord(CharType, 4) + "-";
-            Key = Key + GenerateWord(CharType, 4);
-
-
+            std::string Key = GenerateWord(CharType, 4);
+            Key += "-" + GenerateWord(CharType, 4);
+            Key += "-" + GenerateWord(CharType, 4);
+            Key += "-" + GenerateWord(CharType, 4);
             return Key;
         }
 
@@ -209,11 +213,9 @@ namespace MyLib {
 
             for (int i = 1; i < NumberOfTabs; i++)
             {
-                t = t + "\t";
-                std::cout << t;
+                t += "\t";
             }
             return t;
-
         }
 
         static std::string  EncryptText(std::string Text, short EncryptionKey)
