@@ -25,6 +25,9 @@ public:
 
     // ---- Constructor ----
 
+    // Default constructor - creates a valid single-day period
+    MyPeriod() : _StartDate(1, 1, 1900), _EndDate(1, 1, 1900) {}
+
     MyPeriod(const MyDate& StartDate, const MyDate& EndDate)
         : _StartDate(StartDate), _EndDate(EndDate) {
         
