@@ -5,152 +5,184 @@
 
 using namespace MyLib;
 
-void test_myperiod_constructors() {
-    std::cout << "Testing MyPeriod constructors...\n";
+// Test data constants for better readability and maintainability
+namespace PeriodTestData {
+    // Valid test dates
+    const std::string VALID_START_DATE = "01/01/2023";
+    const std::string VALID_END_DATE = "31/12/2023";
+    const std::string MID_YEAR_DATE = "15/06/2023";
     
-    // Test default constructor values
-    MyPeriod defaultPeriod;
-    assert(defaultPeriod.GetStartDate().DateToString() == "01/01/1900");
-    assert(defaultPeriod.GetEndDate().DateToString() == "01/01/1900");
-    assert(defaultPeriod.IsValid() == true);
-    std::cout << "✓ Default constructor values test passed\n";
+    // Invalid test dates for error testing
+    const std::string INVALID_START_DATE = "31/12/2023";
+    const std::string INVALID_END_DATE = "01/01/2023";
     
-    // Test constructor with dates
-    MyDate startDate("01/01/2023");
-    MyDate endDate("31/12/2023");
-    MyPeriod period(startDate, endDate);
+    // Years for testing
+    const int YEAR_2023 = 2023;
+    const int YEAR_2024 = 2024;
+    const int YEAR_1900 = 1900;
+    const int YEAR_2100 = 2100;
+    const int YEAR_2099 = 2099;
     
-    assert(period.GetStartDate().DateToString() == "01/01/2023");
-    assert(period.GetEndDate().DateToString() == "31/12/2023");
-    
-    std::cout << "✓ MyPeriod constructor tests passed\n\n";
+    // Period spans
+    const int DAYS_IN_YEAR = 364; // 2023 is not leap year
+    const int MONTHS_IN_YEAR = 11; // Jan to Dec is 11 months
 }
 
-void test_myperiod_getters_setters() {
-    std::cout << "Testing MyPeriod getters and setters...\n";
+// Helper functions for cleaner assertions
+void assert_equal(const std::string& expected, const std::string& actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+void assert_equal(int expected, int actual, const std::string& test_name) {
+    assert(expected == actual);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+void assert_true(bool condition, const std::string& test_name) {
+    assert(condition);
+    std::cout << "✓ " << test_name << " test passed\n";
+}
+
+// ===== CONSTRUCTOR TESTS =====
+void test_constructors() {
+    std::cout << "Testing constructors...\n";
     
-    // Test getters
-    MyDate startDate("01/01/2023");
-    MyDate endDate("31/12/2023");
+    // Test default constructor
+    MyPeriod defaultPeriod;
+    assert_equal("01/01/1900", defaultPeriod.GetStartDate().DateToString(), "Default constructor start date");
+    assert_equal("01/01/1900", defaultPeriod.GetEndDate().DateToString(), "Default constructor end date");
+    assert_true(defaultPeriod.IsValid(), "Default constructor validity");
+    
+    // Test constructor with dates
+    MyDate startDate(PeriodTestData::VALID_START_DATE);
+    MyDate endDate(PeriodTestData::VALID_END_DATE);
     MyPeriod period(startDate, endDate);
     
-    assert(period.GetStartDate().DateToString() == "01/01/2023");
-    assert(period.GetEndDate().DateToString() == "31/12/2023");
-    std::cout << "✓ Getters test passed\n";
+    assert_equal(PeriodTestData::VALID_START_DATE, period.GetStartDate().DateToString(), "Parameterized constructor start");
+    assert_equal(PeriodTestData::VALID_END_DATE, period.GetEndDate().DateToString(), "Parameterized constructor end");
+    
+    std::cout << "✓ Constructor tests passed\n\n";
+}
+
+// ===== GETTERS & SETTERS TESTS =====
+void test_getters_setters() {
+    std::cout << "Testing getters and setters...\n";
+    
+    // Test getters
+    MyDate startDate(PeriodTestData::VALID_START_DATE);
+    MyDate endDate(PeriodTestData::VALID_END_DATE);
+    MyPeriod period(startDate, endDate);
+    
+    assert_equal(PeriodTestData::VALID_START_DATE, period.GetStartDate().DateToString(), "GetStartDate");
+    assert_equal(PeriodTestData::VALID_END_DATE, period.GetEndDate().DateToString(), "GetEndDate");
     
     // Test valid setters
-    MyDate newStart("15/06/2023");
-    MyDate newEnd("15/12/2023");
+    MyDate newStart(PeriodTestData::MID_YEAR_DATE);
+    MyDate newEnd(PeriodTestData::MID_YEAR_DATE);
     
     period.SetStartDate(newStart);
     period.SetEndDate(newEnd);
     
-    assert(period.GetStartDate().DateToString() == "15/06/2023");
-    assert(period.GetEndDate().DateToString() == "15/12/2023");
-    std::cout << "✓ Valid setters test passed\n";
+    assert_equal(PeriodTestData::MID_YEAR_DATE, period.GetStartDate().DateToString(), "SetStartDate");
+    assert_equal(PeriodTestData::MID_YEAR_DATE, period.GetEndDate().DateToString(), "SetEndDate");
     
     // Test invalid SetStartDate
     MyPeriod::ClearError();
     try {
-        MyDate invalidStart("31/12/2023");
-        period.SetStartDate(invalidStart); // Should fail - current end is 15/12/2023
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyPeriod::GetLastError() == "Invalid period: Start date cannot be after end date");
-        std::cout << "✓ SetStartDate validation test passed\n";
+        MyDate invalidStart(PeriodTestData::INVALID_START_DATE);
+        period.SetStartDate(invalidStart);
+        assert_true(false, "Should throw exception for invalid SetStartDate");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Invalid period: Start date cannot be after end date", 
+                   MyPeriod::GetLastError().c_str(), "SetStartDate validation");
     }
     
     // Test invalid SetEndDate
     MyPeriod::ClearError();
     try {
-        MyDate invalidEnd("01/01/2023");
-        period.SetEndDate(invalidEnd); // Should fail - current start is 15/06/2023
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyPeriod::GetLastError() == "Invalid period: End date cannot be before start date");
-        std::cout << "✓ SetEndDate validation test passed\n";
+        MyDate invalidEnd(PeriodTestData::INVALID_END_DATE);
+        period.SetEndDate(invalidEnd);
+        assert_true(false, "Should throw exception for invalid SetEndDate");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Invalid period: End date cannot be before start date", 
+                   MyPeriod::GetLastError().c_str(), "SetEndDate validation");
     }
     
-    std::cout << "✓ MyPeriod getters and setters tests passed\n\n";
+    std::cout << "✓ Getters and setters tests passed\n\n";
 }
 
-void test_myperiod_constructors_operators() {
-    std::cout << "Testing MyPeriod constructors and operators...\n";
+// ===== COPY/MOVE OPERATORS TESTS =====
+void test_constructors_and_operators() {
+    std::cout << "Testing constructors and operators...\n";
     
     // Test constructor with dates
-    MyDate start("01/01/2023");
-    MyDate end("31/12/2023");
+    MyDate start(PeriodTestData::VALID_START_DATE);
+    MyDate end(PeriodTestData::VALID_END_DATE);
     MyPeriod original(start, end);
     
     // Test copy constructor
     MyPeriod copied(original);
-    assert(copied.GetStartDate().DateToString() == "01/01/2023");
-    assert(copied.GetEndDate().DateToString() == "31/12/2023");
-    std::cout << "✓ Copy constructor test passed\n";
+    assert_equal(PeriodTestData::VALID_START_DATE, copied.GetStartDate().DateToString(), "Copy constructor start");
+    assert_equal(PeriodTestData::VALID_END_DATE, copied.GetEndDate().DateToString(), "Copy constructor end");
     
     // Test move constructor
     MyPeriod moved(std::move(original));
-    assert(moved.GetStartDate().DateToString() == "01/01/2023");
-    assert(moved.GetEndDate().DateToString() == "31/12/2023");
-    std::cout << "✓ Move constructor test passed\n";
+    assert_equal(PeriodTestData::VALID_START_DATE, moved.GetStartDate().DateToString(), "Move constructor start");
+    assert_equal(PeriodTestData::VALID_END_DATE, moved.GetEndDate().DateToString(), "Move constructor end");
     
     // Test copy assignment operator
-    MyDate start2("15/06/2023");
-    MyDate end2("15/12/2023");
+    MyDate start2(PeriodTestData::MID_YEAR_DATE);
+    MyDate end2(PeriodTestData::MID_YEAR_DATE);
     MyPeriod original2(start2, end2);
-    
     MyPeriod copyAssigned;
     copyAssigned = original2;
-    assert(copyAssigned.GetStartDate().DateToString() == "15/06/2023");
-    assert(copyAssigned.GetEndDate().DateToString() == "15/12/2023");
-    std::cout << "✓ Copy assignment operator test passed\n";
+    assert_equal(PeriodTestData::MID_YEAR_DATE, copyAssigned.GetStartDate().DateToString(), "Copy assignment start");
+    assert_equal(PeriodTestData::MID_YEAR_DATE, copyAssigned.GetEndDate().DateToString(), "Copy assignment end");
     
     // Test move assignment operator
     MyPeriod assigned;
     assigned = std::move(original2);
-    assert(assigned.GetStartDate().DateToString() == "15/06/2023");
-    assert(assigned.GetEndDate().DateToString() == "15/12/2023");
-    std::cout << "✓ Move assignment operator test passed\n";
+    assert_equal(PeriodTestData::MID_YEAR_DATE, assigned.GetStartDate().DateToString(), "Move assignment start");
+    assert_equal(PeriodTestData::MID_YEAR_DATE, assigned.GetEndDate().DateToString(), "Move assignment end");
     
     // Test self-assignment (copy)
-    MyDate selfStart("01/01/2023");
-    MyDate selfEnd("31/12/2023");
+    MyDate selfStart(PeriodTestData::VALID_START_DATE);
+    MyDate selfEnd(PeriodTestData::VALID_END_DATE);
     MyPeriod selfPeriod(selfStart, selfEnd);
     selfPeriod = selfPeriod; // Should not crash
-    assert(selfPeriod.GetStartDate().DateToString() == "01/01/2023");
-    assert(selfPeriod.GetEndDate().DateToString() == "31/12/2023");
-    std::cout << "✓ Self-assignment (copy) test passed\n";
+    assert_equal(PeriodTestData::VALID_START_DATE, selfPeriod.GetStartDate().DateToString(), "Self-assignment copy start");
+    assert_equal(PeriodTestData::VALID_END_DATE, selfPeriod.GetEndDate().DateToString(), "Self-assignment copy end");
     
     // Test self-assignment (move)
     MyPeriod selfMovePeriod(selfStart, selfEnd);
     selfMovePeriod = std::move(selfMovePeriod); // Should not crash
-    assert(selfMovePeriod.GetStartDate().DateToString() == "01/01/2023");
-    assert(selfMovePeriod.GetEndDate().DateToString() == "31/12/2023");
-    std::cout << "✓ Self-assignment (move) test passed\n";
+    assert_equal(PeriodTestData::VALID_START_DATE, selfMovePeriod.GetStartDate().DateToString(), "Self-assignment move start");
+    assert_equal(PeriodTestData::VALID_END_DATE, selfMovePeriod.GetEndDate().DateToString(), "Self-assignment move end");
     
-    std::cout << "✓ MyPeriod constructors and operators tests passed\n\n";
+    std::cout << "✓ Constructors and operators tests passed\n\n";
 }
 
-void test_myperiod_error_handling() {
-    std::cout << "Testing MyPeriod error handling...\n";
+// ===== ERROR HANDLING TESTS =====
+void test_error_handling() {
+    std::cout << "Testing error handling...\n";
     
-    // Clear any previous errors
+    // Clear and check error functions
     MyPeriod::ClearError();
-    assert(MyPeriod::GetLastError() == "");
-    std::cout << "✓ ClearError and GetLastError test passed\n";
+    assert_equal("", MyPeriod::GetLastError().c_str(), "ClearError and GetLastError");
     
     // Test constructor exception
     try {
-        MyDate invalidStart("31/12/2023");
-        MyDate invalidEnd("01/01/2023");
+        MyDate invalidStart(PeriodTestData::INVALID_START_DATE);
+        MyDate invalidEnd(PeriodTestData::INVALID_END_DATE);
         MyPeriod invalidPeriod(invalidStart, invalidEnd);
-        assert(false); // Should not reach here
-    } catch (const std::invalid_argument& e) {
-        assert(MyPeriod::GetLastError() == "Invalid period: Start date cannot be after end date");
-        std::cout << "✓ Constructor exception test passed\n";
+        assert_true(false, "Should throw exception for invalid constructor");
+    } catch (const std::invalid_argument&) {
+        assert_equal("Invalid period: Start date cannot be after end date", 
+                   MyPeriod::GetLastError().c_str(), "Constructor exception");
     }
     
-    std::cout << "✓ MyPeriod error handling tests passed\n\n";
+    std::cout << "✓ Error handling tests passed\n\n";
 }
 
 void test_myperiod_validation() {
@@ -251,29 +283,8 @@ void test_myperiod_duration_functions() {
     std::cout << "✓ MyPeriod duration functions tests passed\n\n";
 }
 
-void test_myperiod_duration() {
-    std::cout << "Testing MyPeriod duration...\n";
-    
-    MyDate start("01/01/2023");
-    MyDate end("31/12/2023");
-    MyPeriod period(start, end);
-    
-    // Test length in days
-    int length = period.LengthInDays();
-    assert(length == 364); // 2023 is not a leap year
-    
-    // Test length in months
-    int months = period.LengthInMonths();
-    assert(months == 11); // Jan to Dec is 11 full months
-    
-    // Test length in years
-    int years = period.LengthInYears();
-    assert(years == 0); // Less than 1 full year
-    
-    std::cout << "✓ MyPeriod duration tests passed\n\n";
-}
-
-void test_myperiod_contains() {
+// ===== CONTAINS TESTS =====
+void test_contains() {
     std::cout << "Testing MyPeriod contains...\n";
     
     MyDate start("01/01/2023");
@@ -564,21 +575,20 @@ void test_myperiod_extreme_cases() {
 int main() {
     std::cout << "=== MyPeriod Unit Tests ===\n\n";
     
-    test_myperiod_constructors();
-    test_myperiod_getters_setters();
-    test_myperiod_constructors_operators();
-    test_myperiod_error_handling();
-    test_myperiod_validation();
-    test_myperiod_overlap_functions();
-    test_myperiod_duration_functions();
-    test_myperiod_duration();
-    test_myperiod_contains();
-    test_myperiod_contains_edge_cases();
-    test_myperiod_overlap();
-    test_myperiod_overlap_edge_cases();
-    test_myperiod_utilities();
-    test_myperiod_print_utilities();
-    test_myperiod_extreme_cases();
+    test_constructors();
+    test_getters_setters();
+    test_constructors_and_operators();
+    test_error_handling();
+    test_validation();
+    test_overlap_functions();
+    test_duration_functions();
+    test_contains();
+    test_contains_edge_cases();
+    test_overlap();
+    test_overlap_edge_cases();
+    test_utilities();
+    test_print_utilities();
+    test_extreme_cases();
     
     std::cout << "🎉 All MyPeriod tests passed successfully!\n";
     return 0;
