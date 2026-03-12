@@ -22,7 +22,7 @@ set(HEADERS
 )
 
 # Create library
-add_library(MyLib ${SOURCES})
+add_library(MyLib ${SOURCES} "include/MyLib/MyInputValidate.h")
 target_include_directories(MyLib PUBLIC include)
 
 # Windows specific settings
@@ -31,7 +31,7 @@ if(WIN32)
 endif()
 
 # Examples
-add_executable(basic_demo examples/basic_demo.cpp)
+add_executable(basic_demo examples/basic_demo.cpp "include/MyLib/MyInputValidate.h")
 target_link_libraries(basic_demo PRIVATE MyLib)
 target_include_directories(basic_demo PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
@@ -42,7 +42,7 @@ endif()
 # Tests
 if(EXISTS "${CMAKE_SOURCE_DIR}/tests/test_main.cpp")
     enable_testing()
-    add_executable(tests tests/test_main.cpp)
+    add_executable(tests tests/test_main.cpp "include/MyLib/MyInputValidate.h")
     target_link_libraries(tests PRIVATE MyLib)
     target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
     
