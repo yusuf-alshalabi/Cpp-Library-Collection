@@ -4,21 +4,21 @@ Welcome to the C++ Library Collection! This guide will get you up and running in
 
 ## 📚 Table of Contents
 
-- [🎯 What This Library Does](#-what-this-library-does)
-- [⚡ 5-Minute Quick Start](#-5-minute-quick-start)
-  - [� Step 1: Install the Library](#-step-1-install-the-library)
-  - [📝 Step 2: Use It in Your Code](#-step-2-use-it-in-your-code)
-  - [🏃 Step 3: Compile and Run](#-step-3-compile-and-run)
+- [🎯 What This Library Does](#what-this-library-does)
+- [⚡ 5-Minute Quick Start](#5-minute-quick-start)
+  - [📋 Step 1: Install the Library](#step-1-install-the-library)
+  - [📝 Step 2: Use It in Your Code](#step-2-use-it-in-your-code)
+  - [🏃 Step 3: Compile and Run](#step-3-compile-and-run)
 
-- [🔤 MyString Quick Examples](#-mystring-quick-examples)
-- [📅 MyDate Quick Examples](#-mydate-quick-examples)
-- [📅 MyPeriod Quick Examples](#-myperiod-quick-examples)
-- [🛡️ Error Handling](#️-error-handling)
-- [🔧 Common Use Cases](#-common-use-cases)
-- [📚 Next Steps](#-next-steps)
-- [🔗 Useful Links](#-useful-links)
+- [🔤 MyString Quick Examples](#mystring-quick-examples)
+- [📅 MyDate Quick Examples](#mydate-quick-examples)
+- [📅 MyPeriod Quick Examples](#myperiod-quick-examples)
+- [🛡️ Error Handling](#error-handling)
+- [🔧 Common Use Cases](#common-use-cases)
+- [📚 Next Steps](#next-steps)
+- [🔗 Useful Links](#useful-links)
 - [💡 Tips](#-tips)
-- [🆘 Need Help?](#-need-help)
+- [🆘 Need Help?](#need-help)
 
 ## 🎯 What This Library Does
 
