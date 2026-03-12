@@ -8,8 +8,8 @@ A modern C++ educational library providing comprehensive string, date, and perio
 
 ## 📚 Table of Contents
 
-- [� Quick Start](docs/QUICK_START.md) - Get started in 5 minutes
-- [�🔧 Installation](INSTALLATION.md) - Build and install instructions
+- [🚀 Quick Start](docs/QUICK_START.md) - Get started in 5 minutes
+- [🔧 Installation](INSTALLATION.md) - Build and install instructions
 - [📖 API Reference](API_REFERENCE.md) - Complete API documentation
 - [💡 Examples](EXAMPLES.md) - Code examples and usage patterns
 - [🧪 Testing](TESTING.md) - Testing information and guidelines

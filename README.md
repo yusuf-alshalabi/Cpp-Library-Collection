@@ -24,8 +24,8 @@ A modern C++ educational library providing comprehensive string, date, and perio
 
 | Document | Description |
 |----------|-------------|
-| � [Quick Start](docs/QUICK_START.md) | Get started in 5 minutes |
-| �📖 [Main Documentation](docs/README.md) | Complete project documentation |
+| 🚀 [Quick Start](docs/QUICK_START.md) | Get started in 5 minutes |
+| 📖 [Main Documentation](docs/README.md) | Complete project documentation |
 | 🔧 [Installation](docs/INSTALLATION.md) | Build and install instructions |
 | 📚 [API Reference](docs/API_REFERENCE.md) | Detailed API documentation |
 | 💡 [Examples](docs/EXAMPLES.md) | Code examples and usage patterns |
