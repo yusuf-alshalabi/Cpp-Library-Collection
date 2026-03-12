@@ -13,9 +13,9 @@ int main() {
     MyString text("Hello World From C++ Library");
     std::cout << "Original: " << text.GetValue() << std::endl;
     std::cout << "Word Count: " << text.CountWords() << std::endl;
-    std::cout << "Upper First Letters: " << text.UpperFirstLetterOfEachWord() << std::endl;
-    std::cout << "All Upper: " << text.UpperAllString() << std::endl;
-    std::cout << "All Lower: " << text.LowerAllString() << std::endl;
+    std::cout << "Upper First Letters: " << MyString::UpperFirstLetterOfEachWord(text.GetValue()) << std::endl;
+    std::cout << "All Upper: " << MyString::UpperAllString(text.GetValue()) << std::endl;
+    std::cout << "All Lower: " << MyString::LowerAllString(text.GetValue()) << std::endl;
     std::cout << "Vowel Count: " << text.CountVowels() << std::endl;
     std::cout << "Is Palindrome: " << (text.IsPalindrome() ? "Yes" : "No") << std::endl;
     std::cout << std::endl;
