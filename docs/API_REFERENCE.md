@@ -2,6 +2,45 @@
 
 This document provides a comprehensive reference for all classes, methods, and functionality in the C++ Library Collection.
 
+## � Table of Contents
+
+- [🔤 MyString Class](#-mystring-class)
+  - [🏗️ Constructors](#-constructors)
+  - [⚙️ String Operations](#️-string-operations)
+    - [🔄 Case Conversion](#-case-conversion)
+    - [📝 Word and Letter Operations](#-word-and-letter-operations)
+    - [🔧 String Manipulation](#-string-manipulation)
+    - [🔍 String Analysis](#-string-analysis)
+  - [🛡️ Error Handling](#️-error-handling)
+  - [📝 Examples](#-examples)
+
+- [📅 MyDate Class](#-mydate-class)
+  - [🏗️ Constructors](#-constructors-1)
+  - [⚙️ Date Operations](#️-date-operations)
+    - [📅 Date Creation and Access](#-date-creation-and-access)
+    - [🔄 Date Validation and Conversion](#-date-validation-and-conversion)
+    - [🧮 Date Arithmetic](#-date-arithmetic)
+  - [🛡️ Error Handling](#️-error-handling-1)
+  - [📝 Examples](#-examples-1)
+
+- [📅 MyPeriod Class](#-myperiod-class)
+  - [🏗️ Constructors](#-constructors-2)
+  - [⚙️ Period Operations](#️-period-operations)
+    - [📅 Date Access and Modification](#-date-access-and-modification)
+    - [📊 Period Analysis](#-period-analysis)
+  - [🛡️ Error Handling](#️-error-handling-2)
+  - [📝 Examples](#-examples-2)
+
+- [🎭 Enums and Types](#-enums-and-types)
+  - [enWhatToCount (MyString)](#enwhattocount-mystring)
+  - [enDateCompare (MyDate)](#endatecompare-mydate)
+
+- [🚀 Performance Considerations](#-performance-considerations)
+
+- [🛡️ Error Handling Best Practices](#️-error-handling-best-practices)
+
+- [📚 Additional Resources](#-additional-resources)
+
 ## 🔤 MyString Class
 
 The `MyString` class provides comprehensive string manipulation utilities with robust error handling.
