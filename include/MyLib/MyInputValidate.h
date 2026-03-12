@@ -1,9 +1,9 @@
-
 #pragma once
 #include <iostream>
 #include <string>
 #include <limits>
 #include "MyLib/MyDate.h"
+
 namespace MyLib {
 
 	class MyInputValidate
@@ -11,62 +11,31 @@ namespace MyLib {
 
 	public:
 
-		static bool IsNumberBetween(short Number, short From, short To)
+		// Template function for number range validation (eliminates code duplication)
+		template<typename T>
+		static bool IsNumberBetween(T Number, T From, T To)
 		{
-			if (Number >= From && Number <= To)
-				return true;
-			else
-				return false;
+			return Number >= From && Number <= To;
 		}
 
-		static bool IsNumberBetween(int Number, int From, int To)
-		{
-			if (Number >= From && Number <= To)
-				return true;
-			else
-				return false;
-
-		}
-
-		static bool IsNumberBetween(float Number, float From, float To)
-		{
-			if (Number >= From && Number <= To)
-				return true;
-			else
-				return false;
-		}
-
-		static bool IsNumberBetween(double Number, double From, double To)
-		{
-			if (Number >= From && Number <= To)
-				return true;
-			else
-				return false;
-		}
-
+		// Simplified date range validation using CompareDates
 		static bool IsDateBetween(MyDate Date, MyDate From, MyDate To)
 		{
-			//Date>=From && Date<=To
-			if ((MyDate::IsDate1AfterDate2(Date, From) || MyDate::IsDate1EqualDate2(Date, From))
-				&&
-				(MyDate::IsDate1BeforeDate2(Date, To) || MyDate::IsDate1EqualDate2(Date, To))
-				)
-			{
-				return true;
-			}
-
-			//Date>=To && Date<=From
-			if ((MyDate::IsDate1AfterDate2(Date, To) || MyDate::IsDate1EqualDate2(Date, To))
-				&&
-				(MyDate::IsDate1BeforeDate2(Date, From) || MyDate::IsDate1EqualDate2(Date, From))
-				)
-			{
-				return true;
-			}
-
-			return false;
+			// Check if Date is between From and To (inclusive)
+			// OR if Date is between To and From (inclusive) - handles reversed ranges
+			return (MyDate::CompareDates(Date, From) != MyDate::enDateCompare::Before &&
+					MyDate::CompareDates(Date, To) != MyDate::enDateCompare::After) ||
+				   (MyDate::CompareDates(Date, To) != MyDate::enDateCompare::Before &&
+					MyDate::CompareDates(Date, From) != MyDate::enDateCompare::After);
 		}
 
+		// Fixed typo: IsValidDate instead of IsValideDate
+		static bool IsValidDate(MyDate Date)
+		{
+			return MyDate::IsValidDate(Date);
+		}
+
+		// Safe integer input with error handling
 		static int ReadIntNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")
 		{
 			int Number;
@@ -78,6 +47,7 @@ namespace MyLib {
 			return Number;
 		}
 
+		// Safe integer input with range validation
 		static int ReadIntNumberBetween(int From, int To, std::string ErrorMessage = "Number is not within range, Enter again:\n")
 		{
 			int Number = ReadIntNumber();
@@ -90,17 +60,19 @@ namespace MyLib {
 			return Number;
 		}
 
+		// Safe double input with error handling
 		static double ReadDblNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")
 		{
 			double Number;
 			while (!(std::cin >> Number)) {
 				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize > ::max(), '\n');
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << ErrorMessage;
 			}
 			return Number;
 		}
 
+		// Safe double input with range validation
 		static double ReadDblNumberBetween(double From, double To, std::string ErrorMessage = "Number is not within range, Enter again:\n")
 		{
 			double Number = ReadDblNumber();
@@ -111,12 +83,10 @@ namespace MyLib {
 			}
 			return Number;
 		}
-
-		static bool IsValideDate(MyDate Date)
+		static bool IsValidSDate(MyDate Date)
 		{
 			return	MyDate::IsValidDate(Date);
 		}
-
 	};
 
 }
