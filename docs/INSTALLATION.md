@@ -1,6 +1,39 @@
-# Installation Guide
+# 🔧 Installation Guide
 
 This guide covers how to install and set up the C++ Library Collection on your system.
+
+## 📚 Table of Contents
+
+- [📋 Prerequisites](#-prerequisites)
+  - [✅ Required](#-required)
+  - [🔧 Optional](#-optional)
+
+- [🔧 Installation Methods](#-installation-methods)
+  - [🏗️ Method 1: CMake Build and Install (Recommended)](#-method-1-cmake-build-and-install-recommended)
+  - [📦 Method 2: Header-Only Usage](#-method-2-header-only-usage)
+
+- [🖥️ Platform-Specific Instructions](#️-platform-specific-instructions)
+  - [🪟 Windows (Visual Studio)](#-windows-visual-studio)
+  - [🐧 Linux (Ubuntu/Debian)](#-linux-ubuntudebian)
+  - [🍎 macOS](#-macos)
+
+- [🔍 Verification](#-verification)
+  - [🧪 Test the Installation](#-test-the-installation)
+  - [✅ Expected Output](#-expected-output)
+
+- [🛠️ Build Options](#️-build-options)
+  - [⚙️ CMake Options](#-cmake-options)
+  - [🔨 Build System Options](#-build-system-options)
+
+- [🔧 Integration with Your Project](#-integration-with-your-project)
+  - [🏗️ CMake Integration](#-cmake-integration)
+  - [📦 Header-Only Integration](#-header-only-integration)
+
+- [🚨 Troubleshooting](#-troubleshooting)
+  - [⚠️ Common Issues](#-common-issues)
+  - [🐛 Getting Help](#-getting-help)
+
+- [📚 Next Steps](#-next-steps)
 
 ## 📋 Prerequisites
 
