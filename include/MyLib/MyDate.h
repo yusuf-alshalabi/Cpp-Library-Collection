@@ -4,7 +4,8 @@
 #include<iostream>
 #include<string>
 #include<stdexcept>
-#include "MyLib/MyString.h"
+#include<vector>
+#include<sstream>
 
 namespace MyLib {
 
