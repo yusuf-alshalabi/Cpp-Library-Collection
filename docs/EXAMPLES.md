@@ -1,10 +1,39 @@
-# Examples
+# 💡 Examples
 
 This document provides comprehensive examples demonstrating the usage of the C++ Library Collection.
 
+## � Table of Contents
+
+- [� MyString Examples](#-mystring-examples)
+  - [🎯 Basic String Operations](#-basic-string-operations)
+  - [🔧 String Manipulation](#-string-manipulation)
+  - [🔍 String Analysis](#-string-analysis)
+  - [🛡️ Error Handling](#️-error-handling)
+
+- [📅 MyDate Examples](#-mydate-examples)
+  - [🎯 Basic Date Operations](#-basic-date-operations)
+  - [🧮 Date Arithmetic](#-date-arithmetic)
+  - [📝 Date Modification](#-date-modification)
+  - [🛡️ Error Handling](#️-error-handling-1)
+
+- [📅 MyPeriod Examples](#-myperiod-examples)
+  - [🎯 Basic Period Operations](#-basic-period-operations)
+  - [🔍 Period Overlap Detection](#-period-overlap-detection)
+  - [📝 Period Modification](#-period-modification)
+  - [🛡️ Error Handling](#️-error-handling-2)
+
+- [🎯 Combined Examples](#-combined-examples)
+  - [📚 Complete Library Demo](#-complete-library-demo)
+  - [📅 Practical Application: Event Planner](#-practical-application-event-planner)
+
+- [🧪 Testing Examples](#-testing-examples)
+  - [📝 Unit Test Pattern](#-unit-test-pattern)
+
+- [📚 Next Steps](#-next-steps)
+
 ## 🔤 MyString Examples
 
-### Basic String Operations
+### 🎯 Basic String Operations
 
 ```cpp
 #include <iostream>
@@ -39,7 +68,7 @@ Lower: hello world
 Title case: Hello World
 ```
 
-### String Manipulation
+### 🔧 String Manipulation
 
 ```cpp
 #include <iostream>
