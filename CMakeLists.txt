@@ -22,7 +22,7 @@ set(HEADERS
 )
 
 # Create library
-add_library(MyLib ${SOURCES} ${HEADERS})
+add_library(MyLib ${SOURCES})
 target_include_directories(MyLib PUBLIC include)
 
 # Installation
