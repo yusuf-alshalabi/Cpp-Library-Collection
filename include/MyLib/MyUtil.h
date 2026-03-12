@@ -5,8 +5,6 @@
 #include "MyLib/MyDate.h"
 
 namespace MyLib {
-    //ProgrammingAdvices.com
-    //Mohammed Abu-Hadhoud
     class MyUtil
     {
 
