@@ -25,18 +25,30 @@ set(HEADERS
 add_library(MyLib ${SOURCES})
 target_include_directories(MyLib PUBLIC include)
 
-# Installation
-install(FILES ${HEADERS}
-    DESTINATION include/MyLib
-)
-
-# Enable testing (only if tests directory exists)
-if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
-    enable_testing()
-    add_subdirectory(tests)
+# Windows specific settings
+if(WIN32)
+    target_compile_definitions(MyLib PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
 
-# Examples (only if examples directory exists)
-if(EXISTS "${CMAKE_SOURCE_DIR}/examples/CMakeLists.txt")
-    add_subdirectory(examples)
+# Examples
+add_executable(basic_demo examples/basic_demo.cpp)
+target_link_libraries(basic_demo PRIVATE MyLib)
+target_include_directories(basic_demo PRIVATE ${CMAKE_SOURCE_DIR}/include)
+
+if(WIN32)
+    target_compile_definitions(basic_demo PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
+
+# Tests
+if(EXISTS "${CMAKE_SOURCE_DIR}/tests/test_main.cpp")
+    enable_testing()
+    add_executable(tests tests/test_main.cpp)
+    target_link_libraries(tests PRIVATE MyLib)
+    target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
+    
+    if(WIN32)
+        target_compile_definitions(tests PRIVATE _CRT_SECURE_NO_WARNINGS)
+    endif()
+    
+    add_test(NAME BasicTests COMMAND tests)
 endif()
