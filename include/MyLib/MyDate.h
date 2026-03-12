@@ -35,7 +35,7 @@ public:
 	MyDate(std::string sDate)
 	{
 		std::vector <std::string> vDate;
-		vDate = MyString::Split(sDate, "/");
+		vDate = SplitString(sDate, "/");
 
 		if (vDate.size() != 3)
 		{
@@ -95,6 +95,40 @@ public:
 
 	void SetYear(short Year) { _Year = Year; }
 	short GetYear() const { return _Year; }
+
+	// --- Split string ---
+	std::vector<std::string> SplitString(const std::string& S1,const std::string& Delim) const
+	{
+		std::vector<std::string> vString;
+
+		if (S1.empty() || Delim.empty())
+			return vString;
+
+		size_t pos = 0;
+		std::string temp = S1; // local copy to modify
+		std::string sWord;
+
+		// use find() to get position of delimiter
+		while ((pos = temp.find(Delim)) != std::string::npos)
+		{
+			sWord = temp.substr(0, pos); // store word
+			if (sWord != "")
+			{
+				vString.push_back(sWord);
+			}
+
+			// erase until position and move to next word
+			temp.erase(0, pos + Delim.length());
+		}
+
+		// add last word if exists
+		if (temp != "")
+		{
+			vString.push_back(temp);
+		}
+
+		return vString;
+	}
 
 	// Error handling methods
 	static std::string GetLastError()
