@@ -6,14 +6,15 @@
 
 A modern C++ educational library providing comprehensive string, date, and period operations with robust error handling and performance optimizations.
 
-## � Table of Contents
+## 📚 Table of Contents
 
-- [🔧 Installation](INSTALLATION.md) - Build and install instructions
-- [� API Reference](API_REFERENCE.md) - Complete API documentation
+- [� Quick Start](docs/QUICK_START.md) - Get started in 5 minutes
+- [�🔧 Installation](INSTALLATION.md) - Build and install instructions
+- [📖 API Reference](API_REFERENCE.md) - Complete API documentation
 - [💡 Examples](EXAMPLES.md) - Code examples and usage patterns
 - [🧪 Testing](TESTING.md) - Testing information and guidelines
 - [🤝 Contributing](CONTRIBUTING.md) - Contribution guidelines
-- [� License](LICENSE.md) - MIT License information
+- [📄 License](LICENSE.md) - MIT License information
 - [🏗️ Project Structure](PROJECT_STRUCTURE.md) - Project organization
 
 ## 🎯 Quick Start
@@ -65,7 +66,7 @@ int main() {
 }
 ```
 
-## � Project Status
+## 📊 Project Status
 
 | Status | Description |
 |--------|-------------|
@@ -78,14 +79,14 @@ int main() {
 
 - **🔤 String Operations**: Comprehensive string manipulation utilities
 - **📅 Date Operations**: Modern date handling with validation
-- **� Period Operations**: Date range calculations and overlap detection
+- **📅 Period Operations**: Date range calculations and overlap detection
 - **🛡️ Error Handling**: Comprehensive input validation and exception handling
 - **⚡ Performance**: Optimized with move semantics and modern C++ practices
 - **📦 Modern C++**: C++17 compliant with const correctness
 
 ## 📚 Documentation Overview
 
-### �🔧 Installation Guide
+### 🔧 Installation Guide
 - [INSTALLATION.md](INSTALLATION.md) - Complete build and install instructions
   - Prerequisites and requirements
   - Platform-specific instructions
