@@ -1,6 +1,54 @@
-# Testing Guide
+# 🧪 Testing Guide
 
 This guide covers testing strategies, running tests, and contributing to the test suite of the C++ Library Collection.
+
+## 📚 Table of Contents
+
+- [🧪 Test Suite Overview](#-test-suite-overview)
+- [🔧 Running Tests](#-running-tests)
+  - [📋 Prerequisites](#-prerequisites)
+  - [🚀 Running All Tests](#-running-all-tests)
+  - [🎯 Running Specific Tests](#-running-specific-tests)
+  - [📊 Test Output](#-test-output)
+
+- [📋 Test Categories](#-test-categories)
+  - [🔤 MyString Tests](#-mystring-tests)
+  - [📅 MyDate Tests](#-mydate-tests)
+  - [📅 MyPeriod Tests](#-myperiod-tests)
+
+- [🛠️ Building Tests](#-building-tests)
+  - [📦 From Source](#-from-source)
+  - [🐛 Debug Build](#-debug-build)
+  - [⚡ Release Build](#-release-build)
+
+- [📝 Writing Tests](#-writing-tests)
+  - [🏗️ Test Structure](#-test-structure)
+  - [✨ Best Practices](#-best-practices)
+  - [➕ Adding New Tests](#-adding-new-tests)
+
+- [🐛 Debugging Tests](#-debugging-tests)
+  - [⚠️ Common Issues](#-common-issues)
+  - [🔧 Debugging Techniques](#-debugging-techniques)
+
+- [📊 Test Coverage](#-test-coverage)
+  - [📈 Current Coverage](#-current-coverage)
+  - [🔍 Coverage Analysis](#-coverage-analysis)
+  - [📈 Improving Coverage](#-improving-coverage)
+
+- [🚀 Continuous Integration](#-continuous-integration)
+  - [🤖 GitHub Actions](#-github-actions)
+  - [🖥️ Local CI Simulation](#-local-ci-simulation)
+
+- [⚡ Performance Testing](#-performance-testing)
+  - [📊 Basic Performance Tests](#-basic-performance-tests)
+  - [🧠 Memory Testing](#-memory-testing)
+
+- [🤝 Contributing to Tests](#-contributing-to-tests)
+  - [📝 Guidelines for Test Contributions](#-guidelines-for-test-contributions)
+  - [📤 Submitting Test Changes](#-submitting-test-changes)
+  - [📋 Test Review Checklist](#-test-review-checklist)
+
+- [📚 Additional Resources](#-additional-resources)
 
 ## 🧪 Test Suite Overview
 
