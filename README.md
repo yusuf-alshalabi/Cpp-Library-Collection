@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
 
-A modern C++ educational library providing comprehensive string, date, and period operations with robust error handling and performance optimizations.
+A modern C++ educational library providing 5 core classes (MyString, MyDate, MyPeriod, MyUtil, MyInputValidate) with robust error handling and performance optimizations.
 
 ## 📚 Complete Documentation
 
@@ -41,6 +41,8 @@ A modern C++ educational library providing comprehensive string, date, and perio
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 
 int main() {
     using namespace MyLib;
@@ -59,6 +61,15 @@ int main() {
     MyDate end(31, 12, 2023);
     MyPeriod year2023(start, end);
     std::cout << "Duration: " << year2023.GetDurationInDays() << " days" << std::endl;
+    
+    // 🔧 Utility operations
+    MyUtil::Srand();
+    std::cout << "Random number: " << MyUtil::RandomNumber(1, 100) << std::endl;
+    
+    // ✅ Input validation
+    std::cout << "Enter a number (1-10): ";
+    int num = MyInputValidate::ReadIntNumberBetween(1, 10);
+    std::cout << "You entered: " << num << std::endl;
     
     return 0;
 }

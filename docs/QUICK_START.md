@@ -13,7 +13,9 @@ Welcome to the C++ Library Collection! This guide will get you up and running in
 - [🔤 MyString Quick Examples](#mystring-quick-examples)
 - [📅 MyDate Quick Examples](#mydate-quick-examples)
 - [📅 MyPeriod Quick Examples](#myperiod-quick-examples)
-- [🛡️ Error Handling](#error-handling)
+- [� MyUtil Quick Examples](#myutil-quick-examples)
+- [✅ MyInputValidate Quick Examples](#myinputvalidate-quick-examples)
+- [�🛡️ Error Handling](#error-handling)
 - [🔧 Common Use Cases](#common-use-cases)
 - [📚 Next Steps](#next-steps)
 - [🔗 Useful Links](#useful-links)
@@ -22,11 +24,13 @@ Welcome to the C++ Library Collection! This guide will get you up and running in
 
 ## 🎯 What This Library Does
 
-The C++ Library Collection provides three main classes:
+The C++ Library Collection provides five main classes:
 
 - **🔤 MyString**: Advanced string manipulation (word counting, case conversion, splitting, etc.)
 - **📅 MyDate**: Modern date handling with validation (DD/MM/YYYY format)
 - **📅 MyPeriod**: Date range operations (overlap detection, duration calculation)
+- **🔧 MyUtil**: Utility functions (random generation, array operations, encryption)
+- **✅ MyInputValidate**: Input validation and safe reading functions
 
 ## ⚡ 5-Minute Quick Start
 
@@ -53,6 +57,8 @@ Create a file called `main.cpp`:
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 
 int main() {
     using namespace MyLib;
@@ -75,6 +81,15 @@ int main() {
     MyPeriod year2023(start, end);
     std::cout << "Days in 2023: " << year2023.GetDurationInDays() << std::endl;
     
+    // 🔧 Utility operations
+    MyUtil::Srand();
+    std::cout << "Random number: " << MyUtil::RandomNumber(1, 100) << std::endl;
+    
+    // ✅ Input validation
+    std::cout << "Enter a number (1-10): ";
+    int num = MyInputValidate::ReadIntNumberBetween(1, 10);
+    std::cout << "You entered: " << num << std::endl;
+    
     return 0;
 }
 ```
@@ -96,6 +111,9 @@ Upper case: HELLO WORLD
 Today: DD/MM/YYYY (current date)
 Christmas: 25/12/2023
 Days in 2023: 365
+Random number: [random number]
+Enter a number (1-10): [user input]
+You entered: [user input]
 ```
 
 ## 🔤 MyString Quick Examples
@@ -166,7 +184,48 @@ if (year2023.IsOverLapWith(vacation)) {
 }
 ```
 
-## 🛡️ Error Handling
+## � MyUtil Quick Examples
+
+```cpp
+using namespace MyLib;
+
+// Initialize random seed
+MyUtil::Srand();
+
+// Random numbers
+std::cout << "Random number (1-100): " << MyUtil::RandomNumber(1, 100) << std::endl;
+
+// Random characters
+std::cout << "Random letter: " << MyUtil::GetRandomCharacter(MyUtil::CapitalLetter) << std::endl;
+
+// Random words
+std::cout << "Random word: " << MyUtil::GenerateWord(MyUtil::CapitalLetter, 5) << std::endl;
+
+// Array operations
+int numbers[5];
+MyUtil::FillArrayWithRandomNumbers(numbers, 5, 1, 10);
+```
+
+## ✅ MyInputValidate Quick Examples
+
+```cpp
+using namespace MyLib;
+
+// Safe integer input
+int age = MyInputValidate::ReadIntNumber("Enter your age: ");
+
+// Input with range validation
+int score = MyInputValidate::ReadIntNumberBetween(0, 100, "Enter score (0-100): ");
+
+// Double input
+double height = MyInputValidate::ReadDblNumber("Enter your height: ");
+
+// Validation functions
+bool isValid = MyInputValidate::IsNumberBetween(score, 0, 100);
+bool dateValid = MyInputValidate::IsValidDate(MyDate::GetSystemDate());
+```
+
+## ��️ Error Handling
 
 The library provides comprehensive error handling:
 

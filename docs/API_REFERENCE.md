@@ -31,6 +31,23 @@ This document provides a comprehensive reference for all classes, methods, and f
   - [🛡️ Error Handling](#error-handling-2)
   - [📝 Examples](#examples-2)
 
+- [🔧 MyUtil Class](#myutil-class)
+  - [🏗️ Overview](#overview)
+  - [⚙️ Utility Functions](#utility-functions)
+    - [🎲 Random Generation](#random-generation)
+    - [📝 Array Operations](#array-operations)
+    - [🔧 Text Operations](#text-operations)
+    - [⚡ Performance Functions](#performance-functions)
+  - [📝 Examples](#examples-3)
+
+- [✅ MyInputValidate Class](#myinputvalidate-class)
+  - [🏗️ Overview](#overview-1)
+  - [⚙️ Validation Functions](#validation-functions)
+    - [🔢 Number Validation](#number-validation)
+    - [📅 Date Validation](#date-validation)
+    - [📖 Input Reading](#input-reading)
+  - [📝 Examples](#examples-4)
+
 - [🎭 Enums and Types](#enums-and-types)
   - [enWhatToCount (MyString)](#enwhattocount-mystring)
   - [enDateCompare (MyDate)](#endatecompare-mydate)
@@ -273,6 +290,128 @@ try {
 } catch (const std::exception& e) {
     std::cout << "Error: " << MyPeriod::GetLastError() << std::endl;
 }
+```
+
+---
+
+## 🔧 MyUtil Class
+
+The `MyUtil` class provides utility functions and helper methods for common operations.
+
+### 🏗️ Overview
+- **Purpose**: Utility functions and helper methods
+- **Key Features**: Random generation, array operations, text processing, encryption
+- **Design**: Static methods only - no instantiation needed
+- **Dependencies**: Standard library only
+
+### ⚙️ Utility Functions
+
+#### 🎲 Random Generation
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `static Srand()` | `void` | Initialize random seed | `MyUtil::Srand()` |
+| `static RandomNumber(int From, int To)` | `int` | Generate random integer | `MyUtil::RandomNumber(1, 100)` |
+| `static GetRandomCharacter(enCharType CharType)` | `char` | Generate random character | `MyUtil::GetRandomCharacter(MyUtil::CapitalLetter)` |
+| `static GenerateWord(enCharType CharType, short Length)` | `std::string` | Generate random word | `MyUtil::GenerateWord(MyUtil::CapitalLetter, 5)` |
+| `static GenerateKey(enCharType CharType = MixChars)` | `std::string` | Generate random key | `MyUtil::GenerateKey()` |
+
+#### 📝 Array Operations
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `static FillArrayWithRandomNumbers(int arr[], int Size, int From, int To)` | `void` | Fill array with random numbers | `MyUtil::FillArrayWithRandomNumbers(arr, 10, 1, 100)` |
+| `static FillArrayWithRandomWords(std::string arr[], int Size, enCharType CharType, short Length)` | `void` | Fill array with random words | `MyUtil::FillArrayWithRandomWords(arr, 5, MyUtil::CapitalLetter, 4)` |
+| `static ShuffleArray(int arr[], int Size)` | `void` | Shuffle array elements | `MyUtil::ShuffleArray(arr, 10)` |
+| `template<typename T> static Swap(T& A, T& B)` | `void` | Swap two values | `MyUtil::Swap(a, b)` |
+
+#### 🔧 Text Operations
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `static EncryptText(const std::string& Text, short EncryptionKey)` | `std::string` | Encrypt text | `MyUtil::EncryptText("Hello", 5)` |
+| `static DecryptText(const std::string& Text, short EncryptionKey)` | `std::string` | Decrypt text | `MyUtil::DecryptText(encrypted, 5)` |
+| `static GenerateTab(short NumberOfSpaces)` | `std::string` | Generate tab spaces | `MyUtil::GenerateTab(4)` |
+
+### 📝 Examples
+
+```cpp
+#include "MyLib/MyUtil.h"
+using namespace MyLib;
+
+// Initialize random seed
+MyUtil::Srand();
+
+// Random generation
+int randomNumber = MyUtil::RandomNumber(1, 100);
+char randomLetter = MyUtil::GetRandomCharacter(MyUtil::CapitalLetter);
+std::string randomWord = MyUtil::GenerateWord(MyUtil::CapitalLetter, 5);
+std::string randomKey = MyUtil::GenerateKey();
+
+// Array operations
+int numbers[10];
+MyUtil::FillArrayWithRandomNumbers(numbers, 10, 1, 100);
+MyUtil::ShuffleArray(numbers, 10);
+
+// Text operations
+std::string encrypted = MyUtil::EncryptText("Hello World", 5);
+std::string decrypted = MyUtil::DecryptText(encrypted, 5);
+
+// Performance
+int a = 10, b = 20;
+MyUtil::Swap(a, b);  // a=20, b=10
+```
+
+---
+
+## ✅ MyInputValidate Class
+
+The `MyInputValidate` class provides safe input reading and validation functions.
+
+### 🏗️ Overview
+- **Purpose**: Input validation and safe reading functions
+- **Key Features**: Template validation, range checking, safe input reading
+- **Design**: Static methods only - no instantiation needed
+- **Dependencies**: MyDate for date validation
+
+### ⚙️ Validation Functions
+
+#### 🔢 Number Validation
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `template<typename T> static IsNumberBetween(T Number, T From, T To)` | `bool` | Check if number is in range | `MyInputValidate::IsNumberBetween(5, 1, 10)` |
+
+#### 📅 Date Validation
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `static IsDateBetween(MyDate Date, MyDate From, MyDate To)` | `bool` | Check if date is in range | `MyInputValidate::IsDateBetween(date, start, end)` |
+| `static IsValidDate(MyDate Date)` | `bool` | Validate date | `MyInputValidate::IsValidDate(date)` |
+
+#### 📖 Input Reading
+| Method | Return Type | Description | Example |
+|--------|-------------|-------------|---------|
+| `static ReadIntNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")` | `int` | Safe integer input | `MyInputValidate::ReadIntNumber("Enter age: ")` |
+| `static ReadIntNumberBetween(int From, int To, std::string ErrorMessage = "Number is not within range, Enter again:\n")` | `int` | Integer with range validation | `MyInputValidate::ReadIntNumberBetween(1, 10)` |
+| `static ReadDblNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")` | `double` | Safe double input | `MyInputValidate::ReadDblNumber("Enter height: ")` |
+| `static ReadDblNumberBetween(double From, double To, std::string ErrorMessage = "Number is not within range, Enter again:\n")` | `double` | Double with range validation | `MyInputValidate::ReadDblNumberBetween(0.0, 100.0)` |
+
+### 📝 Examples
+
+```cpp
+#include "MyLib/MyInputValidate.h"
+#include "MyLib/MyDate.h"
+using namespace MyLib;
+
+// Number validation
+bool isValid = MyInputValidate::IsNumberBetween(score, 0, 100);
+
+// Date validation
+MyDate date(15, 6, 2023);
+bool dateValid = MyInputValidate::IsValidDate(date);
+bool inRange = MyInputValidate::IsDateBetween(date, startDate, endDate);
+
+// Safe input reading
+int age = MyInputValidate::ReadIntNumber("Enter your age: ");
+int score = MyInputValidate::ReadIntNumberBetween(0, 100, "Enter score (0-100): ");
+double height = MyInputValidate::ReadDblNumber("Enter your height: ");
+double weight = MyInputValidate::ReadDblNumberBetween(0.0, 300.0, "Enter weight (kg): ");
 ```
 
 ---
