@@ -362,15 +362,15 @@ int main() {
     // SUMMARY
     // =================================================================
     std::cout << "=== DEMO SUMMARY ===\n";
-    std::cout << "✓ String Operations: Complete\n";
-    std::cout << "✓ Date Operations: Complete\n";
-    std::cout << "✓ Period Operations: Complete\n";
-    std::cout << "✓ Utility Functions: Complete\n";
-    std::cout << "✓ Input Validation: Complete\n";
-    std::cout << "✓ Error Handling: Complete\n";
-    std::cout << "✓ Advanced Features: Complete\n";
-    std::cout << "✓ Performance Features: Complete\n";
-    std::cout << "\n🎉 C++ Library Collection Comprehensive Demo Complete! 🎉\n";
+    std::cout << "[DONE] String Operations: Complete\n";
+    std::cout << "[DONE] Date Operations: Complete\n";
+    std::cout << "[DONE] Period Operations: Complete\n";
+    std::cout << "[DONE] Utility Functions: Complete\n";
+    std::cout << "[DONE] Input Validation: Complete\n";
+    std::cout << "[DONE] Error Handling: Complete\n";
+    std::cout << "[DONE] Advanced Features: Complete\n";
+    std::cout << "[DONE] Performance Features: Complete\n";
+    std::cout << "\n*** C++ Library Collection Comprehensive Demo Complete! ***\n";
     std::cout << "\nThis demo showcases all major features of the C++ Library Collection:\n";
     std::cout << "- 5 Core Classes: MyString, MyDate, MyPeriod, MyUtil, MyInputValidate\n";
     std::cout << "- Professional error handling\n";
