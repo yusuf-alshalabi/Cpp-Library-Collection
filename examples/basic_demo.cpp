@@ -99,11 +99,11 @@ int main() {
     std::cout << "After adding 10 days: ";
     modifiedDate.Print();
     
-    modifiedDate.AddOneMonth();
+    modifiedDate.IncreaseDateByOneMonth();
     std::cout << "After adding 1 month: ";
     modifiedDate.Print();
     
-    modifiedDate.AddOneYear();
+    modifiedDate.IncreaseDateByOneYear();
     std::cout << "After adding 1 year: ";
     modifiedDate.Print();
     
@@ -184,16 +184,16 @@ int main() {
     // Array operations
     std::cout << "\nArray Operations:\n";
     int numbers[5];
-    std::string words[3];
+    std::string stringWords[3];
     
     MyUtil::FillArrayWithRandomNumbers(numbers, 5, 1, 10);
     std::cout << "Random numbers array: ";
     for (int i = 0; i < 5; i++) std::cout << numbers[i] << " ";
     std::cout << std::endl;
     
-    MyUtil::FillArrayWithRandomWords(words, 3, MyUtil::CapitalLetter, 4);
+    MyUtil::FillArrayWithRandomWords(stringWords, 3, MyUtil::CapitalLetter, 4);
     std::cout << "Random words array: ";
-    for (int i = 0; i < 3; i++) std::cout << words[i] << " ";
+    for (int i = 0; i < 3; i++) std::cout << stringWords[i] << " ";
     std::cout << std::endl;
     
     // Shuffle demo
@@ -298,12 +298,12 @@ int main() {
     
     // Advanced string operations
     std::cout << "Advanced String Operations:\n";
-    std::vector<std::string> words = text.Split(" ");
+    std::vector<std::string> splitWords = text.Split(" ");
     std::cout << "Split words: ";
-    for (const auto& word : words) std::cout << "[" << word << "] ";
+    for (const auto& word : splitWords) std::cout << "[" << word << "] ";
     std::cout << std::endl;
     
-    std::string joined = MyString::JoinString(words, "-");
+    std::string joined = MyString::JoinString(splitWords, "-");
     std::cout << "Joined with '-': " << joined << std::endl;
     
     // Advanced date operations
