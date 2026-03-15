@@ -21,12 +21,13 @@ namespace MyLib {
 		// Simplified date range validation using CompareDates
 		static bool IsDateBetween(MyDate Date, MyDate From, MyDate To)
 		{
-			// Check if Date is between From and To (inclusive)
-			// OR if Date is between To and From (inclusive) - handles reversed ranges
-			return (MyDate::CompareDates(Date, From) != MyDate::enDateCompare::Before &&
-					MyDate::CompareDates(Date, To) != MyDate::enDateCompare::After) ||
-				   (MyDate::CompareDates(Date, To) != MyDate::enDateCompare::Before &&
-					MyDate::CompareDates(Date, From) != MyDate::enDateCompare::After);
+			// Determine the actual min and max dates (handles reversed ranges)
+			MyDate minDate = (MyDate::CompareDates(From, To) == MyDate::enDateCompare::Before) ? From : To;
+			MyDate maxDate = (MyDate::CompareDates(From, To) == MyDate::enDateCompare::After) ? From : To;
+			
+			// Check if Date is between minDate and maxDate (inclusive)
+			return MyDate::CompareDates(Date, minDate) != MyDate::enDateCompare::Before && 
+				   MyDate::CompareDates(Date, maxDate) != MyDate::enDateCompare::After;
 		}
 
 		// Fixed typo: IsValidDate instead of IsValideDate
