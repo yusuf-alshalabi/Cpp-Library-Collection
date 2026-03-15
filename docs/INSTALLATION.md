@@ -1,6 +1,6 @@
 # 🔧 Installation Guide
 
-This guide covers how to install and set up the C++ Library Collection on your system.
+This guide covers how to install and set up the C++ Library Collection with 5 core classes (MyString, MyDate, MyPeriod, MyUtil, MyInputValidate) on your system.
 
 ## 📚 Table of Contents
 
@@ -217,6 +217,8 @@ sudo ninja install
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 
 int main() {
     using namespace MyLib;
@@ -235,6 +237,15 @@ int main() {
     MyPeriod year2023(start, end);
     std::cout << "Days in 2023: " << year2023.GetDurationInDays() << std::endl;
     
+    // Test MyUtil
+    MyUtil::Srand();
+    std::cout << "Random number: " << MyUtil::RandomNumber(1, 100) << std::endl;
+    
+    // Test MyInputValidate
+    std::cout << "Enter a number (1-10): ";
+    int num = MyInputValidate::ReadIntNumberBetween(1, 10);
+    std::cout << "You entered: " << num << std::endl;
+    
     std::cout << "Installation successful!" << std::endl;
     return 0;
 }
@@ -252,8 +263,11 @@ g++ -std=c++17 test_installation.cpp -lMyLib -o test_installation
 ### Expected Output
 ```
 Word count: 2
-Today: DD/MM/YYYY
+Today: DD/MM/YYYY (current date)
 Days in 2023: 365
+Random number: [random number between 1-100]
+Enter a number (1-10): [user input]
+You entered: [user input]
 Installation successful!
 ```
 
@@ -337,6 +351,29 @@ target_link_libraries(your_target PRIVATE MyLib)
 target_include_directories(your_target PRIVATE include)
 ```
 
+#### Example Usage in Your Project
+```cpp
+#include <iostream>
+#include "MyLib/MyString.h"
+#include "MyLib/MyDate.h"
+#include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
+
+int main() {
+    using namespace MyLib;
+    
+    // All 5 classes are now available
+    MyString text("Hello World");
+    MyDate today = MyDate::GetSystemDate();
+    MyPeriod period(start, end);
+    MyUtil::Srand();
+    int num = MyInputValidate::ReadIntNumberBetween(1, 10);
+    
+    return 0;
+}
+```
+
 ### Header-Only Integration
 
 ```cmake
@@ -352,6 +389,26 @@ add_executable(your_target main.cpp)
 
 # Link with the library
 target_link_libraries(your_target PRIVATE MyLib)
+```
+
+#### Header-Only Usage Example
+```cpp
+#include <iostream>
+#include "MyLib/MyString.h"
+#include "MyLib/MyDate.h"
+#include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
+
+int main() {
+    using namespace MyLib;
+    
+    // All 5 classes available in header-only mode
+    MyString text("Hello World");
+    std::cout << "Word count: " << text.CountWords() << std::endl;
+    
+    return 0;
+}
 ```
 
 ## 🚨 Troubleshooting
