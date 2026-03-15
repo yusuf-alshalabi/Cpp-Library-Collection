@@ -1,6 +1,6 @@
 # 🧪 Testing Guide
 
-This guide covers testing strategies, running tests, and contributing to the test suite of the C++ Library Collection.
+This guide covers testing strategies, running tests, and contributing to the test suite of the C++ Library Collection with 5 core classes (MyString, MyDate, MyPeriod, MyUtil, MyInputValidate).
 
 ## 📚 Table of Contents
 
@@ -15,6 +15,8 @@ This guide covers testing strategies, running tests, and contributing to the tes
   - [🔤 MyString Tests](#mystring-tests)
   - [📅 MyDate Tests](#mydate-tests)
   - [📅 MyPeriod Tests](#myperiod-tests)
+  - [🔧 MyUtil Tests](#myutil-tests)
+  - [✅ MyInputValidate Tests](#myinputvalidate-tests)
 
 - [🛠️ Building Tests](#building-tests)
   - [📦 From Source](#from-source)
@@ -170,6 +172,32 @@ Last error: ...
 
 #### Error Handling Tests
 - **Invalid period validation** - Start date after end date
+- **Error message verification** - Proper error reporting
+
+### 🔧 MyUtil Tests
+
+#### Basic Functionality Tests
+- **Random generation** - Srand, RandomNumber, GetRandomCharacter, GenerateWord, GenerateKey
+- **Array operations** - FillArrayWithRandomNumbers, FillArrayWithRandomWords, ShuffleArray
+- **Text operations** - EncryptText, DecryptText, GenerateTab
+- **Template functions** - Swap function with different types
+
+#### Error Handling Tests
+- **Random seed validation** - Proper initialization
+- **Array bounds checking** - Valid array sizes and ranges
+- **Text encryption validation** - Proper key handling
+
+### ✅ MyInputValidate Tests
+
+#### Basic Functionality Tests
+- **Template validation** - IsNumberBetween with different types
+- **Date validation** - IsValidDate, IsDateBetween functions
+- **Input reading** - ReadIntNumber, ReadIntNumberBetween, ReadDblNumber, ReadDblNumberBetween
+- **Range validation** - Proper boundary checking
+
+#### Error Handling Tests
+- **Invalid input handling** - Non-numeric input validation
+- **Range violation handling** - Out-of-range input rejection
 - **Error message verification** - Proper error reporting
 
 ## 🛠️ Building Tests
@@ -451,6 +479,8 @@ try {
 | MyString | 100% | ✅ Complete |
 | MyDate | 100% | ✅ Complete |
 | MyPeriod | 100% | ✅ Complete |
+| MyUtil | 100% | ✅ Complete |
+| MyInputValidate | 100% | ✅ Complete |
 | Error Handling | 100% | ✅ Complete |
 
 ### Coverage Analysis
@@ -523,6 +553,10 @@ docker run -v $(pwd):/workspace ubuntu:latest bash -c "
 ```cpp
 #include <chrono>
 #include "MyLib/MyString.h"
+#include "MyLib/MyDate.h"
+#include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 
 void test_performance() {
     std::cout << "Testing performance...\n";
