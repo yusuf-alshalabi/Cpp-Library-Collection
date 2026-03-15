@@ -2,7 +2,7 @@
 
 This document provides comprehensive examples demonstrating the usage of the C++ Library Collection.
 
-## � Table of Contents
+## 📚 Table of Contents
 
 - [🔤 MyString Examples](#mystring-examples)
   - [🎯 Basic String Operations](#basic-string-operations)
@@ -22,9 +22,23 @@ This document provides comprehensive examples demonstrating the usage of the C++
   - [📝 Period Modification](#period-modification)
   - [🛡️ Error Handling](#error-handling-2)
 
-- [🎯 Combined Examples](#combined-examples)
+- [🔧 MyUtil Examples](#myutil-examples)
+  - [� Random Generation](#random-generation)
+  - [📝 Array Operations](#array-operations)
+  - [🔧 Text Operations](#text-operations)
+  - [🛡️ Error Handling](#error-handling-3)
+
+- [✅ MyInputValidate Examples](#myinputvalidate-examples)
+  - [🔢 Number Validation](#number-validation)
+  - [📅 Date Validation](#date-validation)
+  - [📖 Input Reading](#input-reading)
+  - [🛡️ Error Handling](#error-handling-4)
+
+- [� Combined Examples](#combined-examples)
   - [📚 Complete Library Demo](#complete-library-demo)
   - [📅 Practical Application: Event Planner](#practical-application-event-planner)
+  - [🔧 Utility Showcase](#utility-showcase)
+  - [✅ Input Validation Demo](#input-validation-demo)
 
 - [🧪 Testing Examples](#testing-examples)
   - [📝 Unit Test Pattern](#unit-test-pattern)
@@ -532,6 +546,8 @@ Valid period created: 01/01/2023 to 31/12/2023
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 using namespace MyLib;
 
 int main() {
@@ -570,19 +586,43 @@ int main() {
     }
     std::cout << std::endl;
     
-    // === Error Handling Demo ===
-    std::cout << "🛡️ Error Handling Demo:" << std::endl;
-    try {
-        MyString empty("");
-    } catch (const std::exception& e) {
-        std::cout << "String error caught: " << MyString::GetLastError() << std::endl;
-    }
+    // === MyPeriod Demo ===
+    std::cout << "📅 MyPeriod Demo:" << std::endl;
+    MyPeriod year2023(projectStart, projectEnd);
+    std::cout << "Year 2023 duration: " << year2023.GetDurationInDays() << " days" << std::endl;
     
-    try {
-        MyDate invalid("32/13/2024");
-    } catch (const std::exception& e) {
-        std::cout << "Date error caught: " << MyDate::GetLastError() << std::endl;
-    }
+    MyDate vacationStart(15, 6, 2023);
+    MyDate vacationEnd(30, 6, 2023);
+    MyPeriod vacation(vacationStart, vacationEnd);
+    
+    std::cout << "Vacation overlaps with year: " << 
+        (year2023.IsOverLapWith(vacation) ? "Yes" : "No") << std::endl;
+    std::cout << std::endl;
+    
+    // === MyUtil Demo ===
+    std::cout << "🔧 MyUtil Demo:" << std::endl;
+    MyUtil::Srand();
+    
+    std::cout << "Random number (1-100): " << MyUtil::RandomNumber(1, 100) << std::endl;
+    std::cout << "Random capital letter: " << MyUtil::GetRandomCharacter(MyUtil::CapitalLetter) << std::endl;
+    std::cout << "Random word: " << MyUtil::GenerateWord(MyUtil::CapitalLetter, 5) << std::endl;
+    
+    int numbers[5];
+    MyUtil::FillArrayWithRandomNumbers(numbers, 5, 1, 10);
+    std::cout << "Random array: ";
+    for (int i = 0; i < 5; i++) std::cout << numbers[i] << " ";
+    std::cout << std::endl << std::endl;
+    
+    // === MyInputValidate Demo ===
+    std::cout << "✅ MyInputValidate Demo:" << std::endl;
+    std::cout << "Number validation examples:" << std::endl;
+    
+    bool isValid = MyInputValidate::IsNumberBetween(50, 1, 100);
+    std::cout << "Is 50 between 1-100? " << (isValid ? "Yes" : "No") << std::endl;
+    
+    MyDate testDate(15, 6, 2023);
+    bool dateValid = MyInputValidate::IsValidDate(testDate);
+    std::cout << "Is 15/06/2023 valid? " << (dateValid ? "Yes" : "No") << std::endl;
     
     std::cout << std::endl;
     std::cout << "=== Demo Complete ===" << std::endl;
@@ -599,6 +639,8 @@ int main() {
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 using namespace MyLib;
 
 struct Event {
@@ -613,6 +655,9 @@ struct Event {
 int main() {
     std::cout << "=== Event Planner ===" << std::endl << std::endl;
     
+    // Initialize random seed for any random operations
+    MyUtil::Srand();
+    
     // Create events
     std::vector<Event> events;
     events.emplace_back("Birthday Party", "15/06/2023", "John's birthday celebration");
@@ -622,7 +667,7 @@ int main() {
     // Display events
     std::cout << "📅 Upcoming Events:" << std::endl;
     for (const auto& event : events) {
-        std::cout << "- " << event.GetValue() 
+        std::cout << "- " << event.name.GetValue() 
                   << " on " << event.date.DateToString() 
                   << ": " << event.description.GetValue() << std::endl;
     }
@@ -635,23 +680,211 @@ int main() {
     
     std::cout << "🎯 June 2023 Events:" << std::endl;
     for (const auto& event : events) {
-        MyPeriod eventDay(event.date, event.date);
-        if (junePeriod.IsOverLapWith(eventDay)) {
-            std::cout << "- " << event.GetValue() 
-                      << " (" << event.date.DateToString() << ")" << std::endl;
+        if (MyInputValidate::IsDateBetween(event.date, juneStart, juneEnd)) {
+            std::cout << "- " << event.name.GetValue() 
+                      << " on " << event.date.DateToString() << std::endl;
         }
     }
     std::cout << std::endl;
     
-    // Calculate days until next event
+    // Calculate days until each event
     MyDate today = MyDate::GetSystemDate();
-    std::cout << "⏰ Days until events:" << std::endl;
+    std::cout << "📊 Days Until Events:" << std::endl;
     for (const auto& event : events) {
-        int days = MyDate::GetDifferenceInDays(today, event.date);
-        if (days >= 0) {
-            std::cout << "- " << event.GetValue() << ": " << days << " days" << std::endl;
-        }
+        int daysUntil = MyDate::GetDifferenceInDays(today, event.date);
+        std::cout << "- " << event.name.GetValue() 
+                  << ": " << daysUntil << " days" << std::endl;
     }
+    
+    return 0;
+```
+
+---
+
+## 🔧 MyUtil Examples
+
+### 🎲 Random Generation
+
+```cpp
+#include <iostream>
+#include "MyLib/MyUtil.h"
+using namespace MyLib;
+
+int main() {
+    // Initialize random seed
+    MyUtil::Srand();
+    
+    // Random numbers
+    std::cout << "Random number (1-100): " << MyUtil::RandomNumber(1, 100) << std::endl;
+    std::cout << "Random number (50-100): " << MyUtil::RandomNumber(50, 100) << std::endl;
+    
+    // Random characters
+    std::cout << "Random capital: " << MyUtil::GetRandomCharacter(MyUtil::CapitalLetter) << std::endl;
+    std::cout << "Random small: " << MyUtil::GetRandomCharacter(MyUtil::SmallLetter) << std::endl;
+    std::cout << "Random digit: " << MyUtil::GetRandomCharacter(MyUtil::Digit) << std::endl;
+    std::cout << "Random mixed: " << MyUtil::GetRandomCharacter(MyUtil::MixChars) << std::endl;
+    
+    // Random words
+    std::cout << "Random word (5 letters): " << MyUtil::GenerateWord(MyUtil::CapitalLetter, 5) << std::endl;
+    std::cout << "Random key: " << MyUtil::GenerateKey() << std::endl;
+    
+    return 0;
+}
+```
+
+### 📝 Array Operations
+
+```cpp
+#include <iostream>
+#include "MyLib/MyUtil.h"
+using namespace MyLib;
+
+int main() {
+    // Initialize random seed
+    MyUtil::Srand();
+    
+    // Integer array
+    int numbers[10];
+    MyUtil::FillArrayWithRandomNumbers(numbers, 10, 1, 100);
+    
+    std::cout << "Random numbers: ";
+    for (int i = 0; i < 10; i++) {
+        std::cout << numbers[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    // String array
+    std::string words[5];
+    MyUtil::FillArrayWithRandomWords(words, 5, MyUtil::CapitalLetter, 4);
+    
+    std::cout << "Random words: ";
+    for (int i = 0; i < 5; i++) {
+        std::cout << words[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    // Shuffle array
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    MyUtil::ShuffleArray(arr, 10);
+    
+    std::cout << "Shuffled array: ";
+    for (int i = 0; i < 10; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    return 0;
+}
+```
+
+### 🔧 Text Operations
+
+```cpp
+#include <iostream>
+#include "MyLib/MyUtil.h"
+using namespace MyLib;
+
+int main() {
+    std::string original = "Hello World";
+    
+    // Encryption and decryption
+    short key = 5;
+    std::string encrypted = MyUtil::EncryptText(original, key);
+    std::cout << "Original: " << original << std::endl;
+    std::cout << "Encrypted: " << encrypted << std::endl;
+    
+    std::string decrypted = MyUtil::DecryptText(encrypted, key);
+    std::cout << "Decrypted: " << decrypted << std::endl;
+    
+    // Generate tabs
+    std::cout << "Tab (4 spaces): '" << MyUtil::GenerateTab(4) << "'" << std::endl;
+    std::cout << "Tab (8 spaces): '" << MyUtil::GenerateTab(8) << "'" << std::endl;
+    
+    return 0;
+}
+```
+
+---
+
+## ✅ MyInputValidate Examples
+
+### 🔢 Number Validation
+
+```cpp
+#include <iostream>
+#include "MyLib/MyInputValidate.h"
+using namespace MyLib;
+
+int main() {
+    // Template validation
+    std::cout << "Number validation:" << std::endl;
+    std::cout << "Is 50 between 1-100? " << (MyInputValidate::IsNumberBetween(50, 1, 100) ? "Yes" : "No") << std::endl;
+    std::cout << "Is 150 between 1-100? " << (MyInputValidate::IsNumberBetween(150, 1, 100) ? "Yes" : "No") << std::endl;
+    
+    // Double validation
+    std::cout << "Is 50.5 between 0.0-100.0? " << (MyInputValidate::IsNumberBetween(50.5, 0.0, 100.0) ? "Yes" : "No") << std::endl;
+    
+    return 0;
+}
+```
+
+### 📅 Date Validation
+
+```cpp
+#include <iostream>
+#include "MyLib/MyInputValidate.h"
+#include "MyLib/MyDate.h"
+using namespace MyLib;
+
+int main() {
+    // Date validation
+    MyDate validDate(15, 6, 2023);
+    MyDate invalidDate(32, 13, 2023);
+    
+    std::cout << "Is 15/06/2023 valid? " << (MyInputValidate::IsValidDate(validDate) ? "Yes" : "No") << std::endl;
+    std::cout << "Is 32/13/2023 valid? " << (MyInputValidate::IsValidDate(invalidDate) ? "Yes" : "No") << std::endl;
+    
+    // Date range validation
+    MyDate start(1, 1, 2023);
+    MyDate end(31, 12, 2023);
+    MyDate test(15, 6, 2023);
+    
+    std::cout << "Is 15/06/2023 between 01/01/2023 and 31/12/2023? " << 
+        (MyInputValidate::IsDateBetween(test, start, end) ? "Yes" : "No") << std::endl;
+    
+    return 0;
+}
+```
+
+### 📖 Input Reading
+
+```cpp
+#include <iostream>
+#include "MyLib/MyInputValidate.h"
+using namespace MyLib;
+
+int main() {
+    std::cout << "=== Input Validation Demo ===" << std::endl;
+    
+    // Safe integer input
+    std::cout << "Enter your age: ";
+    int age = MyInputValidate::ReadIntNumber("Invalid age, please enter a number: ");
+    std::cout << "Your age: " << age << std::endl;
+    
+    // Integer with range validation
+    std::cout << "Enter score (0-100): ";
+    int score = MyInputValidate::ReadIntNumberBetween(0, 100, "Score must be between 0-100: ");
+    std::cout << "Your score: " << score << std::endl;
+    
+    // Double input
+    std::cout << "Enter height: ";
+    double height = MyInputValidate::ReadDblNumber("Invalid height, please enter a number: ");
+    std::cout << "Your height: " << height << std::endl;
+    
+    // Double with range validation
+    std::cout << "Enter weight (0-300 kg): ";
+    double weight = MyInputValidate::ReadDblNumberBetween(0.0, 300.0, "Weight must be between 0-300 kg: ");
+    std::cout << "Your weight: " << weight << std::endl;
     
     return 0;
 }
