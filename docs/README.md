@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
 
-A modern C++ educational library providing comprehensive string, date, and period operations with robust error handling and performance optimizations.
+A modern C++ educational library providing 5 core classes (MyString, MyDate, MyPeriod, MyUtil, MyInputValidate) with robust error handling and performance optimizations.
 
 ## 📚 Table of Contents
 
@@ -43,6 +43,8 @@ sudo ninja install
 #include "MyLib/MyString.h"
 #include "MyLib/MyDate.h"
 #include "MyLib/MyPeriod.h"
+#include "MyLib/MyUtil.h"
+#include "MyLib/MyInputValidate.h"
 
 int main() {
     using namespace MyLib;
@@ -62,6 +64,15 @@ int main() {
     MyPeriod year2023(start, end);
     std::cout << "Duration: " << year2023.GetDurationInDays() << " days" << std::endl;
     
+    // 🔧 Utility operations
+    MyUtil::Srand();
+    std::cout << "Random number: " << MyUtil::RandomNumber(1, 100) << std::endl;
+    
+    // ✅ Input validation
+    std::cout << "Enter a number (1-10): ";
+    int num = MyInputValidate::ReadIntNumberBetween(1, 10);
+    std::cout << "You entered: " << num << std::endl;
+    
     return 0;
 }
 ```
@@ -77,9 +88,11 @@ int main() {
 
 ## 🚀 Features
 
-- **🔤 String Operations**: Comprehensive string manipulation utilities
-- **📅 Date Operations**: Modern date handling with validation
-- **📅 Period Operations**: Date range calculations and overlap detection
+- **🔤 String Operations**: Comprehensive string manipulation utilities (word counting, case conversion, splitting, joining, palindrome detection)
+- **📅 Date Operations**: Modern date handling with validation (DD/MM/YYYY format, date arithmetic, system date)
+- **📅 Period Operations**: Date range calculations and overlap detection (duration calculation, overlap detection)
+- **🔧 Utility Functions**: Random generation, array operations, text processing, and encryption utilities
+- **✅ Input Validation**: Safe input reading and validation functions (template validation, range checking)
 - **🛡️ Error Handling**: Comprehensive input validation and exception handling
 - **⚡ Performance**: Optimized with move semantics and modern C++ practices
 - **📦 Modern C++**: C++17 compliant with const correctness
@@ -98,13 +111,19 @@ int main() {
   - MyString class methods and examples
   - MyDate class methods and examples
   - MyPeriod class methods and examples
+  - MyUtil class methods and examples
+  - MyInputValidate class methods and examples
   - Error handling patterns
   - Performance considerations
 
 ### 💡 Examples
 - [EXAMPLES.md](EXAMPLES.md) - Comprehensive code examples
-  - Basic usage examples
-  - Advanced use cases
+  - MyString usage examples
+  - MyDate usage examples
+  - MyPeriod usage examples
+  - MyUtil usage examples
+  - MyInputValidate usage examples
+  - Combined library examples
   - Error handling examples
   - Performance examples
   - Real-world applications
@@ -116,6 +135,7 @@ int main() {
   - Writing new tests
   - Debugging tests
   - Performance testing
+  - Test coverage for all 5 classes
 
 ### 🤝 Contributing
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
@@ -150,6 +170,8 @@ ctest
 - ✅ All MyString functionality
 - ✅ All MyDate functionality
 - ✅ All MyPeriod functionality
+- ✅ All MyUtil functionality
+- ✅ All MyInputValidate functionality
 - ✅ Error handling validation
 - ✅ Edge case testing
 
