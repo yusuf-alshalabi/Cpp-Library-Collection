@@ -65,7 +65,7 @@ public:
 		return false;
 	}
 
-	static int ReadIntNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")
+	static int ReadIntNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
 	{
 		int Number;
 		while (!(std::cin >> Number)) {
@@ -76,7 +76,7 @@ public:
 		return Number;
 	}
 
-	static int ReadIntNumberBetween(int From, int To, std::string ErrorMessage = "Number is not within range, Enter again:\n")
+	static int ReadIntNumberBetween(int From, int To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
 	{
 		int Number = ReadIntNumber();
 
@@ -88,7 +88,7 @@ public:
 		return Number;
 	}
 
-	static double ReadDblNumber(std::string ErrorMessage = "Invalid Number, Enter again\n")
+	static double ReadDblNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
 	{
 		double Number;
 		while (!(std::cin >> Number)) {
@@ -99,7 +99,7 @@ public:
 		return Number;
 	}
 
-	static double ReadDblNumberBetween(double From, double To, std::string ErrorMessage = "Number is not within range, Enter again:\n")
+	static double ReadDblNumberBetween(double From, double To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
 	{
 		double Number = ReadDblNumber();
 
