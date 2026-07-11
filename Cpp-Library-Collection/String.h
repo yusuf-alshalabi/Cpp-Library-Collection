@@ -680,6 +680,16 @@ public:
         return S1.substr(S1.length() - Count);
     }
 
+    static std::string Substring(const std::string& S1, size_t Position, size_t Length)
+    {
+        return S1.substr(Position, Length);
+    }
+
+    std::string Substring(size_t Position, size_t Length) const
+    {
+        return Substring(_Value, Position, Length);
+    }
+
     std::string TakeLast(size_t Count) const
     {
         return TakeLast(_Value, Count);
