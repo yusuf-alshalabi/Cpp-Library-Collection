@@ -33,14 +33,15 @@ public:
     __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
-    size_t Length(const std::string& S1) {
+    static size_t Length(const std::string& S1) {
         return S1.length();
     }
 
     size_t Length() const
     {
-        return _Value.length();
+        return Length(_Value);
     };
+
     static short CountWords(const std::string& S1)
     {
         std::string temp = Trim(S1);   // remove leading and trailing spaces  
