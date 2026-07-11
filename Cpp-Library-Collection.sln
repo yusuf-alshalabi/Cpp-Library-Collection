@@ -14,11 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{02EA681E-C7D
 		Cpp-Library-Collection\Util.h = Cpp-Library-Collection\Util.h
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{AEBB63DC-E4C8-48EF-947B-2AB867DD8879}"
-	ProjectSection(SolutionItems) = preProject
-		Cpp-Library-Collection\Cpp-Library-Collection.cpp = Cpp-Library-Collection\Cpp-Library-Collection.cpp
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
