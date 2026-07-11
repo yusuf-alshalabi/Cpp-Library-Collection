@@ -159,6 +159,17 @@ public:
         return StartsWith(_Value, prefix);
     }
 
+    static bool EndsWith(const std::string& S1, const std::string& Suffix)
+    {
+        return S1.size() >= Suffix.size() &&
+            S1.compare(S1.size() - Suffix.size(), Suffix.size(), Suffix) == 0;
+    }
+
+    bool EndsWith(const std::string& Suffix) const
+    {
+        return EndsWith(_Value, Suffix);
+    }
+
     void  UpperFirstLetterOfEachWord()
     {
         // no need to return value , this function will directly update the object value    
