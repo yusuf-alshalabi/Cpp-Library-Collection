@@ -127,55 +127,12 @@ public:
             arr[i] = GenerateKey(CharType);
     }
 
-    static  void Swap(int& A, int& B)
+    template<typename T>
+    static void Swap(T& A, T& B)
     {
-        int Temp;
-
-        Temp = A;
+        T Temp = A;
         A = B;
         B = Temp;
-    }
-
-    static  void Swap(double& A, double& B)
-    {
-        double Temp;
-
-        Temp = A;
-        A = B;
-        B = Temp;
-    }
-
-    static  void Swap(bool& A, bool& B)
-    {
-        bool Temp;
-
-        Temp = A;
-        A = B;
-        B = Temp;
-    }
-
-    static  void Swap(char& A, char& B)
-    {
-        char Temp;
-
-        Temp = A;
-        A = B;
-        B = Temp;
-    }
-
-    static  void Swap(std::string& A, std::string& B)
-    {
-        std::string Temp;
-
-        Temp = A;
-        A = B;
-        B = Temp;
-    }
-
-    static  void Swap(Date& A, Date& B)
-    {
-        Date::SwapDates(A, B);
-
     }
 
     static  void ShuffleArray(int arr[100], int arrLength)
