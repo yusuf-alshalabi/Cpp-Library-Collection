@@ -672,6 +672,19 @@ public:
         return Left(_Value, Length);
     }
 
+    static std::string Right(const std::string& S1, size_t Length)
+    {
+        if (Length >= S1.length())
+            return S1;
+
+        return S1.substr(S1.length() - Length);
+    }
+
+    std::string Right(size_t Length) const
+    {
+        return Right(_Value, Length);
+    }
+
     static std::string Clear()
     {
         return "";
