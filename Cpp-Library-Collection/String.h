@@ -622,6 +622,16 @@ public:
         return JoinString(vString, " ");
     }
 
+    static std::string Append(const std::string& S1, const std::string& S2)
+    {
+        return S1 + S2;
+    }
+
+    void Append(const std::string& S2)
+    {
+        _Value = Append(_Value, S2);
+    }
+
     void ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
     {
         _Value = ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
