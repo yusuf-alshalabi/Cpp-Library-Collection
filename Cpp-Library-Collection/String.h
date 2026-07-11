@@ -1,9 +1,11 @@
 
 #pragma once
 
-#include <iostream>
+#include <string>
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <cctype>
 
 class String
 {
