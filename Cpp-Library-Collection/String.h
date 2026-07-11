@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <utility>
 
 class String
 {
@@ -16,6 +17,11 @@ public:
 
     String(const std::string& Value)
         : _Value(Value)
+    {
+    }
+
+    String(std::string&& Value)
+        : _Value(std::move(Value))
     {
     }
 
