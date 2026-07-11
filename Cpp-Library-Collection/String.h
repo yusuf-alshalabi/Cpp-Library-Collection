@@ -672,17 +672,17 @@ public:
         return TakeFirst(_Value, Count);
     }
 
-    static std::string Right(const std::string& S1, size_t Length)
+    static std::string TakeLast(const std::string& S1, size_t Count)
     {
-        if (Length >= S1.length())
+        if (Count >= S1.length())
             return S1;
 
-        return S1.substr(S1.length() - Length);
+        return S1.substr(S1.length() - Count);
     }
 
-    std::string Right(size_t Length) const
+    std::string TakeLast(size_t Count) const
     {
-        return Right(_Value, Length);
+        return TakeLast(_Value, Count);
     }
 
     static std::string Clear()
