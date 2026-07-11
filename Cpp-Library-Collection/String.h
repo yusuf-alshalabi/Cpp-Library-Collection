@@ -313,7 +313,7 @@ public:
         return CountVowels(_Value);
     }
 
-    static std::vector<std::string> Split(std::string S1, std::string Delim)
+    static std::vector<std::string> Split(std::string S1, const std::string& Delim)
     {
 
         std::vector<std::string> vString;
@@ -451,7 +451,7 @@ public:
         _Value = ReverseWordsInString(_Value);
     }
 
-    static std::string ReplaceWord(std::string S1, std::string StringToReplace, std::string sRepalceTo, bool MatchCase = true)
+    static std::string ReplaceWord(std::string S1, const std::string& StringToReplace, const std::string& sRepalceTo, bool MatchCase = true)
     {
 
         std::vector<std::string> vString = Split(S1, " ");
