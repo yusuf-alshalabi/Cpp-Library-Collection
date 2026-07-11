@@ -59,7 +59,7 @@ public:
             temp.erase(0, pos + delim.length());
 
             // skip any consecutive spaces after erasing  
-            while (temp[0] == ' ')
+            while (!temp.empty() && temp[0] == ' ')
             {
                 temp.erase(0, 1);
             }
@@ -365,11 +365,11 @@ public:
 
     static std::string TrimRight(const std::string& S1)
     {
-        for (short i = S1.length() - 1; i >= 0; i--)
+        for (size_t i = S1.length(); i > 0; --i)
         {
-            if (!isspace(static_cast<unsigned char>(S1[i])))
+            if (!isspace(static_cast<unsigned char>(S1[i - 1])))
             {
-                return S1.substr(0, i + 1);
+                return S1.substr(0, i);
             }
         }
         return "";
@@ -390,33 +390,34 @@ public:
         _Value = Trim(_Value);
     }
 
-    static std::string JoinString(std::vector<std::string> vString, std::string Delim)
+    static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
     {
+        if (vString.empty())
+            return "";
 
-        std::string S1 = "";
+        std::string S1;
 
-        for (std::string& s : vString)
+        for (const std::string& s : vString)
         {
-            S1 = S1 + s + Delim;
+            S1 += s + Delim;
         }
 
         return S1.substr(0, S1.length() - Delim.length());
-
-
     }
 
-    static std::string JoinString(std::string arrString[], short Length, std::string Delim)
+    static std::string JoinString(const std::string arrString[], short Length, const std::string& Delim)
     {
+        if (Length <= 0)
+            return "";
 
-        std::string S1 = "";
+        std::string S1;
 
         for (short i = 0; i < Length; i++)
         {
-            S1 = S1 + arrString[i] + Delim;
+            S1 += arrString[i] + Delim;
         }
 
         return S1.substr(0, S1.length() - Delim.length());
-
     }
 
     static std::string ReverseWordsInString(std::string S1)
