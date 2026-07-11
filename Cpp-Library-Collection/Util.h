@@ -213,7 +213,7 @@ public:
     static std::string  EncryptText(std::string Text, short EncryptionKey)
     {
 
-        for (int i = 0; i < Text.length(); i++)
+        for (size_t i = 0; i < Text.length(); i++)
         {
 
             Text[i] = char((int)Text[i] + EncryptionKey);
@@ -227,7 +227,7 @@ public:
     static std::string  DecryptText(std::string Text, short EncryptionKey)
     {
 
-        for (int i = 0; i < Text.length(); i++)
+        for (size_t i = 0; i < Text.length(); i++)
         {
 
             Text[i] = char((int)Text[i] - EncryptionKey);
