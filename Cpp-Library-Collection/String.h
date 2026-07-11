@@ -96,6 +96,11 @@ public:
         return _Value;
     }
 
+    const std::string& GetValueRef() const
+    {
+        return _Value;
+    }
+
     __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
