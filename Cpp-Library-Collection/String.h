@@ -40,6 +40,16 @@ public:
         return *this;
     }
 
+    String& operator=(String&& Other) noexcept
+    {
+        if (this != &Other)
+        {
+            _Value = std::move(Other._Value);
+        }
+
+        return *this;
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
