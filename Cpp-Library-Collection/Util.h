@@ -75,7 +75,7 @@ public:
 
         {
 
-            Word = Word + GetRandomCharacter(CharType);
+            Word += GetRandomCharacter(CharType);
 
         }
         return Word;
@@ -88,9 +88,9 @@ public:
 
 
         Key = GenerateWord(CharType, 4) + "-";
-        Key = Key + GenerateWord(CharType, 4) + "-";
-        Key = Key + GenerateWord(CharType, 4) + "-";
-        Key = Key + GenerateWord(CharType, 4);
+        Key += GenerateWord(CharType, 4) + "-";
+        Key += GenerateWord(CharType, 4) + "-";
+        Key += GenerateWord(CharType, 4);
 
 
         return Key;
@@ -204,7 +204,7 @@ public:
 
         for (int i = 0; i < NumberOfTabs; i++)
         {
-            t = t + "\t";
+            t += "\t";
         }
         return t;
 
