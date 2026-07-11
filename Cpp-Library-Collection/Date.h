@@ -26,7 +26,7 @@ public:
 		_Year = now->tm_year + 1900;
 	}
 
-	Date(std::string sDate)
+	Date(const std::string& sDate)
 	{
 
 		std::vector <std::string> vDate;
@@ -1091,7 +1091,7 @@ public:
 		return DateFrom;
 	}
 
-	static bool IsDate1AfterDate2(Date Date1, Date Date2)
+	static bool IsDate1AfterDate2(const Date& Date1, const Date& Date2)
 	{
 		return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
 
