@@ -83,6 +83,11 @@ public:
         return _Value >= Other._Value;
     }
 
+    operator std::string() const
+    {
+        return _Value;
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
