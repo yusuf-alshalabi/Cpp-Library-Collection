@@ -63,6 +63,26 @@ public:
         return !(*this == Other);
     }
 
+    bool operator<(const String& Other) const
+    {
+        return _Value < Other._Value;
+    }
+
+    bool operator>(const String& Other) const
+    {
+        return _Value > Other._Value;
+    }
+
+    bool operator<=(const String& Other) const
+    {
+        return _Value <= Other._Value;
+    }
+
+    bool operator>=(const String& Other) const
+    {
+        return _Value >= Other._Value;
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
