@@ -11,7 +11,7 @@ class Util
 
 public:
     enum enCharType {
-        SamallLetter = 1, CapitalLetter = 2,
+        SmallLetter = 1, CapitalLetter = 2,
         Digit = 3, MixChars = 4, SpecialCharacter = 5
     };
 
@@ -42,7 +42,7 @@ public:
         switch (CharType)
         {
 
-        case enCharType::SamallLetter:
+        case enCharType::SmallLetter:
         {
             return char(RandomNumber(97, 122));
         }
