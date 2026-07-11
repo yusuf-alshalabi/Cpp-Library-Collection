@@ -122,16 +122,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Cpp-Library-Collection.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Date.h" />
-    <ClInclude Include="InputValidate.h" />
-    <ClInclude Include="Period.h" />
-    <ClInclude Include="String.h" />
-    <ClInclude Include="Util.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
