@@ -659,6 +659,19 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    static std::string Left(const std::string& S1, size_t Length)
+    {
+        if (Length >= S1.length())
+            return S1;
+
+        return S1.substr(0, Length);
+    }
+
+    std::string Left(size_t Length) const
+    {
+        return Left(_Value, Length);
+    }
+
     static std::string Clear()
     {
         return "";
