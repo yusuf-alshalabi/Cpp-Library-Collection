@@ -480,9 +480,9 @@ public:
         return JoinString(vString, " ");
     }
 
-    std::string ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
+    void ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
     {
-        return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
+        _Value = ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
     static std::string RemovePunctuations(const std::string& S1)
