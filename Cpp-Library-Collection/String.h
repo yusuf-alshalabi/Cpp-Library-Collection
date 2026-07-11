@@ -15,8 +15,8 @@ public:
     String() = default;
 
     String(const std::string& Value)
+        : _Value(Value)
     {
-        _Value = Value;
     }
 
     void SetValue(const std::string& Value) {
