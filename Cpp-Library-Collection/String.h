@@ -214,6 +214,16 @@ public:
         return IsPalindrome(_Value);
     }
 
+    static bool IsEmpty(const std::string& S1)
+    {
+        return S1.empty();
+    }
+
+    bool IsEmpty() const
+    {
+        return _Value.empty();
+    }
+
     void  UpperFirstLetterOfEachWord()
     {
         // no need to return value , this function will directly update the object value    
