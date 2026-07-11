@@ -25,6 +25,11 @@ public:
     {
     }
 
+    String(const String& Other)
+        : _Value(Other._Value)
+    {
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
