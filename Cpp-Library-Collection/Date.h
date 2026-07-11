@@ -60,7 +60,7 @@ public:
 		_Day = Day;
 	}
 
-	short GetDay() {
+	short GetDay() const {
 		return _Day;
 	}
 	__declspec(property(get = GetDay, put = SetDay)) short Day;
@@ -69,7 +69,7 @@ public:
 		_Month = Month;
 	}
 
-	short GetMonth() {
+	short GetMonth() const {
 		return _Month;
 	}
 	__declspec(property(get = GetMonth, put = SetMonth)) short Month;
@@ -79,7 +79,7 @@ public:
 		_Year = Year;
 	}
 
-	short GetYear() {
+	short GetYear() const {
 		return _Year;
 	}
 	__declspec(property(get = GetYear, put = SetYear)) short Year;
