@@ -170,6 +170,27 @@ public:
         return EndsWith(_Value, Suffix);
     }
 
+    static std::string Repeat(const std::string& S1, size_t Times)
+    {
+        if (Times == 0 || S1.empty())
+            return "";
+
+        std::string Result;
+        Result.reserve(S1.length() * Times);
+
+        for (size_t i = 0; i < Times; ++i)
+        {
+            Result += S1;
+        }
+
+        return Result;
+    }
+
+    std::string Repeat(size_t Times) const
+    {
+        return Repeat(_Value, Times);
+    }
+
     void  UpperFirstLetterOfEachWord()
     {
         // no need to return value , this function will directly update the object value    
