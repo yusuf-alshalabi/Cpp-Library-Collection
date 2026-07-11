@@ -16,6 +16,7 @@ private:
 public:
 
     String() = default;
+    ~String() = default;
 
     String(const std::string& Value)
         : _Value(Value)
