@@ -1,20 +1,94 @@
-// banky.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
+#include "../Lib/String.h"
+#include "../Lib/Date.h"
+#include "../Lib/Period.h"
+#include "../Lib/Util.h"
+#include "../Lib/InputValidate.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Util::Srand();
+
+    std::cout << "========== String ==========\n\n";
+
+    String text("   hello world from cpp library   ");
+
+    std::cout << "Original: [" << text.Value << "]\n";
+
+    text.Trim();
+    std::cout << "Trim: " << text.Value << '\n';
+
+    text.UpperFirstLetterOfEachWord();
+    std::cout << "Title Case: " << text.Value << '\n';
+
+    std::cout << "Words Count: " << text.CountWords() << '\n';
+    std::cout << "Vowels Count: " << text.CountVowels() << '\n';
+
+    std::cout << "\n========== Date ==========\n\n";
+
+    Date today;
+    Date future(1, 1, 2027);
+
+    std::cout << "Today: ";
+    today.Print();
+
+    std::cout << "Future Date: ";
+    future.Print();
+
+    std::cout << "Difference in Days: "
+        << today.GetDifferenceInDays(future)
+        << '\n';
+
+    today.AddOneDay();
+
+    std::cout << "Tomorrow: ";
+    today.Print();
+
+    std::cout << "\n========== Period ==========\n\n";
+
+    Period period1(Date(1, 7, 2026), Date(15, 7, 2026));
+    Period period2(Date(10, 7, 2026), Date(20, 7, 2026));
+
+    period1.Print();
+    std::cout << '\n';
+
+    period2.Print();
+    std::cout << '\n';
+
+    std::cout << "Overlap: "
+        << (period1.IsOverLapWith(period2) ? "Yes" : "No")
+        << '\n';
+
+    std::cout << "\n========== Util ==========\n\n";
+
+    std::cout << "Random Number: "
+        << Util::RandomNumber(1, 100)
+        << '\n';
+
+    std::cout << "Random Word: "
+        << Util::GenerateWord(Util::MixChars, 8)
+        << '\n';
+
+    std::cout << "Random Key: "
+        << Util::GenerateKey()
+        << '\n';
+
+    std::string encrypted = Util::EncryptText("Programming", 5);
+
+    std::cout << "Encrypted: " << encrypted << '\n';
+
+    std::cout << "Decrypted: "
+        << Util::DecryptText(encrypted, 5)
+        << '\n';
+
+    std::cout << "\n========== InputValidate ==========\n\n";
+
+    std::cout << "Enter your age (18 - 60): ";
+
+    int age = InputValidate::ReadIntNumberBetween(18, 60);
+
+    std::cout << "Age = " << age << '\n';
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
