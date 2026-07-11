@@ -8,7 +8,7 @@
 
 <div align="center">
 
-<b>A collection of reusable modern C++ header-only libraries for everyday programming tasks.</b>
+<b>A collection of reusable C++17 header-only libraries for everyday programming tasks.</b>
 
 </div>
 
@@ -112,7 +112,7 @@ Cpp-Library-Collection
 Clone the repository:
 
 ```bash
-git clone https://github.com/<yusuf-alshalabi>/Cpp-Library-Collection.git
+git clone https://github.com/yusuf-alshalabi/Cpp-Library-Collection
 ```
 
 Since the project is **header-only**, no installation or build step is required.
@@ -184,14 +184,16 @@ Additional examples can be found in the **Examples** directory.
 - InputValidate library
 - Util library
 
-### 🚧 Version 1.1.0
+### 🚧 Version 2.0.0
 
+- Complete API redesign
 - Full Doxygen API documentation
-- Expand existing libraries
-- Additional usage examples
+- Modernized and more consistent API
+- Exception-based error handling
+- Improved internal architecture
+- Expanded library functionality
 - Performance improvements
-- Better cross-platform compatibility
-
+- Additional examples and documentation
 ---
 
 ## 🤝 Contributing

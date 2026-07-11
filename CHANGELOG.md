@@ -24,11 +24,13 @@ The format follows the principles of **Keep a Changelog** and **Semantic Version
 
 ## Upcoming
 
-### 🚧 Planned for v1.1.0
+### 🚧 Planned for v2.0.0
 
-- Add complete Doxygen API documentation.
-- Expand existing utility classes with additional methods.
-- Improve code quality and internal structure.
-- Optimize performance and efficiency.
+- Complete API redesign.
+- Full Doxygen API documentation.
+- Modernize and standardize the library API.
+- Improve internal architecture and code quality.
+- Introduce exception-based error handling where appropriate.
+- Expand existing libraries with additional functionality.
 - Improve documentation and usage examples.
-- Enhance cross-platform compatibility.
+- Performance optimizations.
