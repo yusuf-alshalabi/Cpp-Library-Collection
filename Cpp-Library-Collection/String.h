@@ -30,6 +30,16 @@ public:
     {
     }
 
+    String& operator=(const String& Other)
+    {
+        if (this != &Other)
+        {
+            _Value = Other._Value;
+        }
+
+        return *this;
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
