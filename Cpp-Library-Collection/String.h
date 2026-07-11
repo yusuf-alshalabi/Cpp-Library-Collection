@@ -17,27 +17,27 @@ public:
         _Value = "";
     }
 
-    String(std::string Value)
+    String(const std::string& Value)
     {
         _Value = Value;
     }
 
-    void SetValue(std::string Value) {
+    void SetValue(const std::string& Value) {
         _Value = Value;
     }
 
-    std::string GetValue() {
+    std::string GetValue() const {
         return _Value;
     }
 
     __declspec(property(get = GetValue, put = SetValue)) std::string Value;
 
 
-    size_t Length(std::string S1) {
+    size_t Length(const std::string& S1) {
         return S1.length();
     }
 
-    size_t Length()
+    size_t Length() const
     {
         return _Value.length();
     };
@@ -74,7 +74,7 @@ public:
         return Counter;
     }
 
-    short CountWords()
+    short CountWords() const
     {
         return CountWords(_Value);
     };
@@ -184,7 +184,7 @@ public:
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
-    static short CountLetters(std::string S1, enWhatToCount WhatToCount = enWhatToCount::All)
+    static short CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
     {
 
 
@@ -212,7 +212,7 @@ public:
 
     }
 
-    static short  CountCapitalLetters(std::string S1)
+    static short  CountCapitalLetters(const std::string& S1)
     {
 
         short Counter = 0;
@@ -228,12 +228,12 @@ public:
         return Counter;
     }
 
-    short  CountCapitalLetters()
+    short  CountCapitalLetters() const
     {
         return CountCapitalLetters(_Value);
     }
 
-    static short  CountSmallLetters(std::string S1)
+    static short  CountSmallLetters(const std::string& S1)
     {
 
         short Counter = 0;
@@ -249,12 +249,12 @@ public:
         return Counter;
     }
 
-    short  CountSmallLetters()
+    short  CountSmallLetters() const
     {
         return CountSmallLetters(_Value);
     }
 
-    static short  CountSpecificLetter(std::string S1, char Letter, bool MatchCase = true)
+    static short  CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
     {
 
         short Counter = 0;
@@ -278,7 +278,7 @@ public:
         return Counter;
     }
 
-    short  CountSpecificLetter(char Letter, bool MatchCase = true)
+    short  CountSpecificLetter(char Letter, bool MatchCase = true) const
     {
         return CountSpecificLetter(_Value, Letter, MatchCase);
     }
@@ -291,7 +291,7 @@ public:
 
     }
 
-    static short  CountVowels(std::string S1)
+    static short  CountVowels(const std::string& S1)
     {
 
         short Counter = 0;
@@ -307,7 +307,7 @@ public:
         return Counter;
     }
 
-    short  CountVowels()
+    short  CountVowels() const
     {
         return CountVowels(_Value);
     }
@@ -341,7 +341,7 @@ public:
 
     }
 
-    std::vector<std::string> Split(std::string Delim)
+    std::vector<std::string> Split(std::string Delim) const
     {
         return Split(_Value, Delim);
     }
@@ -420,7 +420,7 @@ public:
         return S1.substr(0, S1.length() - Delim.length());
     }
 
-    static std::string ReverseWordsInString(std::string S1)
+    static std::string ReverseWordsInString(const std::string& S1)
     {
 
         std::vector<std::string> vString;
@@ -485,7 +485,7 @@ public:
         return ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
-    static std::string RemovePunctuations(std::string S1)
+    static std::string RemovePunctuations(const std::string& S1)
     {
 
         std::string S2 = "";
