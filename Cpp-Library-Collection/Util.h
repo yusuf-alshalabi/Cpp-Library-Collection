@@ -24,8 +24,7 @@ public:
     static  int RandomNumber(int From, int To)
     {
         //Function to generate a random number  
-        int randNum = rand() % (To - From + 1) + From;
-        return randNum;
+        return rand() % (To - From + 1) + From;
     }
 
     static char GetRandomCharacter(enCharType CharType)
