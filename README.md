@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="assets/banner.png" width="90%" alt="C++ Library Collection Banner">
+<img src="assets/banner.png" width="100%" alt="C++ Library Collection Banner">
 
 </div>
 
