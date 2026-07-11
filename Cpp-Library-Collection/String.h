@@ -236,8 +236,13 @@ public:
 
         return Result;
     }
-     
-    void Reverse ()
+
+     std::string Reverse() const 
+     {
+         return Reverse(_Value);
+     }
+
+    void ReverseInPlace ()
     {
         _Value = Reverse(_Value);
     }
