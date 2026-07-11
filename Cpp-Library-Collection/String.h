@@ -649,4 +649,14 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    static std::string Clear()
+    {
+        return "";
+    }
+
+    void Clear()
+    {
+        _Value = Clear();
+    }
+
 };
