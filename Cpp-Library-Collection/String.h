@@ -55,6 +55,11 @@ public:
         return _Value == Other._Value;
     }
 
+    bool operator!=(const String& Other) const
+    {
+        return !(*this == Other);
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
