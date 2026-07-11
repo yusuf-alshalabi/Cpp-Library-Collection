@@ -84,7 +84,7 @@ public:
 	}
 	__declspec(property(get = GetYear, put = SetYear)) short Year;
 
-	void Print()
+	void Print() const
 	{
 		std::cout << DateToString() << std::endl;
 	}
@@ -136,7 +136,7 @@ public:
 
 	}
 
-	bool IsValid()
+	bool IsValid()const
 	{
 		return IsValidDate(*this);
 	}
@@ -146,7 +146,7 @@ public:
 		return  std::to_string(Date.Day) + "/" + std::to_string(Date.Month) + "/" + std::to_string(Date.Year);
 	}
 
-	std::string DateToString()
+	std::string DateToString()const
 	{
 		return  DateToString(*this);
 	}
@@ -160,7 +160,7 @@ public:
 		return (Year % 4 == 0 && Year % 100 != 0) || (Year % 400 == 0);
 	}
 
-	bool isLeapYear()
+	bool isLeapYear() const
 	{
 		return isLeapYear(_Year);
 	}
@@ -170,7 +170,7 @@ public:
 		return  isLeapYear(Year) ? 366 : 365;
 	}
 
-	short NumberOfDaysInAYear()
+	short NumberOfDaysInAYear() const
 	{
 		return  NumberOfDaysInAYear(_Year);
 	}
@@ -180,7 +180,7 @@ public:
 		return  NumberOfDaysInAYear(Year) * 24;
 	}
 
-	short NumberOfHoursInAYear()
+	short NumberOfHoursInAYear() const
 	{
 		return  NumberOfHoursInAYear(_Year);
 	}
@@ -190,7 +190,7 @@ public:
 		return  NumberOfHoursInAYear(Year) * 60;
 	}
 
-	int NumberOfMinutesInAYear()
+	int NumberOfMinutesInAYear() const
 	{
 		return  NumberOfMinutesInAYear(_Year);
 	}
@@ -200,7 +200,7 @@ public:
 		return  NumberOfMinutesInAYear(Year) * 60;
 	}
 
-	int NumberOfSecondsInAYear()
+	int NumberOfSecondsInAYear() const
 	{
 		return  NumberOfSecondsInAYear(_Year);
 	}
@@ -216,7 +216,7 @@ public:
 
 	}
 
-	short NumberOfDaysInAMonth()
+	short NumberOfDaysInAMonth() const
 	{
 		return NumberOfDaysInAMonth(_Month, _Year);
 	}
@@ -226,7 +226,7 @@ public:
 		return  NumberOfDaysInAMonth(Month, Year) * 24;
 	}
 
-	short NumberOfHoursInAMonth()
+	short NumberOfHoursInAMonth() const
 	{
 		return  NumberOfDaysInAMonth(_Month, _Year) * 24;
 	}
@@ -236,7 +236,7 @@ public:
 		return  NumberOfHoursInAMonth(Month, Year) * 60;
 	}
 
-	int NumberOfMinutesInAMonth()
+	int NumberOfMinutesInAMonth() const
 	{
 		return  NumberOfHoursInAMonth(_Month, _Year) * 60;
 	}
@@ -246,7 +246,7 @@ public:
 		return  NumberOfMinutesInAMonth(Month, Year) * 60;
 	}
 
-	int NumberOfSecondsInAMonth()
+	int NumberOfSecondsInAMonth() const
 	{
 		return  NumberOfMinutesInAMonth(_Month, _Year) * 60;
 	}
@@ -262,7 +262,7 @@ public:
 		return (Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7;
 	}
 
-	short DayOfWeekOrder()
+	short DayOfWeekOrder() const
 	{
 		return DayOfWeekOrder(_Day, _Month, _Year);
 	}
@@ -284,7 +284,7 @@ public:
 
 	}
 
-	std::string DayShortName()
+	std::string DayShortName() const
 	{
 
 		std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
@@ -304,7 +304,7 @@ public:
 		return (Months[MonthNumber - 1]);
 	}
 
-	std::string MonthShortName()
+	std::string MonthShortName() const
 	{
 
 		return MonthShortName(_Month);
@@ -347,7 +347,7 @@ public:
 
 	}
 
-	void PrintMonthCalendar()
+	void PrintMonthCalendar() const
 	{
 		PrintMonthCalendar(_Month, _Year);
 	}
@@ -367,7 +367,7 @@ public:
 		return;
 	}
 
-	void PrintYearCalendar()
+	void PrintYearCalendar() const
 	{
 		std::printf("\n  _________________________________\n\n");
 		std::printf("           Calendar - %d\n", _Year);
@@ -398,7 +398,7 @@ public:
 		return TotalDays;
 	}
 
-	short DaysFromTheBeginingOfTheYear()
+	short DaysFromTheBeginingOfTheYear() const
 	{
 
 
@@ -485,7 +485,7 @@ public:
 		return  (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false);
 	}
 
-	bool IsDateBeforeDate2(Date Date2)
+	bool IsDateBeforeDate2(Date Date2) const
 	{
 		//note: *this sends the current object :-)   
 		return  IsDate1BeforeDate2(*this, Date2);
@@ -497,7 +497,7 @@ public:
 		return  (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
 	}
 
-	bool IsDateEqualDate2(Date Date2)
+	bool IsDateEqualDate2(Date Date2) const
 	{
 		return  IsDate1EqualDate2(*this, Date2);
 	}
@@ -509,7 +509,7 @@ public:
 
 	}
 
-	bool IsLastDayInMonth()
+	bool IsLastDayInMonth() const
 	{
 
 		return IsLastDayInMonth(*this);
@@ -584,7 +584,7 @@ public:
 		return IncludeEndDay ? ++Days * SawpFlagValue : Days * SawpFlagValue;
 	}
 
-	int GetDifferenceInDays(Date Date2, bool IncludeEndDay = false)
+	int GetDifferenceInDays(Date Date2, bool IncludeEndDay = false) const
 	{
 		return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 	}
@@ -958,7 +958,7 @@ public:
 		return  DayOfWeekOrder(Date.Day, Date.Month, Date.Year) == 6;
 	}
 
-	short IsEndOfWeek()
+	short IsEndOfWeek() const
 	{
 		return IsEndOfWeek(*this);
 	}
@@ -970,7 +970,7 @@ public:
 		return  (DayIndex == 5 || DayIndex == 6);
 	}
 
-	bool IsWeekEnd()
+	bool IsWeekEnd() const
 	{
 		return  IsWeekEnd(*this);
 	}
@@ -989,7 +989,7 @@ public:
 
 	}
 
-	bool IsBusinessDay()
+	bool IsBusinessDay() const
 	{
 		return  IsBusinessDay(*this);
 	}
@@ -999,7 +999,7 @@ public:
 		return 6 - DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
 	}
 
-	short DaysUntilTheEndOfWeek()
+	short DaysUntilTheEndOfWeek() const
 	{
 		return  DaysUntilTheEndOfWeek(*this);
 	}
@@ -1016,7 +1016,7 @@ public:
 
 	}
 
-	short DaysUntilTheEndOfMonth()
+	short DaysUntilTheEndOfMonth() const
 	{
 		return DaysUntilTheEndOfMonth(*this);
 	}
@@ -1033,7 +1033,7 @@ public:
 
 	}
 
-	short DaysUntilTheEndOfYear()
+	short DaysUntilTheEndOfYear() const
 	{
 		return  DaysUntilTheEndOfYear(*this);
 	}
@@ -1097,7 +1097,7 @@ public:
 
 	}
 
-	bool IsDateAfterDate2(Date Date2)
+	bool IsDateAfterDate2(Date Date2) const
 	{
 		return IsDate1AfterDate2(*this, Date2);
 	}
@@ -1120,7 +1120,7 @@ public:
 
 	}
 
-	enDateCompare CompareDates(Date Date2)
+	enDateCompare CompareDates(Date Date2) const
 	{
 		return CompareDates(*this, Date2);
 	}
