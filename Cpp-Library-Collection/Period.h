@@ -20,7 +20,7 @@ public:
 
     }
 
-    static bool IsOverlapPeriods(Period Period1, Period Period2)
+    static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
     {
 
         if (
@@ -35,12 +35,12 @@ public:
     }
 
 
-    bool IsOverLapWith(Period Period2)
+    bool IsOverLapWith(const Period& Period2)
     {
         return IsOverlapPeriods(*this, Period2);
     }
 
-    void Print()
+    void Print() const
     {
         std::cout << "Period Start: ";
         StartDate.Print();
