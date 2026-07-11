@@ -659,17 +659,17 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
-    static std::string Left(const std::string& S1, size_t Length)
+    static std::string TakeFirst(const std::string& S1, size_t Count)
     {
-        if (Length >= S1.length())
+        if (Count >= S1.length())
             return S1;
 
-        return S1.substr(0, Length);
+        return S1.substr(0, Count);
     }
 
-    std::string Left(size_t Length) const
+    std::string TakeFirst(size_t Count) const
     {
-        return Left(_Value, Length);
+        return TakeFirst(_Value, Count);
     }
 
     static std::string Right(const std::string& S1, size_t Length)
