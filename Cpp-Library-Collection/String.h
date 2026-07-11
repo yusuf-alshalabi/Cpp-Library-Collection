@@ -191,6 +191,29 @@ public:
         return Repeat(_Value, Times);
     }
 
+    static bool IsPalindrome(const std::string& S1)
+    {
+        std::string Cleaned;
+
+        for (char Ch : S1)
+        {
+            if (std::isalnum(static_cast<unsigned char>(Ch)))
+            {
+                Cleaned += std::tolower(static_cast<unsigned char>(Ch));
+            }
+        }
+
+        return std::equal(
+            Cleaned.begin(),
+            Cleaned.begin() + Cleaned.size() / 2,
+            Cleaned.rbegin());
+    }
+
+    bool IsPalindrome() const
+    {
+        return IsPalindrome(_Value);
+    }
+
     void  UpperFirstLetterOfEachWord()
     {
         // no need to return value , this function will directly update the object value    
