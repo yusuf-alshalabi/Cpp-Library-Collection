@@ -104,7 +104,7 @@ public:
 		return Date(Day, Month, Year);
 	}
 
-	static	bool IsValidDate(Date Date)
+	static	bool IsValidDate(const Date& Date)
 	{
 
 		if (Date.Day < 1 || Date.Day>31)
@@ -141,7 +141,7 @@ public:
 		return IsValidDate(*this);
 	}
 
-	static std::string DateToString(Date Date)
+	static std::string DateToString(const Date& Date)
 	{
 		return  std::to_string(Date.Day) + "/" + std::to_string(Date.Month) + "/" + std::to_string(Date.Year);
 	}
@@ -480,7 +480,7 @@ public:
 
 	}
 
-	static bool IsDate1BeforeDate2(Date Date1, Date Date2)
+	static bool IsDate1BeforeDate2(const Date& Date1, const Date& Date2)
 	{
 		return  (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false);
 	}
@@ -492,7 +492,7 @@ public:
 
 	}
 
-	static bool IsDate1EqualDate2(Date Date1, Date Date2)
+	static bool IsDate1EqualDate2(const Date& Date1, const Date& Date2)
 	{
 		return  (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
 	}
@@ -502,7 +502,7 @@ public:
 		return  IsDate1EqualDate2(*this, Date2);
 	}
 
-	static bool IsLastDayInMonth(Date Date)
+	static bool IsLastDayInMonth(const Date& Date)
 	{
 
 		return (Date.Day == NumberOfDaysInAMonth(Date.Month, Date.Year));
@@ -589,7 +589,7 @@ public:
 		return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 	}
 
-	static short CalculateMyAgeInDays(Date DateOfBirth)
+	static short CalculateMyAgeInDays(const Date& DateOfBirth)
 	{
 		return GetDifferenceInDays(DateOfBirth, Date::GetSystemDate(), true);
 	}
@@ -953,7 +953,7 @@ public:
 	}
 
 
-	static short IsEndOfWeek(Date Date)
+	static short IsEndOfWeek(const Date& Date)
 	{
 		return  DayOfWeekOrder(Date.Day, Date.Month, Date.Year) == 6;
 	}
@@ -963,7 +963,7 @@ public:
 		return IsEndOfWeek(*this);
 	}
 
-	static bool IsWeekEnd(Date Date)
+	static bool IsWeekEnd(const Date& Date)
 	{
 		//Weekends are Fri and Sat  
 		short DayIndex = DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
@@ -975,7 +975,7 @@ public:
 		return  IsWeekEnd(*this);
 	}
 
-	static bool IsBusinessDay(Date Date)
+	static bool IsBusinessDay(const Date& Date)
 	{
 		//Weekends are Sun,Mon,Tue,Wed and Thur  
 
@@ -994,7 +994,7 @@ public:
 		return  IsBusinessDay(*this);
 	}
 
-	static short DaysUntilTheEndOfWeek(Date Date)
+	static short DaysUntilTheEndOfWeek(const Date& Date)
 	{
 		return 6 - DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
 	}
@@ -1004,7 +1004,7 @@ public:
 		return  DaysUntilTheEndOfWeek(*this);
 	}
 
-	static short DaysUntilTheEndOfMonth(Date Date1)
+	static short DaysUntilTheEndOfMonth(const Date& Date1)
 	{
 
 		Date EndOfMontDate;
@@ -1021,7 +1021,7 @@ public:
 		return DaysUntilTheEndOfMonth(*this);
 	}
 
-	static short DaysUntilTheEndOfYear(Date Date1)
+	static short DaysUntilTheEndOfYear(const Date& Date1)
 	{
 
 		Date EndOfYearDate;
@@ -1097,14 +1097,14 @@ public:
 
 	}
 
-	bool IsDateAfterDate2(Date Date2) const
+	bool IsDateAfterDate2(const Date& Date2) const
 	{
 		return IsDate1AfterDate2(*this, Date2);
 	}
 
 	enum enDateCompare { Before = -1, Equal = 0, After = 1 };
 
-	static enDateCompare CompareDates(Date Date1, Date Date2)
+	static enDateCompare CompareDates(const Date& Date1, const Date& Date2)
 	{
 		if (IsDate1BeforeDate2(Date1, Date2))
 			return enDateCompare::Before;
@@ -1120,7 +1120,7 @@ public:
 
 	}
 
-	enDateCompare CompareDates(Date Date2) const
+	enDateCompare CompareDates(const Date& Date2) const
 	{
 		return CompareDates(*this, Date2);
 	}
