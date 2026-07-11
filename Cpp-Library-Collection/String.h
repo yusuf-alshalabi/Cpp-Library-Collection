@@ -191,6 +191,24 @@ public:
         return Repeat(_Value, Times);
     }
 
+    static std::string Reverse(const std::string& S1)
+    {
+        std::string Result;
+        Result.reserve(S1.length());
+
+        for (size_t i = S1.lenght ; i > 0; --i)
+        {
+            Result += S1[i-1];
+        }
+
+        return Result;
+    }
+     
+    void Reverse ()
+    {
+        _Value = Reverse(_Value);
+    }
+
     static bool IsPalindrome(const std::string& S1)
     {
         std::string Cleaned;
