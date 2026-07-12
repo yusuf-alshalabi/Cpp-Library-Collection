@@ -6,6 +6,7 @@
 #include <utility>
 #include <algorithm>
 #include <cctype>
+#include <stdexcept>
 
 class String
 {
