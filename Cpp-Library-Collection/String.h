@@ -395,7 +395,8 @@ public:
         SmallLetters,
         Digits,
         Spaces,
-        Punctuations
+        Punctuations,
+        Vowels
     };
 
     static size_t CountCharacters(
@@ -441,6 +442,10 @@ public:
                 if (std::ispunct(static_cast<unsigned char>(Ch)))
                     Counter++;
                 break;
+            case CharacterType::Vowels:
+                if (IsVowel(Ch))
+                    Counter++;
+                break;
             }
         }
 
@@ -455,7 +460,7 @@ public:
 
     static size_t CountCapitalLetters(const std::string& S1)
     {
-        return CountCharacters(S1, enWhatToCount::CapitalLetters);
+        return CountCharacters(S1, CharacterType::CapitalLetters);
     }
 
     size_t  CountCapitalLetters() const
@@ -465,7 +470,7 @@ public:
 
     static size_t CountSmallLetters(const std::string& S1)
     {
-        return CountCharacters(S1, enWhatToCount::SmallLetters);
+        return CountCharacters(S1, CharacterType::SmallLetters);
     }
 
     size_t  CountSmallLetters() const
@@ -511,14 +516,7 @@ public:
 
     static size_t  CountVowels(const std::string& S1)
     {
-        size_t Counter = 0;
-
-        for (char Ch : S1)
-        {
-            if (IsVowel(Ch))
-                Counter++;
-        }
-        return Counter;
+        return CountCharacters(S1, CharacterType::Vowels);
     }
 
     size_t  CountVowels() const
