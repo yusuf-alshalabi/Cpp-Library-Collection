@@ -223,6 +223,18 @@ public:
         return Contains(_Value, Ch);
     }
 
+    static size_t IndexOf(
+        const std::string& S1,
+        const std::string& Value)
+    {
+        return S1.find(Value);
+    }
+
+    size_t IndexOf(const std::string& Value) const
+    {
+        return IndexOf(_Value, Value);
+    }
+
     static bool StartsWith(const std::string& S1, const std::string& prefix)
     {
         return S1.rfind(prefix, 0) == 0;
