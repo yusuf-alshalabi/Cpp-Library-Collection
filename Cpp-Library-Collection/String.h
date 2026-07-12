@@ -89,6 +89,17 @@ public:
         return _Value;
     }
 
+    String operator+(const String& Other) const
+    {
+        return String(_Value + Other._Value);
+    }
+
+    friend std::ostream& operator<<(std::ostream& Output, const String& S)
+    {
+        Output << S._Value;
+        return Output;
+    }
+
     char& operator[](size_t Index)
     {
         return _Value[Index];
