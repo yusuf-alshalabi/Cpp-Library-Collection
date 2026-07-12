@@ -88,6 +88,17 @@ public:
         return _Value;
     }
 
+    char& operator[](size_t Index)
+    {
+        return _Value[Index];
+    }
+
+
+    const char& operator[](size_t Index) const
+    {
+        return _Value[Index];
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
