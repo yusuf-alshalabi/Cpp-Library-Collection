@@ -415,15 +415,7 @@ public:
 
     static size_t CountCapitalLetters(const std::string& S1)
     {
-        size_t Counter = 0;
-
-        for (char Ch : S1)
-        {
-            if (std::isupper(static_cast<unsigned char>(Ch)))
-                Counter++;
-        }
-
-        return Counter;
+        return CountLetters(S1, enWhatToCount::CapitalLetters);
     }
 
     size_t  CountCapitalLetters() const
@@ -433,15 +425,7 @@ public:
 
     static size_t CountSmallLetters(const std::string& S1)
     {
-        size_t Counter = 0;
-
-        for (char Ch : S1)
-        {
-            if (std::islower(static_cast<unsigned char>(Ch)))
-                Counter++;
-        }
-
-        return Counter;
+        return CountLetters(S1, enWhatToCount::SmallLetters);
     }
 
     size_t  CountSmallLetters() const
@@ -467,7 +451,6 @@ public:
                     std::tolower(static_cast<unsigned char>(Letter)))
                     Counter++;
             }
-        }
         }
 
         return Counter;
