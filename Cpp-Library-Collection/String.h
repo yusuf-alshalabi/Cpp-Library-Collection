@@ -478,6 +478,36 @@ public:
         return CountSmallLetters(_Value);
     }
 
+    static size_t CountDigits(const std::string& S1)
+    {
+        return CountCharacters(S1, CharacterType::Digits);
+    }
+
+    size_t CountDigits() const
+    {
+        return CountDigits(_Value);
+    }
+
+    static size_t CountSpaces(const std::string& S1)
+    {
+        return CountCharacters(S1, CharacterType::Spaces);
+    }
+
+    size_t CountSpaces() const
+    {
+        return CountSpaces(_Value);
+    }
+
+    static size_t CountPunctuations(const std::string& S1)
+    {
+        return CountCharacters(S1, CharacterType::Punctuations);
+    }
+
+    size_t CountPunctuations() const
+    {
+        return CountPunctuations(_Value);
+    }
+
     static size_t  CountSpecificLetter(const std::string& S1, char Letter, bool MatchCase = true)
     {
 
