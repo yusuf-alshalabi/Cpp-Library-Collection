@@ -193,7 +193,7 @@ public:
 
             if (S1[i] != ' ' && isFirstLetter)
             {
-                S1[i] = toupper(S1[i]);
+                S1[i] = std::toupper(S1[i]);
 
             }
 
@@ -362,7 +362,7 @@ public:
 
             if (S1[i] != ' ' && isFirstLetter)
             {
-                S1[i] = tolower(S1[i]);
+                S1[i] = std::tolower(S1[i]);
 
             }
 
@@ -385,7 +385,7 @@ public:
     {
         for (size_t i = 0; i < S1.length(); i++)
         {
-            S1[i] = toupper(S1[i]);
+            S1[i] = std::toupper(S1[i]);
         }
         return S1;
     }
@@ -399,7 +399,7 @@ public:
     {
         for (size_t i = 0; i < S1.length(); i++)
         {
-            S1[i] = tolower(S1[i]);
+            S1[i] = std::tolower(S1[i]);
         }
         return S1;
     }
@@ -411,7 +411,7 @@ public:
 
     static char  InvertLetterCase(char char1)
     {
-        return isupper(char1) ? tolower(char1) : toupper(char1);
+        return std::isupper(char1) ? std::tolower(char1) : std::toupper(char1);
     }
 
     static std::string  InvertAllLettersCase(std::string S1)
@@ -444,11 +444,11 @@ public:
         for (size_t i = 0; i < S1.length(); i++)
         {
 
-            if (WhatToCount == enWhatToCount::CapitalLetters && isupper(S1[i]))
+            if (WhatToCount == enWhatToCount::CapitalLetters && std::isupper(S1[i]))
                 Counter++;
 
 
-            if (WhatToCount == enWhatToCount::SmallLetters && islower(S1[i]))
+            if (WhatToCount == enWhatToCount::SmallLetters && std::islower(S1[i]))
                 Counter++;
 
 
@@ -466,7 +466,7 @@ public:
         for (size_t i = 0; i < S1.length(); i++)
         {
 
-            if (isupper(S1[i]))
+            if (std::isupper(S1[i]))
                 Counter++;
 
         }
@@ -487,7 +487,7 @@ public:
         for (size_t i = 0; i < S1.length(); i++)
         {
 
-            if (islower(S1[i]))
+            if (std::islower(S1[i]))
                 Counter++;
 
         }
@@ -515,7 +515,7 @@ public:
             }
             else
             {
-                if (tolower(S1[i]) == tolower(Letter))
+                if (std::tolower(S1[i]) == std::tolower(Letter))
                     Counter++;
             }
 
@@ -531,7 +531,7 @@ public:
 
     static bool IsVowel(char Ch1)
     {
-        Ch1 = tolower(Ch1);
+        Ch1 = std::tolower(Ch1);
 
         return ((Ch1 == 'a') || (Ch1 == 'e') || (Ch1 == 'i') || (Ch1 == 'o') || (Ch1 == 'u'));
 
@@ -596,7 +596,7 @@ public:
     {
         for (size_t i = 0; i < S1.length(); i++)
         {
-            if (!isspace(static_cast<unsigned char>(S1[i])))
+            if (!std::isspace(static_cast<unsigned char>(S1[i])))
             {
                 return S1.substr(i, S1.length() - i);
             }
@@ -613,7 +613,7 @@ public:
     {
         for (size_t i = S1.length(); i > 0; --i)
         {
-            if (!isspace(static_cast<unsigned char>(S1[i - 1])))
+            if (!std::isspace(static_cast<unsigned char>(S1[i - 1])))
             {
                 return S1.substr(0, i);
             }
@@ -748,7 +748,7 @@ public:
 
         for (size_t i = 0; i < S1.length(); i++)
         {
-            if (!ispunct(S1[i]))
+            if (!std::ispunct(S1[i]))
             {
                 S2 += S1[i];
             }
