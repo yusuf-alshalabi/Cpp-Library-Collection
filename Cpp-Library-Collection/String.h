@@ -733,14 +733,9 @@ public:
         return TakeLast(_Value, Count);
     }
 
-    static std::string Clear()
-    {
-        return "";
-    }
-
     void Clear()
     {
-        _Value = Clear();
+        _Value.clear();
     }
 
 };
