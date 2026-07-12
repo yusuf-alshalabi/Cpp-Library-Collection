@@ -94,7 +94,6 @@ public:
         return _Value[Index];
     }
 
-
     const char& operator[](size_t Index) const
     {
         return _Value[Index];
@@ -183,25 +182,37 @@ public:
         return CountWords(_Value);
     };
 
-    static std::string  UpperFirstLetterOfEachWord(std::string S1)
+    static bool IsEmpty(const std::string& S1)
     {
+        return S1.empty();
+    }
 
-        bool isFirstLetter = true;
+    bool IsEmpty() const
+    {
+        return _Value.empty();
+    }
 
-        for (size_t i = 0; i < S1.length(); i++)
+    static bool IsPalindrome(const std::string& S1)
+    {
+        std::string Cleaned;
+
+        for (char Ch : S1)
         {
-
-            if (S1[i] != ' ' && isFirstLetter)
+            if (std::isalnum(static_cast<unsigned char>(Ch)))
             {
-                S1[i] = std::toupper(S1[i]);
-
+                Cleaned += std::tolower(static_cast<unsigned char>(Ch));
             }
-
-            isFirstLetter = (S1[i] == ' ' ? true : false);
-
         }
 
-        return S1;
+        return std::equal(
+            Cleaned.begin(),
+            Cleaned.begin() + Cleaned.size() / 2,
+            Cleaned.rbegin());
+    }
+
+    bool IsPalindrome() const
+    {
+        return IsPalindrome(_Value);
     }
 
     static bool Contains(const std::string& S1, const std::string& S2)
@@ -269,81 +280,25 @@ public:
         return EndsWith(_Value, Suffix);
     }
 
-    static std::string Repeat(const std::string& S1, size_t Times)
+    static std::string  UpperFirstLetterOfEachWord(std::string S1)
     {
-        if (Times == 0 || S1.empty())
-            return "";
 
-        std::string Result;
-        Result.reserve(S1.length() * Times);
+        bool isFirstLetter = true;
 
-        for (size_t i = 0; i < Times; ++i)
+        for (size_t i = 0; i < S1.length(); i++)
         {
-            Result += S1;
-        }
 
-        return Result;
-    }
-
-    std::string Repeat(size_t Times) const
-    {
-        return Repeat(_Value, Times);
-    }
-
-    static std::string Reverse(const std::string& S1)
-    {
-        std::string Result;
-        Result.reserve(S1.length());
-
-        for (size_t i = S1.lenght() ; i > 0; --i)
-        {
-            Result += S1[i-1];
-        }
-
-        return Result;
-    }
-
-     std::string Reverse() const 
-     {
-         return Reverse(_Value);
-     }
-
-    void ReverseInPlace ()
-    {
-        _Value = Reverse(_Value);
-    }
-
-    static bool IsPalindrome(const std::string& S1)
-    {
-        std::string Cleaned;
-
-        for (char Ch : S1)
-        {
-            if (std::isalnum(static_cast<unsigned char>(Ch)))
+            if (S1[i] != ' ' && isFirstLetter)
             {
-                Cleaned += std::tolower(static_cast<unsigned char>(Ch));
+                S1[i] = std::toupper(S1[i]);
+
             }
+
+            isFirstLetter = (S1[i] == ' ' ? true : false);
+
         }
 
-        return std::equal(
-            Cleaned.begin(),
-            Cleaned.begin() + Cleaned.size() / 2,
-            Cleaned.rbegin());
-    }
-
-    bool IsPalindrome() const
-    {
-        return IsPalindrome(_Value);
-    }
-
-    static bool IsEmpty(const std::string& S1)
-    {
-        return S1.empty();
-    }
-
-    bool IsEmpty() const
-    {
-        return _Value.empty();
+        return S1;
     }
 
     void  UpperFirstLetterOfEachWord()
@@ -427,6 +382,7 @@ public:
     {
         _Value = InvertAllLettersCase(_Value);
     }
+
 
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
@@ -592,6 +548,36 @@ public:
         return Split(_Value, Delim);
     }
 
+    static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
+    {
+        if (vString.empty())
+            return "";
+
+        std::string S1;
+
+        for (const std::string& s : vString)
+        {
+            S1 += s + Delim;
+        }
+
+        return S1.substr(0, S1.length() - Delim.length());
+    }
+
+    static std::string JoinString(const std::string arrString[], size_t Length, const std::string& Delim)
+    {
+        if (Length <= 0)
+            return "";
+
+        std::string S1;
+
+        for (size_t i = 0; i < Length; i++)
+        {
+            S1 += arrString[i] + Delim;
+        }
+
+        return S1.substr(0, S1.length() - Delim.length());
+    }
+
     static std::string TrimLeft(const std::string& S1)
     {
         for (size_t i = 0; i < S1.length(); i++)
@@ -636,66 +622,6 @@ public:
         _Value = Trim(_Value);
     }
 
-    static std::string JoinString(const std::vector<std::string>& vString, const std::string& Delim)
-    {
-        if (vString.empty())
-            return "";
-
-        std::string S1;
-
-        for (const std::string& s : vString)
-        {
-            S1 += s + Delim;
-        }
-
-        return S1.substr(0, S1.length() - Delim.length());
-    }
-
-    static std::string JoinString(const std::string arrString[], size_t Length, const std::string& Delim)
-    {
-        if (Length <= 0)
-            return "";
-
-        std::string S1;
-
-        for (size_t i = 0; i < Length; i++)
-        {
-            S1 += arrString[i] + Delim;
-        }
-
-        return S1.substr(0, S1.length() - Delim.length());
-    }
-
-    static std::string ReverseWordsInString(const std::string& S1)
-    {
-
-        std::vector<std::string> vString;
-        std::string S2 = "";
-
-        vString = Split(S1, " ");
-
-        // declare iterator  
-        std::vector<std::string>::iterator iter = vString.end();
-
-        while (iter != vString.begin())
-        {
-
-            --iter;
-
-            S2 += *iter + " ";
-
-        }
-
-        S2 = S2.substr(0, S2.length() - 1); //remove last space.  
-
-        return S2;
-    }
-
-    void ReverseWordsInString()
-    {
-        _Value = ReverseWordsInString(_Value);
-    }
-
     static std::string ReplaceWord(std::string S1, const std::string& StringToReplace, const std::string& sRepalceTo, bool MatchCase = true)
     {
 
@@ -726,6 +652,11 @@ public:
         return JoinString(vString, " ");
     }
 
+    void ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
+    {
+        _Value = ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
+    }
+
     static std::string Append(const std::string& S1, const std::string& S2)
     {
         return S1 + S2;
@@ -734,11 +665,6 @@ public:
     void Append(const std::string& S2)
     {
         _Value = Append(_Value, S2);
-    }
-
-    void ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
-    {
-        _Value = ReplaceWord(_Value, StringToReplace, sReplaceTo, MatchCase);
     }
 
     static std::string RemovePunctuations(const std::string& S1)
@@ -763,6 +689,16 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    void Clear()
+    {
+        _Value.clear();
+    }
+
+    void ReverseInPlace()
+    {
+        _Value = Reverse(_Value);
+    }
+
     static std::string TakeFirst(const std::string& S1, size_t Count)
     {
         if (Count >= S1.length())
@@ -784,6 +720,11 @@ public:
         return S1.substr(S1.length() - Count);
     }
 
+    std::string TakeLast(size_t Count) const
+    {
+        return TakeLast(_Value, Count);
+    }
+
     static std::string Substring(const std::string& S1, size_t Position, size_t Length)
     {
         return S1.substr(Position, Length);
@@ -794,14 +735,73 @@ public:
         return Substring(_Value, Position, Length);
     }
 
-    std::string TakeLast(size_t Count) const
+    static std::string Repeat(const std::string& S1, size_t Times)
     {
-        return TakeLast(_Value, Count);
+        if (Times == 0 || S1.empty())
+            return "";
+
+        std::string Result;
+        Result.reserve(S1.length() * Times);
+
+        for (size_t i = 0; i < Times; ++i)
+        {
+            Result += S1;
+        }
+
+        return Result;
     }
 
-    void Clear()
+    std::string Repeat(size_t Times) const
     {
-        _Value.clear();
+        return Repeat(_Value, Times);
+    }
+
+    static std::string Reverse(const std::string& S1)
+    {
+        std::string Result;
+        Result.reserve(S1.length());
+
+        for (size_t i = S1.lenght() ; i > 0; --i)
+        {
+            Result += S1[i-1];
+        }
+
+        return Result;
+    }
+
+     std::string Reverse() const 
+     {
+         return Reverse(_Value);
+     }
+
+    static std::string ReverseWordsInString(const std::string& S1)
+    {
+
+        std::vector<std::string> vString;
+        std::string S2 = "";
+
+        vString = Split(S1, " ");
+
+        // declare iterator  
+        std::vector<std::string>::iterator iter = vString.end();
+
+        while (iter != vString.begin())
+        {
+
+            --iter;
+
+            S2 += *iter + " ";
+
+        }
+
+        S2 = S2.substr(0, S2.length() - 1); //remove last space.  
+
+        return S2;
+    }
+
+    void ReverseWordsInString()
+    {
+        _Value = ReverseWordsInString(_Value);
     }
 
 };
