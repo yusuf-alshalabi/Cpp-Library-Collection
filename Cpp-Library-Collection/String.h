@@ -285,7 +285,8 @@ public:
 
         bool isFirstLetter = true;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (S1[i] != ' ' && isFirstLetter)
@@ -311,7 +312,8 @@ public:
 
         bool isFirstLetter = true;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (S1[i] != ' ' && isFirstLetter)
@@ -336,7 +338,8 @@ public:
 
     static std::string  UpperAllString(std::string S1)
     {
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
             S1[i] = static_cast<char>(std::toupper(static_cast<unsigned char>(S1[i])));
         }
@@ -350,7 +353,8 @@ public:
 
     static std::string  LowerAllString(std::string S1)
     {
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
             S1[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(S1[i])));
         }
@@ -373,7 +377,8 @@ public:
 
     static std::string  InvertAllLettersCase(std::string S1)
     {
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
             S1[i] = InvertLetterCase(S1[i]);
         }
@@ -385,13 +390,10 @@ public:
         _Value = InvertAllLettersCase(_Value);
     }
 
-
     enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
 
     static size_t CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
     {
-
-
         if (WhatToCount == enWhatToCount::All)
         {
             return S1.length();
@@ -399,7 +401,8 @@ public:
 
         size_t Counter = 0;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (WhatToCount == enWhatToCount::CapitalLetters && std::isupper(static_cast<unsigned char>(S1[i])))
@@ -418,7 +421,8 @@ public:
 
         size_t Counter = 0;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (std::isupper(static_cast<unsigned char>(S1[i])))
@@ -436,10 +440,10 @@ public:
 
     static size_t  CountSmallLetters(const std::string& S1)
     {
-
         size_t Counter = 0;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (std::islower(static_cast<unsigned char>(S1[i])))
@@ -460,7 +464,8 @@ public:
 
         size_t Counter = 0;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (MatchCase)
@@ -494,10 +499,10 @@ public:
 
     static size_t  CountVowels(const std::string& S1)
     {
-
         size_t Counter = 0;
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
 
             if (IsVowel(S1[i]))
@@ -579,7 +584,8 @@ public:
 
     static std::string TrimLeft(const std::string& S1)
     {
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
             if (!std::isspace(static_cast<unsigned char>(S1[i])))
             {
@@ -671,7 +677,8 @@ public:
 
         std::string S2 = "";
 
-        for (size_t i = 0; i < S1.length(); i++)
+        const size_t Length = S1.length();
+        for (size_t i = 0; i < Length; i++)
         {
             if (!std::ispunct(static_cast<unsigned char>(S1[i])))
             {
