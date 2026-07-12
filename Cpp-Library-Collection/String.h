@@ -99,6 +99,26 @@ public:
         return _Value[Index];
     }
 
+    char& At(size_t Index)
+    {
+        if (Index >= _Value.length())
+        {
+            throw std::out_of_range("String index is out of range.");
+        }
+
+        return _Value[Index];
+    }
+
+    const char& At(size_t Index) const
+    {
+        if (Index >= _Value.length())
+        {
+            throw std::out_of_range("String index is out of range.");
+        }
+
+        return _Value[Index];
+    }
+
     void SetValue(const std::string& Value) {
         _Value = Value;
     }
