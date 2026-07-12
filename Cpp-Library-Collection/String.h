@@ -387,35 +387,75 @@ public:
         _Value = InvertAllLettersCase(_Value);
     }
 
-    enum enWhatToCount { SmallLetters = 0, CapitalLetters = 1, All = 3 };
-
-    static size_t CountLetters(const std::string& S1, enWhatToCount WhatToCount = enWhatToCount::All)
+    enum class CharacterType
     {
-        if (WhatToCount == enWhatToCount::All)
-        {
-            return S1.length();
-        }
+        All,
+        Letters,
+        CapitalLetters,
+        SmallLetters,
+        Digits,
+        Spaces,
+        Punctuations
+    };
 
+    static size_t CountCharacters(
+        const std::string& S1,
+        CharacterType Type = CharacterType::All)
+    {
         size_t Counter = 0;
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-
-            if (WhatToCount == enWhatToCount::CapitalLetters && std::isupper(static_cast<unsigned char>(S1[i])))
+            switch (Type)
+            {
+            case CharacterType::All:
                 Counter++;
+                break;
 
-            if (WhatToCount == enWhatToCount::SmallLetters && std::islower(static_cast<unsigned char>(S1[i])))
-                Counter++;
+            case CharacterType::Letters:
+                if (std::isalpha(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+
+            case CharacterType::CapitalLetters:
+                if (std::isupper(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+
+            case CharacterType::SmallLetters:
+                if (std::islower(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+
+            case CharacterType::Digits:
+                if (std::isdigit(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+
+            case CharacterType::Spaces:
+                if (std::isspace(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+
+            case CharacterType::Punctuations:
+                if (std::ispunct(static_cast<unsigned char>(Ch)))
+                    Counter++;
+                break;
+            }
         }
 
         return Counter;
+    }
 
+    size_t CountCharacters(
+        CharacterType Type = CharacterType::All) const
+    {
+        return CountCharacters(_Value, Type);
     }
 
     static size_t CountCapitalLetters(const std::string& S1)
     {
-        return CountLetters(S1, enWhatToCount::CapitalLetters);
+        return CountCharacters(S1, enWhatToCount::CapitalLetters);
     }
 
     size_t  CountCapitalLetters() const
@@ -425,7 +465,7 @@ public:
 
     static size_t CountSmallLetters(const std::string& S1)
     {
-        return CountLetters(S1, enWhatToCount::SmallLetters);
+        return CountCharacters(S1, enWhatToCount::SmallLetters);
     }
 
     size_t  CountSmallLetters() const
