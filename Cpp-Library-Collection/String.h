@@ -659,17 +659,17 @@ public:
 
     static std::string RemovePunctuations(const std::string& S1)
     {
-
-        std::string S2 = "";
+        std::string Result;
+        Result.reserve(S1.length());
 
         for (char Ch : S1)
         {
             if (!std::ispunct(static_cast<unsigned char>(Ch)))
             {
-                S2 += Ch;
+                Result += Ch;
             }
         }
-        return S2;
+        return Result;
 
     }
 
@@ -763,30 +763,32 @@ public:
          return Reverse(_Value);
      }
 
-    static std::string ReverseWordsInString(const std::string& S1)
-    {
+     static std::string ReverseWordsInString(const std::string& S1)
+     {
+         constexpr const char* Delimiter = " ";
 
-        std::vector<std::string> vString;
-        std::string S2 = "";
+         std::vector<std::string> Words = Split(S1, Delimiter);
 
-        vString = Split(S1, " ");
+         if (Words.empty())
+             return "";
 
-        // declare iterator  
-        std::vector<std::string>::iterator iter = vString.end();
+         std::string Result;
+         Result.reserve(S1.length());
 
-        while (iter != vString.begin())
-        {
+         auto Iter = Words.end();
 
-            --iter;
+         while (Iter != Words.begin())
+         {
+             --Iter;
+             Result += *Iter;
+             Result += Delimiter;
+         }
 
-            S2 += *iter + " ";
+         // Remove the last delimiter.
+         Result.erase(Result.length() - std::char_traits<char>::length(Delimiter));
 
-        }
-
-        S2 = S2.substr(0, S2.length() - 1); //remove last space.  
-
-        return S2;
-    }
+         return Result;
+     }
 
     void ReverseWordsInString()
     {
