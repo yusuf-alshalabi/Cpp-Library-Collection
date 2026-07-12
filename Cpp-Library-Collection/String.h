@@ -100,6 +100,20 @@ public:
         return Output;
     }
 
+    String& operator+=(const String& Other)
+    {
+        _Value += Other._Value;
+
+        return *this;
+    }
+
+    String& operator+=(const std::string& Other)
+    {
+        _Value += Other;
+
+        return *this;
+    }
+
     char& operator[](size_t Index)
     {
         return _Value[Index];
