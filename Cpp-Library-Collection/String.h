@@ -213,6 +213,16 @@ public:
         return Contains(_Value, S2);
     }
 
+    static bool Contains(const std::string& S1, char Ch)
+    {
+        return S1.find(Ch) != std::string::npos;
+    }
+
+    bool Contains(char Ch) const
+    {
+        return Contains(_Value, Ch);
+    }
+
     static bool StartsWith(const std::string& S1, const std::string& prefix)
     {
         return S1.rfind(prefix, 0) == 0;
