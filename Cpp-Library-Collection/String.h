@@ -150,7 +150,7 @@ public:
         std::string temp = Trim(S1);   // remove leading and trailing spaces  
         std::string delim = " ";
         size_t Counter = 0;
-        short pos = 0;
+        size_t pos = 0;
         std::string sWord;
 
         while ((pos = temp.find(delim)) != std::string::npos)
@@ -563,7 +563,7 @@ public:
 
         std::vector<std::string> vString;
 
-        short pos = 0;
+        size_t pos = 0;
         std::string sWord; // define a string variable    
 
         // use find() function to get the position of the delimiters    
@@ -651,14 +651,14 @@ public:
         return S1.substr(0, S1.length() - Delim.length());
     }
 
-    static std::string JoinString(const std::string arrString[], short Length, const std::string& Delim)
+    static std::string JoinString(const std::string arrString[], size_t Length, const std::string& Delim)
     {
         if (Length <= 0)
             return "";
 
         std::string S1;
 
-        for (short i = 0; i < Length; i++)
+        for (size_t i = 0; i < Length; i++)
         {
             S1 += arrString[i] + Delim;
         }
