@@ -761,7 +761,7 @@ public:
         std::string Result;
         Result.reserve(S1.length());
 
-        for (size_t i = S1.lenght() ; i > 0; --i)
+        for (size_t i = S1.length() ; i > 0; --i)
         {
             Result += S1[i-1];
         }
