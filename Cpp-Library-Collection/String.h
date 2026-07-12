@@ -89,15 +89,20 @@ public:
         return _Value;
     }
 
+    friend std::ostream& operator<<(std::ostream& Output, const String& S)
+    {
+        Output << S._Value;
+        return Output;
+    }
+
     String operator+(const String& Other) const
     {
         return String(_Value + Other._Value);
     }
 
-    friend std::ostream& operator<<(std::ostream& Output, const String& S)
+    String operator+(const std::string& Other) const
     {
-        Output << S._Value;
-        return Output;
+        return String(_Value + Other);
     }
 
     String& operator+=(const String& Other)
