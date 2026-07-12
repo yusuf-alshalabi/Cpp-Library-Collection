@@ -336,12 +336,11 @@ public:
         _Value = LowerFirstLetterOfEachWord(_Value);
     }
 
-    static std::string  UpperAllString(std::string S1)
+    static std::string UpperAllString(std::string S1)
     {
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char& Ch : S1)
         {
-            S1[i] = static_cast<char>(std::toupper(static_cast<unsigned char>(S1[i])));
+            Ch = static_cast<char>(std::toupper(static_cast<unsigned char>(Ch)));
         }
         return S1;
     }
@@ -351,12 +350,11 @@ public:
         _Value = UpperAllString(_Value);
     }
 
-    static std::string  LowerAllString(std::string S1)
+    static std::string LowerAllString(std::string S1)
     {
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char& Ch : S1)
         {
-            S1[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(S1[i])));
+            Ch = static_cast<char>(std::tolower(static_cast<unsigned char>(Ch)));
         }
         return S1;
     }
@@ -375,12 +373,11 @@ public:
             : static_cast<char>(std::toupper(Ch));
     }
 
-    static std::string  InvertAllLettersCase(std::string S1)
+    static std::string InvertAllLettersCase(std::string S1)
     {
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char& Ch : S1)
         {
-            S1[i] = InvertLetterCase(S1[i]);
+            Ch = InvertLetterCase(Ch);
         }
         return S1;
     }
@@ -416,18 +413,14 @@ public:
 
     }
 
-    static size_t  CountCapitalLetters(const std::string& S1)
+    static size_t CountCapitalLetters(const std::string& S1)
     {
-
         size_t Counter = 0;
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-
-            if (std::isupper(static_cast<unsigned char>(S1[i])))
+            if (std::isupper(static_cast<unsigned char>(Ch)))
                 Counter++;
-
         }
 
         return Counter;
@@ -438,17 +431,14 @@ public:
         return CountCapitalLetters(_Value);
     }
 
-    static size_t  CountSmallLetters(const std::string& S1)
+    static size_t CountSmallLetters(const std::string& S1)
     {
         size_t Counter = 0;
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-
-            if (std::islower(static_cast<unsigned char>(S1[i])))
+            if (std::islower(static_cast<unsigned char>(Ch)))
                 Counter++;
-
         }
 
         return Counter;
@@ -464,21 +454,20 @@ public:
 
         size_t Counter = 0;
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-
             if (MatchCase)
             {
-                if (S1[i] == Letter)
+                if (Ch == Letter)
                     Counter++;
             }
             else
             {
-                if (std::tolower(static_cast<unsigned char>(S1[i])) == std::tolower(static_cast<unsigned char>(Letter)))
+                if (std::tolower(static_cast<unsigned char>(Ch)) ==
+                    std::tolower(static_cast<unsigned char>(Letter)))
                     Counter++;
             }
-
+        }
         }
 
         return Counter;
@@ -501,15 +490,11 @@ public:
     {
         size_t Counter = 0;
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-
-            if (IsVowel(S1[i]))
+            if (IsVowel(Ch))
                 Counter++;
-
         }
-
         return Counter;
     }
 
@@ -677,15 +662,13 @@ public:
 
         std::string S2 = "";
 
-        const size_t Length = S1.length();
-        for (size_t i = 0; i < Length; i++)
+        for (char Ch : S1)
         {
-            if (!std::ispunct(static_cast<unsigned char>(S1[i])))
+            if (!std::ispunct(static_cast<unsigned char>(Ch)))
             {
-                S2 += S1[i];
+                S2 += Ch;
             }
         }
-
         return S2;
 
     }
