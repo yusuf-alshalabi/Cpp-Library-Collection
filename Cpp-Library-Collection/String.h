@@ -155,7 +155,7 @@ public:
         while ((pos = temp.find(delim)) != std::string::npos)
         {
             sWord = temp.substr(0, pos);
-            if (sWord != "")
+            if (!sWord.empty())
             {
                 Counter++;
             }
@@ -169,7 +169,7 @@ public:
         }
 
         // count the last word if exists  
-        if (temp != "")
+        if (!temp.empty())
         {
             Counter++;
         }
@@ -515,7 +515,7 @@ public:
         while ((pos = S1.find(Delim)) != std::string::npos)
         {
             sWord = S1.substr(0, pos); // store the word     
-            if (sWord != "")
+            if (!sWord.empty())
             {
                 vString.push_back(sWord);
             }
@@ -523,7 +523,7 @@ public:
             S1.erase(0, pos + Delim.length());  /* erase() until positon and move to next word. */
         }
 
-        if (S1 != "")
+        if (!S1.empty())
         {
             vString.push_back(S1); // it adds last word of the string.  
         }
