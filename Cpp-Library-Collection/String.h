@@ -129,22 +129,26 @@ public:
         return _Value[Index];
     }
 
-    char& At(size_t Index)
+    void CheckIndex(size_t Index) const
     {
         if (Index >= _Value.length())
         {
-            throw std::out_of_range("String index is out of range.");
+            throw std::out_of_range(
+                "String index is out of range."
+            );
         }
+    }
+
+    char& At(size_t Index)
+    {
+        CheckIndex(Index);
 
         return _Value[Index];
     }
 
     const char& At(size_t Index) const
     {
-        if (Index >= _Value.length())
-        {
-            throw std::out_of_range("String index is out of range.");
-        }
+        CheckIndex(Index);
 
         return _Value[Index];
     }
