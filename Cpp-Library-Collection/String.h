@@ -247,6 +247,16 @@ public:
         return IndexOf(_Value, Value);
     }
 
+    static size_t IndexOf(const std::string& S1, char Ch)
+    {
+        return S1.find(Ch);
+    }
+
+    size_t IndexOf(char Ch) const
+    {
+        return IndexOf(_Value, Ch);
+    }
+
     static size_t LastIndexOf(
         const std::string& S1,
         const std::string& Value)
@@ -257,6 +267,16 @@ public:
     size_t LastIndexOf(const std::string& Value) const
     {
         return LastIndexOf(_Value, Value);
+    }
+
+    static size_t LastIndexOf(const std::string& S1, char Ch)
+    {
+        return S1.rfind(Ch);
+    }
+
+    size_t LastIndexOf(char Ch) const
+    {
+        return LastIndexOf(_Value, Ch);
     }
 
     static bool StartsWith(const std::string& S1, const std::string& prefix)
