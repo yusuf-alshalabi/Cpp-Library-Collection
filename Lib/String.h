@@ -34,6 +34,11 @@ public:
     {
     }
 
+    String(String&& Other) noexcept
+        : _Value(std::move(Other._Value))
+    {
+    }
+
     String& operator=(const String& Other)
     {
         if (this != &Other)
