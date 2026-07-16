@@ -783,6 +783,46 @@ public:
         _Value = RemovePunctuations(_Value);
     }
 
+    static std::string Insert(
+        const std::string& S1,
+        size_t Position,
+        const std::string& Value)
+    {
+        if (Position > S1.length())
+        {
+            throw std::out_of_range(
+                "Insert position is out of range."
+            );
+        }
+
+        std::string Result;
+
+        Result.reserve(
+            S1.length() + Value.length()
+        );
+
+        for (size_t i = 0; i < Position; i++)
+        {
+            Result += S1[i];
+        }
+
+        Result += Value;
+
+        for (size_t i = Position; i < S1.length(); i++)
+        {
+            Result += S1[i];
+        }
+
+        return Result;
+    }
+
+    void Insert(
+        size_t Position,
+        const std::string& Value)
+    {
+        _Value = Insert(_Value, Position, Value);
+    }
+
     void Clear()
     {
         _Value.clear();
