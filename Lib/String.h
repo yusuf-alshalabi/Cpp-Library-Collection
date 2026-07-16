@@ -592,7 +592,7 @@ public:
 
     static bool IsVowel(char Ch1)
     {
-        Ch1 = Ch1 = static_cast<char>(std::tolower(static_cast<unsigned char>(Ch1)));
+        Ch1 = static_cast<char>(std::tolower(static_cast<unsigned char>(Ch1)));
 
         return ((Ch1 == 'a') || (Ch1 == 'e') || (Ch1 == 'i') || (Ch1 == 'o') || (Ch1 == 'u'));
 
