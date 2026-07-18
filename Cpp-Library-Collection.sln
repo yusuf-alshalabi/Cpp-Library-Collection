@@ -1,18 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.37012.4 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12009.203 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp-Library-Collection", "Cpp-Library-Collection\Cpp-Library-Collection.vcxproj", "{9225194D-7B9A-47C4-8139-CBB662038D52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		Cpp-Library-Collection\Date.h = Cpp-Library-Collection\Date.h
-		Cpp-Library-Collection\InputValidate.h = Cpp-Library-Collection\InputValidate.h
-		Cpp-Library-Collection\Period.h = Cpp-Library-Collection\Period.h
-		Cpp-Library-Collection\String.h = Cpp-Library-Collection\String.h
-		Cpp-Library-Collection\Util.h = Cpp-Library-Collection\Util.h
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
