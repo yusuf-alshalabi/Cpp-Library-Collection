@@ -734,7 +734,7 @@ public:
 
 	static Date IncreaseDateByXWeeks(short Weeks, Date& Date)
 	{
-		return ShiftDays(Weeks * 7, Date);)
+		return ShiftDays(Weeks * 7, Date);
 	}
 
 	void IncreaseDateByXWeeks(short Weeks)
@@ -827,7 +827,7 @@ public:
 
 	static Date IncreaseDateByOneMillennium(Date& Date)
 	{
-		reuturn ShiftYears(1000, Date);
+		return ShiftYears(1000, Date);
 	}
 
 	void IncreaseDateByOneMillennium()
@@ -898,7 +898,7 @@ public:
 
 	static Date DecreaseDateByOneYear(Date& Date)
 	{
-		reuturn ShiftYears(-1, Date);
+		return ShiftYears(-1, Date);
 	}
 
 	void DecreaseDateByOneYear()
