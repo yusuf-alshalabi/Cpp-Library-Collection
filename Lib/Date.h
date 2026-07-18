@@ -97,6 +97,22 @@ private:
 		return Date;
 	}
 
+
+	static Date ShiftDays(int Days, const Date& Date)
+	{
+		int Serial = DateToSerial(Date);
+		Serial += Days;
+
+		if (Serial < 0)
+		{
+			throw std::out_of_range("Date cannot be before 01/01/0001.");
+		}
+
+		return SerialToDate(Serial);
+	}
+
+
+
 public:
 
 	Date()
@@ -675,13 +691,7 @@ public:
 
 	static Date IncreaseDateByOneWeek(Date& Date)
 	{
-
-		for (int i = 1; i <= 7; i++)
-		{
-			Date = AddOneDay(Date);
-		}
-
-		return Date;
+		return ShiftDays(7, Date);
 	}
 
 	void IncreaseDateByOneWeek()
@@ -691,12 +701,7 @@ public:
 
 	static Date IncreaseDateByXWeeks(short Weeks, Date& Date)
 	{
-
-		for (short i = 1; i <= Weeks; i++)
-		{
-			Date = IncreaseDateByOneWeek(Date);
-		}
-		return Date;
+		return ShiftDays(Weeks * 7, Date);)
 	}
 
 	void IncreaseDateByXWeeks(short Weeks)
@@ -734,12 +739,7 @@ public:
 
 	static Date IncreaseDateByXDays(short Days, Date& Date)
 	{
-
-		for (short i = 1; i <= Days; i++)
-		{
-			Date = AddOneDay(Date);
-		}
-		return Date;
+		return ShiftDays(Days, Date);
 	}
 
 	void IncreaseDateByXDays(short Days)
@@ -835,27 +835,7 @@ public:
 
 	static Date DecreaseDateByOneDay(Date Date)
 	{
-		if (Date.Day == 1)
-		{
-			if (Date.Month == 1)
-			{
-				Date.Month = 12;
-				Date.Day = 31;
-				Date.Year--;
-			}
-			else
-			{
-
-				Date.Month--;
-				Date.Day = NumberOfDaysInAMonth(Date.Month, Date.Year);
-			}
-		}
-		else
-		{
-			Date.Day--;
-		}
-
-		return Date;
+		return ShiftDays(-1, Date);
 	}
 
 	void DecreaseDateByOneDay()
@@ -866,12 +846,7 @@ public:
 	static Date DecreaseDateByOneWeek(Date& Date)
 	{
 
-		for (int i = 1; i <= 7; i++)
-		{
-			Date = DecreaseDateByOneDay(Date);
-		}
-
-		return Date;
+		return ShiftDays(-7, Date);
 	}
 
 	void DecreaseDateByOneWeek()
@@ -881,12 +856,7 @@ public:
 
 	static Date DecreaseDateByXWeeks(short Weeks, Date& Date)
 	{
-
-		for (short i = 1; i <= Weeks; i++)
-		{
-			Date = DecreaseDateByOneWeek(Date);
-		}
-		return Date;
+		return ShiftDays(-Weeks * 7, Date);
 	}
 
 	void DecreaseDateByXWeeks(short Weeks)
@@ -921,12 +891,7 @@ public:
 
 	static Date DecreaseDateByXDays(short Days, Date& Date)
 	{
-
-		for (short i = 1; i <= Days; i++)
-		{
-			Date = DecreaseDateByOneDay(Date);
-		}
-		return Date;
+		return ShiftDays(-Days, Date);
 	}
 
 	void DecreaseDateByXDays(short Days)
