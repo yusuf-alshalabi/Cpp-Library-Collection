@@ -207,6 +207,14 @@ public:
 		_Year = Date1.Year;
 	}
 
+	Date(const Date&) = default;
+
+	Date(Date&&) noexcept = default;
+
+	Date& operator=(const Date&) = default;
+
+	Date& operator=(Date&&) noexcept = default;
+
 	void SetDay(short Day) {
 		_Day = Day;
 	}
