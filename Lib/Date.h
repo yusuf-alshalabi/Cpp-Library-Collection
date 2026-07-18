@@ -6,6 +6,7 @@
 #include<string>
 #include <sstream>
 #include <iomanip>
+#include <stdexcept>
 #include "String.h"
 
 class Date
@@ -70,14 +71,31 @@ public:
 
 	Date(const std::string& sDate)
 	{
+		std::vector<std::string> vDate = String::Split(sDate, "/");
 
-		std::vector <std::string> vDate;
-		vDate = String::Split(sDate, "/");
+		if (vDate.size() != 3)
+		{
+			throw std::invalid_argument(
+				"Invalid date format. Expected DD/MM/YYYY.");
+		}
 
-		_Day = std::stoi(vDate[0]);
-		_Month = std::stoi(vDate[1]);
-		_Year = std::stoi(vDate[2]);
+		try
+		{
+			_Day = static_cast<short>(std::stoi(vDate[0]));
+			_Month = static_cast<short>(std::stoi(vDate[1]));
+			_Year = static_cast<short>(std::stoi(vDate[2]));
+		}
+		catch (...)
+		{
+			throw std::invalid_argument(
+				"Invalid date format. Expected DD/MM/YYYY.");
+		}
 
+		if (!IsValid())
+		{
+			throw std::invalid_argument(
+				"Invalid date.");
+		}
 	}
 
 	Date(short Day, short Month, short Year)
