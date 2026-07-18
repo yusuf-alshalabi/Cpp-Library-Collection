@@ -188,11 +188,14 @@ public:
 
 	Date(short Day, short Month, short Year)
 	{
-
 		_Day = Day;
 		_Month = Month;
 		_Year = Year;
 
+		if (!IsValid())
+		{
+			throw std::invalid_argument("invalid date.");
+		}
 	}
 
 	Date(short DateOrderInYear, short Year)
