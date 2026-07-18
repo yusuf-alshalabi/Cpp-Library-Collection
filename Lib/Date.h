@@ -23,6 +23,19 @@ private:
 		31,31,30,31,30,31
 	};
 
+	inline static constexpr const char* DayNames[7] =
+	{
+		"Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+	};
+
+	inline static constexpr const char* MonthNames[12] =
+	{
+		"Jan","Feb","Mar",
+		"Apr","May","Jun",
+		"Jul","Aug","Sep",
+		"Oct","Nov","Dec"
+	};
+
 	static int DateToSerial(const MyDate& Date)
 	{
 		int Serial = 0;
@@ -312,10 +325,7 @@ public:
 
 	static std::string DayShortName(short Day, short Month, short Year)
 	{
-
-		std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
-
-		return arrDayNames[DayOfWeekOrder(Day, Month, Year)];
+		return DayNames[DayOfWeekOrder(Day, Month, Year)];
 
 	}
 
@@ -330,13 +340,7 @@ public:
 
 	static std::string MonthShortName(short MonthNumber)
 	{
-		std::string Months[12] = { "Jan", "Feb", "Mar",
-						   "Apr", "May", "Jun",
-						   "Jul", "Aug", "Sep",
-						   "Oct", "Nov", "Dec"
-		};
-
-		return (Months[MonthNumber - 1]);
+		return (MonthNames[MonthNumber - 1]);
 	}
 
 	std::string MonthShortName() const
