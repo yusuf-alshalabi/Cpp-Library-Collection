@@ -696,7 +696,7 @@ public:
 
 	void IncreaseDateByOneWeek()
 	{
-		IncreaseDateByOneWeek(*this);
+		*this = IncreaseDateByOneWeek(*this);
 	}
 
 	static Date IncreaseDateByXWeeks(short Weeks, Date& Date)
@@ -706,7 +706,7 @@ public:
 
 	void IncreaseDateByXWeeks(short Weeks)
 	{
-		IncreaseDateByXWeeks(Weeks, *this);
+		*this = IncreaseDateByXWeeks(Weeks, *this);
 	}
 
 	static Date IncreaseDateByOneMonth(Date& Date)
@@ -733,7 +733,7 @@ public:
 	void IncreaseDateByOneMonth()
 	{
 
-		IncreaseDateByOneMonth(*this);
+		*this = IncreaseDateByOneMonth(*this);
 
 	}
 
@@ -745,7 +745,7 @@ public:
 	void IncreaseDateByXDays(short Days)
 	{
 
-		IncreaseDateByXDays(Days, *this);
+		*this = IncreaseDateByXDays(Days, *this);
 	}
 
 	static Date IncreaseDateByXMonths(short Months, Date& Date)
@@ -760,7 +760,7 @@ public:
 
 	void IncreaseDateByXMonths(short Months)
 	{
-		IncreaseDateByXMonths(Months, *this);
+		*this = IncreaseDateByXMonths(Months, *this);
 	}
 
 	static Date IncreaseDateByOneYear(Date& Date)
@@ -771,7 +771,7 @@ public:
 
 	void IncreaseDateByOneYear()
 	{
-		IncreaseDateByOneYear(*this);
+		*this = IncreaseDateByOneYear(*this);
 	}
 
 	static Date IncreaseDateByXYears(short Years, Date& Date)
@@ -783,7 +783,7 @@ public:
 
 	void IncreaseDateByXYears(short Years)
 	{
-		IncreaseDateByXYears(Years, *this);
+		*this = IncreaseDateByXYears(Years, *this);
 	}
 
 	static Date IncreaseDateByOneDecade(Date& Date)
@@ -795,7 +795,7 @@ public:
 
 	void IncreaseDateByOneDecade()
 	{
-		IncreaseDateByOneDecade(*this);
+		*this = IncreaseDateByOneDecade(*this);
 	}
 
 	static Date IncreaseDateByXDecades(short Decade, Date& Date)
@@ -806,7 +806,7 @@ public:
 
 	void IncreaseDateByXDecades(short Decade)
 	{
-		IncreaseDateByXDecades(Decade, *this);
+		*this = IncreaseDateByXDecades(Decade, *this);
 	}
 
 	static Date IncreaseDateByOneCentury(Date& Date)
@@ -818,7 +818,7 @@ public:
 
 	void IncreaseDateByOneCentury()
 	{
-		IncreaseDateByOneCentury(*this);
+		*this = IncreaseDateByOneCentury(*this);
 	}
 
 	static Date IncreaseDateByOneMillennium(Date& Date)
@@ -830,7 +830,7 @@ public:
 
 	void IncreaseDateByOneMillennium()
 	{
-		IncreaseDateByOneMillennium(*this);
+		*this = IncreaseDateByOneMillennium(*this);
 	}
 
 	static Date DecreaseDateByOneDay(Date Date)
@@ -840,7 +840,7 @@ public:
 
 	void DecreaseDateByOneDay()
 	{
-		DecreaseDateByOneDay(*this);
+		*this = DecreaseDateByOneDay(*this);
 	}
 
 	static Date DecreaseDateByOneWeek(Date& Date)
@@ -851,7 +851,7 @@ public:
 
 	void DecreaseDateByOneWeek()
 	{
-		DecreaseDateByOneWeek(*this);
+		*this = DecreaseDateByOneWeek(*this);
 	}
 
 	static Date DecreaseDateByXWeeks(short Weeks, Date& Date)
@@ -861,7 +861,7 @@ public:
 
 	void DecreaseDateByXWeeks(short Weeks)
 	{
-		DecreaseDateByXWeeks(Weeks, *this);
+		*this = DecreaseDateByXWeeks(Weeks, *this);
 	}
 
 	static Date DecreaseDateByOneMonth(Date& Date)
@@ -886,7 +886,7 @@ public:
 
 	void DecreaseDateByOneMonth()
 	{
-		DecreaseDateByOneMonth(*this);
+		*this = DecreaseDateByOneMonth(*this);
 	}
 
 	static Date DecreaseDateByXDays(short Days, Date& Date)
@@ -896,7 +896,7 @@ public:
 
 	void DecreaseDateByXDays(short Days)
 	{
-		DecreaseDateByXDays(Days, *this);
+		*this =	DecreaseDateByXDays(Days, *this);
 	}
 
 	static Date DecreaseDateByXMonths(short Months, Date& Date)
@@ -911,7 +911,7 @@ public:
 
 	void DecreaseDateByXMonths(short Months)
 	{
-		DecreaseDateByXMonths(Months, *this);
+		*this = DecreaseDateByXMonths(Months, *this);
 	}
 
 	static Date DecreaseDateByOneYear(Date& Date)
@@ -923,7 +923,7 @@ public:
 
 	void DecreaseDateByOneYear()
 	{
-		DecreaseDateByOneYear(*this);
+		*this = DecreaseDateByOneYear(*this);
 	}
 
 	static Date DecreaseDateByXYears(short Years, Date& Date)
@@ -935,7 +935,7 @@ public:
 
 	void DecreaseDateByXYears(short Years)
 	{
-		DecreaseDateByXYears(Years, *this);
+		*this = DecreaseDateByXYears(Years, *this);
 	}
 
 	static Date DecreaseDateByOneDecade(Date& Date)
@@ -947,7 +947,7 @@ public:
 
 	void DecreaseDateByOneDecade()
 	{
-		DecreaseDateByOneDecade(*this);
+		*this = DecreaseDateByOneDecade(*this);
 	}
 
 	static Date DecreaseDateByXDecades(short Decades, Date& Date)
@@ -959,7 +959,7 @@ public:
 
 	void DecreaseDateByXDecades(short Decades)
 	{
-		DecreaseDateByXDecades(Decades, *this);
+		*this = DecreaseDateByXDecades(Decades, *this);
 	}
 
 	static Date DecreaseDateByOneCentury(Date& Date)
@@ -971,7 +971,7 @@ public:
 
 	void DecreaseDateByOneCentury()
 	{
-		DecreaseDateByOneCentury(*this);
+		*this = DecreaseDateByOneCentury(*this);
 	}
 
 	static Date DecreaseDateByOneMillennium(Date& Date)
@@ -983,7 +983,7 @@ public:
 
 	void DecreaseDateByOneMillennium()
 	{
-		DecreaseDateByOneMillennium(*this);
+		*this = DecreaseDateByOneMillennium(*this);
 	}
 
 
