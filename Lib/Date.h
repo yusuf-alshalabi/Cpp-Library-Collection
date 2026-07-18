@@ -37,6 +37,16 @@ private:
 		"Oct","Nov","Dec"
 	};
 
+	static void AdjustDayIfNeeded(Date& Date)
+	{
+		short DaysInMonth =
+			NumberOfDaysInAMonth(Date.Month, Date.Year);
+
+		if (Date.Day > DaysInMonth)
+			Date.Day = DaysInMonth;
+	}
+
+
 	static int DateToSerial(const MyDate& Date)
 	{
 		int Serial = 0;
@@ -681,11 +691,7 @@ public:
 		//last check day in date should not exceed max days in the current month  
 		// example if date is 31/1/2022 increasing one month should not be 31/2/2022, it should  
 		// be 28/2/2022  
-		short NumberOfDaysInCurrentMonth = NumberOfDaysInAMonth(Date.Month, Date.Year);
-		if (Date.Day > NumberOfDaysInCurrentMonth)
-		{
-			Date.Day = NumberOfDaysInCurrentMonth;
-		}
+		AdjustDayIfNeeded(Date);
 
 		return Date;
 	}
@@ -874,12 +880,7 @@ public:
 		//last check day in date should not exceed max days in the current month  
 	   // example if date is 31/3/2022 decreasing one month should not be 31/2/2022, it should  
 	   // be 28/2/2022  
-		short NumberOfDaysInCurrentMonth = NumberOfDaysInAMonth(Date.Month, Date.Year);
-		if (Date.Day > NumberOfDaysInCurrentMonth)
-		{
-			Date.Day = NumberOfDaysInCurrentMonth;
-		}
-
+		AdjustDayIfNeeded(Date);
 
 		return Date;
 	}
