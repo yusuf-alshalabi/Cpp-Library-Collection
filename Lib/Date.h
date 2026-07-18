@@ -4,6 +4,8 @@
 
 #include<iostream>
 #include<string>
+#include <sstream>
+#include <iomanip>
 #include "String.h"
 
 class Date
@@ -149,7 +151,14 @@ public:
 
 	static std::string DateToString(const Date& Date)
 	{
-		return  std::to_string(Date.Day) + "/" + std::to_string(Date.Month) + "/" + std::to_string(Date.Year);
+		std::ostringstream Out;
+
+		Out << std::setfill('0')
+			<< std::setw(2) << Date.Day << "/"
+			<< std::setw(2) << Date.Month << "/"
+			<< Date.Year;
+
+		return Out.str();
 	}
 
 	std::string DateToString()const
