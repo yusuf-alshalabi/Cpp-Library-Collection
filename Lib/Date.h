@@ -130,6 +130,19 @@ private:
 		return Date;
 	}
 
+	static Date ShiftYears(int Years, Date Date)
+	{
+
+		if (Date.GetYear() + Years < 1)
+		{
+			throw std::out_of_range("Date cannot be before 01/01/0001.");
+		}
+
+		Date.SetYear(Date.GetYear() + Years);
+		AdjustDayIfNeeded(Date);
+
+		return Date;
+	}
 
 
 
@@ -764,8 +777,7 @@ public:
 
 	static Date IncreaseDateByOneYear(Date& Date)
 	{
-		Date.Year++;
-		return Date;
+		return ShiftYears(1, Date);
 	}
 
 	void IncreaseDateByOneYear()
@@ -775,9 +787,7 @@ public:
 
 	static Date IncreaseDateByXYears(short Years, Date& Date)
 	{
-		Date.Year += Years;
-		return Date;
-
+		return ShiftYears(Years, Date);
 	}
 
 	void IncreaseDateByXYears(short Years)
@@ -787,9 +797,7 @@ public:
 
 	static Date IncreaseDateByOneDecade(Date& Date)
 	{
-		//Period of 10 years  
-		Date.Year += 10;
-		return Date;
+		return ShiftYears(10, Date);
 	}
 
 	void IncreaseDateByOneDecade()
@@ -799,8 +807,7 @@ public:
 
 	static Date IncreaseDateByXDecades(short Decade, Date& Date)
 	{
-		Date.Year += Decade * 10;
-		return Date;
+		return ShiftYears(Decade * 10, Date);
 	}
 
 	void IncreaseDateByXDecades(short Decade)
@@ -810,9 +817,7 @@ public:
 
 	static Date IncreaseDateByOneCentury(Date& Date)
 	{
-		//Period of 100 years  
-		Date.Year += 100;
-		return Date;
+		return ShiftYears(100, Date);
 	}
 
 	void IncreaseDateByOneCentury()
@@ -822,9 +827,7 @@ public:
 
 	static Date IncreaseDateByOneMillennium(Date& Date)
 	{
-		//Period of 1000 years  
-		Date.Year += 1000;
-		return Date;
+		reuturn ShiftYears(1000, Date);
 	}
 
 	void IncreaseDateByOneMillennium()
@@ -895,9 +898,7 @@ public:
 
 	static Date DecreaseDateByOneYear(Date& Date)
 	{
-
-		Date.Year--;
-		return Date;
+		reuturn ShiftYears(-1, Date);
 	}
 
 	void DecreaseDateByOneYear()
@@ -907,9 +908,7 @@ public:
 
 	static Date DecreaseDateByXYears(short Years, Date& Date)
 	{
-
-		Date.Year -= Years;
-		return Date;
+		return ShiftYears(-Years, Date);
 	}
 
 	void DecreaseDateByXYears(short Years)
@@ -919,9 +918,7 @@ public:
 
 	static Date DecreaseDateByOneDecade(Date& Date)
 	{
-		//Period of 10 years  
-		Date.Year -= 10;
-		return Date;
+		return ShiftYears(-10, Date);
 	}
 
 	void DecreaseDateByOneDecade()
@@ -931,9 +928,7 @@ public:
 
 	static Date DecreaseDateByXDecades(short Decades, Date& Date)
 	{
-
-		Date.Year -= Decades * 10;
-		return Date;
+		return ShiftYears(-Decades * 10, Date);
 	}
 
 	void DecreaseDateByXDecades(short Decades)
@@ -943,9 +938,7 @@ public:
 
 	static Date DecreaseDateByOneCentury(Date& Date)
 	{
-		//Period of 100 years  
-		Date.Year -= 100;
-		return Date;
+		return ShiftYears(-100, Date);
 	}
 
 	void DecreaseDateByOneCentury()
@@ -955,9 +948,7 @@ public:
 
 	static Date DecreaseDateByOneMillennium(Date& Date)
 	{
-		//Period of 1000 years  
-		Date.Year -= 1000;
-		return Date;
+		return ShiftYears(-1000, Date);
 	}
 
 	void DecreaseDateByOneMillennium()
