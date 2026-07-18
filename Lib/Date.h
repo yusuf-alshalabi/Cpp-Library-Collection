@@ -133,17 +133,7 @@ public:
 
 	static Date GetSystemDate()
 	{
-		//system date  
-		time_t t = time(0);
-		tm* now = localtime(&t);
-
-		short Day, Month, Year;
-
-		Year = now->tm_year + 1900;
-		Month = now->tm_mon + 1;
-		Day = now->tm_mday;
-
-		return Date(Day, Month, Year);
+		return Date();
 	}
 
 	static	bool IsValidDate(const Date& Date)
