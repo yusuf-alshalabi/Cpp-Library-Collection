@@ -15,6 +15,12 @@ private:
 	short _Month = 1;
 	short _Year = 1900;
 
+	inline static const short Days[12] =
+	{
+		31,28,31,30,31,30,
+		31,31,30,31,30,31
+	};
+
 public:
 
 	Date()
@@ -211,8 +217,7 @@ public:
 		if (Month < 1 || Month>12)
 			return  0;
 
-		int days[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
-		return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : days[Month - 1];
+		return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : Days[Month - 1];
 
 	}
 
