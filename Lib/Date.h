@@ -23,6 +23,27 @@ private:
 		31,31,30,31,30,31
 	};
 
+	static int DateToSerial(const MyDate& Date)
+	{
+		int Serial = 0;
+
+		// Add days of previous years
+		for (int Year = 1; Year < Date.GetYear(); Year++)
+		{
+			Serial += NumberOfDaysInAYear(Year);
+		}
+
+		// Add days of previous months
+		for (int Month = 1; Month < Date.GetMonth(); Month++)
+		{
+			Serial += NumberOfDaysInAMonth(Month, Date.GetYear());
+		}
+
+		// Add current day
+		Serial += (Date.GetDay() - 1);
+		return Serial;
+	}
+
 public:
 
 	Date()
