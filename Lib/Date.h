@@ -264,7 +264,7 @@ public:
 
 		if (Date.Month == 2)
 		{
-			if (isLeapYear(Date.Year))
+			if (IsLeapYear(Date.Year))
 			{
 				if (Date.Day > 29)
 					return false;
@@ -307,7 +307,7 @@ public:
 		return  DateToString(*this);
 	}
 
-	static bool isLeapYear(short Year)
+	static bool IsLeapYear(short Year)
 	{
 
 		// if year is divisible by 4 AND not divisible by 100  
@@ -316,14 +316,14 @@ public:
 		return (Year % 4 == 0 && Year % 100 != 0) || (Year % 400 == 0);
 	}
 
-	bool isLeapYear() const
+	bool IsLeapYear() const
 	{
-		return isLeapYear(_Year);
+		return IsLeapYear(_Year);
 	}
 
 	static short NumberOfDaysInAYear(short Year)
 	{
-		return  isLeapYear(Year) ? 366 : 365;
+		return  IsLeapYear(Year) ? 366 : 365;
 	}
 
 	short NumberOfDaysInAYear() const
@@ -367,7 +367,7 @@ public:
 		if (Month < 1 || Month>12)
 			return  0;
 
-		return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : Days[Month - 1];
+		return (Month == 2) ? (IsLeapYear(Year) ? 29 : 28) : Days[Month - 1];
 
 	}
 
