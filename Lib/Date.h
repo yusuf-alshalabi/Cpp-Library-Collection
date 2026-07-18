@@ -111,6 +111,26 @@ private:
 		return SerialToDate(Serial);
 	}
 
+	static Date ShiftMonths(int Months, Date Date)
+	{
+		int TotalMonths = (Date.GetYear() - 1) * 12 + (Date.GetMonth() - 1);
+
+		TotalMonths += Months;
+
+		if (TotalMonths < 0)
+		{
+			throw std::out_of_range("Date cannot be before 01/01/0001.");
+		}
+
+		Date.SetYear((TotalMonths / 12) + 1);
+		Date.SetMonth((TotalMonths % 12) + 1);
+
+		AdjustDayIfNeeded(Date);
+
+		return Date;
+	}
+
+
 
 
 public:
@@ -711,23 +731,7 @@ public:
 
 	static Date IncreaseDateByOneMonth(Date& Date)
 	{
-
-		if (Date.Month == 12)
-		{
-			Date.Month = 1;
-			Date.Year++;
-		}
-		else
-		{
-			Date.Month++;
-		}
-
-		//last check day in date should not exceed max days in the current month  
-		// example if date is 31/1/2022 increasing one month should not be 31/2/2022, it should  
-		// be 28/2/2022  
-		AdjustDayIfNeeded(Date);
-
-		return Date;
+		return ShiftMonths(1, Date);
 	}
 
 	void IncreaseDateByOneMonth()
@@ -750,14 +754,9 @@ public:
 
 	static Date IncreaseDateByXMonths(short Months, Date& Date)
 	{
-
-		for (short i = 1; i <= Months; i++)
-		{
-			Date = IncreaseDateByOneMonth(Date);
-		}
-		return Date;
+		return ShiftMonths(Months, Date);
 	}
-
+	
 	void IncreaseDateByXMonths(short Months)
 	{
 		*this = IncreaseDateByXMonths(Months, *this);
@@ -866,22 +865,7 @@ public:
 
 	static Date DecreaseDateByOneMonth(Date& Date)
 	{
-
-		if (Date.Month == 1)
-		{
-			Date.Month = 12;
-			Date.Year--;
-		}
-		else
-			Date.Month--;
-
-
-		//last check day in date should not exceed max days in the current month  
-	   // example if date is 31/3/2022 decreasing one month should not be 31/2/2022, it should  
-	   // be 28/2/2022  
-		AdjustDayIfNeeded(Date);
-
-		return Date;
+		return ShiftMonths(-1, Date);
 	}
 
 	void DecreaseDateByOneMonth()
@@ -901,12 +885,7 @@ public:
 
 	static Date DecreaseDateByXMonths(short Months, Date& Date)
 	{
-
-		for (short i = 1; i <= Months; i++)
-		{
-			Date = DecreaseDateByOneMonth(Date);
-		}
-		return Date;
+		return ShiftMonths(-Months, Date);
 	}
 
 	void DecreaseDateByXMonths(short Months)
