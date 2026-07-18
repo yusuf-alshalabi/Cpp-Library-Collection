@@ -596,27 +596,19 @@ public:
 
 	}
 
-	static int GetDifferenceInDays(Date Date1, Date Date2, bool IncludeEndDay = false)
+	static int GetDifferenceInDays(const Date& Date1, const Date& Date2 ,bool IncludeEndDay = false)
 	{
-		//this will take care of negative diff  
-		int Days = 0;
-		short SawpFlagValue = 1;
+		int Difference = DateToSerial(Date2) - DateToSerial(Date1);
 
-		if (!IsDate1BeforeDate2(Date1, Date2))
+		if (IncludeEndDay)
 		{
-			//Swap Dates   
-			SwapDates(Date1, Date2);
-			SawpFlagValue = -1;
-
+			if (Difference >= 0)
+				Difference++;
+			else
+				Difference--;
 		}
 
-		while (IsDate1BeforeDate2(Date1, Date2))
-		{
-			Days++;
-			Date1 = AddOneDay(Date1);
-		}
-
-		return IncludeEndDay ? ++Days * SawpFlagValue : Days * SawpFlagValue;
+		return Difference;
 	}
 
 	int GetDifferenceInDays(Date Date2, bool IncludeEndDay = false) const
