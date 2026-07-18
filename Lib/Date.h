@@ -47,7 +47,7 @@ private:
 	}
 
 
-	static int DateToSerial(const MyDate& Date)
+	static int DateToSerial(const Date& Date)
 	{
 		int Serial = 0;
 
@@ -66,6 +66,35 @@ private:
 		// Add current day
 		Serial += (Date.GetDay() - 1);
 		return Serial;
+	}
+
+	static Date SerialToDate(int Serial)
+	{
+		Serial++;
+
+		Date Date;
+
+		int Year = 1;
+
+		while (Serial > NumberOfDaysInAYear(Year))
+		{
+			Serial -= NumberOfDaysInAYear(Year);
+			Year++;
+		}
+
+		int Month = 1;
+
+		while (Serial > NumberOfDaysInAMonth(Month, Year))
+		{
+			Serial -= NumberOfDaysInAMonth(Month, Year);
+			Month++;
+		}
+
+		Date.Year = Year;
+		Date.Month = Month;
+		Date.Day = Serial;
+
+		return Date;
 	}
 
 public:
