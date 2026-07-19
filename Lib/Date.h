@@ -328,6 +328,12 @@ public:
 		return GetDifferenceInDays(Other, *this);
 	}
 
+	friend std::ostream& operator<<(std::ostream& Out, const Date& Date)
+	{
+		Out << Date.DateToString();
+		return Out;
+	}
+
 	void SetDay(short Day) {
 		_Day = Day;
 	}
