@@ -32,18 +32,18 @@ public:
 	static bool IsDateBetween(const Date& date, const Date& From, const Date& To)
 	{
 		//Date>=From && Date<=To  
-		if ((Date::IsDate1AfterDate2(date, From) || Date::IsDate1EqualDate2(date, From))
+		if ((Date::IsDateAfterDate(date, From) || Date::IsDateEqualDate(date, From))
 			&&
-			(Date::IsDate1BeforeDate2(date, To) || Date::IsDate1EqualDate2(date, To))
+			(Date::IsDateBeforeDate(date, To) || Date::IsDateEqualDate(date, To))
 			)
 		{
 			return true;
 		}
 
 		//Date>=To && Date<=From  
-		if ((Date::IsDate1AfterDate2(date, To) || Date::IsDate1EqualDate2(date, To))
+		if ((Date::IsDateAfterDate(date, To) || Date::IsDateEqualDate(date, To))
 			&&
-			(Date::IsDate1BeforeDate2(date, From) || Date::IsDate1EqualDate2(date, From))
+			(Date::IsDateBeforeDate(date, From) || Date::IsDateEqualDate(date, From))
 			)
 		{
 			return true;

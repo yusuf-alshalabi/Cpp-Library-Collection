@@ -11,7 +11,7 @@ public:
 
     Period(Date StartDate, Date EndDate)
     {
-        if (Date::IsDate1AfterDate2(StartDate, EndDate)) {
+        if (Date::IsDateAfterDate(StartDate, EndDate)) {
             Date::SwapDates(StartDate, EndDate);
         }
 

@@ -626,26 +626,26 @@ public:
 
 	}
 
-	static bool IsDate1BeforeDate2(const Date& Date1, const Date& Date2)
+	static bool IsDateBeforeDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return  (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false);
+		return  (FirstDate.Year < SecondDate.Year) ? true : ((FirstDate.Year == SecondDate.Year) ? (FirstDate.Month < SecondDate.Month ? true : (FirstDate.Month == SecondDate.Month ? FirstDate.Day < SecondDate.Day : false)) : false);
 	}
 
-	bool IsDateBeforeDate2(Date Date2) const
+	bool IsDateBeforeDate2(Date SecondDate) const
 	{
 		//note: *this sends the current object :-)   
-		return  IsDate1BeforeDate2(*this, Date2);
+		return  IsDateBeforeDate(*this, SecondDate);
 
 	}
 
-	static bool IsDate1EqualDate2(const Date& Date1, const Date& Date2)
+	static bool IsDateEqualDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return  (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
+		return  (FirstDate.Year == SecondDate.Year) ? ((FirstDate.Month == SecondDate.Month) ? ((FirstDate.Day == SecondDate.Day) ? true : false) : false) : false;
 	}
 
-	bool IsDateEqualDate2(Date Date2) const
+	bool IsDateEqualDate2(Date SecondDate) const
 	{
-		return  IsDate1EqualDate2(*this, Date2);
+		return  IsDateEqualDate(*this, SecondDate);
 	}
 
 	static bool IsLastDayInMonth(const Date& SourceDate)
@@ -1058,7 +1058,7 @@ public:
 	{
 
 		short Days = 0;
-		while (IsDate1BeforeDate2(StartDate, EndDate))
+		while (IsDateBeforeDate(StartDate, EndDate))
 		{
 			if (IsBusinessDay(StartDate))
 				Days++;
@@ -1073,12 +1073,12 @@ public:
 	static short CalculateVacationDays(Date StartDate, Date EndDate)
 	{
 		/*short Days = 0;
-		while (IsDate1BeforeDate2(DateFrom, DateTo))
+		while (IsDateBeforeDate(StartDate, EndDate))
 		{
-			if (IsBusinessDay(DateFrom))
+			if (IsBusinessDay(StartDate))
 				Days++;
 
-			DateFrom = AddOneDay(DateFrom);
+			StartDate = AddOneDay(StartDate);
 		}*/
 
 		return CalculateBusinessDays(StartDate, EndDate);
@@ -1106,28 +1106,28 @@ public:
 		return StartDate;
 	}
 
-	static bool IsDate1AfterDate2(const Date& Date1, const Date& Date2)
+	static bool IsDateAfterDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
+		return (!IsDateBeforeDate(FirstDate, SecondDate) && !IsDateEqualDate(FirstDate, SecondDate));
 
 	}
 
-	bool IsDateAfterDate2(const Date& Date2) const
+	bool IsDateAfterDate(const Date& SecondDate) const
 	{
-		return IsDate1AfterDate2(*this, Date2);
+		return IsDateAfterDate(*this, SecondDate);
 	}
 
 	enum enDateCompare { Before = -1, Equal = 0, After = 1 };
 
-	static enDateCompare CompareDates(const Date& Date1, const Date& Date2)
+	static enDateCompare CompareDates(const Date& FirstDate, const Date& SecondDate)
 	{
-		if (IsDate1BeforeDate2(Date1, Date2))
+		if (IsDateBeforeDate(FirstDate, SecondDate))
 			return enDateCompare::Before;
 
-		if (IsDate1EqualDate2(Date1, Date2))
+		if (IsDateEqualDate(FirstDate, SecondDate))
 			return enDateCompare::Equal;
 
-		/* if (IsDate1AfterDate2(Date1,Date2))
+		/* if (IsDateAfterDate(FirstDate, SecondDate))
 			 return enDateCompare::After;*/
 
 			 //this is faster  
