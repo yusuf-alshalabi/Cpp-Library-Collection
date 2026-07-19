@@ -275,6 +275,18 @@ public:
 		return !(*this < Other);
 	}
 
+	Date operator+(int Days) const
+	{
+		return ShiftDays(Days, *this);
+	}
+
+	Date operator-(int Days) const
+	{
+		return ShiftDays(-Days, *this);
+	}
+
+
+
 	void SetDay(short Day) {
 		_Day = Day;
 	}
