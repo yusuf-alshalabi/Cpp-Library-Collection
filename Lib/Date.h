@@ -285,6 +285,17 @@ public:
 		return ShiftDays(-Days, *this);
 	}
 
+	Date& operator+=(int Days)
+	{
+		*this = ShiftDays(Days, *this);
+		return *this;
+	}
+
+	Date& operator-=(int Days)
+	{
+		*this = ShiftDays(-Days, *this);
+		return *this;
+	}
 
 
 	void SetDay(short Day) {
