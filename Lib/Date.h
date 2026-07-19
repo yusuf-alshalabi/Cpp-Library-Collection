@@ -297,6 +297,10 @@ public:
 		return *this;
 	}
 
+	int operator-(const Date& Other) const
+	{
+		return GetDifferenceInDays(Other, *this);
+	}
 
 	void SetDay(short Day) {
 		_Day = Day;
