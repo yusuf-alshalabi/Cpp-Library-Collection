@@ -50,22 +50,21 @@ private:
 
 	static int DateToSerial(const Date& SourceDate)
 	{
-		int Serial = 0;
+		int PreviousYears = SourceDate.GetYear() - 1;
 
-		// Add days of previous years
-		for (int Year = 1; Year < SourceDate.GetYear(); Year++)
-		{
-			Serial += NumberOfDaysInAYear(Year);
-		}
+		int Serial =
+			PreviousYears * 365
+			+ PreviousYears / 4
+			- PreviousYears / 100
+			+ PreviousYears / 400;
 
-		// Add days of previous months
-		for (int Month = 1; Month < SourceDate.GetMonth(); Month++)
+		for (short Month = 1; Month < SourceDate.GetMonth(); Month++)
 		{
 			Serial += NumberOfDaysInAMonth(Month, SourceDate.GetYear());
 		}
 
-		// Add current day
-		Serial += (SourceDate.GetDay() - 1);
+		Serial += SourceDate.GetDay() - 1;
+
 		return Serial;
 	}
 
