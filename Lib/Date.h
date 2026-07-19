@@ -297,6 +297,32 @@ public:
 		return *this;
 	}
 
+	Date & operator++()
+	{
+		*this = ShiftDays(1, *this);
+		return *this;
+	}
+
+	Date operator++(int)
+	{
+		Date Temp = *this;
+		*this = ShiftDays(1, *this);
+		return Temp;
+	}
+
+	Date & operator--()
+	{
+		*this = ShiftDays(-1, *this);
+		return *this;
+	}
+
+	Date operator--(int)
+	{
+		Date Temp = *this;
+		*this = ShiftDays(-1, *this);
+		return Temp;
+	}
+
 	int operator-(const Date& Other) const
 	{
 		return GetDifferenceInDays(Other, *this);
