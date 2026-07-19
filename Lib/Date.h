@@ -30,12 +30,25 @@ private:
 		"Sun","Mon","Tue","Wed","Thu","Fri","Sat"
 	};
 
+	inline static constexpr const char* DayFullNames[7] =
+	{
+		"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
+	};
+
 	inline static constexpr std::array<const char*, 12> MonthNames =
 	{
 		"Jan","Feb","Mar",
 		"Apr","May","Jun",
 		"Jul","Aug","Sep",
 		"Oct","Nov","Dec"
+	};
+
+	inline static constexpr const char* MonthFullNames[12] =
+	{
+		"January","February","March",
+		"April"  ,"May"     ,"June",
+		"July"   ,"August"  ,"September",
+		"October","November","December"
 	};
 
 	static void AdjustDayIfNeeded(Date& SourceDate)
@@ -47,6 +60,16 @@ private:
 			SourceDate.Day = DaysInMonth;
 	}
 
+	static void ReplaceAll(std::string& Text,const std::string& OldValue,const std::string& NewValue)
+	{
+		size_t Position = 0;
+
+		while ((Position = Text.find(OldValue, Position)) != std::string::npos)
+		{
+			Text.replace(Position, OldValue.length(), NewValue);
+			Position += NewValue.length();
+		}
+	}
 
 	static int DateToSerial(const Date& SourceDate)
 	{
@@ -330,7 +353,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& Out, const Date& Date)
 	{
-		Out << Date.DateToString();
+		Out << Date.ToString();
 		return Out;
 	}
 
@@ -364,7 +387,7 @@ public:
 
 	void Print() const
 	{
-		std::cout << DateToString() << std::endl;
+		std::cout << ToString() << std::endl;
 	}
 
 	static Date GetSystemDate()
@@ -409,21 +432,56 @@ public:
 		return IsValidDate(*this);
 	}
 
-	static std::string DateToString(const Date& Date)
+	static std::string ToString(const Date& SourceDate,std::string Format = "DD/MM/YYYY")
 	{
-		std::ostringstream Out;
+		ReplaceAll(
+			Format,
+			"YYYY",
+			std::to_string(SourceDate.Year));
 
-		Out << std::setfill('0')
-			<< std::setw(2) << Date.Day << "/"
-			<< std::setw(2) << Date.Month << "/"
-			<< Date.Year;
+		ReplaceAll(
+			Format,
+			"YY",
+			std::to_string(SourceDate.Year % 100));
 
-		return Out.str();
+		ReplaceAll(
+			Format,
+			"MMMM",
+			MonthName(SourceDate.Month));
+
+		ReplaceAll(
+			Format,
+			"MMM",
+			MonthShortName(SourceDate.Month));
+
+		ReplaceAll(
+			Format,
+			"DD",
+			(SourceDate.Day < 10 ? "0" : "") +
+			std::to_string(SourceDate.Day));
+
+		ReplaceAll(
+			Format,
+			"D",
+			std::to_string(SourceDate.Day));
+
+		ReplaceAll(
+			Format,
+			"MM",
+			(SourceDate.Month < 10 ? "0" : "") +
+			std::to_string(SourceDate.Month));
+
+		ReplaceAll(
+			Format,
+			"M",
+			std::to_string(SourceDate.Month));
+
+		return Format;
 	}
 
-	std::string DateToString()const
+	std::string ToString(std::string Format = "DD/MM/YYYY") const
 	{
-		return  DateToString(*this);
+		return ToString(*this, Format);
 	}
 
 	static bool IsLeapYear(short Year)
@@ -564,6 +622,16 @@ public:
 
 	}
 
+	static std::string DayName(short DayOfWeek)
+	{
+		return DayFullNames[DayOfWeek];
+	}
+
+	std::string DayName() const
+	{
+		return DayName(DayOfWeekOrder());
+	}
+
 	static std::string MonthShortName(short MonthNumber)
 	{
 		return (MonthNames[MonthNumber - 1]);
@@ -573,6 +641,16 @@ public:
 	{
 
 		return MonthShortName(_Month);
+	}
+
+	static std::string MonthName(short Month)
+	{
+		return MonthFullNames[Month - 1];
+	}
+
+	std::string MonthName() const
+	{
+		return MonthName(_Month);
 	}
 
 	static void PrintMonthCalendar(short Month, short Year)
