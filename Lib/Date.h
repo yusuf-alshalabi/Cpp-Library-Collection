@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include <stdexcept>
+#include <array>
 #include "String.h"
 
 class Date
@@ -18,18 +19,18 @@ private:
 	short _Month = 1;
 	short _Year = 1900;
 
-	inline static const short Days[12] =
+	inline static constexpr std::array<short, 12> Days =
 	{
 		31,28,31,30,31,30,
 		31,31,30,31,30,31
 	};
 
-	inline static constexpr const char* DayNames[7] =
+	inline static constexpr std::array<const char*, 7> DayNames =
 	{
 		"Sun","Mon","Tue","Wed","Thu","Fri","Sat"
 	};
 
-	inline static constexpr const char* MonthNames[12] =
+	inline static constexpr std::array<const char*, 12> MonthNames =
 	{
 		"Jan","Feb","Mar",
 		"Apr","May","Jun",
