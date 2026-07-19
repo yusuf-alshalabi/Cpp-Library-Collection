@@ -37,34 +37,34 @@ private:
 		"Oct","Nov","Dec"
 	};
 
-	static void AdjustDayIfNeeded(Date& Date)
+	static void AdjustDayIfNeeded(Date& SourceDate)
 	{
 		short DaysInMonth =
-			NumberOfDaysInAMonth(Date.Month, Date.Year);
+			NumberOfDaysInAMonth(SourceDate.Month, SourceDate.Year);
 
-		if (Date.Day > DaysInMonth)
-			Date.Day = DaysInMonth;
+		if (SourceDate.Day > DaysInMonth)
+			SourceDate.Day = DaysInMonth;
 	}
 
 
-	static int DateToSerial(const Date& Date)
+	static int DateToSerial(const Date& SourceDate)
 	{
 		int Serial = 0;
 
 		// Add days of previous years
-		for (int Year = 1; Year < Date.GetYear(); Year++)
+		for (int Year = 1; Year < SourceDate.GetYear(); Year++)
 		{
 			Serial += NumberOfDaysInAYear(Year);
 		}
 
 		// Add days of previous months
-		for (int Month = 1; Month < Date.GetMonth(); Month++)
+		for (int Month = 1; Month < SourceDate.GetMonth(); Month++)
 		{
-			Serial += NumberOfDaysInAMonth(Month, Date.GetYear());
+			Serial += NumberOfDaysInAMonth(Month, SourceDate.GetYear());
 		}
 
 		// Add current day
-		Serial += (Date.GetDay() - 1);
+		Serial += (SourceDate.GetDay() - 1);
 		return Serial;
 	}
 
@@ -72,7 +72,7 @@ private:
 	{
 		Serial++;
 
-		Date Date;
+		Date SourceDate;
 
 		int Year = 1;
 
@@ -90,17 +90,17 @@ private:
 			Month++;
 		}
 
-		Date.Year = Year;
-		Date.Month = Month;
-		Date.Day = Serial;
+		SourceDate.Year = Year;
+		SourceDate.Month = Month;
+		SourceDate.Day = Serial;
 
-		return Date;
+		return SourceDate;
 	}
 
 
-	static Date ShiftDays(int Days, const Date& Date)
+	static Date ShiftDays(int Days, const Date& SourceDate)
 	{
-		int Serial = DateToSerial(Date);
+		int Serial = DateToSerial(SourceDate);
 		Serial += Days;
 
 		if (Serial < 0)
@@ -111,9 +111,9 @@ private:
 		return SerialToDate(Serial);
 	}
 
-	static Date ShiftMonths(int Months, Date Date)
+	static Date ShiftMonths(int Months, Date SourceDate)
 	{
-		int TotalMonths = (Date.GetYear() - 1) * 12 + (Date.GetMonth() - 1);
+		int TotalMonths = (SourceDate.GetYear() - 1) * 12 + (SourceDate.GetMonth() - 1);
 
 		TotalMonths += Months;
 
@@ -122,26 +122,26 @@ private:
 			throw std::out_of_range("Date cannot be before 01/01/0001.");
 		}
 
-		Date.SetYear((TotalMonths / 12) + 1);
-		Date.SetMonth((TotalMonths % 12) + 1);
+		SourceDate.SetYear((TotalMonths / 12) + 1);
+		SourceDate.SetMonth((TotalMonths % 12) + 1);
 
-		AdjustDayIfNeeded(Date);
+		AdjustDayIfNeeded(SourceDate);
 
-		return Date;
+		return SourceDate;
 	}
 
-	static Date ShiftYears(int Years, Date Date)
+	static Date ShiftYears(int Years, Date SourceDate)
 	{
 
-		if (Date.GetYear() + Years < 1)
+		if (SourceDate.GetYear() + Years < 1)
 		{
 			throw std::out_of_range("Date cannot be before 01/01/0001.");
 		}
 
-		Date.SetYear(Date.GetYear() + Years);
-		AdjustDayIfNeeded(Date);
+		SourceDate.SetYear(SourceDate.GetYear() + Years);
+		AdjustDayIfNeeded(SourceDate);
 
-		return Date;
+		return SourceDate;
 	}
 
 
@@ -648,10 +648,10 @@ public:
 		return  IsDate1EqualDate2(*this, Date2);
 	}
 
-	static bool IsLastDayInMonth(const Date& Date)
+	static bool IsLastDayInMonth(const Date& SourceDate)
 	{
 
-		return (Date.Day == NumberOfDaysInAMonth(Date.Month, Date.Year));
+		return (SourceDate.Day == NumberOfDaysInAMonth(SourceDate.Month, SourceDate.Year));
 
 	}
 
@@ -697,19 +697,19 @@ public:
 		*this = AddOneDay(*this);
 	}
 
-	static void  SwapDates(Date& Date1, Date& Date2)
+	static void  SwapDates(Date& FirstDate, Date& SecondDate)
 	{
 
 		Date TempDate;
-		TempDate = Date1;
-		Date1 = Date2;
-		Date2 = TempDate;
+		TempDate = FirstDate;
+		FirstDate = SecondDate;
+		SecondDate = TempDate;
 
 	}
 
-	static int GetDifferenceInDays(const Date& Date1, const Date& Date2 ,bool IncludeEndDay = false)
+	static int GetDifferenceInDays(const Date& StartDate, const Date& EndDate ,bool IncludeEndDay = false)
 	{
-		int Difference = DateToSerial(Date2) - DateToSerial(Date1);
+		int Difference = DateToSerial(EndDate) - DateToSerial(StartDate);
 
 		if (IncludeEndDay)
 		{
@@ -727,15 +727,15 @@ public:
 		return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 	}
 
-	static short CalculateMyAgeInDays(const Date& DateOfBirth)
+	static short CalculateMyAgeInDays(const Date& BirthDate)
 	{
-		return GetDifferenceInDays(DateOfBirth, Date::GetSystemDate(), true);
+		return GetDifferenceInDays(BirthDate, Date::GetSystemDate(), true);
 	}
 	//above no need to have nonstatic function for the object because it does not depend on any data from it.  
 
-	static Date IncreaseDateByOneWeek(Date& Date)
+	static Date IncreaseDateByOneWeek(Date& SourceDate)
 	{
-		return ShiftDays(7, Date);
+		return ShiftDays(7, SourceDate);
 	}
 
 	void IncreaseDateByOneWeek()
@@ -743,9 +743,9 @@ public:
 		*this = IncreaseDateByOneWeek(*this);
 	}
 
-	static Date IncreaseDateByXWeeks(short Weeks, Date& Date)
+	static Date IncreaseDateByXWeeks(short Weeks, Date& SourceDate)
 	{
-		return ShiftDays(Weeks * 7, Date);
+		return ShiftDays(Weeks * 7, SourceDate);
 	}
 
 	void IncreaseDateByXWeeks(short Weeks)
@@ -753,9 +753,9 @@ public:
 		*this = IncreaseDateByXWeeks(Weeks, *this);
 	}
 
-	static Date IncreaseDateByOneMonth(Date& Date)
+	static Date IncreaseDateByOneMonth(Date& SourceDate)
 	{
-		return ShiftMonths(1, Date);
+		return ShiftMonths(1, SourceDate);
 	}
 
 	void IncreaseDateByOneMonth()
@@ -765,9 +765,9 @@ public:
 
 	}
 
-	static Date IncreaseDateByXDays(short Days, Date& Date)
+	static Date IncreaseDateByXDays(short Days, Date& SourceDate)
 	{
-		return ShiftDays(Days, Date);
+		return ShiftDays(Days, SourceDate);
 	}
 
 	void IncreaseDateByXDays(short Days)
@@ -776,9 +776,9 @@ public:
 		*this = IncreaseDateByXDays(Days, *this);
 	}
 
-	static Date IncreaseDateByXMonths(short Months, Date& Date)
+	static Date IncreaseDateByXMonths(short Months, Date& SourceDate)
 	{
-		return ShiftMonths(Months, Date);
+		return ShiftMonths(Months, SourceDate);
 	}
 	
 	void IncreaseDateByXMonths(short Months)
@@ -786,9 +786,9 @@ public:
 		*this = IncreaseDateByXMonths(Months, *this);
 	}
 
-	static Date IncreaseDateByOneYear(Date& Date)
+	static Date IncreaseDateByOneYear(Date& SourceDate)
 	{
-		return ShiftYears(1, Date);
+		return ShiftYears(1, SourceDate);
 	}
 
 	void IncreaseDateByOneYear()
@@ -796,9 +796,9 @@ public:
 		*this = IncreaseDateByOneYear(*this);
 	}
 
-	static Date IncreaseDateByXYears(short Years, Date& Date)
+	static Date IncreaseDateByXYears(short Years, Date& SourceDate)
 	{
-		return ShiftYears(Years, Date);
+		return ShiftYears(Years, SourceDate);
 	}
 
 	void IncreaseDateByXYears(short Years)
@@ -806,9 +806,9 @@ public:
 		*this = IncreaseDateByXYears(Years, *this);
 	}
 
-	static Date IncreaseDateByOneDecade(Date& Date)
+	static Date IncreaseDateByOneDecade(Date& SourceDate)
 	{
-		return ShiftYears(10, Date);
+		return ShiftYears(10, SourceDate);
 	}
 
 	void IncreaseDateByOneDecade()
@@ -816,9 +816,9 @@ public:
 		*this = IncreaseDateByOneDecade(*this);
 	}
 
-	static Date IncreaseDateByXDecades(short Decade, Date& Date)
+	static Date IncreaseDateByXDecades(short Decade, Date& SourceDate)
 	{
-		return ShiftYears(Decade * 10, Date);
+		return ShiftYears(Decade * 10, SourceDate);
 	}
 
 	void IncreaseDateByXDecades(short Decade)
@@ -826,9 +826,9 @@ public:
 		*this = IncreaseDateByXDecades(Decade, *this);
 	}
 
-	static Date IncreaseDateByOneCentury(Date& Date)
+	static Date IncreaseDateByOneCentury(Date& SourceDate)
 	{
-		return ShiftYears(100, Date);
+		return ShiftYears(100, SourceDate);
 	}
 
 	void IncreaseDateByOneCentury()
@@ -836,9 +836,9 @@ public:
 		*this = IncreaseDateByOneCentury(*this);
 	}
 
-	static Date IncreaseDateByOneMillennium(Date& Date)
+	static Date IncreaseDateByOneMillennium(Date& SourceDate)
 	{
-		return ShiftYears(1000, Date);
+		return ShiftYears(1000, SourceDate);
 	}
 
 	void IncreaseDateByOneMillennium()
@@ -846,9 +846,9 @@ public:
 		*this = IncreaseDateByOneMillennium(*this);
 	}
 
-	static Date DecreaseDateByOneDay(Date Date)
+	static Date DecreaseDateByOneDay(Date SourceDate)
 	{
-		return ShiftDays(-1, Date);
+		return ShiftDays(-1, SourceDate);
 	}
 
 	void DecreaseDateByOneDay()
@@ -856,10 +856,10 @@ public:
 		*this = DecreaseDateByOneDay(*this);
 	}
 
-	static Date DecreaseDateByOneWeek(Date& Date)
+	static Date DecreaseDateByOneWeek(Date& SourceDate)
 	{
 
-		return ShiftDays(-7, Date);
+		return ShiftDays(-7, SourceDate);
 	}
 
 	void DecreaseDateByOneWeek()
@@ -867,9 +867,9 @@ public:
 		*this = DecreaseDateByOneWeek(*this);
 	}
 
-	static Date DecreaseDateByXWeeks(short Weeks, Date& Date)
+	static Date DecreaseDateByXWeeks(short Weeks, Date& SourceDate)
 	{
-		return ShiftDays(-Weeks * 7, Date);
+		return ShiftDays(-Weeks * 7, SourceDate);
 	}
 
 	void DecreaseDateByXWeeks(short Weeks)
@@ -877,9 +877,9 @@ public:
 		*this = DecreaseDateByXWeeks(Weeks, *this);
 	}
 
-	static Date DecreaseDateByOneMonth(Date& Date)
+	static Date DecreaseDateByOneMonth(Date& SourceDate)
 	{
-		return ShiftMonths(-1, Date);
+		return ShiftMonths(-1, SourceDate);
 	}
 
 	void DecreaseDateByOneMonth()
@@ -887,9 +887,9 @@ public:
 		*this = DecreaseDateByOneMonth(*this);
 	}
 
-	static Date DecreaseDateByXDays(short Days, Date& Date)
+	static Date DecreaseDateByXDays(short Days, Date& SourceDate)
 	{
-		return ShiftDays(-Days, Date);
+		return ShiftDays(-Days, SourceDate);
 	}
 
 	void DecreaseDateByXDays(short Days)
@@ -897,9 +897,9 @@ public:
 		*this =	DecreaseDateByXDays(Days, *this);
 	}
 
-	static Date DecreaseDateByXMonths(short Months, Date& Date)
+	static Date DecreaseDateByXMonths(short Months, Date& SourceDate)
 	{
-		return ShiftMonths(-Months, Date);
+		return ShiftMonths(-Months, SourceDate);
 	}
 
 	void DecreaseDateByXMonths(short Months)
@@ -907,9 +907,9 @@ public:
 		*this = DecreaseDateByXMonths(Months, *this);
 	}
 
-	static Date DecreaseDateByOneYear(Date& Date)
+	static Date DecreaseDateByOneYear(Date& SourceDate)
 	{
-		return ShiftYears(-1, Date);
+		return ShiftYears(-1, SourceDate);
 	}
 
 	void DecreaseDateByOneYear()
@@ -917,9 +917,9 @@ public:
 		*this = DecreaseDateByOneYear(*this);
 	}
 
-	static Date DecreaseDateByXYears(short Years, Date& Date)
+	static Date DecreaseDateByXYears(short Years, Date& SourceDate)
 	{
-		return ShiftYears(-Years, Date);
+		return ShiftYears(-Years, SourceDate);
 	}
 
 	void DecreaseDateByXYears(short Years)
@@ -927,9 +927,9 @@ public:
 		*this = DecreaseDateByXYears(Years, *this);
 	}
 
-	static Date DecreaseDateByOneDecade(Date& Date)
+	static Date DecreaseDateByOneDecade(Date& SourceDate)
 	{
-		return ShiftYears(-10, Date);
+		return ShiftYears(-10, SourceDate);
 	}
 
 	void DecreaseDateByOneDecade()
@@ -937,9 +937,9 @@ public:
 		*this = DecreaseDateByOneDecade(*this);
 	}
 
-	static Date DecreaseDateByXDecades(short Decades, Date& Date)
+	static Date DecreaseDateByXDecades(short Decades, Date& SourceDate)
 	{
-		return ShiftYears(-Decades * 10, Date);
+		return ShiftYears(-Decades * 10, SourceDate);
 	}
 
 	void DecreaseDateByXDecades(short Decades)
@@ -947,9 +947,9 @@ public:
 		*this = DecreaseDateByXDecades(Decades, *this);
 	}
 
-	static Date DecreaseDateByOneCentury(Date& Date)
+	static Date DecreaseDateByOneCentury(Date& SourceDate)
 	{
-		return ShiftYears(-100, Date);
+		return ShiftYears(-100, SourceDate);
 	}
 
 	void DecreaseDateByOneCentury()
@@ -957,9 +957,9 @@ public:
 		*this = DecreaseDateByOneCentury(*this);
 	}
 
-	static Date DecreaseDateByOneMillennium(Date& Date)
+	static Date DecreaseDateByOneMillennium(Date& SourceDate)
 	{
-		return ShiftYears(-1000, Date);
+		return ShiftYears(-1000, SourceDate);
 	}
 
 	void DecreaseDateByOneMillennium()
@@ -1054,23 +1054,23 @@ public:
 	}
 
 	//i added this method to calculate business days between 2 days  
-	static short CalculateBusinessDays(Date DateFrom, Date DateTo)
+	static short CalculateBusinessDays(Date StartDate, Date EndDate)
 	{
 
 		short Days = 0;
-		while (IsDate1BeforeDate2(DateFrom, DateTo))
+		while (IsDate1BeforeDate2(StartDate, EndDate))
 		{
-			if (IsBusinessDay(DateFrom))
+			if (IsBusinessDay(StartDate))
 				Days++;
 
-			DateFrom = AddOneDay(DateFrom);
+			StartDate = AddOneDay(StartDate);
 		}
 
 		return Days;
 
 	}
 
-	static short CalculateVacationDays(Date DateFrom, Date DateTo)
+	static short CalculateVacationDays(Date StartDate, Date EndDate)
 	{
 		/*short Days = 0;
 		while (IsDate1BeforeDate2(DateFrom, DateTo))
@@ -1081,12 +1081,12 @@ public:
 			DateFrom = AddOneDay(DateFrom);
 		}*/
 
-		return CalculateBusinessDays(DateFrom, DateTo);
+		return CalculateBusinessDays(StartDate, EndDate);
 
 	}
 	//above method is eough , no need to have method for the object  
 
-	static Date CalculateVacationReturnDate(Date DateFrom, short VacationDays)
+	static Date CalculateVacationReturnDate(Date StartDate, short VacationDays)
 	{
 
 		short WeekEndCounter = 0;
@@ -1094,16 +1094,16 @@ public:
 		for (short i = 1; i <= VacationDays; i++)
 		{
 
-			if (IsWeekEnd(DateFrom))
+			if (IsWeekEnd(StartDate))
 				WeekEndCounter++;
 
-			DateFrom = AddOneDay(DateFrom);
+			StartDate = AddOneDay(StartDate);
 		}
 		//to add weekends   
 		for (short i = 1; i <= WeekEndCounter; i++)
-			DateFrom = AddOneDay(DateFrom);
+			StartDate = AddOneDay(StartDate);
 
-		return DateFrom;
+		return StartDate;
 	}
 
 	static bool IsDate1AfterDate2(const Date& Date1, const Date& Date2)
