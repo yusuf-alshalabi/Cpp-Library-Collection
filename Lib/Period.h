@@ -23,12 +23,10 @@ public:
     static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
     {
 
-        if (
-            Date::CompareDates(Period2.EndDate, Period1.StartDate) == Date::CompareResult::Before
-            ||
-            Date::CompareDates(Period2.StartDate, Period1.EndDate) == Date::CompareResult::After
-            )
+        if (Period2.EndDate < Period1.StartDate || Period2.StartDate > Period1.EndDate)
+        {
             return false;
+        }
         else
             return true;
 
