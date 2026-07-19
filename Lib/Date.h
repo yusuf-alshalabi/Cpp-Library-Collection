@@ -626,28 +626,6 @@ public:
 
 	}
 
-	static bool IsDateBeforeDate(const Date& FirstDate, const Date& SecondDate)
-	{
-		return  (FirstDate.Year < SecondDate.Year) ? true : ((FirstDate.Year == SecondDate.Year) ? (FirstDate.Month < SecondDate.Month ? true : (FirstDate.Month == SecondDate.Month ? FirstDate.Day < SecondDate.Day : false)) : false);
-	}
-
-	bool IsDateBeforeDate2(Date SecondDate) const
-	{
-		//note: *this sends the current object :-)   
-		return  IsDateBeforeDate(*this, SecondDate);
-
-	}
-
-	static bool IsDateEqualDate(const Date& FirstDate, const Date& SecondDate)
-	{
-		return  (FirstDate.Year == SecondDate.Year) ? ((FirstDate.Month == SecondDate.Month) ? ((FirstDate.Day == SecondDate.Day) ? true : false) : false) : false;
-	}
-
-	bool IsDateEqualDate2(Date SecondDate) const
-	{
-		return  IsDateEqualDate(*this, SecondDate);
-	}
-
 	static bool IsLastDayInMonth(const Date& SourceDate)
 	{
 
@@ -1104,6 +1082,28 @@ public:
 			StartDate = AddOneDay(StartDate);
 
 		return StartDate;
+	}
+
+	static bool IsDateBeforeDate(const Date& FirstDate, const Date& SecondDate)
+	{
+		return  (FirstDate.Year < SecondDate.Year) ? true : ((FirstDate.Year == SecondDate.Year) ? (FirstDate.Month < SecondDate.Month ? true : (FirstDate.Month == SecondDate.Month ? FirstDate.Day < SecondDate.Day : false)) : false);
+	}
+
+	bool IsDateBeforeDate2(Date SecondDate) const
+	{
+		//note: *this sends the current object :-)   
+		return  IsDateBeforeDate(*this, SecondDate);
+
+	}
+
+	static bool IsDateEqualDate(const Date& FirstDate, const Date& SecondDate)
+	{
+		return  (FirstDate.Year == SecondDate.Year) ? ((FirstDate.Month == SecondDate.Month) ? ((FirstDate.Day == SecondDate.Day) ? true : false) : false) : false;
+	}
+
+	bool IsDateEqualDate2(Date SecondDate) const
+	{
+		return  IsDateEqualDate(*this, SecondDate);
 	}
 
 	static bool IsDateAfterDate(const Date& FirstDate, const Date& SecondDate)
