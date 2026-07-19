@@ -215,6 +215,36 @@ public:
 
 	Date& operator=(Date&&) noexcept = default;
 
+	bool operator==(const Date& Other) const
+	{
+		return CompareDates(*this, Other) == enDateCompare::Equal;
+	}
+
+	bool operator!=(const Date& Other) const
+	{
+		return !(*this == Other);
+	}
+
+	bool operator<(const Date& Other) const
+	{
+		return CompareDates(*this, Other) == enDateCompare::Before;
+	}
+
+	bool operator>(const Date& Other) const
+	{
+		return CompareDates(*this, Other) == enDateCompare::After;
+	}
+
+	bool operator<=(const Date& Other) const
+	{
+		return !(*this > Other);
+	}
+
+	bool operator>=(const Date& Other) const
+	{
+		return !(*this < Other);
+	}
+
 	void SetDay(short Day) {
 		_Day = Day;
 	}
