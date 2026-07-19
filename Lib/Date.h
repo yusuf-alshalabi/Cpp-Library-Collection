@@ -144,6 +144,36 @@ private:
 		return SourceDate;
 	}
 
+	enum CompareResult { Before = -1, Equal = 0, After = 1 };
+
+	static CompareResult CompareDates(const Date& FirstDate,
+		const Date& SecondDate)
+	{
+		if (FirstDate.Year < SecondDate.Year)
+			return CompareResult::Before;
+
+		if (FirstDate.Year > SecondDate.Year)
+			return CompareResult::After;
+
+		if (FirstDate.Month < SecondDate.Month)
+			return CompareResult::Before;
+
+		if (FirstDate.Month > SecondDate.Month)
+			return CompareResult::After;
+
+		if (FirstDate.Day < SecondDate.Day)
+			return CompareResult::Before;
+
+		if (FirstDate.Day > SecondDate.Day)
+			return CompareResult::After;
+
+		return CompareResult::Equal;
+	}
+
+	CompareResult CompareDates(const Date& SecondDate) const
+	{
+		return CompareDates(*this, SecondDate);
+	}
 
 
 public:
@@ -217,7 +247,7 @@ public:
 
 	bool operator==(const Date& Other) const
 	{
-		return CompareDates(*this, Other) == enDateCompare::Equal;
+		return CompareDates(*this, Other) == CompareResult::Equal;
 	}
 
 	bool operator!=(const Date& Other) const
@@ -227,12 +257,12 @@ public:
 
 	bool operator<(const Date& Other) const
 	{
-		return CompareDates(*this, Other) == enDateCompare::Before;
+		return CompareDates(*this, Other) == CompareResult::Before;
 	}
 
 	bool operator>(const Date& Other) const
 	{
-		return CompareDates(*this, Other) == enDateCompare::After;
+		return CompareDates(*this, Other) == CompareResult::After;
 	}
 
 	bool operator<=(const Date& Other) const
@@ -1116,7 +1146,7 @@ public:
 
 	static bool IsDateBeforeDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return  (FirstDate.Year < SecondDate.Year) ? true : ((FirstDate.Year == SecondDate.Year) ? (FirstDate.Month < SecondDate.Month ? true : (FirstDate.Month == SecondDate.Month ? FirstDate.Day < SecondDate.Day : false)) : false);
+		return CompareDates(FirstDate, SecondDate) == CompareResult::Before;
 	}
 
 	bool IsDateBeforeDate2(Date SecondDate) const
@@ -1128,7 +1158,7 @@ public:
 
 	static bool IsDateEqualDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return  (FirstDate.Year == SecondDate.Year) ? ((FirstDate.Month == SecondDate.Month) ? ((FirstDate.Day == SecondDate.Day) ? true : false) : false) : false;
+		return  CompareDates(FirstDate, SecondDate) == CompareResult::Equal;
 	}
 
 	bool IsDateEqualDate2(Date SecondDate) const
@@ -1138,36 +1168,12 @@ public:
 
 	static bool IsDateAfterDate(const Date& FirstDate, const Date& SecondDate)
 	{
-		return (!IsDateBeforeDate(FirstDate, SecondDate) && !IsDateEqualDate(FirstDate, SecondDate));
-
+		return CompareDates(FirstDate, SecondDate) == CompareResult::After;
 	}
 
 	bool IsDateAfterDate(const Date& SecondDate) const
 	{
 		return IsDateAfterDate(*this, SecondDate);
-	}
-
-	enum enDateCompare { Before = -1, Equal = 0, After = 1 };
-
-	static enDateCompare CompareDates(const Date& FirstDate, const Date& SecondDate)
-	{
-		if (IsDateBeforeDate(FirstDate, SecondDate))
-			return enDateCompare::Before;
-
-		if (IsDateEqualDate(FirstDate, SecondDate))
-			return enDateCompare::Equal;
-
-		/* if (IsDateAfterDate(FirstDate, SecondDate))
-			 return enDateCompare::After;*/
-
-			 //this is faster  
-		return enDateCompare::After;
-
-	}
-
-	enDateCompare CompareDates(const Date& Date2) const
-	{
-		return CompareDates(*this, Date2);
 	}
 
 };

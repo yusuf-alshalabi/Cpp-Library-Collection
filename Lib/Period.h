@@ -24,9 +24,9 @@ public:
     {
 
         if (
-            Date::CompareDates(Period2.EndDate, Period1.StartDate) == Date::enDateCompare::Before
+            Date::CompareDates(Period2.EndDate, Period1.StartDate) == Date::CompareResult::Before
             ||
-            Date::CompareDates(Period2.StartDate, Period1.EndDate) == Date::enDateCompare::After
+            Date::CompareDates(Period2.StartDate, Period1.EndDate) == Date::CompareResult::After
             )
             return false;
         else
