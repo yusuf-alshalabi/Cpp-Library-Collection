@@ -1143,12 +1143,12 @@ public:
 	}
 
 
-	static short IsEndOfWeek(const Date& Date)
+	static bool IsEndOfWeek(const Date& Date)
 	{
 		return  DayOfWeekOrder(Date.Day, Date.Month, Date.Year) == 6;
 	}
 
-	short IsEndOfWeek() const
+	bool IsEndOfWeek() const
 	{
 		return IsEndOfWeek(*this);
 	}
