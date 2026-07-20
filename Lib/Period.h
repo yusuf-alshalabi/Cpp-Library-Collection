@@ -9,15 +9,13 @@ public:
     Date StartDate;
     Date EndDate;
 
-    Period(Date StartDate, Date EndDate)
+    Period(const Date& StartDate, const Date& EndDate)
+        : StartDate(StartDate), EndDate(EndDate)
     {
-        if (Date::IsDateAfterDate(StartDate, EndDate)) {
-            Date::SwapDates(StartDate, EndDate);
+        if (Date::IsDateAfterDate(this->StartDate, this->EndDate))
+        {
+            Date::SwapDates(this->StartDate, this->EndDate);
         }
-
-        this->StartDate = StartDate;
-        this->EndDate = EndDate;
-
     }
 
     static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
