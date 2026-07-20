@@ -866,7 +866,7 @@ public:
 	}
 	//above no need to have nonstatic function for the object because it does not depend on any data from it.  
 
-	static Date IncreaseDateByOneWeek(Date& SourceDate)
+	static Date IncreaseDateByOneWeek(const Date& SourceDate)
 	{
 		return ShiftDays(7, SourceDate);
 	}
@@ -876,7 +876,7 @@ public:
 		*this = IncreaseDateByOneWeek(*this);
 	}
 
-	static Date IncreaseDateByXWeeks(short Weeks, Date& SourceDate)
+	static Date IncreaseDateByXWeeks(short Weeks, const Date& SourceDate)
 	{
 		return ShiftDays(Weeks * 7, SourceDate);
 	}
@@ -886,7 +886,7 @@ public:
 		*this = IncreaseDateByXWeeks(Weeks, *this);
 	}
 
-	static Date IncreaseDateByOneMonth(Date& SourceDate)
+	static Date IncreaseDateByOneMonth(const Date& SourceDate)
 	{
 		return ShiftMonths(1, SourceDate);
 	}
@@ -898,7 +898,7 @@ public:
 
 	}
 
-	static Date IncreaseDateByXDays(short Days, Date& SourceDate)
+	static Date IncreaseDateByXDays(short Days, const Date& SourceDate)
 	{
 		return ShiftDays(Days, SourceDate);
 	}
@@ -909,7 +909,7 @@ public:
 		*this = IncreaseDateByXDays(Days, *this);
 	}
 
-	static Date IncreaseDateByXMonths(short Months, Date& SourceDate)
+	static Date IncreaseDateByXMonths(short Months, const Date& SourceDate)
 	{
 		return ShiftMonths(Months, SourceDate);
 	}
@@ -919,7 +919,7 @@ public:
 		*this = IncreaseDateByXMonths(Months, *this);
 	}
 
-	static Date IncreaseDateByOneYear(Date& SourceDate)
+	static Date IncreaseDateByOneYear(const Date& SourceDate)
 	{
 		return ShiftYears(1, SourceDate);
 	}
@@ -929,7 +929,7 @@ public:
 		*this = IncreaseDateByOneYear(*this);
 	}
 
-	static Date IncreaseDateByXYears(short Years, Date& SourceDate)
+	static Date IncreaseDateByXYears(short Years, const Date& SourceDate)
 	{
 		return ShiftYears(Years, SourceDate);
 	}
@@ -939,7 +939,7 @@ public:
 		*this = IncreaseDateByXYears(Years, *this);
 	}
 
-	static Date IncreaseDateByOneDecade(Date& SourceDate)
+	static Date IncreaseDateByOneDecade(const Date& SourceDate)
 	{
 		return ShiftYears(10, SourceDate);
 	}
@@ -949,7 +949,7 @@ public:
 		*this = IncreaseDateByOneDecade(*this);
 	}
 
-	static Date IncreaseDateByXDecades(short Decade, Date& SourceDate)
+	static Date IncreaseDateByXDecades(short Decade, const Date& SourceDate)
 	{
 		return ShiftYears(Decade * 10, SourceDate);
 	}
@@ -959,7 +959,7 @@ public:
 		*this = IncreaseDateByXDecades(Decade, *this);
 	}
 
-	static Date IncreaseDateByOneCentury(Date& SourceDate)
+	static Date IncreaseDateByOneCentury(const Date& SourceDate)
 	{
 		return ShiftYears(100, SourceDate);
 	}
@@ -969,7 +969,7 @@ public:
 		*this = IncreaseDateByOneCentury(*this);
 	}
 
-	static Date IncreaseDateByOneMillennium(Date& SourceDate)
+	static Date IncreaseDateByOneMillennium(const Date& SourceDate)
 	{
 		return ShiftYears(1000, SourceDate);
 	}
@@ -979,7 +979,7 @@ public:
 		*this = IncreaseDateByOneMillennium(*this);
 	}
 
-	static Date DecreaseDateByOneDay(Date SourceDate)
+	static Date DecreaseDateByOneDay(const Date& SourceDate)
 	{
 		return ShiftDays(-1, SourceDate);
 	}
@@ -989,7 +989,7 @@ public:
 		*this = DecreaseDateByOneDay(*this);
 	}
 
-	static Date DecreaseDateByOneWeek(Date& SourceDate)
+	static Date DecreaseDateByOneWeek(const Date& SourceDate)
 	{
 
 		return ShiftDays(-7, SourceDate);
@@ -1000,7 +1000,7 @@ public:
 		*this = DecreaseDateByOneWeek(*this);
 	}
 
-	static Date DecreaseDateByXWeeks(short Weeks, Date& SourceDate)
+	static Date DecreaseDateByXWeeks(short Weeks, const Date& SourceDate)
 	{
 		return ShiftDays(-Weeks * 7, SourceDate);
 	}
@@ -1010,7 +1010,7 @@ public:
 		*this = DecreaseDateByXWeeks(Weeks, *this);
 	}
 
-	static Date DecreaseDateByOneMonth(Date& SourceDate)
+	static Date DecreaseDateByOneMonth(const Date& SourceDate)
 	{
 		return ShiftMonths(-1, SourceDate);
 	}
@@ -1020,7 +1020,7 @@ public:
 		*this = DecreaseDateByOneMonth(*this);
 	}
 
-	static Date DecreaseDateByXDays(short Days, Date& SourceDate)
+	static Date DecreaseDateByXDays(short Days, const Date& SourceDate)
 	{
 		return ShiftDays(-Days, SourceDate);
 	}
@@ -1030,7 +1030,7 @@ public:
 		*this =	DecreaseDateByXDays(Days, *this);
 	}
 
-	static Date DecreaseDateByXMonths(short Months, Date& SourceDate)
+	static Date DecreaseDateByXMonths(short Months, const Date& SourceDate)
 	{
 		return ShiftMonths(-Months, SourceDate);
 	}
@@ -1040,7 +1040,7 @@ public:
 		*this = DecreaseDateByXMonths(Months, *this);
 	}
 
-	static Date DecreaseDateByOneYear(Date& SourceDate)
+	static Date DecreaseDateByOneYear(const Date& SourceDate)
 	{
 		return ShiftYears(-1, SourceDate);
 	}
@@ -1050,7 +1050,7 @@ public:
 		*this = DecreaseDateByOneYear(*this);
 	}
 
-	static Date DecreaseDateByXYears(short Years, Date& SourceDate)
+	static Date DecreaseDateByXYears(short Years, const Date& SourceDate)
 	{
 		return ShiftYears(-Years, SourceDate);
 	}
@@ -1060,7 +1060,7 @@ public:
 		*this = DecreaseDateByXYears(Years, *this);
 	}
 
-	static Date DecreaseDateByOneDecade(Date& SourceDate)
+	static Date DecreaseDateByOneDecade(const Date& SourceDate)
 	{
 		return ShiftYears(-10, SourceDate);
 	}
@@ -1070,7 +1070,7 @@ public:
 		*this = DecreaseDateByOneDecade(*this);
 	}
 
-	static Date DecreaseDateByXDecades(short Decades, Date& SourceDate)
+	static Date DecreaseDateByXDecades(short Decades, const Date& SourceDate)
 	{
 		return ShiftYears(-Decades * 10, SourceDate);
 	}
@@ -1080,7 +1080,7 @@ public:
 		*this = DecreaseDateByXDecades(Decades, *this);
 	}
 
-	static Date DecreaseDateByOneCentury(Date& SourceDate)
+	static Date DecreaseDateByOneCentury(const Date& SourceDate)
 	{
 		return ShiftYears(-100, SourceDate);
 	}
@@ -1090,7 +1090,7 @@ public:
 		*this = DecreaseDateByOneCentury(*this);
 	}
 
-	static Date DecreaseDateByOneMillennium(Date& SourceDate)
+	static Date DecreaseDateByOneMillennium(const Date& SourceDate)
 	{
 		return ShiftYears(-1000, SourceDate);
 	}
