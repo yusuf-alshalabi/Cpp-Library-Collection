@@ -821,26 +821,7 @@ public:
 
 	static Date AddOneDay(Date Date)
 	{
-		if (IsLastDayInMonth(Date))
-		{
-			if (IsLastMonthInYear(Date.Month))
-			{
-				Date.Month = 1;
-				Date.Day = 1;
-				Date.Year++;
-			}
-			else
-			{
-				Date.Day = 1;
-				Date.Month++;
-			}
-		}
-		else
-		{
-			Date.Day++;
-		}
-
-		return Date;
+		return ShiftDays(1, Date);
 	}
 
 	void AddOneDay()
