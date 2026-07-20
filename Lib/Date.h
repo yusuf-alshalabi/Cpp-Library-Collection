@@ -1115,16 +1115,7 @@ public:
 
 	static bool IsBusinessDay(const Date& Date)
 	{
-		//Weekends are Sun,Mon,Tue,Wed and Thur  
-
-	   /*
-		short DayIndex = DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
-		return  (DayIndex >= 5 && DayIndex <= 4);
-	   */
-
-	   //shorter method is to invert the IsWeekEnd: this will save updating code.  
 		return !IsWeekEnd(Date);
-
 	}
 
 	bool IsBusinessDay() const
@@ -1195,17 +1186,7 @@ public:
 
 	static int CalculateVacationDays(Date StartDate, Date EndDate)
 	{
-		/*short Days = 0;
-		while (IsDateBeforeDate(StartDate, EndDate))
-		{
-			if (IsBusinessDay(StartDate))
-				Days++;
-
-			StartDate = AddOneDay(StartDate);
-		}*/
-
 		return CalculateBusinessDays(StartDate, EndDate);
-
 	}
 	//above method is eough , no need to have method for the object  
 
