@@ -1240,20 +1240,19 @@ public:
 
 	static Date CalculateVacationReturnDate(Date StartDate, short VacationDays)
 	{
-
-		short WeekEndCounter = 0;
-
-		for (short i = 1; i <= VacationDays; i++)
+		while (VacationDays > 0)
 		{
-
-			if (IsWeekEnd(StartDate))
-				WeekEndCounter++;
-
-			StartDate = AddOneDay(StartDate);
+			if (IsBusinessDay(StartDate))
+			{
+				VacationDays--;
+			}
+			StartDate++;
 		}
-		//to add weekends   
-		for (short i = 1; i <= WeekEndCounter; i++)
-			StartDate = AddOneDay(StartDate);
+
+		while (IsWeekEnd(StartDate))
+		{
+			StartDate++;
+		}
 
 		return StartDate;
 	}
