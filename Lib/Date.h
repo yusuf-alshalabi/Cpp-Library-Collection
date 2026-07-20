@@ -1255,7 +1255,7 @@ public:
 		return CompareDates(FirstDate, SecondDate) == CompareResult::Before;
 	}
 
-	bool IsDateBeforeDate2(Date SecondDate) const
+	bool IsDateBeforeDate(Date SecondDate) const
 	{
 		//note: *this sends the current object :-)   
 		return  IsDateBeforeDate(*this, SecondDate);
@@ -1267,7 +1267,7 @@ public:
 		return  CompareDates(FirstDate, SecondDate) == CompareResult::Equal;
 	}
 
-	bool IsDateEqualDate2(Date SecondDate) const
+	bool IsDateEqualDate(Date SecondDate) const
 	{
 		return  IsDateEqualDate(*this, SecondDate);
 	}
