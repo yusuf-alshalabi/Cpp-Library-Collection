@@ -357,6 +357,14 @@ public:
 		return Out;
 	}
 
+	friend std::istream& operator>>(std::istream& In, Date& DateObj)
+	{
+		std::string Input;
+		In >> Input;
+		DateObj = Date(Input);
+		return In;
+	}
+
 	void SetDay(short Day) {
 		_Day = Day;
 	}
