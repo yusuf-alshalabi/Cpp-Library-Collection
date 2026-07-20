@@ -850,7 +850,7 @@ public:
 		return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 	}
 
-	static short CalculateMyAgeInDays(const Date& BirthDate)
+	static int CalculateMyAgeInDays(const Date& BirthDate)
 	{
 		return GetDifferenceInDays(BirthDate, Date::GetSystemDate(), true);
 	}
@@ -1177,7 +1177,7 @@ public:
 	}
 
 	//i added this method to calculate business days between 2 days  
-	static short CalculateBusinessDays(Date StartDate, Date EndDate)
+	static int CalculateBusinessDays(Date StartDate, Date EndDate)
 	{
 
 		short Days = 0;
@@ -1193,7 +1193,7 @@ public:
 
 	}
 
-	static short CalculateVacationDays(Date StartDate, Date EndDate)
+	static int CalculateVacationDays(Date StartDate, Date EndDate)
 	{
 		/*short Days = 0;
 		while (IsDateBeforeDate(StartDate, EndDate))
