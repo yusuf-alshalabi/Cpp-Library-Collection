@@ -1202,12 +1202,12 @@ public:
 	{
 
 		short Days = 0;
-		while (IsDateBeforeDate(StartDate, EndDate))
+		while (StartDate < EndDate)
 		{
 			if (IsBusinessDay(StartDate))
 				Days++;
 
-			StartDate = AddOneDay(StartDate);
+			StartDate++;
 		}
 
 		return Days;
