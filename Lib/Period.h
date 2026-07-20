@@ -31,7 +31,7 @@ public:
     }
 
 
-    bool IsOverLapWith(const Period& Period2)
+    bool IsOverLapWith(const Period& Period2) const
     {
         return IsOverlapPeriods(*this, Period2);
     }
