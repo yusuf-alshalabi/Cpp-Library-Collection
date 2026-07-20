@@ -789,38 +789,7 @@ public:
 
 	void AddDays(short Days)
 	{
-
-
-		short RemainingDays = Days + DaysFromTheBeginingOfTheYear(_Day, _Month, _Year);
-		short MonthDays = 0;
-
-		_Month = 1;
-
-		while (true)
-		{
-			MonthDays = NumberOfDaysInAMonth(_Month, _Year);
-
-			if (RemainingDays > MonthDays)
-			{
-				RemainingDays -= MonthDays;
-				_Month++;
-
-				if (_Month > 12)
-				{
-					_Month = 1;
-					_Year++;
-
-				}
-			}
-			else
-			{
-				_Day = RemainingDays;
-				break;
-			}
-
-		}
-
-
+		*this = ShiftDays(Days, *this);
 	}
 
 	static bool IsLastDayInMonth(const Date& SourceDate)
