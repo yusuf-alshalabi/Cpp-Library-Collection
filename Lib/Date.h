@@ -720,17 +720,7 @@ public:
 
 	void PrintYearCalendar() const
 	{
-		std::printf("\n  _________________________________\n\n");
-		std::printf("           Calendar - %d\n", _Year);
-		std::printf("  _________________________________\n");
-
-
-		for (int i = 1; i <= 12; i++)
-		{
-			PrintMonthCalendar(i, _Year);
-		}
-
-		return;
+		PrintYearCalendar(_Year);
 	}
 
 	static short DaysFromTheBeginingOfTheYear(short Day, short Month, short Year)
