@@ -1,9 +1,9 @@
-//ProgrammingAdvices.com
-//Mohammed Abu-Hadhoud
 
 #pragma once
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "Date.h"
 
 class Util
@@ -69,6 +69,7 @@ public:
 
 	{
 		std::string Word;
+		Word.reserve(Length);
 
 		for (int i = 1; i <= Length; i++)
 
@@ -84,7 +85,7 @@ public:
 	{
 
 		std::string Key = "";
-
+		Key.reserve(19); // Reserve space for the key (4 chars + 3 hyphens)
 
 		Key = GenerateWord(CharType, 4) + "-";
 		Key += GenerateWord(CharType, 4) + "-";
@@ -97,7 +98,6 @@ public:
 
 	static void PrintKeys(short NumberOfKeys, enCharType CharType = CapitalLetter, std::ostream& Output = std::cout)
 	{
-
 		for (int i = 1; i <= NumberOfKeys; i++)
 
 		{
@@ -151,6 +151,7 @@ public:
 	static std::string  Tabs(short NumberOfTabs)
 	{
 		std::string t = "";
+		t.reserve(NumberOfTabs);
 
 		for (int i = 0; i < NumberOfTabs; i++)
 		{
