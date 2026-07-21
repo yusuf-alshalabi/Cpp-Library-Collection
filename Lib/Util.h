@@ -95,14 +95,14 @@ public:
 		return Key;
 	}
 
-	static void PrintKeys(short NumberOfKeys, enCharType CharType)
+	static void PrintKeys(short NumberOfKeys, enCharType CharType = CapitalLetter, std::ostream& Output = std::cout)
 	{
 
 		for (int i = 1; i <= NumberOfKeys; i++)
 
 		{
-			std::cout << "Key [" << i << "] : ";
-			std::cout << GenerateKey(CharType) << std::endl;
+			Output << "Key [" << i << "] : ";
+			Output << GenerateKey(CharType) << "\n";
 		}
 
 	}
@@ -166,30 +166,34 @@ public:
 
 	}
 
-	static std::string  EncryptText(std::string Text, short EncryptionKey)
+	static std::string  EncryptText(const std::string& Text, short EncryptionKey)
 	{
+		std::string Result;
+		Result.reserve(Text.length());
 
-		for (size_t i = 0; i < Text.length(); i++)
+		for (char Ch : Text)
 		{
 
-			Text[i] = char((int)Text[i] + EncryptionKey);
+			Result += static_cast<char>(Ch + EncryptionKey);
 
 		}
 
-		return Text;
+		return Result;
 
 	}
 
-	static std::string  DecryptText(std::string Text, short EncryptionKey)
+	static std::string  DecryptText(const std::string& Text, short EncryptionKey)
 	{
+		std::string Result;
+		Result.reserve(Text.length());
 
-		for (size_t i = 0; i < Text.length(); i++)
+		for (char Ch : Text)
 		{
 
-			Text[i] = char((int)Text[i] - EncryptionKey);
+			Result += static_cast<char>(Ch - EncryptionKey);
 
 		}
-		return Text;
+		return Result;
 
 	}
 
