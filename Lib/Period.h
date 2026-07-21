@@ -9,7 +9,7 @@ private:
 
     void Normalize()
     {
-        if (Date::IsDateAfterDate(StartDate, EndDate))
+        if (StartDate > EndDate)
         {
             Date::SwapDates(StartDate, EndDate);
         }
