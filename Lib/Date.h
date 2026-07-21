@@ -60,7 +60,7 @@ private:
 			SourceDate.Day = DaysInMonth;
 	}
 
-	static void ReplaceAll(std::string& Text,const std::string& OldValue,const std::string& NewValue)
+	static void ReplaceAll(std::string& Text, const std::string& OldValue, const std::string& NewValue)
 	{
 		size_t Position = 0;
 
@@ -320,7 +320,7 @@ public:
 		return *this;
 	}
 
-	Date & operator++()
+	Date& operator++()
 	{
 		*this = ShiftDays(1, *this);
 		return *this;
@@ -333,7 +333,7 @@ public:
 		return Temp;
 	}
 
-	Date & operator--()
+	Date& operator--()
 	{
 		*this = ShiftDays(-1, *this);
 		return *this;
@@ -440,7 +440,7 @@ public:
 		return IsValidDate(*this);
 	}
 
-	static std::string ToString(const Date& SourceDate,std::string Format = "DD/MM/YYYY")
+	static std::string ToString(const Date& SourceDate, std::string Format = "DD/MM/YYYY")
 	{
 		ReplaceAll(
 			Format,
@@ -830,7 +830,7 @@ public:
 
 	}
 
-	static int GetDifferenceInDays(const Date& StartDate, const Date& EndDate ,bool IncludeEndDay = false)
+	static int GetDifferenceInDays(const Date& StartDate, const Date& EndDate, bool IncludeEndDay = false)
 	{
 		int Difference = DateToSerial(EndDate) - DateToSerial(StartDate);
 
@@ -903,7 +903,7 @@ public:
 	{
 		return ShiftMonths(Months, SourceDate);
 	}
-	
+
 	void IncreaseDateByXMonths(short Months)
 	{
 		*this = IncreaseDateByXMonths(Months, *this);
@@ -1017,7 +1017,7 @@ public:
 
 	void DecreaseDateByXDays(short Days)
 	{
-		*this =	DecreaseDateByXDays(Days, *this);
+		*this = DecreaseDateByXDays(Days, *this);
 	}
 
 	static Date DecreaseDateByXMonths(short Months, const Date& SourceDate)
