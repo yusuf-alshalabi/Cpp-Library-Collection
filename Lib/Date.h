@@ -351,10 +351,10 @@ public:
 		return GetDifferenceInDays(Other, *this);
 	}
 
-	friend std::ostream& operator<<(std::ostream& Out, const Date& Date)
+	friend std::ostream& operator<<(std::ostream& Output, const Date& DateObj)
 	{
-		Out << Date.ToString();
-		return Out;
+		DateObj.Print(Output);
+		return Output;
 	}
 
 	friend std::istream& operator>>(std::istream& In, Date& DateObj)
@@ -393,9 +393,9 @@ public:
 	}
 	__declspec(property(get = GetYear, put = SetYear)) short Year;
 
-	void Print() const
+	void Print(std::ostream& Out = std::cout, const std::string& Format = "DD/MM/YYYY") const
 	{
-		std::cout << ToString() << std::endl;
+		Out << ToString(Format);
 	}
 
 	static Date GetSystemDate()
