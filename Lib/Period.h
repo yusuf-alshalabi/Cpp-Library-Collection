@@ -35,14 +35,7 @@ public:
 
     static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
     {
-
-        if (Period2.EndDate < Period1.StartDate || Period2.StartDate > Period1.EndDate)
-        {
-            return false;
-        }
-        else
-            return true;
-
+        return !(Period2.EndDate < Period1.StartDate || Period2.StartDate > Period1.EndDate);
     }
 
 
