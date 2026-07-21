@@ -134,22 +134,16 @@ public:
 		B = Temp;
 	}
 
-	static  void ShuffleArray(int arr[100], int arrLength)
+	template<typename T>
+	static  void ShuffleArray(T arr[], size_t arrLength)
 	{
+		if (arrLength <= 1)
+			return;
 
-		for (int i = 0; i < arrLength; i++)
+		for (size_t i = arrLength -1; i > 0; i--)
 		{
-			Swap(arr[RandomNumber(1, arrLength) - 1], arr[RandomNumber(1, arrLength) - 1]);
-		}
-
-	}
-
-	static  void ShuffleArray(std::string arr[100], int arrLength)
-	{
-
-		for (int i = 0; i < arrLength; i++)
-		{
-			Swap(arr[RandomNumber(1, arrLength) - 1], arr[RandomNumber(1, arrLength) - 1]);
+			int randomIndex = RandomNumber(0, static_cast<int>(i));
+			Swap(arr[i], arr[randomIndex]);
 		}
 
 	}
