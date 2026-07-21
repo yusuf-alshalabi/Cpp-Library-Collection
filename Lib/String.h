@@ -97,7 +97,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& Output, const String& S)
 	{
-		Output << S._Value;
+		S.Print(Output);
 		return Output;
 	}
 
@@ -946,4 +946,8 @@ public:
 		_Value = ReverseWordsInString(_Value);
 	}
 
+	void Print(std::ostream& Out = std::cout) const
+	{
+		Out << _Value;
+	}
 };
