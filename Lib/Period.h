@@ -18,6 +18,21 @@ public:
         }
     }
 
+    int PeriodLengthInDays(bool IncludeEndDay = true) const
+    {
+        return Date::GetDifferenceInDays(StartDate, EndDate, IncludeEndDay);
+    }
+
+    static bool IsDateInPeriod(const Date& DateToCheck, const Period& PeriodToCheck)
+    {
+        return !(DateToCheck < PeriodToCheck.StartDate || DateToCheck > PeriodToCheck.EndDate);
+    }
+
+    bool IsDateInPeriod(const Date& DateToCheck) const
+    {
+        return IsDateInPeriod(DateToCheck, *this);
+    }
+
     static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
     {
 
