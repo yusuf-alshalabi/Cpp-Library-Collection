@@ -38,7 +38,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& Out, const Period& PeriodObj)
     {
-        PeriodObj.Print();
+        PeriodObj.Print(Out);
         return Out;
     }
 
@@ -75,16 +75,10 @@ public:
         return IsOverlapPeriods(*this, Period2);
     }
 
-    void Print() const
+    void Print(std::ostream& Out = std::cout) const
     {
-        std::cout << "Period Start: ";
-        StartDate.Print();
-
-
-        std::cout << "Period End: ";
-        EndDate.Print();
-
-
+		Out << "Period Start: " << StartDate.ToString() << "\n";
+        Out << "Period End: " << EndDate.ToString() << "\n";
     }
 
 };
