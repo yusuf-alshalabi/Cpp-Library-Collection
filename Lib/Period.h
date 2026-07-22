@@ -97,7 +97,6 @@ namespace Core
 			return !(Period2._EndDate < Period1._StartDate || Period2._StartDate > Period1._EndDate);
 		}
 
-
 		bool IsOverLapWith(const Period& Period2) const
 		{
 			return IsOverlapPeriods(*this, Period2);
@@ -107,6 +106,48 @@ namespace Core
 		{
 			Out << "Period Start: " << _StartDate.ToString() << "\n";
 			Out << "Period End: " << _EndDate.ToString() << "\n";
+		}
+
+		static bool Contains(const Period& MainPeriod, const Period& SubPeriod)
+		{
+			return (SubPeriod._StartDate >= MainPeriod._StartDate && SubPeriod._EndDate <= MainPeriod._EndDate);
+		}
+
+		bool Contains(const Period& SubPeriod) const
+		{
+			return Contains(*this, SubPeriod);
+		}
+
+		static bool GetOverlapPeriod(const Period& Period1, const Period& Period2, Period& Result)
+		{
+			if (!IsOverlapPeriods(Period1, Period2))
+				return false;
+
+			Date MaxStart = (Period1._StartDate > Period2._StartDate) ? Period1._StartDate : Period2._StartDate;
+			Date MinEnd = (Period1._EndDate < Period2._EndDate) ? Period1._EndDate : Period2._EndDate;
+
+			Result = Period(MaxStart, MinEnd);
+			return true;
+		}
+
+		bool GetOverlapPeriod(const Period& Other, Period& Result) const
+		{
+			return GetOverlapPeriod(*this, Other, Result);
+		}
+
+		static int GetOverlapDays(const Period& Period1, const Period& Period2, bool IncludeEndDay = true)
+		{
+			Period Overlap;
+			if (GetOverlapPeriod(Period1, Period2, Overlap))
+			{
+				return Overlap.PeriodLengthInDays(IncludeEndDay);
+			}
+			return 0;
+		}
+
+		int GetOverlapDays(const Period& Other, bool IncludeEndDay = true) const
+		{
+			return GetOverlapDays(*this, Other, IncludeEndDay);
 		}
 
 	};
