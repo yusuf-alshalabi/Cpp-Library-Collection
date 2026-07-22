@@ -102,6 +102,24 @@ namespace Core
 			return Choice == 'y';
 		}
 
+		static std::string ReadString(std::string_view Message = "Enter a text:", std::string_view ErrorMessage = "Invalid input! Text cannot be empty.")
+		{
+			std::string Text;
+			do
+			{
+				std::cout << Message << " ";
+				std::getline(std::cin >> std::ws, Text);
+
+				if (Text.empty())
+				{
+					std::cout << ErrorMessage << "\n";
+				}
+
+			} while (Text.empty());
+
+			return Text;
+		}
+
 		static bool IsValidDate(const Date& Date)
 		{
 			return	Date::IsValidDate(Date);
