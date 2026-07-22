@@ -152,9 +152,9 @@ namespace Core
 			return date;
 		}
 
-		static bool IsValidDate(const Date& Date)
+		static bool IsValidDate(const Date& date)
 		{
-			return	Date::IsValidDate(Date);
+			return date.IsValid();
 		}
 
 	};
