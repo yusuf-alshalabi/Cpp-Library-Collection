@@ -71,7 +71,7 @@ namespace Core {
 			std::string Word;
 			Word.reserve(Length);
 
-			for (int i = 1; i <= Length; i++)
+			for (short i = 1; i <= Length; i++)
 
 			{
 
@@ -101,7 +101,7 @@ namespace Core {
 
 		static void PrintKeys(short NumberOfKeys, enCharType CharType = CapitalLetter, std::ostream& Output = std::cout)
 		{
-			for (int i = 1; i <= NumberOfKeys; i++)
+			for (short i = 1; i <= NumberOfKeys; i++)
 
 			{
 				Output << "Key [" << i << "] : ";
@@ -156,7 +156,7 @@ namespace Core {
 			std::string t = "";
 			t.reserve(NumberOfTabs);
 
-			for (int i = 0; i < NumberOfTabs; i++)
+			for (short i = 0; i < NumberOfTabs; i++)
 			{
 				t += "\t";
 			}
