@@ -24,27 +24,13 @@ namespace Core
 
 			return Number >= From && Number <= To;
 		}
+
 		static bool IsDateBetween(const Date& date, const Date& From, const Date& To)
 		{
-			//Date>=From && Date<=To  
-			if ((Date::IsDateAfterDate(date, From) || Date::IsDateEqualDate(date, From))
-				&&
-				(Date::IsDateBeforeDate(date, To) || Date::IsDateEqualDate(date, To))
-				)
-			{
-				return true;
-			}
+			if (From > To)
+				return date >= To && date <= From;
 
-			//Date>=To && Date<=From  
-			if ((Date::IsDateAfterDate(date, To) || Date::IsDateEqualDate(date, To))
-				&&
-				(Date::IsDateBeforeDate(date, From) || Date::IsDateEqualDate(date, From))
-				)
-			{
-				return true;
-			}
-
-			return false;
+			return date >= From && date <= To;
 		}
 
 		static int ReadIntNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
