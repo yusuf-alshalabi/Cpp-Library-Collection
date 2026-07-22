@@ -150,5 +150,26 @@ namespace Core
 			return GetOverlapDays(*this, Other, IncludeEndDay);
 		}
 
+		static int CalculateBusinessDays(const Period& PeriodToCheck)
+		{
+			int BusinessDays = 0;
+			Date CurrentDate = PeriodToCheck._StartDate;
+
+			while (CurrentDate <= PeriodToCheck._EndDate)
+			{
+				if (CurrentDate.IsBusinessDay()) 
+				{
+					BusinessDays++;
+				}
+				CurrentDate++;
+			}
+
+			return BusinessDays;
+		}
+
+		int CalculateBusinessDays() const
+		{
+			return CalculateBusinessDays(*this);
+		}
 	};
 }
