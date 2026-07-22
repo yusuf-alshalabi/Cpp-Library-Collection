@@ -272,6 +272,100 @@ void TestDate()
     std::cout << "========================================\n";
 }
 
+void TestPeriod()
+{
+    std::cout << "========================================\n";
+    std::cout << "       Testing Core::Period Class       \n";
+    std::cout << "========================================\n\n";
+
+    // 1. Constructors & Auto-Normalization
+    std::cout << "--- 1. Testing Constructors & Auto-Normalization ---\n";
+    Date dStart(1, 1, 2026);
+    Date dEnd(10, 1, 2026);
+
+    Period pNormal(dStart, dEnd);
+    std::cout << "Normal Period (01/01/2026 -> 10/01/2026):\n";
+    pNormal.Print();
+
+    Period pSwapped(dEnd, dStart); // Swapped dates to test Normalize()
+    std::cout << "Swapped Period Input (10/01/2026 -> 01/01/2026) Auto-Normalized:\n";
+    pSwapped.Print();
+    std::cout << "\n";
+
+    // 2. Properties & Encapsulation
+    std::cout << "--- 2. Testing Properties & Safe Setters ---\n";
+    Period pProp;
+    pProp.StartDate = Date(15, 5, 2026);
+    pProp.EndDate = Date(5, 5, 2026); // Should trigger Normalize via property setter
+
+    std::cout << "Period set via Properties (Start: 15/05/2026, End: 05/05/2026):\n";
+    std::cout << "Actual StartDate Property: " << pProp.StartDate << "\n";
+    std::cout << "Actual EndDate Property  : " << pProp.EndDate << "\n\n";
+
+    // 3. Length & Business Days Calculations
+    std::cout << "--- 3. Testing Length & Business Days Calculations ---\n";
+    Period pCalc(Date(1, 1, 2026), Date(10, 1, 2026));
+    std::cout << "Period: " << pCalc.StartDate << " -> " << pCalc.EndDate << "\n";
+    std::cout << "Length (Including End Day): " << pCalc.PeriodLengthInDays(true) << " days\n";
+    std::cout << "Length (Excluding End Day): " << pCalc.PeriodLengthInDays(false) << " days\n";
+    std::cout << "Calculated Business Days  : " << pCalc.CalculateBusinessDays() << " days\n\n";
+
+    // 4. Date Belonging Inspection (IsDateInPeriod)
+    std::cout << "--- 4. Testing Date Belonging (IsDateInPeriod) ---\n";
+    Period pFeb(Date(1, 2, 2026), Date(28, 2, 2026));
+    Date dInside(15, 2, 2026);
+    Date dOutside(5, 3, 2026);
+
+    std::cout << "Period: " << pFeb.StartDate << " -> " << pFeb.EndDate << "\n";
+    std::cout << "Is " << dInside << " inside period? " << (pFeb.IsDateInPeriod(dInside) ? "YES" : "NO") << "\n";
+    std::cout << "Is " << dOutside << " inside period? " << (pFeb.IsDateInPeriod(dOutside) ? "YES" : "NO") << "\n\n";
+
+    // 5. Overlap Detection & Extraction
+    std::cout << "--- 5. Testing Overlap Operations ---\n";
+    Period p1(Date(1, 1, 2026), Date(20, 1, 2026));
+    Period p2(Date(15, 1, 2026), Date(30, 1, 2026));
+    Period p3(Date(25, 1, 2026), Date(31, 1, 2026));
+
+    std::cout << "Period 1: " << p1.StartDate << " -> " << p1.EndDate << "\n";
+    std::cout << "Period 2: " << p2.StartDate << " -> " << p2.EndDate << "\n";
+    std::cout << "Period 3: " << p3.StartDate << " -> " << p3.EndDate << "\n\n";
+
+    std::cout << "Does Period 1 overlap with Period 2? " << (p1.IsOverLapWith(p2) ? "YES" : "NO") << "\n";
+    std::cout << "Does Period 1 overlap with Period 3? " << (p1.IsOverLapWith(p3) ? "YES" : "NO") << "\n";
+
+    Period overlapResult;
+    if (p1.GetOverlapPeriod(p2, overlapResult))
+    {
+        std::cout << "Extracted Overlap Period (P1 & P2):\n";
+        std::cout << " -> Start: " << overlapResult.StartDate << " | End: " << overlapResult.EndDate << "\n";
+    }
+    std::cout << "Overlap Days between Period 1 and Period 2: " << p1.GetOverlapDays(p2) << " days\n\n";
+
+    // 6. Period Containment Checks
+    std::cout << "--- 6. Testing Period Containment (Contains) ---\n";
+    Period mainPeriod(Date(1, 1, 2026), Date(31, 1, 2026));
+    Period subPeriod(Date(10, 1, 2026), Date(20, 1, 2026));
+
+    std::cout << "Main Period: " << mainPeriod.StartDate << " -> " << mainPeriod.EndDate << "\n";
+    std::cout << "Sub Period : " << subPeriod.StartDate << " -> " << subPeriod.EndDate << "\n";
+    std::cout << "Does Main Period contain Sub Period? " << (mainPeriod.Contains(subPeriod) ? "YES" : "NO") << "\n";
+    std::cout << "Does Sub Period contain Main Period? " << (subPeriod.Contains(mainPeriod) ? "YES" : "NO") << "\n\n";
+
+    // 7. Relational & Equality Operators
+    std::cout << "--- 7. Testing Operators (==, !=, <<) ---\n";
+    Period pEq1(Date(1, 1, 2026), Date(10, 1, 2026));
+    Period pEq2(Date(1, 1, 2026), Date(10, 1, 2026));
+    Period pEq3(Date(1, 1, 2026), Date(15, 1, 2026));
+
+    std::cout << "Is pEq1 == pEq2? " << (pEq1 == pEq2 ? "YES" : "NO") << "\n";
+    std::cout << "Is pEq1 != pEq3? " << (pEq1 != pEq3 ? "YES" : "NO") << "\n";
+    std::cout << "Stream Output (<<) Test:\n" << pEq1 << "\n";
+
+    std::cout << "========================================\n";
+    std::cout << "      All Tests Completed Successfully! \n";
+    std::cout << "========================================\n";
+}
+
 void TestInputValidate()
 {
     std::cout << "========================================\n";
