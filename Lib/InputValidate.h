@@ -35,18 +35,20 @@ namespace Core
 		}
 
 		template <typename T = int>
-		static T ReadNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
+		static T ReadNumber(std::string_view Message = "Enter a number:", std::string_view ErrorMessage = "Invalid Number, Enter again:")
 		{
 			static_assert(std::is_integral_v<T> ||
 				std::is_floating_point_v<T>,
 				"ReadNumber accepts only numeric types!");
 
 			T Number;
+			std::cout << Message << " ";
+
 			while (!(std::cin >> Number))
 			{
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << ErrorMessage << "\n";
+				std::cout << ErrorMessage << "\n" << Message << " ";
 			}
 			return Number;
 		}
