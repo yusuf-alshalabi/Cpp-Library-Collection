@@ -248,7 +248,7 @@ void TestDate()
     Core::Date returnDate = Core::Date::CalculateVacationReturnDate(vStart, 7);
     std::cout << "Return Date for 7 Business Days Vacation starting " << vStart << ": " << returnDate << "\n\n";
 
-    // 9. Swap, Remaining Days & Validation
+    // 9. Swap, Countdown & Validation
     std::cout << "--- 9. Swap, Countdown & Validation ---\n";
     Core::Date dSwap1(1, 1, 2020), dSwap2(31, 12, 2030);
     std::cout << "Before Swap -> d1: " << dSwap1 << ", d2: " << dSwap2 << "\n";
@@ -259,8 +259,14 @@ void TestDate()
     std::cout << "Days until end of month from " << dMidYear << ": " << dMidYear.DaysUntilTheEndOfMonth() << "\n";
     std::cout << "Days until end of year from " << dMidYear << ": " << dMidYear.DaysUntilTheEndOfYear() << "\n";
 
-    Core::Date dInvalidTest(31, 2, 2026); // Invalid date test object
-    std::cout << "Is 31/02/2026 Valid? " << (Core::Date::IsValidDate(dInvalidTest) ? "YES" : "NO") << "\n\n";
+    try
+    {
+        Core::Date dInvalidTest(31, 2, 2026);
+    }
+    catch (const std::invalid_argument& e)
+    {
+        std::cout << "Successfully caught invalid date exception: " << e.what() << "\n\n";
+    }
 
     // 10. Calendars Output
     std::cout << "--- 10. Calendar Printing ---\n";
@@ -521,90 +527,39 @@ void TestUtil()
     std::cout << "      All Tests Completed Successfully! \n";
     std::cout << "========================================\n";
 }
-
 int main()
 {
-	Util::Srand();
+    Util::Srand();
 
-	std::cout << "========== String ==========\n\n";
+    std::cout << "\n==================================================\n";
+    std::cout << "         STARTING ALL CORE LIBRARY TESTS          \n";
+    std::cout << "==================================================\n\n";
 
-	String text("   hello world from cpp library   ");
+    TestString();
 
-	std::cout << "Original: [" << text.Value << "]\n";
+    std::cout << "\nPress Enter to continue to Date tests...";
+    std::cin.get();
 
-	text.Trim();
-	std::cout << "Trim: " << text.Value << '\n';
+    TestDate();
 
-	text.UpperFirstLetterOfEachWord();
-	std::cout << "Title Case: " << text.Value << '\n';
+    std::cout << "\nPress Enter to continue to Period tests...";
+    std::cin.get();
 
-	std::cout << "Words Count: " << text.CountWords() << '\n';
-	std::cout << "Vowels Count: " << text.CountVowels() << '\n';
+    TestPeriod();
 
-	std::cout << "\n========== Date ==========\n\n";
+    std::cout << "\nPress Enter to continue to Util tests...";
+    std::cin.get();
 
-	Date today;
-	Date future(1, 1, 2027);
+    TestUtil();
 
-	std::cout << "Today: ";
-	today.Print();
+    std::cout << "\nPress Enter to continue to Interactive InputValidate tests...";
+    std::cin.get();
 
-	std::cout << "Future Date: ";
-	future.Print();
+    TestInputValidate();
 
-	std::cout << "Difference in Days: "
-		<< today.GetDifferenceInDays(future)
-		<< '\n';
+    std::cout << "\n==================================================\n";
+    std::cout << "         ALL SUITES EXECUTED SUCCESSFULLY!        \n";
+    std::cout << "==================================================\n";
 
-	today.AddOneDay();
-
-	std::cout << "Tomorrow: ";
-	today.Print();
-
-	std::cout << "\n========== Period ==========\n\n";
-
-	Period period1(Date(1, 7, 2026), Date(15, 7, 2026));
-	Period period2(Date(10, 7, 2026), Date(20, 7, 2026));
-
-	period1.Print();
-	std::cout << '\n';
-
-	period2.Print();
-	std::cout << '\n';
-
-	std::cout << "Overlap: "
-		<< (period1.IsOverLapWith(period2) ? "Yes" : "No")
-		<< '\n';
-
-	std::cout << "\n========== Util ==========\n\n";
-
-	std::cout << "Random Number: "
-		<< Util::RandomNumber(1, 100)
-		<< '\n';
-
-	std::cout << "Random Word: "
-		<< Util::GenerateWord(Util::MixChars, 8)
-		<< '\n';
-
-	std::cout << "Random Key: "
-		<< Util::GenerateKey()
-		<< '\n';
-
-	std::string encrypted = Util::EncryptText("Programming", 5);
-
-	std::cout << "Encrypted: " << encrypted << '\n';
-
-	std::cout << "Decrypted: "
-		<< Util::DecryptText(encrypted, 5)
-		<< '\n';
-
-	std::cout << "\n========== InputValidate ==========\n\n";
-
-	std::cout << "Enter your age (18 - 60): ";
-
-	int age = InputValidate::ReadNumberBetween(18, 60);
-
-	std::cout << "Age = " << age << '\n';
-
-	return 0;
+    return 0;
 }
