@@ -6,6 +6,8 @@
 #include "../Lib/Util.h"
 #include "../Lib/InputValidate.h"
 
+using namespace Core;
+
 int main()
 {
 	Util::Srand();
@@ -86,7 +88,7 @@ int main()
 
 	std::cout << "Enter your age (18 - 60): ";
 
-	int age = InputValidate::ReadIntNumberBetween(18, 60);
+	int age = InputValidate::ReadNumberBetween(18, 60);
 
 	std::cout << "Age = " << age << '\n';
 
