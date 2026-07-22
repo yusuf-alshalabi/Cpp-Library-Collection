@@ -102,6 +102,17 @@ namespace Core
 			return Choice == 'y';
 		}
 
+		static char ReadCharacter(std::string_view Message = "Enter a character:")
+		{
+			char Character;
+			std::cout << Message << " ";
+			std::cin >> Character;
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			return Character;
+		}
+
 		static std::string ReadString(std::string_view Message = "Enter a text:", std::string_view ErrorMessage = "Invalid input! Text cannot be empty.")
 		{
 			std::string Text;
