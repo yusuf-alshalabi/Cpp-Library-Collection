@@ -80,6 +80,28 @@ namespace Core
 			return Number;
 		}
 
+		static bool ReadYesNoOption(std::string_view Message = "Are you sure?")
+		{
+			char Choice;
+			do
+			{
+				std::cout << Message << " (Y/N): ";
+				std::cin >> Choice;
+
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+				Choice = static_cast<char>(std::tolower(static_cast<unsigned char>(Choice)));
+
+				if (Choice != 'y' && Choice != 'n')
+				{
+					std::cout << "Invalid choice! Please enter 'Y' or 'N'.\n";
+				}
+
+			} while (Choice != 'y' && Choice != 'n');
+
+			return Choice == 'y';
+		}
+
 		static bool IsValidDate(const Date& Date)
 		{
 			return	Date::IsValidDate(Date);
