@@ -87,9 +87,12 @@ namespace Core {
 			std::string Key = "";
 			Key.reserve(19); // Reserve space for the key (4 chars + 3 hyphens)
 
-			Key = GenerateWord(CharType, 4) + "-";
-			Key += GenerateWord(CharType, 4) + "-";
-			Key += GenerateWord(CharType, 4) + "-";
+			Key = GenerateWord(CharType, 4);
+			Key += "-";
+			Key += GenerateWord(CharType, 4);
+			Key += "-";
+			Key += GenerateWord(CharType, 4);
+			Key += "-";
 			Key += GenerateWord(CharType, 4);
 
 
