@@ -52,6 +52,22 @@ namespace Core
 		}
 
 		template <typename T = int>
+		static T ReadPositiveNumber(std::string_view ErrorMessage = "Invalid Number, Enter a positive number:")
+		{
+			T Number;
+			do
+			{
+				Number = ReadNumber<T>();
+				if (Number <= 0)
+				{
+					std::cout << ErrorMessage << "\n";
+				}
+			} while (Number <= 0);
+
+			return Number;
+		}
+
+		template <typename T = int>
 		static T ReadNumberBetween(T From, T To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
 			T Number = ReadNumber<T>();
