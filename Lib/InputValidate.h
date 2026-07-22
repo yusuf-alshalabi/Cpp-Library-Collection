@@ -131,6 +131,24 @@ namespace Core
 			return Text;
 		}
 
+		static Date ReadDate(std::string_view Message = "Enter Date (DD/MM/YYYY):",
+			std::string_view ErrorMessage = "Invalid Date Format or Calendar Date! Try again:")
+		{
+			Date date;
+			std::cout << Message << " ";
+
+			while (!(std::cin >> date))
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << ErrorMessage << "\n" << Message << " ";
+			}
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			return date;
+		}
+
 		static bool IsValidDate(const Date& Date)
 		{
 			return	Date::IsValidDate(Date);
