@@ -34,10 +34,16 @@ namespace Core
 			return date >= From && date <= To;
 		}
 
-		static int ReadIntNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
+		template <typename T = int>
+		static T ReadNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
 		{
-			int Number;
-			while (!(std::cin >> Number)) {
+			static_assert(std::is_integral_v<T> ||
+				std::is_floating_point_v<T>,
+				"ReadNumber accepts only numeric types!");
+
+			T Number;
+			while (!(std::cin >> Number))
+			{
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << ErrorMessage << "\n";
@@ -47,34 +53,23 @@ namespace Core
 
 		static int ReadIntNumberBetween(int From, int To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
-			int Number = ReadIntNumber();
+			int Number = ReadNumber<int>(ErrorMessage);
 
 			while (!IsNumberBetween(Number, From, To))
 			{
 				std::cout << ErrorMessage << "\n";
-				Number = ReadIntNumber();
-			}
-			return Number;
-		}
-
-		static double ReadDblNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
-		{
-			double Number;
-			while (!(std::cin >> Number)) {
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << ErrorMessage << "\n";
+				Number = ReadNumber<int>(ErrorMessage);
 			}
 			return Number;
 		}
 
 		static double ReadDblNumberBetween(double From, double To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
-			double Number = ReadDblNumber();
+			double Number = ReadNumber<double>(ErrorMessage);
 
 			while (!IsNumberBetween(Number, From, To)) {
 				std::cout << ErrorMessage << "\n";
-				Number = ReadDblNumber();
+				Number = ReadNumber<double>(ErrorMessage);
 			}
 			return Number;
 		}
