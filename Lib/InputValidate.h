@@ -70,13 +70,16 @@ namespace Core
 		template <typename T = int>
 		static T ReadNumberBetween(T From, T To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
-			T Number = ReadNumber<T>();
-
-			while (!IsNumberBetween(Number, From, To))
+			T Number;
+			do
 			{
-				std::cout << ErrorMessage << "\n";
 				Number = ReadNumber<T>();
-			}
+				if (!IsNumberBetween(Number, From, To))
+				{
+					std::cout << ErrorMessage << "\n";
+				}
+			} while (!IsNumberBetween(Number, From, To));
+
 			return Number;
 		}
 
