@@ -51,25 +51,15 @@ namespace Core
 			return Number;
 		}
 
-		static int ReadIntNumberBetween(int From, int To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
+		template <typename T = int>
+		static T ReadNumberBetween(T From, T To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
-			int Number = ReadNumber<int>(ErrorMessage);
+			T Number = ReadNumber<T>();
 
 			while (!IsNumberBetween(Number, From, To))
 			{
 				std::cout << ErrorMessage << "\n";
-				Number = ReadNumber<int>(ErrorMessage);
-			}
-			return Number;
-		}
-
-		static double ReadDblNumberBetween(double From, double To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
-		{
-			double Number = ReadNumber<double>(ErrorMessage);
-
-			while (!IsNumberBetween(Number, From, To)) {
-				std::cout << ErrorMessage << "\n";
-				Number = ReadNumber<double>(ErrorMessage);
+				Number = ReadNumber<T>();
 			}
 			return Number;
 		}
