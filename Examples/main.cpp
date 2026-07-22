@@ -116,6 +116,162 @@ void TestString()
     std::cout << "========================================\n";
 }
 
+void TestDate()
+{
+    std::cout << "========================================\n";
+    std::cout << "        Testing Core::Date Class        \n";
+    std::cout << "========================================\n\n";
+
+    // 1. Constructors & Getters/Setters
+    std::cout << "--- 1. Constructors & Properties ---\n";
+    Core::Date dSystem; // Default Constructor (System Date)
+    Core::Date dCustom(22, 7, 2026); // Day, Month, Year
+    Core::Date dString("15/08/2024"); // From String
+    Core::Date dDayOrder(200, 2024); // Day order in leap year
+
+    std::cout << "System Date: " << dSystem << "\n";
+    std::cout << "Custom Date (22/07/2026): " << dCustom << "\n";
+    std::cout << "Parsed String Date (15/08/2024): " << dString << "\n";
+    std::cout << "Date from Day Order 200/2024: " << dDayOrder << "\n";
+
+    // Testing Property/Getters/Setters
+    dCustom.Day = 10;
+    dCustom.Month = 12;
+    dCustom.Year = 2025;
+    std::cout << "Modified via Properties: " << dCustom.Day << "/"
+        << dCustom.Month << "/" << dCustom.Year << "\n\n";
+
+    // 2. Comparisons & Operators
+    std::cout << "--- 2. Comparisons & Relational Operators ---\n";
+    Core::Date d1(1, 1, 2025);
+    Core::Date d2(1, 1, 2025);
+    Core::Date d3(15, 6, 2026);
+
+    std::cout << "d1: " << d1 << " | d2: " << d2 << " | d3: " << d3 << "\n";
+    std::cout << "d1 == d2? " << (d1 == d2 ? "YES" : "NO") << "\n";
+    std::cout << "d1 != d3? " << (d1 != d3 ? "YES" : "NO") << "\n";
+    std::cout << "d1 < d3?  " << (d1 < d3 ? "YES" : "NO") << "\n";
+    std::cout << "d3 > d1?  " << (d3 > d1 ? "YES" : "NO") << "\n";
+    std::cout << "d1 <= d2? " << (d1 <= d2 ? "YES" : "NO") << "\n";
+    std::cout << "d3 >= d1? " << (d3 >= d1 ? "YES" : "NO") << "\n\n";
+
+    // 3. Date Arithmetic & Overloaded Operators
+    std::cout << "--- 3. Date Arithmetic (+, -, ++, --, +=, -=) ---\n";
+    Core::Date dBase(28, 2, 2024); // Leap year
+    std::cout << "Base Date: " << dBase << "\n";
+
+    Core::Date dPlus10 = dBase + 10;
+    std::cout << "dBase + 10 days: " << dPlus10 << "\n";
+
+    Core::Date dMinus5 = dBase - 5;
+    std::cout << "dBase - 5 days: " << dMinus5 << "\n";
+
+    dBase += 2;
+    std::cout << "dBase after += 2: " << dBase << "\n";
+
+    dBase -= 2;
+    std::cout << "dBase after -= 2: " << dBase << "\n";
+
+    std::cout << "Prefix ++dBase: " << ++dBase << "\n";
+    std::cout << "Postfix dBase++: " << dBase++ << "\n";
+    std::cout << "After Postfix ++: " << dBase << "\n";
+    std::cout << "Prefix --dBase: " << --dBase << "\n";
+    std::cout << "Postfix dBase--: " << dBase-- << "\n";
+    std::cout << "After Postfix --: " << dBase << "\n";
+
+    int diff = Core::Date(10, 3, 2026) - Core::Date(1, 3, 2026);
+    std::cout << "Difference (10/03/2026 - 01/03/2026): " << diff << " days\n\n";
+
+    // 4. Formatting & String Conversion
+    std::cout << "--- 4. String Conversions & Custom Formats ---\n";
+    Core::Date dFmt(5, 4, 2026);
+    std::cout << "Default (DD/MM/YYYY) : " << dFmt.ToString() << "\n";
+    std::cout << "Custom (YYYY-MM-DD)  : " << dFmt.ToString("YYYY-MM-DD") << "\n";
+    std::cout << "Full Month (D MMMM YY): " << dFmt.ToString("D MMMM YY") << "\n";
+    std::cout << "Short Month (DD/MMM/YYYY): " << dFmt.ToString("DD/MMM/YYYY") << "\n\n";
+
+    // 5. Leap Year & Time Unit Calculations
+    std::cout << "--- 5. Leap Year & Time Metrics ---\n";
+    short yearLeap = 2024, yearNormal = 2025;
+    std::cout << yearLeap << " Is Leap Year? " << (Core::Date::IsLeapYear(yearLeap) ? "YES" : "NO") << "\n";
+    std::cout << yearNormal << " Is Leap Year? " << (Core::Date::IsLeapYear(yearNormal) ? "YES" : "NO") << "\n";
+    std::cout << "Days in 2024: " << Core::Date::NumberOfDaysInAYear(2024) << "\n";
+    std::cout << "Hours in Feb 2024 (Leap): " << Core::Date::NumberOfHoursInAMonth(2, 2024) << "\n";
+    std::cout << "Minutes in 2025: " << Core::Date::NumberOfMinutesInAYear(2025) << "\n";
+    std::cout << "Seconds in Jan 2025: " << Core::Date::NumberOfSecondsInAMonth(1, 2025) << "\n\n";
+
+    // 6. Day & Month Metadata
+    std::cout << "--- 6. Day & Month Metadata ---\n";
+    Core::Date dMeta(22, 7, 2026);
+    std::cout << "Date: " << dMeta << "\n";
+    std::cout << "Day of Week Order (0=Sun): " << dMeta.DayOfWeekOrder() << "\n";
+    std::cout << "Day Short Name: " << dMeta.DayShortName() << "\n";
+    std::cout << "Day Full Name: " << dMeta.DayName() << "\n";
+    std::cout << "Month Short Name: " << dMeta.MonthShortName() << "\n";
+    std::cout << "Month Full Name: " << dMeta.MonthName() << "\n";
+    std::cout << "Day Order in Year: " << dMeta.DaysFromTheBeginingOfTheYear() << "\n";
+    std::cout << "Is Last Day in Month? " << (dMeta.IsLastDayInMonth() ? "YES" : "NO") << "\n\n";
+
+    // 7. Increasing & Decreasing Date Helpers
+    std::cout << "--- 7. Increasing & Decreasing Helpers ---\n";
+    Core::Date dShift(1, 1, 2026);
+    std::cout << "Start Date: " << dShift << "\n";
+
+    dShift.IncreaseDateByOneWeek();
+    std::cout << "After +1 Week: " << dShift << "\n";
+
+    dShift.IncreaseDateByXMonths(5);
+    std::cout << "After +5 Months: " << dShift << "\n";
+
+    dShift.IncreaseDateByOneYear();
+    std::cout << "After +1 Year: " << dShift << "\n";
+
+    dShift.IncreaseDateByOneDecade();
+    std::cout << "After +1 Decade: " << dShift << "\n";
+
+    dShift.DecreaseDateByOneCentury();
+    std::cout << "After -1 Century: " << dShift << "\n\n";
+
+    // 8. Business Days, Weekends & Vacations
+    std::cout << "--- 8. Business Days & Vacation Logic ---\n";
+    Core::Date dFri(24, 7, 2026); // Friday
+    std::cout << "Date (24/07/2026 - Friday): " << dFri << "\n";
+    std::cout << "Is End of Week (Sat)? " << (dFri.IsEndOfWeek() ? "YES" : "NO") << "\n";
+    std::cout << "Is Weekend (Fri/Sat)? " << (dFri.IsWeekEnd() ? "YES" : "NO") << "\n";
+    std::cout << "Is Business Day? " << (dFri.IsBusinessDay() ? "YES" : "NO") << "\n";
+
+    Core::Date vStart(1, 8, 2026);
+    Core::Date vEnd(15, 8, 2026);
+    std::cout << "Business Days between " << vStart << " and " << vEnd << ": "
+        << Core::Date::CalculateBusinessDays(vStart, vEnd) << " days\n";
+
+    Core::Date returnDate = Core::Date::CalculateVacationReturnDate(vStart, 7);
+    std::cout << "Return Date for 7 Business Days Vacation starting " << vStart << ": " << returnDate << "\n\n";
+
+    // 9. Swap, Remaining Days & Validation
+    std::cout << "--- 9. Swap, Countdown & Validation ---\n";
+    Core::Date dSwap1(1, 1, 2020), dSwap2(31, 12, 2030);
+    std::cout << "Before Swap -> d1: " << dSwap1 << ", d2: " << dSwap2 << "\n";
+    Core::Date::SwapDates(dSwap1, dSwap2);
+    std::cout << "After Swap  -> d1: " << dSwap1 << ", d2: " << dSwap2 << "\n";
+
+    Core::Date dMidYear(1, 7, 2026);
+    std::cout << "Days until end of month from " << dMidYear << ": " << dMidYear.DaysUntilTheEndOfMonth() << "\n";
+    std::cout << "Days until end of year from " << dMidYear << ": " << dMidYear.DaysUntilTheEndOfYear() << "\n";
+
+    Core::Date dInvalidTest(31, 2, 2026); // Invalid date test object
+    std::cout << "Is 31/02/2026 Valid? " << (Core::Date::IsValidDate(dInvalidTest) ? "YES" : "NO") << "\n\n";
+
+    // 10. Calendars Output
+    std::cout << "--- 10. Calendar Printing ---\n";
+    std::cout << "Month Calendar Test (July 2026):";
+    Core::Date(1, 7, 2026).PrintMonthCalendar();
+
+    std::cout << "\n========================================\n";
+    std::cout << "       Date Tests Completed!            \n";
+    std::cout << "========================================\n";
+}
+
 void TestInputValidate()
 {
     std::cout << "========================================\n";
