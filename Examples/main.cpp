@@ -77,6 +77,93 @@ void TestInputValidate()
     std::cout << "========================================\n";
 }
 
+void TestUtil()
+{
+    // 1. Seed Random Generator
+    Util::Srand();
+
+    std::cout << "========================================\n";
+    std::cout << "       Testing Core::Util Class         \n";
+    std::cout << "========================================\n\n";
+
+    // 2. Test RandomNumber
+    std::cout << "--- 1. Testing RandomNumber ---\n";
+    std::cout << "Random Number between 1 and 100: " << Util::RandomNumber(1, 100) << "\n";
+    std::cout << "Random Number between -50 and 50: " << Util::RandomNumber(-50, 50) << "\n\n";
+
+    // 3. Test GetRandomCharacter
+    std::cout << "--- 2. Testing GetRandomCharacter ---\n";
+    std::cout << "Small Letter: " << Util::GetRandomCharacter(Util::SmallLetter) << "\n";
+    std::cout << "Capital Letter: " << Util::GetRandomCharacter(Util::CapitalLetter) << "\n";
+    std::cout << "Digit: " << Util::GetRandomCharacter(Util::Digit) << "\n";
+    std::cout << "Special Character: " << Util::GetRandomCharacter(Util::SpecialCharacter) << "\n";
+    std::cout << "Mix Character: " << Util::GetRandomCharacter(Util::MixChars) << "\n\n";
+
+    // 4. Test GenerateWord & GenerateKey & PrintKeys
+    std::cout << "--- 3. Testing Words & Keys Generation ---\n";
+    std::cout << "Generated Word (8 chars, Mixed): " << Util::GenerateWord(Util::MixChars, 8) << "\n";
+    std::cout << "Generated Key (Default): " << Util::GenerateKey() << "\n";
+    std::cout << "Printing 3 Keys:\n";
+    Util::PrintKeys(3, Util::CapitalLetter);
+    std::cout << "\n";
+
+    // 5. Test FillArray Methods & ShuffleArray
+    std::cout << "--- 4. Testing Array Operations & Shuffle ---\n";
+    constexpr size_t ARR_SIZE = 5;
+
+    int intArr[ARR_SIZE];
+    Util::FillArrayWithRandomNumbers(intArr, ARR_SIZE, 10, 99);
+    std::cout << "Random Int Array: ";
+    for (int val : intArr) std::cout << val << " ";
+    std::cout << "\n";
+
+    Util::ShuffleArray(intArr, ARR_SIZE);
+    std::cout << "Shuffled Int Array: ";
+    for (int val : intArr) std::cout << val << " ";
+    std::cout << "\n\n";
+
+    std::string wordArr[ARR_SIZE];
+    Util::FillArrayWithRandomWords(wordArr, ARR_SIZE, Util::CapitalLetter, 5);
+    std::cout << "Random Words Array: ";
+    for (const auto& w : wordArr) std::cout << w << " ";
+    std::cout << "\n\n";
+
+    std::string keyArr[ARR_SIZE];
+    Util::FillArrayWithRandomKeys(keyArr, ARR_SIZE, Util::CapitalLetter);
+    std::cout << "Random Keys Array:\n";
+    for (size_t i = 0; i < ARR_SIZE; ++i)
+    {
+        std::cout << "  [" << i << "] " << keyArr[i] << "\n";
+    }
+    std::cout << "\n";
+
+    // 6. Test Swap
+    std::cout << "--- 5. Testing Swap ---\n";
+    int a = 10, b = 20;
+    std::cout << "Before Swap: a = " << a << ", b = " << b << "\n";
+    Util::Swap(a, b);
+    std::cout << "After Swap : a = " << a << ", b = " << b << "\n\n";
+
+    // 7. Test Tabs
+    std::cout << "--- 6. Testing Tabs ---\n";
+    std::cout << "Line Start" << Util::Tabs(3) << "Line After 3 Tabs\n\n";
+
+    // 8. Test EncryptText & DecryptText
+    std::cout << "--- 7. Testing Encryption & Decryption ---\n";
+    std::string originalText = "Programming Modern C++ 2026";
+    short key = 5;
+    std::string encrypted = Util::EncryptText(originalText, key);
+    std::string decrypted = Util::DecryptText(encrypted, key);
+
+    std::cout << "Original Text : " << originalText << "\n";
+    std::cout << "Encrypted Text: " << encrypted << "\n";
+    std::cout << "Decrypted Text: " << decrypted << "\n\n";
+
+    std::cout << "========================================\n";
+    std::cout << "      All Tests Completed Successfully! \n";
+    std::cout << "========================================\n";
+}
+
 int main()
 {
 	Util::Srand();
