@@ -9,28 +9,54 @@ namespace Core
 
 	private:
 
+		Date _StartDate;
+		Date _EndDate;
+
 		void Normalize()
 		{
-			if (StartDate > EndDate)
+			if (_StartDate > _EndDate)
 			{
-				Date::SwapDates(StartDate, EndDate);
+				Date::SwapDates(_StartDate, _EndDate);
 			}
 		}
 
 	public:
 
-		Date StartDate;
-		Date EndDate;
+		Period() :_StartDate(Date()), _EndDate(Date()){}
 
 		Period(const Date& StartDate, const Date& EndDate)
-			: StartDate(StartDate), EndDate(EndDate)
+			: _StartDate(StartDate), _EndDate(EndDate)
 		{
+			Normalize();
+		}
+
+		__declspec(property(get = GetStartDate, put = SetStartDate)) Date StartDate;
+		__declspec(property(get = GetEndDate, put = SetEndDate)) Date EndDate;
+
+		Date GetStartDate() const { return _StartDate; }
+		void SetStartDate(const Date& Value)
+		{
+			_StartDate = Value;
+			Normalize(); 
+		}
+
+		Date GetEndDate() const { return _EndDate; }
+		void SetEndDate(const Date& Value)
+		{
+			_EndDate = Value;
+			Normalize(); 
+		}
+
+		void SetPeriod(const Date& StartDate, const Date& EndDate)
+		{
+			_StartDate = StartDate;
+			_EndDate = EndDate;
 			Normalize();
 		}
 
 		bool operator==(const Period& Other) const
 		{
-			return (this->StartDate == Other.StartDate && this->EndDate == Other.EndDate);
+			return (this->_StartDate == Other._StartDate && this->_EndDate == Other._EndDate);
 		}
 
 		bool operator!=(const Period& Other) const
@@ -46,19 +72,19 @@ namespace Core
 
 		friend std::istream& operator>>(std::istream& In, Period& PeriodObj)
 		{
-			In >> PeriodObj.StartDate >> PeriodObj.EndDate;
+			In >> PeriodObj._StartDate >> PeriodObj._EndDate;
 			PeriodObj.Normalize();
 			return In;
 		}
 
 		int PeriodLengthInDays(bool IncludeEndDay = true) const
 		{
-			return Date::GetDifferenceInDays(StartDate, EndDate, IncludeEndDay);
+			return Date::GetDifferenceInDays(_StartDate, _EndDate, IncludeEndDay);
 		}
 
 		static bool IsDateInPeriod(const Date& DateToCheck, const Period& PeriodToCheck)
 		{
-			return !(DateToCheck < PeriodToCheck.StartDate || DateToCheck > PeriodToCheck.EndDate);
+			return !(DateToCheck < PeriodToCheck._StartDate || DateToCheck > PeriodToCheck._EndDate);
 		}
 
 		bool IsDateInPeriod(const Date& DateToCheck) const
@@ -68,7 +94,7 @@ namespace Core
 
 		static bool IsOverlapPeriods(const Period& Period1, const Period& Period2)
 		{
-			return !(Period2.EndDate < Period1.StartDate || Period2.StartDate > Period1.EndDate);
+			return !(Period2._EndDate < Period1._StartDate || Period2._StartDate > Period1._EndDate);
 		}
 
 
@@ -79,8 +105,8 @@ namespace Core
 
 		void Print(std::ostream& Out = std::cout) const
 		{
-			Out << "Period Start: " << StartDate.ToString() << "\n";
-			Out << "Period End: " << EndDate.ToString() << "\n";
+			Out << "Period Start: " << _StartDate.ToString() << "\n";
+			Out << "Period End: " << _EndDate.ToString() << "\n";
 		}
 
 	};
