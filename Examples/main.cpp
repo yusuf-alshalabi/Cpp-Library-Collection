@@ -8,6 +8,114 @@
 
 using namespace Core;
 
+void TestString()
+{
+    std::cout << "========================================\n";
+    std::cout << "      Testing Core::String Class        \n";
+    std::cout << "========================================\n\n";
+
+    // 1. Constructors & Assignment Operators
+    std::cout << "--- 1. Testing Constructors & Operators ---\n";
+    String s1("Hello World");
+    String s2 = ", C++ 2026!";
+    String s3 = s1 + s2;
+
+    std::cout << "s1: " << s1 << "\n";
+    std::cout << "s2: " << s2 << "\n";
+    std::cout << "s3 (s1 + s2): " << s3 << "\n";
+
+    s1 += " Programming";
+    std::cout << "s1 after += : " << s1 << "\n";
+    std::cout << "s1[0]: " << s1[0] << ", s1.At(4): " << s1.At(4) << "\n";
+    std::cout << "Is s1 == s2? " << (s1 == s2 ? "YES" : "NO") << "\n\n";
+
+    // 2. Case Conversion & Formatting
+    std::cout << "--- 2. Testing Case Conversions ---\n";
+    String titleText("welcome to c++ programming library");
+    std::cout << "Original Text: " << titleText << "\n";
+
+    titleText.UpperFirstLetterOfEachWord();
+    std::cout << "Title Case: " << titleText << "\n";
+
+    titleText.UpperAllString();
+    std::cout << "Upper All: " << titleText << "\n";
+
+    titleText.LowerAllString();
+    std::cout << "Lower All: " << titleText << "\n";
+
+    titleText.InvertAllLettersCase();
+    std::cout << "Inverted Case: " << titleText << "\n\n";
+
+    // 3. Trim, Modifications & In-place Mutations
+    std::cout << "--- 3. Testing Trimming & Transformations ---\n";
+    String padded("   --- Hello C++ World! ---   ");
+    std::cout << "Padded String: [" << padded << "]\n";
+
+    padded.Trim();
+    std::cout << "Trimmed String: [" << padded << "]\n";
+
+    padded.RemovePunctuations();
+    std::cout << "Punctuation Removed: [" << padded << "]\n";
+
+    padded.ReplaceWord("Hello", "Welcome");
+    std::cout << "Word Replaced: " << padded << "\n";
+
+    padded.ReverseWordsInString();
+    std::cout << "Reversed Words: " << padded << "\n\n";
+
+    // 4. Searching, Inspections & Substrings
+    std::cout << "--- 4. Testing Inspections & Searching ---\n";
+    String sample("cpp-library-collection.cpp");
+    std::cout << "Sample String: " << sample << "\n";
+    std::cout << "Length: " << sample.Length() << "\n";
+    std::cout << "Count Words: " << sample.CountWords() << "\n";
+    std::cout << "Contains 'library'? " << (sample.Contains("library") ? "YES" : "NO") << "\n";
+    std::cout << "StartsWith 'cpp'? " << (sample.StartsWith("cpp") ? "YES" : "NO") << "\n";
+    std::cout << "EndsWith '.cpp'? " << (sample.EndsWith(".cpp") ? "YES" : "NO") << "\n";
+    std::cout << "First Index of 'p': " << sample.IndexOf('p') << "\n";
+    std::cout << "Last Index of 'p': " << sample.LastIndexOf('p') << "\n";
+    std::cout << "TakeFirst(3): " << sample.TakeFirst(3) << "\n";
+    std::cout << "TakeLast(4): " << sample.TakeLast(4) << "\n";
+    std::cout << "Substring(4, 7): " << sample.Substring(4, 7) << "\n\n";
+
+    // 5. Character Counting & Categorization
+    std::cout << "--- 5. Testing Character Counting ---\n";
+    String metrics("User_Name123 @2026!");
+    std::cout << "Metrics Text: " << metrics << "\n";
+    std::cout << "Capital Letters: " << metrics.CountCapitalLetters() << "\n";
+    std::cout << "Small Letters  : " << metrics.CountSmallLetters() << "\n";
+    std::cout << "Digits         : " << metrics.CountDigits() << "\n";
+    std::cout << "Spaces         : " << metrics.CountSpaces() << "\n";
+    std::cout << "Punctuations   : " << metrics.CountPunctuations() << "\n";
+    std::cout << "Vowels         : " << metrics.CountVowels() << "\n";
+    std::cout << "Specific Letter 'e' (Case Insensitive): "
+        << metrics.CountSpecificLetter('e', false) << "\n\n";
+
+    // 6. Splitting, Joining & Palindrome
+    std::cout << "--- 6. Testing Split, Join & Palindrome ---\n";
+    String csvData("Apple,Banana,Cherry,Date");
+    std::cout << "CSV String: " << csvData << "\n";
+
+    std::vector<std::string> fruits = csvData.Split(",");
+    std::cout << "Splitted Vector (" << fruits.size() << " items):\n";
+    for (const auto& fruit : fruits)
+    {
+        std::cout << " - " << fruit << "\n";
+    }
+
+    std::string joined = String::JoinString(fruits, " | ");
+    std::cout << "Joined Back: " << joined << "\n";
+
+    String pal1("A man, a plan, a canal: Panama");
+    String pal2("Hello World");
+    std::cout << "Is [" << pal1 << "] Palindrome? " << (pal1.IsPalindrome() ? "YES" : "NO") << "\n";
+    std::cout << "Is [" << pal2 << "] Palindrome? " << (pal2.IsPalindrome() ? "YES" : "NO") << "\n\n";
+
+    std::cout << "========================================\n";
+    std::cout << "      All Tests Completed Successfully! \n";
+    std::cout << "========================================\n";
+}
+
 void TestInputValidate()
 {
     std::cout << "========================================\n";

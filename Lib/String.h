@@ -22,12 +22,17 @@ namespace Core
 		String() = default;
 		~String() = default;
 
+		String(const char* Value)
+			: _Value(Value ? Value : "")
+		{
+		}
+
 		String(const std::string& Value)
 			: _Value(Value)
 		{
 		}
 
-		String(std::string&& Value)
+		String(std::string&& Value) noexcept
 			: _Value(std::move(Value))
 		{
 		}
@@ -108,21 +113,9 @@ namespace Core
 			return String(_Value + Other._Value);
 		}
 
-		String operator+(const std::string& Other) const
-		{
-			return String(_Value + Other);
-		}
-
 		String& operator+=(const String& Other)
 		{
 			_Value += Other._Value;
-
-			return *this;
-		}
-
-		String& operator+=(const std::string& Other)
-		{
-			_Value += Other;
 
 			return *this;
 		}
