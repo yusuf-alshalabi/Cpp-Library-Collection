@@ -4,102 +4,105 @@
 #include <limits>
 #include "Date.h"
 
-class InputValidate
+namespace Core
 {
-
-public:
-
-	static bool IsNumberBetween(short Number, short From, short To)
+	class InputValidate
 	{
-		return Number >= From && Number <= To;
-	}
 
-	static bool IsNumberBetween(int Number, int From, int To)
-	{
-		return Number >= From && Number <= To;
-	}
+	public:
 
-	static bool IsNumberBetween(float Number, float From, float To)
-	{
-		return Number >= From && Number <= To;
-	}
-
-	static bool IsNumberBetween(double Number, double From, double To)
-	{
-		return Number >= From && Number <= To;
-	}
-
-	static bool IsDateBetween(const Date& date, const Date& From, const Date& To)
-	{
-		//Date>=From && Date<=To  
-		if ((Date::IsDateAfterDate(date, From) || Date::IsDateEqualDate(date, From))
-			&&
-			(Date::IsDateBeforeDate(date, To) || Date::IsDateEqualDate(date, To))
-			)
+		static bool IsNumberBetween(short Number, short From, short To)
 		{
-			return true;
+			return Number >= From && Number <= To;
 		}
 
-		//Date>=To && Date<=From  
-		if ((Date::IsDateAfterDate(date, To) || Date::IsDateEqualDate(date, To))
-			&&
-			(Date::IsDateBeforeDate(date, From) || Date::IsDateEqualDate(date, From))
-			)
+		static bool IsNumberBetween(int Number, int From, int To)
 		{
-			return true;
+			return Number >= From && Number <= To;
 		}
 
-		return false;
-	}
-
-	static int ReadIntNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
-	{
-		int Number;
-		while (!(std::cin >> Number)) {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << ErrorMessage;
-		}
-		return Number;
-	}
-
-	static int ReadIntNumberBetween(int From, int To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
-	{
-		int Number = ReadIntNumber();
-
-		while (!IsNumberBetween(Number, From, To))
+		static bool IsNumberBetween(float Number, float From, float To)
 		{
-			std::cout << ErrorMessage;
-			Number = ReadIntNumber();
+			return Number >= From && Number <= To;
 		}
-		return Number;
-	}
 
-	static double ReadDblNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
-	{
-		double Number;
-		while (!(std::cin >> Number)) {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << ErrorMessage;
+		static bool IsNumberBetween(double Number, double From, double To)
+		{
+			return Number >= From && Number <= To;
 		}
-		return Number;
-	}
 
-	static double ReadDblNumberBetween(double From, double To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
-	{
-		double Number = ReadDblNumber();
+		static bool IsDateBetween(const Date& date, const Date& From, const Date& To)
+		{
+			//Date>=From && Date<=To  
+			if ((Date::IsDateAfterDate(date, From) || Date::IsDateEqualDate(date, From))
+				&&
+				(Date::IsDateBeforeDate(date, To) || Date::IsDateEqualDate(date, To))
+				)
+			{
+				return true;
+			}
 
-		while (!IsNumberBetween(Number, From, To)) {
-			std::cout << ErrorMessage;
-			Number = ReadDblNumber();
+			//Date>=To && Date<=From  
+			if ((Date::IsDateAfterDate(date, To) || Date::IsDateEqualDate(date, To))
+				&&
+				(Date::IsDateBeforeDate(date, From) || Date::IsDateEqualDate(date, From))
+				)
+			{
+				return true;
+			}
+
+			return false;
 		}
-		return Number;
-	}
 
-	static bool IsValidDate(const Date& Date)
-	{
-		return	Date::IsValidDate(Date);
-	}
+		static int ReadIntNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
+		{
+			int Number;
+			while (!(std::cin >> Number)) {
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << ErrorMessage;
+			}
+			return Number;
+		}
 
-};
+		static int ReadIntNumberBetween(int From, int To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
+		{
+			int Number = ReadIntNumber();
+
+			while (!IsNumberBetween(Number, From, To))
+			{
+				std::cout << ErrorMessage;
+				Number = ReadIntNumber();
+			}
+			return Number;
+		}
+
+		static double ReadDblNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
+		{
+			double Number;
+			while (!(std::cin >> Number)) {
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << ErrorMessage;
+			}
+			return Number;
+		}
+
+		static double ReadDblNumberBetween(double From, double To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
+		{
+			double Number = ReadDblNumber();
+
+			while (!IsNumberBetween(Number, From, To)) {
+				std::cout << ErrorMessage;
+				Number = ReadDblNumber();
+			}
+			return Number;
+		}
+
+		static bool IsValidDate(const Date& Date)
+		{
+			return	Date::IsValidDate(Date);
+		}
+
+	};
+}
