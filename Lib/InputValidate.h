@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <limits>
 #include <type_traits>
 #include "Date.h"
@@ -33,46 +34,46 @@ namespace Core
 			return date >= From && date <= To;
 		}
 
-		static int ReadIntNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
+		static int ReadIntNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
 		{
 			int Number;
 			while (!(std::cin >> Number)) {
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << ErrorMessage;
+				std::cout << ErrorMessage << "\n";
 			}
 			return Number;
 		}
 
-		static int ReadIntNumberBetween(int From, int To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
+		static int ReadIntNumberBetween(int From, int To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
 			int Number = ReadIntNumber();
 
 			while (!IsNumberBetween(Number, From, To))
 			{
-				std::cout << ErrorMessage;
+				std::cout << ErrorMessage << "\n";
 				Number = ReadIntNumber();
 			}
 			return Number;
 		}
 
-		static double ReadDblNumber(const std::string& ErrorMessage = "Invalid Number, Enter again\n")
+		static double ReadDblNumber(std::string_view ErrorMessage = "Invalid Number, Enter again")
 		{
 			double Number;
 			while (!(std::cin >> Number)) {
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << ErrorMessage;
+				std::cout << ErrorMessage << "\n";
 			}
 			return Number;
 		}
 
-		static double ReadDblNumberBetween(double From, double To, const std::string& ErrorMessage = "Number is not within range, Enter again:\n")
+		static double ReadDblNumberBetween(double From, double To, std::string_view ErrorMessage = "Number is not within range, Enter again:")
 		{
 			double Number = ReadDblNumber();
 
 			while (!IsNumberBetween(Number, From, To)) {
-				std::cout << ErrorMessage;
+				std::cout << ErrorMessage << "\n";
 				Number = ReadDblNumber();
 			}
 			return Number;
