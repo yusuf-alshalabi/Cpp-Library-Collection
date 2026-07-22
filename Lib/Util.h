@@ -9,6 +9,16 @@
 namespace Core {
 	class Util
 	{
+	private:
+		// ASCII character ranges for better readability
+		static constexpr int ASCII_LOWERCASE_A = 97;
+		static constexpr int ASCII_LOWERCASE_Z = 122;
+		static constexpr int ASCII_UPPERCASE_A = 65;
+		static constexpr int ASCII_UPPERCASE_Z = 90;
+		static constexpr int ASCII_DIGIT_0 = 48;
+		static constexpr int ASCII_DIGIT_9 = 57;
+		static constexpr int ASCII_SPECIAL_START = 33;
+		static constexpr int ASCII_SPECIAL_END = 47;
 
 	public:
 		enum enCharType {
@@ -30,39 +40,23 @@ namespace Core {
 
 		static char GetRandomCharacter(enCharType CharType)
 		{
-
-			//updated this method to accept mixchars  
 			if (CharType == MixChars)
 			{
-				//Capital/Samll/Digits only  
 				CharType = (enCharType)RandomNumber(1, 3);
-
 			}
 
 			switch (CharType)
 			{
-
 			case enCharType::SmallLetter:
-			{
-				return char(RandomNumber(97, 122));
-			}
+				return char(RandomNumber(ASCII_LOWERCASE_A, ASCII_LOWERCASE_Z));
 			case enCharType::CapitalLetter:
-			{
-				return char(RandomNumber(65, 90));
-			}
+				return char(RandomNumber(ASCII_UPPERCASE_A, ASCII_UPPERCASE_Z));
 			case enCharType::SpecialCharacter:
-			{
-				return char(RandomNumber(33, 47));
-			}
+				return char(RandomNumber(ASCII_SPECIAL_START, ASCII_SPECIAL_END));
 			case enCharType::Digit:
-			{
-				return char(RandomNumber(48, 57));
-			}
+				return char(RandomNumber(ASCII_DIGIT_0, ASCII_DIGIT_9));
 			default:
-			{
-				return char(RandomNumber(65, 90));
-				break;
-			}
+				return char(RandomNumber(ASCII_UPPERCASE_A, ASCII_UPPERCASE_Z));
 			}
 		}
 
