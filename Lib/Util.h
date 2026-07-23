@@ -32,10 +32,23 @@ namespace Core {
 			srand((unsigned)time(NULL));
 		}
 
-		static  int RandomNumber(int From, int To)
+		static int RandomNumber(int From, int To)
 		{
-			//Function to generate a random number  
-			return rand() % (To - From + 1) + From;
+			if (From == To)
+			{
+				return From;
+			}
+
+			if (From > To)
+			{
+				Swap(From, To);
+			}
+
+			long long range = static_cast<long long>(To) - From + 1;
+
+			long long randomOffset = std::abs(static_cast<long long>(rand())) % range;
+
+			return static_cast<int>(From + randomOffset);
 		}
 
 		static char GetRandomCharacter(enCharType CharType)
