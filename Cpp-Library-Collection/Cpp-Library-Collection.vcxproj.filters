@@ -35,5 +35,8 @@
     <ClInclude Include="..\Lib\Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Tests\TestRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

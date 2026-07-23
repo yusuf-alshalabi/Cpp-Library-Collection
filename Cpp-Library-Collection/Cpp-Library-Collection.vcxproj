@@ -27,6 +27,7 @@
     <ClInclude Include="..\Lib\Period.h" />
     <ClInclude Include="..\Lib\String.h" />
     <ClInclude Include="..\Lib\Util.h" />
+    <ClInclude Include="..\Tests\TestRunner.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
