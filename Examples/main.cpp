@@ -31,20 +31,20 @@ void TestString()
 
     // 2. Case Conversion & Formatting
     std::cout << "--- 2. Testing Case Conversions ---\n";
-    String titleText("welcome to c++ programming library");
+    String titleText("WeLcOmE To C++ PrOgRaMmInG");
     std::cout << "Original Text: " << titleText << "\n";
 
+    titleText.InvertAllLettersCase();
+    std::cout << "Inverted Case: " << titleText << "\n";
+
     titleText.UpperFirstLetterOfEachWord();
-    std::cout << "Title Case: " << titleText << "\n";
+    std::cout << "Title Case:    " << titleText << "\n";
 
     titleText.UpperAllString();
-    std::cout << "Upper All: " << titleText << "\n";
+    std::cout << "Upper All:     " << titleText << "\n";
 
     titleText.LowerAllString();
-    std::cout << "Lower All: " << titleText << "\n";
-
-    titleText.InvertAllLettersCase();
-    std::cout << "Inverted Case: " << titleText << "\n\n";
+    std::cout << "Lower All:     " << titleText << "\n\n";
 
     // 3. Trim, Modifications & In-place Mutations
     std::cout << "--- 3. Testing Trimming & Transformations ---\n";
