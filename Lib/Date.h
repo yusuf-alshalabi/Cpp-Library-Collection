@@ -1143,7 +1143,7 @@ namespace Core
 			EndOfMontDate.Month = Date1.Month;
 			EndOfMontDate.Year = Date1.Year;
 
-			return GetDifferenceInDays(Date1, EndOfMontDate, true);
+			return GetDifferenceInDays(Date1, EndOfMontDate, false);
 
 		}
 
@@ -1160,7 +1160,7 @@ namespace Core
 			EndOfYearDate.Month = 12;
 			EndOfYearDate.Year = Date1.Year;
 
-			return GetDifferenceInDays(Date1, EndOfYearDate, true);
+			return GetDifferenceInDays(Date1, EndOfYearDate, false);
 
 		}
 
