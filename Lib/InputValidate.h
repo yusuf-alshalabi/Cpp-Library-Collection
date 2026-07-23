@@ -140,17 +140,37 @@ namespace Core
 			std::string_view ErrorMessage = "Invalid Date Format or Calendar Date! Try again:")
 		{
 			Date date;
+			bool isValid = false;
+
 			std::cout << Message << " ";
 
-			while (!(std::cin >> date))
+			while (!isValid)
 			{
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << ErrorMessage << "\n" << Message << " ";
+				try
+				{ 
+					if(std::cin >> date)
+					{ 
+						isValid = true;
+					}
+					else
+					{
+						std::cin.clear();
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+						std::cout << ErrorMessage << "\n" << Message << " ";
+					}
+				}
+				catch(const std::invalid_argument&)
+				{
+					std::cin.clear();
+					std::cout << ErrorMessage << "\n" << Message << " ";
+				}
+				catch (...)
+				{
+					std::cin.clear();
+					std::cout << ErrorMessage << "\n" << Message << " ";
+				}
 			}
-
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 			return date;
 		}
 
