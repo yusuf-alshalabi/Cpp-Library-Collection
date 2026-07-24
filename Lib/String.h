@@ -640,29 +640,53 @@ namespace Core
 			if (vString.empty())
 				return "";
 
-			std::string S1;
-
-			for (const std::string& s : vString)
+			size_t TotalLength = 0;
+			for (const auto& s : vString)
 			{
-				S1 += s + Delim;
+				TotalLength += s.length();
+			}
+			TotalLength += Delim.length() * (vString.size() - 1);
+
+			std::string Result;
+			Result.reserve(TotalLength);
+
+			for (size_t i = 0; i < vString.size(); ++i)
+			{
+				Result += vString[i];
+				if (i + 1 < vString.size())
+				{
+					Result += Delim;
+				}
 			}
 
-			return S1.substr(0, S1.length() - Delim.length());
+			return Result;
 		}
 
 		static std::string JoinString(const std::string arrString[], size_t Length, const std::string& Delim)
 		{
-			if (Length <= 0)
+			if (Length == 0)
 				return "";
 
-			std::string S1;
-
-			for (size_t i = 0; i < Length; i++)
+			size_t TotalLength = 0;
+			for (size_t i = 0; i < Length; ++i)
 			{
-				S1 += arrString[i] + Delim;
+				TotalLength += arrString[i].length();
+			}
+			TotalLength += Delim.length() * (Length - 1);
+
+			std::string Result;
+			Result.reserve(TotalLength);
+
+			for (size_t i = 0; i < Length; ++i)
+			{
+				Result += arrString[i];
+				if (i + 1 < Length)
+				{
+					Result += Delim;
+				}
 			}
 
-			return S1.substr(0, S1.length() - Delim.length());
+			return Result;
 		}
 
 		static std::string TrimLeft(const std::string& S1)
