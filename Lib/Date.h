@@ -410,36 +410,17 @@ namespace Core
 			return Date();
 		}
 
-		static	bool IsValidDate(const Date& Date)
+		static bool IsValidDate(const Date& Date)
 		{
-
-			if (Date.Day < 1 || Date.Day>31)
+			if (Date._Year < 1)
 				return false;
 
-			if (Date.Month < 1 || Date.Month>12)
+			if (Date._Month < 1 || Date._Month > 12)
 				return false;
 
-			if (Date.Month == 2)
-			{
-				if (IsLeapYear(Date.Year))
-				{
-					if (Date.Day > 29)
-						return false;
-				}
-				else
-				{
-					if (Date.Day > 28)
-						return false;
-				}
-			}
+			short DaysInMonth = NumberOfDaysInAMonth(Date._Month, Date._Year);
 
-			short DaysInMonth = NumberOfDaysInAMonth(Date.Month, Date.Year);
-
-			if (Date.Day > DaysInMonth)
-				return false;
-
-			return true;
-
+			return (Date._Day >= 1 && Date._Day <= DaysInMonth);
 		}
 
 		bool IsValid()const
