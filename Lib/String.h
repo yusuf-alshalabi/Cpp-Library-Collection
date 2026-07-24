@@ -167,9 +167,6 @@ namespace Core
 			return _Value;
 		}
 
-		__declspec(property(get = GetValue, put = SetValue)) std::string Value;
-
-
 		static size_t Length(const std::string& S1) {
 			return S1.length();
 		}
