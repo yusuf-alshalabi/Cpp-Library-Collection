@@ -145,17 +145,16 @@ namespace Core {
 		}
 
 		template<typename T>
-		static  void ShuffleArray(T arr[], size_t arrLength)
+		static void ShuffleArray(T arr[], size_t arrLength)
 		{
 			if (arrLength <= 1)
 				return;
 
 			for (size_t i = arrLength - 1; i > 0; i--)
 			{
-				int randomIndex = RandomNumber(0, static_cast<int>(i));
+				size_t randomIndex = static_cast<size_t>(RandomNumber(0, static_cast<int>(i)));
 				Swap(arr[i], arr[randomIndex]);
 			}
-
 		}
 
 		static std::string  Tabs(short NumberOfTabs)
