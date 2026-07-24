@@ -185,15 +185,10 @@ namespace Core {
 
 		static std::string  Tabs(short NumberOfTabs)
 		{
-			std::string t = "";
-			t.reserve(NumberOfTabs);
+			if (NumberOfTabs <= 0)
+				return "";
 
-			for (short i = 0; i < NumberOfTabs; i++)
-			{
-				t += "\t";
-			}
-			return t;
-
+			return std::string(static_cast<size_t>(NumberOfTabs), '\t');
 		}
 
 		static std::string  EncryptText(const std::string& Text, short EncryptionKey)
