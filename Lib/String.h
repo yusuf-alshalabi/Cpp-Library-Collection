@@ -332,52 +332,53 @@ namespace Core
 			return EndsWith(_Value, Suffix);
 		}
 
-		static std::string  UpperFirstLetterOfEachWord(std::string S1)
+		static std::string  UpperFirstLetterOfEachWord(const std::string& S1)
 		{
 
 			bool isFirstLetter = true;
 
 			const size_t Length = S1.length();
+			std::string Result = S1; // Create a copy to modify
 			for (size_t i = 0; i < Length; i++)
 			{
 
 				if (S1[i] != ' ' && isFirstLetter)
 				{
-					S1[i] = static_cast<char>(std::toupper(static_cast<unsigned char>(S1[i])));
+					Result[i] = static_cast<char>(std::toupper(static_cast<unsigned char>(Result[i])));
 				}
 
-				isFirstLetter = (S1[i] == ' ' ? true : false);
+				isFirstLetter = (Result[i] == ' ' ? true : false);
 
 			}
 
-			return S1;
+			return Result;
 		}
 
 		void  UpperFirstLetterOfEachWord()
 		{
-			// no need to return value , this function will directly update the object value    
 			_Value = UpperFirstLetterOfEachWord(_Value);
 		}
 
-		static std::string  LowerFirstLetterOfEachWord(std::string S1)
+		static std::string  LowerFirstLetterOfEachWord(const std::string& S1)
 		{
 
 			bool isFirstLetter = true;
 
 			const size_t Length = S1.length();
+			std::string Result = S1; // Create a copy to modify
 			for (size_t i = 0; i < Length; i++)
 			{
 
 				if (S1[i] != ' ' && isFirstLetter)
 				{
-					S1[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(S1[i])));
+					Result[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(Result[i])));
 				}
 
-				isFirstLetter = (S1[i] == ' ' ? true : false);
+				isFirstLetter = (Result[i] == ' ' ? true : false);
 
 			}
 
-			return S1;
+			return Result;
 		}
 
 		void  LowerFirstLetterOfEachWord()
@@ -388,13 +389,14 @@ namespace Core
 			_Value = LowerFirstLetterOfEachWord(_Value);
 		}
 
-		static std::string UpperAllString(std::string S1)
+		static std::string UpperAllString(const std::string& S1)
 		{
-			for (char& Ch : S1)
+			std::string Result = S1;
+			for (char& Ch : Result)
 			{
 				Ch = static_cast<char>(std::toupper(static_cast<unsigned char>(Ch)));
 			}
-			return S1;
+			return Result;
 		}
 
 		void  UpperAllString()
@@ -402,13 +404,14 @@ namespace Core
 			_Value = UpperAllString(_Value);
 		}
 
-		static std::string LowerAllString(std::string S1)
+		static std::string LowerAllString(const std::string& S1)
 		{
-			for (char& Ch : S1)
+			std::string Result = S1;
+			for (char& Ch : Result)
 			{
 				Ch = static_cast<char>(std::tolower(static_cast<unsigned char>(Ch)));
 			}
-			return S1;
+			return Result;
 		}
 
 		void  LowerAllString()
@@ -425,13 +428,14 @@ namespace Core
 				: static_cast<char>(std::toupper(Ch));
 		}
 
-		static std::string InvertAllLettersCase(std::string S1)
+		static std::string InvertAllLettersCase(const std::string& S1)
 		{
-			for (char& Ch : S1)
+			std::string Result = S1;
+			for (char& Ch : Result)
 			{
 				Ch = InvertLetterCase(Ch);
 			}
-			return S1;
+			return Result;
 		}
 
 		void  InvertAllLettersCase()
@@ -635,7 +639,7 @@ namespace Core
 
 		}
 
-		std::vector<std::string> Split(std::string Delim) const
+		std::vector<std::string> Split(const std::string& Delim) const
 		{
 			return Split(_Value, Delim);
 		}
@@ -715,10 +719,10 @@ namespace Core
 			_Value = Trim(_Value);
 		}
 
-		static std::string ReplaceWord(std::string S1, const std::string& StringToReplace, const std::string& sRepalceTo, bool MatchCase = true)
+		static std::string ReplaceWord(const std::string& S1, const std::string& StringToReplace, const std::string& sRepalceTo, bool MatchCase = true)
 		{
-
-			std::vector<std::string> vString = Split(S1, " ");
+			std::string Result = S1;
+			std::vector<std::string> vString = Split(Result, " ");
 
 			for (std::string& s : vString)
 			{
