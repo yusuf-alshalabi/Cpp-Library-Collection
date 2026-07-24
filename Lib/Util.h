@@ -98,10 +98,13 @@ namespace Core {
 
 		static  std::string GenerateWord(enCharType CharType, short Length)
 		{
+			if (Length <= 0)
+				return "";
+
 			std::string Word;
 			Word.reserve(Length);
 
-			for (short i = 1; i <= Length; i++)
+			for (short i = 0; i < Length; i++)
 
 			{
 
