@@ -1,5 +1,4 @@
 
-#pragma warning(disable : 4996)
 #pragma once
 
 #include<iostream>
@@ -205,11 +204,17 @@ namespace Core
 
 		Date()
 		{
-			time_t t = time(0);
-			tm* now = localtime(&t);
-			_Day = now->tm_mday;
-			_Month = now->tm_mon + 1;
-			_Year = now->tm_year + 1900;
+			std::time_t t = std::time(nullptr);
+			std::tm now{};
+            #if defined(_MSC_VER)
+			localtime_s(&now, &t);
+            #else
+			localtime_r(&t, &now);
+            #endif
+
+			_Day = static_cast<short>(now.tm_mday);
+			_Month = static_cast<short>(now.tm_mon + 1);
+			_Year = static_cast<short>(now.tm_year + 1900);
 		}
 
 		Date(const std::string& sDate)
