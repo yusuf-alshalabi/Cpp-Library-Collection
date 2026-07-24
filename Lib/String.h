@@ -8,6 +8,7 @@
 #include <cctype>
 #include <stdexcept>
 #include <ostream>
+#include <iostream>
 
 namespace Core
 {
