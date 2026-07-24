@@ -32,8 +32,11 @@ namespace Core {
 			srand((unsigned)time(NULL));
 		}
 
-		static int RandomNumber(int From, int To)
+		template <typename T = int>
+		static T RandomNumber(T From, T To)
 		{
+			static_assert(std::is_integral_v<T>, "RandomNumber accepts only integral types!");
+
 			if (From == To)
 			{
 				return From;
@@ -44,11 +47,11 @@ namespace Core {
 				Swap(From, To);
 			}
 
-			long long range = static_cast<long long>(To) - From + 1;
+			long long range = static_cast<long long>(To) - static_cast<long long>(From) + 1;
 
 			long long randomOffset = std::abs(static_cast<long long>(rand())) % range;
 
-			return static_cast<int>(From + randomOffset);
+			return static_cast<T>(From + randomOffset);
 		}
 
 		static char GetRandomCharacter(enCharType CharType)
