@@ -62,8 +62,11 @@ public:
         padded.RemovePunctuations();
         std::cout << "Punctuation Removed: [" << padded << "]\n";
 
-        padded.ReplaceWord("Hello", "Welcome");
-        std::cout << "Word Replaced: " << padded << "\n";
+        padded.Insert(0, "Start: ");
+        std::cout << "After Insert: [" << padded << "]\n";
+
+        padded.ReplaceWord("hello", "Welcome", false);
+        std::cout << "Word Replaced (Case Insensitive): " << padded << "\n";
 
         padded.ReverseWordsInString();
         std::cout << "Reversed Words: " << padded << "\n\n";
@@ -108,8 +111,12 @@ public:
             std::cout << " - " << fruit << "\n";
         }
 
-        std::string joined = String::JoinString(fruits, " | ");
-        std::cout << "Joined Back: " << joined << "\n";
+        std::string joinedVec = String::JoinString(fruits, " | ");
+        std::cout << "Joined Vector: " << joinedVec << "\n";
+
+        std::string arrFruits[] = { "Apple", "Banana", "Cherry" };
+        std::string joinedArr = String::JoinString(arrFruits, 3, " - ");
+        std::cout << "Joined Array:  " << joinedArr << "\n";
 
         String pal1("A man, a plan, a canal: Panama");
         String pal2("Hello World");
