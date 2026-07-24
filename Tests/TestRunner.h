@@ -455,10 +455,13 @@ public:
         std::cout << "       Testing Core::Util Class         \n";
         std::cout << "========================================\n\n";
 
-        // 2. Test RandomNumber
-        std::cout << "--- 1. Testing RandomNumber ---\n";
-        std::cout << "Random Number between 1 and 100: " << Util::RandomNumber(1, 100) << "\n";
-        std::cout << "Random Number between -50 and 50: " << Util::RandomNumber(-50, 50) << "\n\n";
+        // 2. Test RandomNumber (Template for Integrals) & RandomFloat
+        std::cout << "--- 1. Testing Random Number & Float Generation ---\n";
+        std::cout << "Random Int (1 to 100): " << Util::RandomNumber(1, 100) << "\n";
+        std::cout << "Random Int (-50 to 50): " << Util::RandomNumber(-50, 50) << "\n";
+        std::cout << "Random Short (Template): " << Util::RandomNumber<short>(10, 30) << "\n";
+        std::cout << "Random Float (1.5 to 9.5): " << Util::RandomFloat(1.5f, 9.5f) << "\n";     
+        std::cout << "Random Double (-10.5 to -1.2): " << Util::RandomFloat(-10.5, -1.2) << "\n\n"; 
 
         // 3. Test GetRandomCharacter
         std::cout << "--- 2. Testing GetRandomCharacter ---\n";
