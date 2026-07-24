@@ -611,11 +611,7 @@ namespace Core
 
 		std::string DayShortName() const
 		{
-
-			std::string arrDayNames[] = { "Sun","Mon","Tue","Wed","Thu","Fri","Sat" };
-
-			return arrDayNames[DayOfWeekOrder(_Day, _Month, _Year)];
-
+			return DayShortName(_Day, _Month, _Year);
 		}
 
 		static std::string DayName(short DayOfWeek)
