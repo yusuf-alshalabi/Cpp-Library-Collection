@@ -30,9 +30,6 @@ namespace Core
 			Normalize();
 		}
 
-		__declspec(property(get = GetStartDate, put = SetStartDate)) Date StartDate;
-		__declspec(property(get = GetEndDate, put = SetEndDate)) Date EndDate;
-
 		Date GetStartDate() const { return _StartDate; }
 		void SetStartDate(const Date& Value)
 		{

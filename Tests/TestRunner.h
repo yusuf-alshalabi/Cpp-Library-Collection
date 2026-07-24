@@ -306,17 +306,17 @@ public:
         // 2. Properties & Encapsulation
         std::cout << "--- 2. Testing Properties & Safe Setters ---\n";
         Period pProp;
-        pProp.StartDate = Date(15, 5, 2026);
-        pProp.EndDate = Date(5, 5, 2026); // Should trigger Normalize via property setter
+        pProp.SetStartDate(Date(15, 5, 2026));
+        pProp.SetEndDate(Date(5, 5, 2026)); // Should trigger Normalize via property setter
 
         std::cout << "Period set via Properties (Start: 15/05/2026, End: 05/05/2026):\n";
-        std::cout << "Actual StartDate Property: " << pProp.StartDate << "\n";
-        std::cout << "Actual EndDate Property  : " << pProp.EndDate << "\n\n";
+        std::cout << "Actual StartDate Property: " << pProp.GetStartDate() << "\n";
+        std::cout << "Actual EndDate Property  : " << pProp.GetEndDate() << "\n\n";
 
         // 3. Length & Business Days Calculations
         std::cout << "--- 3. Testing Length & Business Days Calculations ---\n";
         Period pCalc(Date(1, 1, 2026), Date(10, 1, 2026));
-        std::cout << "Period: " << pCalc.StartDate << " -> " << pCalc.EndDate << "\n";
+        std::cout << "Period: " << pCalc.GetStartDate() << " -> " << pCalc.GetEndDate() << "\n";
         std::cout << "Length (Including End Day): " << pCalc.PeriodLengthInDays(true) << " days\n";
         std::cout << "Length (Excluding End Day): " << pCalc.PeriodLengthInDays(false) << " days\n";
         std::cout << "Calculated Business Days  : " << pCalc.CalculateBusinessDays() << " days\n\n";
@@ -327,7 +327,7 @@ public:
         Date dInside(15, 2, 2026);
         Date dOutside(5, 3, 2026);
 
-        std::cout << "Period: " << pFeb.StartDate << " -> " << pFeb.EndDate << "\n";
+        std::cout << "Period: " << pFeb.GetStartDate() << " -> " << pFeb.GetEndDate() << "\n";
         std::cout << "Is " << dInside << " inside period? " << (pFeb.IsDateInPeriod(dInside) ? "YES" : "NO") << "\n";
         std::cout << "Is " << dOutside << " inside period? " << (pFeb.IsDateInPeriod(dOutside) ? "YES" : "NO") << "\n\n";
 
@@ -337,9 +337,9 @@ public:
         Period p2(Date(15, 1, 2026), Date(30, 1, 2026));
         Period p3(Date(25, 1, 2026), Date(31, 1, 2026));
 
-        std::cout << "Period 1: " << p1.StartDate << " -> " << p1.EndDate << "\n";
-        std::cout << "Period 2: " << p2.StartDate << " -> " << p2.EndDate << "\n";
-        std::cout << "Period 3: " << p3.StartDate << " -> " << p3.EndDate << "\n\n";
+        std::cout << "Period 1: " << p1.GetStartDate() << " -> " << p1.GetEndDate() << "\n";
+        std::cout << "Period 2: " << p2.GetStartDate() << " -> " << p2.GetEndDate() << "\n";
+        std::cout << "Period 3: " << p3.GetStartDate() << " -> " << p3.GetEndDate() << "\n\n";
 
         std::cout << "Does Period 1 overlap with Period 2? " << (p1.IsOverLapWith(p2) ? "YES" : "NO") << "\n";
         std::cout << "Does Period 1 overlap with Period 3? " << (p1.IsOverLapWith(p3) ? "YES" : "NO") << "\n";
@@ -348,7 +348,7 @@ public:
         if (p1.GetOverlapPeriod(p2, overlapResult))
         {
             std::cout << "Extracted Overlap Period (P1 & P2):\n";
-            std::cout << " -> Start: " << overlapResult.StartDate << " | End: " << overlapResult.EndDate << "\n";
+            std::cout << " -> Start: " << overlapResult.GetStartDate() << " | End: " << overlapResult.GetEndDate() << "\n";
         }
         std::cout << "Overlap Days between Period 1 and Period 2: " << p1.GetOverlapDays(p2) << " days\n\n";
 
@@ -357,8 +357,8 @@ public:
         Period mainPeriod(Date(1, 1, 2026), Date(31, 1, 2026));
         Period subPeriod(Date(10, 1, 2026), Date(20, 1, 2026));
 
-        std::cout << "Main Period: " << mainPeriod.StartDate << " -> " << mainPeriod.EndDate << "\n";
-        std::cout << "Sub Period : " << subPeriod.StartDate << " -> " << subPeriod.EndDate << "\n";
+        std::cout << "Main Period: " << mainPeriod.GetStartDate() << " -> " << mainPeriod.GetEndDate() << "\n";
+        std::cout << "Sub Period : " << subPeriod.GetStartDate() << " -> " << subPeriod.GetEndDate() << "\n";
         std::cout << "Does Main Period contain Sub Period? " << (mainPeriod.Contains(subPeriod) ? "YES" : "NO") << "\n";
         std::cout << "Does Sub Period contain Main Period? " << (subPeriod.Contains(mainPeriod) ? "YES" : "NO") << "\n\n";
 
