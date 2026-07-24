@@ -178,32 +178,23 @@ namespace Core
 
 		static size_t CountWords(const std::string& S1)
 		{
-			std::string temp = Trim(S1);   // remove leading and trailing spaces  
-			std::string delim = " ";
 			size_t Counter = 0;
-			size_t pos = 0;
-			std::string sWord;
+			bool InWord = false;
 
-			while ((pos = temp.find(delim)) != std::string::npos)
+			for (char Ch : S1)
 			{
-				sWord = temp.substr(0, pos);
-				if (!sWord.empty())
+				if (!std::isspace(static_cast<unsigned char>(Ch)))
 				{
-					Counter++;
+					if (!InWord)
+					{
+						InWord = true;
+						Counter++;
+					}
 				}
-				temp.erase(0, pos + delim.length());
-
-				// skip any consecutive spaces after erasing  
-				while (!temp.empty() && temp[0] == ' ')
+				else
 				{
-					temp.erase(0, 1);
+					InWord = false; 
 				}
-			}
-
-			// count the last word if exists  
-			if (!temp.empty())
-			{
-				Counter++;
 			}
 
 			return Counter;
