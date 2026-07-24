@@ -162,14 +162,10 @@ namespace Core
 						std::cout << ErrorMessage << "\n" << Message << " ";
 					}
 				}
-				catch(const std::invalid_argument&)
-				{
-					std::cin.clear();
-					std::cout << ErrorMessage << "\n" << Message << " ";
-				}
 				catch (...)
 				{
 					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << ErrorMessage << "\n" << Message << " ";
 				}
 			}
