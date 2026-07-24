@@ -105,11 +105,8 @@ namespace Core {
 			Word.reserve(Length);
 
 			for (short i = 0; i < Length; i++)
-
 			{
-
 				Word += GetRandomCharacter(CharType);
-
 			}
 			return Word;
 		}
@@ -193,14 +190,15 @@ namespace Core {
 
 		static std::string  EncryptText(const std::string& Text, short EncryptionKey)
 		{
+			if (Text.empty())
+				return "";
+
 			std::string Result;
 			Result.reserve(Text.length());
 
 			for (char Ch : Text)
 			{
-
 				Result += static_cast<char>(Ch + EncryptionKey);
-
 			}
 
 			return Result;
@@ -209,6 +207,9 @@ namespace Core {
 
 		static std::string  DecryptText(const std::string& Text, short EncryptionKey)
 		{
+			if (Text.empty())
+				return "";
+
 			std::string Result;
 			Result.reserve(Text.length());
 
