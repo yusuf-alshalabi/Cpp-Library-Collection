@@ -51,6 +51,8 @@ namespace Core
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << ErrorMessage << "\n" << Message << " ";
 			}
+			// Clear remaining newline character from the stream buffer after successful extraction
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			return Number;
 		}
 
