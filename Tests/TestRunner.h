@@ -140,11 +140,11 @@ public:
         std::cout << "Date from Day Order 200/2024: " << dDayOrder << "\n";
 
         // Testing Property/Getters/Setters
-        dCustom.Day = 10;
-        dCustom.Month = 12;
-        dCustom.Year = 2025;
-        std::cout << "Modified via Properties: " << dCustom.Day << "/"
-            << dCustom.Month << "/" << dCustom.Year << "\n\n";
+        dCustom.SetDay(10);
+        dCustom.SetMonth(12);
+        dCustom.SetYear(2025);
+        std::cout << "Modified via Properties: " << dCustom.GetDay() << "/"
+            << dCustom.GetMonth() << "/" << dCustom.GetYear() << "\n\n";
 
         // 2. Comparisons & Operators
         std::cout << "--- 2. Comparisons & Relational Operators ---\n";

@@ -55,10 +55,10 @@ namespace Core
 		static void AdjustDayIfNeeded(Date& SourceDate)
 		{
 			short DaysInMonth =
-				NumberOfDaysInAMonth(SourceDate.Month, SourceDate.Year);
+				NumberOfDaysInAMonth(SourceDate.GetMonth(), SourceDate.GetYear());
 
-			if (SourceDate.Day > DaysInMonth)
-				SourceDate.Day = DaysInMonth;
+			if (SourceDate.GetDay() > DaysInMonth)
+				SourceDate.SetDay(DaysInMonth);
 		}
 
 		static void ReplaceAll(std::string& Text, const std::string& OldValue, const std::string& NewValue)
@@ -114,9 +114,9 @@ namespace Core
 				Month++;
 			}
 
-			SourceDate.Year = Year;
-			SourceDate.Month = Month;
-			SourceDate.Day = Serial;
+			SourceDate.SetYear(Year);
+			SourceDate.SetMonth(Month);
+			SourceDate.SetDay(Serial);
 
 			return SourceDate;
 		}
@@ -173,22 +173,22 @@ namespace Core
 		static CompareResult CompareDates(const Date& FirstDate,
 			const Date& SecondDate)
 		{
-			if (FirstDate.Year < SecondDate.Year)
+			if (FirstDate.GetYear() < SecondDate.GetYear())
 				return CompareResult::Before;
 
-			if (FirstDate.Year > SecondDate.Year)
+			if (FirstDate.GetYear() > SecondDate.GetYear())
 				return CompareResult::After;
 
-			if (FirstDate.Month < SecondDate.Month)
+			if (FirstDate.GetMonth() < SecondDate.GetMonth())
 				return CompareResult::Before;
 
-			if (FirstDate.Month > SecondDate.Month)
+			if (FirstDate.GetMonth() > SecondDate.GetMonth())
 				return CompareResult::After;
 
-			if (FirstDate.Day < SecondDate.Day)
+			if (FirstDate.GetDay() < SecondDate.GetDay())
 				return CompareResult::Before;
 
-			if (FirstDate.Day > SecondDate.Day)
+			if (FirstDate.GetDay() > SecondDate.GetDay())
 				return CompareResult::After;
 
 			return CompareResult::Equal;
@@ -262,9 +262,9 @@ namespace Core
 		{
 			//This will construct a date by date order in year  
 			Date Date1 = GetDateFromDayOrderInYear(DateOrderInYear, Year);
-			_Day = Date1.Day;
-			_Month = Date1.Month;
-			_Year = Date1.Year;
+			SetDay(Date1.GetDay());
+			SetMonth(Date1.GetMonth());
+			SetYear(Date1.GetYear());
 		}
 
 		Date(const Date&) = default;
@@ -379,7 +379,6 @@ namespace Core
 		short GetDay() const {
 			return _Day;
 		}
-		__declspec(property(get = GetDay, put = SetDay)) short Day;
 
 		void SetMonth(short Month) {
 			_Month = Month;
@@ -388,7 +387,6 @@ namespace Core
 		short GetMonth() const {
 			return _Month;
 		}
-		__declspec(property(get = GetMonth, put = SetMonth)) short Month;
 
 
 		void SetYear(short Year) {
@@ -398,7 +396,6 @@ namespace Core
 		short GetYear() const {
 			return _Year;
 		}
-		__declspec(property(get = GetYear, put = SetYear)) short Year;
 
 		void Print(std::ostream& Out = std::cout, const std::string& Format = "DD/MM/YYYY") const
 		{
@@ -433,44 +430,44 @@ namespace Core
 			ReplaceAll(
 				Format,
 				"YYYY",
-				std::to_string(SourceDate.Year));
+				std::to_string(SourceDate.GetYear()));
 
 			ReplaceAll(
 				Format,
 				"YY",
-				std::to_string(SourceDate.Year % 100));
+				std::to_string(SourceDate.GetYear() % 100));
 
 			ReplaceAll(
 				Format,
 				"MMMM",
-				MonthName(SourceDate.Month));
+				MonthName(SourceDate.GetMonth()));
 
 			ReplaceAll(
 				Format,
 				"MMM",
-				MonthShortName(SourceDate.Month));
+				MonthShortName(SourceDate.GetMonth()));
 
 			ReplaceAll(
 				Format,
 				"DD",
-				(SourceDate.Day < 10 ? "0" : "") +
-				std::to_string(SourceDate.Day));
+				(SourceDate.GetDay() < 10 ? "0" : "") +
+				std::to_string(SourceDate.GetDay()));
 
 			ReplaceAll(
 				Format,
 				"D",
-				std::to_string(SourceDate.Day));
+				std::to_string(SourceDate.GetDay()));
 
 			ReplaceAll(
 				Format,
 				"MM",
-				(SourceDate.Month < 10 ? "0" : "") +
-				std::to_string(SourceDate.Month));
+				(SourceDate.GetMonth() < 10 ? "0" : "") +
+				std::to_string(SourceDate.GetMonth()));
 
 			ReplaceAll(
 				Format,
 				"M",
-				std::to_string(SourceDate.Month));
+				std::to_string(SourceDate.GetMonth()));
 
 			return Format;
 		}
@@ -746,21 +743,21 @@ namespace Core
 			short RemainingDays = DateOrderInYear;
 			short MonthDays = 0;
 
-			Date.Year = Year;
-			Date.Month = 1;
+			Date.SetYear(Year);
+			Date.SetMonth(1);
 
 			while (true)
 			{
-				MonthDays = NumberOfDaysInAMonth(Date.Month, Year);
+				MonthDays = NumberOfDaysInAMonth(Date.GetMonth(), Year);
 
 				if (RemainingDays > MonthDays)
 				{
 					RemainingDays -= MonthDays;
-					Date.Month++;
+					Date.SetMonth(Date.GetMonth() + 1);
 				}
 				else
 				{
-					Date.Day = RemainingDays;
+					Date.SetDay(RemainingDays);
 					break;
 				}
 
@@ -777,7 +774,7 @@ namespace Core
 		static bool IsLastDayInMonth(const Date& SourceDate)
 		{
 
-			return (SourceDate.Day == NumberOfDaysInAMonth(SourceDate.Month, SourceDate.Year));
+			return (SourceDate.GetDay() == NumberOfDaysInAMonth(SourceDate.GetMonth(), SourceDate.GetYear()	));
 
 		}
 
@@ -1077,7 +1074,7 @@ namespace Core
 
 		static bool IsEndOfWeek(const Date& Date)
 		{
-			return  DayOfWeekOrder(Date.Day, Date.Month, Date.Year) == 6;
+			return  DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear()) == 6;
 		}
 
 		bool IsEndOfWeek() const
@@ -1088,7 +1085,7 @@ namespace Core
 		static bool IsWeekEnd(const Date& Date)
 		{
 			//Weekends are Fri and Sat  
-			short DayIndex = DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
+			short DayIndex = DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
 			return  (DayIndex == 5 || DayIndex == 6);
 		}
 
@@ -1109,7 +1106,7 @@ namespace Core
 
 		static short DaysUntilTheEndOfWeek(const Date& Date)
 		{
-			return 6 - DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
+			return 6 - DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
 		}
 
 		short DaysUntilTheEndOfWeek() const
@@ -1121,9 +1118,9 @@ namespace Core
 		{
 
 			Date EndOfMontDate;
-			EndOfMontDate.Day = NumberOfDaysInAMonth(Date1.Month, Date1.Year);
-			EndOfMontDate.Month = Date1.Month;
-			EndOfMontDate.Year = Date1.Year;
+			EndOfMontDate.SetDay(NumberOfDaysInAMonth(Date1.GetMonth(), Date1.GetYear()));
+			EndOfMontDate.SetMonth(Date1.GetMonth());
+			EndOfMontDate.SetYear(Date1.GetYear());
 
 			return GetDifferenceInDays(Date1, EndOfMontDate, false);
 
@@ -1138,9 +1135,9 @@ namespace Core
 		{
 
 			Date EndOfYearDate;
-			EndOfYearDate.Day = 31;
-			EndOfYearDate.Month = 12;
-			EndOfYearDate.Year = Date1.Year;
+			EndOfYearDate.SetDay(31);
+			EndOfYearDate.SetMonth(12);
+			EndOfYearDate.SetYear(Date1.GetYear());
 
 			return GetDifferenceInDays(Date1, EndOfYearDate, false);
 
