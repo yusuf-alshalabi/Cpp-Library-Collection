@@ -4,6 +4,7 @@
 #include <string_view>
 #include <limits>
 #include <type_traits>
+#include <cctype>
 #include "Date.h"
 
 namespace Core
