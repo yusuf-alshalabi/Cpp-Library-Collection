@@ -826,11 +826,6 @@ namespace Core
 			_Value.clear();
 		}
 
-		void ReverseInPlace()
-		{
-			_Value = Reverse(_Value);
-		}
-
 		static std::string TakeFirst(const std::string& S1, size_t Count)
 		{
 			if (Count >= S1.length())
@@ -890,12 +885,19 @@ namespace Core
 
 		static std::string Reverse(const std::string& S1)
 		{
-			std::string Result;
-			Result.reserve(S1.length());
+			if (S1.empty())
+				return S1;
 
-			for (size_t i = S1.length(); i > 0; --i)
+			std::string Result = S1;
+
+			size_t Left = 0;
+			size_t Right = Result.length() - 1;
+
+			while (Left < Right)
 			{
-				Result += S1[i - 1];
+				std::swap(Result[Left], Result[Right]);
+				Left++;
+				Right--;
 			}
 
 			return Result;
@@ -904,6 +906,11 @@ namespace Core
 		std::string Reverse() const
 		{
 			return Reverse(_Value);
+		}
+
+		void ReverseInPlace()
+		{
+			_Value = Reverse(_Value);
 		}
 
 		static std::string ReverseWordsInString(const std::string& S1)
