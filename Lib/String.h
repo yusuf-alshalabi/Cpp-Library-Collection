@@ -734,34 +734,61 @@ namespace Core
 			_Value = Trim(_Value);
 		}
 
-		static std::string ReplaceWord(const std::string& S1, const std::string& StringToReplace, const std::string& sRepalceTo, bool MatchCase = true)
+		static std::string ReplaceWord(
+			const std::string& S1,
+			const std::string& StringToReplace,
+			const std::string& sReplaceTo,
+			bool MatchCase = true)
 		{
-			std::string Result = S1;
-			std::vector<std::string> vString = Split(Result, " ");
+			if (S1.empty() || StringToReplace.empty())
+				return S1;
 
-			for (std::string& s : vString)
+			std::string Result;
+			Result.reserve(S1.length());
+
+			const size_t TextLen = S1.length();
+			const size_t TargetLen = StringToReplace.length();
+
+			size_t i = 0;
+			while (i < TextLen)
 			{
+				bool Match = false;
 
-				if (MatchCase)
+				if (i + TargetLen <= TextLen)
 				{
-					if (s == StringToReplace)
+					Match = true;
+					for (size_t j = 0; j < TargetLen; ++j)
 					{
-						s = sRepalceTo;
-					}
+						char CharInText = S1[i + j];
+						char CharInTarget = StringToReplace[j];
 
+						if (!MatchCase)
+						{
+							CharInText = static_cast<char>(std::tolower(static_cast<unsigned char>(CharInText)));
+							CharInTarget = static_cast<char>(std::tolower(static_cast<unsigned char>(CharInTarget)));
+						}
+
+						if (CharInText != CharInTarget)
+						{
+							Match = false;
+							break;
+						}
+					}
+				}
+
+				if (Match)
+				{
+					Result += sReplaceTo;
+					i += TargetLen; 
 				}
 				else
 				{
-					if (LowerAllString(s) == LowerAllString(StringToReplace))
-					{
-						s = sRepalceTo;
-					}
-
+					Result += S1[i]; 
+					i++;
 				}
-
 			}
 
-			return JoinString(vString, " ");
+			return Result;
 		}
 
 		void ReplaceWord(const std::string& StringToReplace, const std::string& sReplaceTo, bool MatchCase = true)
