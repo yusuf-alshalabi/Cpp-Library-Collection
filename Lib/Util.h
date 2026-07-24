@@ -54,6 +54,26 @@ namespace Core {
 			return static_cast<T>(From + randomOffset);
 		}
 
+		template <typename T = float>
+		static T RandomFloat(T From, T To)
+		{
+			static_assert(std::is_floating_point_v<T>, "RandomFloat accepts only floating-point types (float, double, long double)!");
+
+			if (From == To)
+			{
+				return From;
+			}
+
+			if (From > To)
+			{
+				Swap(From, To);
+			}
+
+			T fraction = static_cast<T>(rand()) / static_cast<T>(RAND_MAX);
+
+			return From + fraction * (To - From);
+		}
+
 		static char GetRandomCharacter(enCharType CharType)
 		{
 			if (CharType == MixChars)
